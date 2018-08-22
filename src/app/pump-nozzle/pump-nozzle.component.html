@@ -1,0 +1,84 @@
+<br/>
+<div class="col-md-12" *ngIf="pumpNozzle.length>0">
+
+  <div class="row" style="border-width: 1px 1px 1px 1px;border-style: solid;border-color:black;background-color: black;color: white;">
+    <div class="col-md-2">
+      <div class="form-group">
+        <label for="NozzleName">Name</label>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <label for="Tank">Tank</label>
+      </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+          <label for="OpeningReading">Opening Reading</label>
+        </div>
+      </div>
+      <div class="col-md-2">
+          <div class="form-group">
+            <label for="ReadingDate">Reading Date</label>
+          </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+              <label for="AssignedTo">Assigned To</label>
+            </div>
+          </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <label for="Action">Action</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngFor="let nozzle of pumpNozzle let i=index" style="border-width: 0px 1px 1px 1px;border-style: solid;border-color:black">
+    <div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <div>
+            <span>{{nozzle.NozzleName}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+          <div class="form-group">
+            <div>
+              <span>{{getTankName(nozzle.TankID)}}</span>
+            </div>
+          </div>
+        </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <div>
+            <span>{{nozzle.OpeningReading}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+          <div class="form-group">
+            <div>
+              <span>{{nozzle.ReadingDate | date}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+              <div>
+                <span>{{getUserName(nozzle.AssignedTo)}}</span>
+              </div>
+            </div>
+          </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <div>
+            <a (click)="editNozzle(nozzle)">Edit</a>&nbsp;
+            <a (click)="DeleteNozzle(nozzle)" style="cursor: pointer;">Delete</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+ 
+
+<br/>
+
+
+<!-- <userform (userCreated)="addUser($event)"></userform> -->
+<div class="col-md-12 table-responsive" *ngIf="pumpPayment != null && pumpPayment.length>0">
+  <table style="border: 1px solid black" class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+      <!-- <th>Product Id</th> -->
+      <th>Payment Type</th>
+      <th>Bank Name</th>
+      <th>Bank Code</th>   
+      <!-- <th>Purchase Rate</th>
+      <th>Sale Rate</th>
+      <th>Description</th> -->
+      <!-- <th>Modified By</th> -->
+      <th>Action</th>
+    </tr>
+  </thead>
+    
+    <tr *ngFor ="let itemPayment of pumpPayment let i=index">
+      <!-- <td>{{product.ProductID}}</td> -->
+      <!-- <th>{{getProductName(product.ProductID)}}</th>
+      <td>{{getUnitName(product.Unit)}}</td> -->
+      <td>{{getPaymentTypeName(itemPayment.ID)}}</td>
+      <td>{{itemPayment.BankName}}</td>
+      <td>{{itemPayment.BankCode}}</td>
+      <!-- <td>{{product.Description}}</td> -->
+      <!-- <td>{{product.CreatedOn}}</td>
+      <td>{{product.CreatedBy}}</td> -->
+      <!-- <td>{{getUserRole(product.RoleID)}}</td> -->
+      <td>
+        <a (click)="editProduct(itemPayment)" style="cursor: pointer;">Edit</a>&nbsp;
+        <a (click)="DeleteProduct(itemPayment)" style="cursor: pointer;">Delete</a>
+      </td>
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,186 @@
+<h2 mat-dialog-title>Tank Form</h2>
+<form [formGroup]="tankform" (ngSubmit)="createTank()">
+  <div class="row" *ngIf="IsEditDialog == true">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="TankCode">Tank Code</label>
+        <input type="string" class="form-control" name="TankCode" formControlName="TankCode" disabled>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="FuelType">Products</label>
+        <span class="required">*</span>
+        <select name="FuelTypeID" class="form-control" formControlName="FuelTypeID">
+          <option [ngValue]="0" disabled>--Select--</option>
+          <option *ngFor="let fuelType of fuelTypes;let i=index" [ngValue]="fuelType.ID">{{fuelType.Name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="TankName">Tank Name</label>
+        <span class="required">*</span>
+        <input type="string" placeholder="Tank Name" class="form-control" name="TankName" required formControlName="TankName">
+        <div *ngFor="let validation of validation_messages.TankName">
+          <span class="error-message" *ngIf="tankform.get('TankName').hasError(validation.type) && (tankform.get('TankName').dirty || tankform.get('TankName').touched)">{{validation.message}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="TankCapacity">Tank Capacity</label>
+        <input type="number" placeholder="Tank Capacity" class="form-control" name="TankCapacity" required formControlName="TankCapacity">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <div class="margin-20">
+          <b>Add Reading Type</b>
+          <!-- <a (click)="addNozzle()" style="cursor: default">
+            Add Reading +
+          </a> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="ReadingType">Reading Type</label>
+        <span class="required">*</span>
+        <select name="ReadingType" class="form-control" formControlName="ReadingType" disabled>
+          <option [ngValue]="0" disabled>--Select--</option>
+          <option *ngFor="let itemReadingType of readingTypes;let i=index" [ngValue]="itemReadingType.ID">{{itemReadingType.Name}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="ReadingDate">Reading Date</label>
+        <input type="date" placeholder="Reading Date" class="form-control" formControlName="ReadingDate">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="OpeningReading">Opening Reading</label>
+        <input type="number" placeholder="Opening Reading" class="form-control" name="OpeningReading" required formControlName="OpeningReading">
+        <!-- <div *ngFor="let validation of validation_messages.LicenseStartDate">
+                        <span class="error-message" *ngIf="registerForm.get('LicenseStartDate').hasError(validation.type) && (registerForm.get('LicenseStartDate').dirty || registerForm.get('LicenseStartDate').touched)">{{validation.message}}</span>
+                </div> -->
+      </div>
+    </div>
+  </div>
+  <div class="row saperatorDiv"></div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="ReadingType">Reading Type</label>
+        <span class="required">*</span>
+        <select name="DipReadingType" class="form-control" formControlName="DipReadingType" disabled>
+          <option [ngValue]="0" disabled>--Select--</option>
+          <option *ngFor="let itemReadingType of readingTypes;let i=index" [ngValue]="itemReadingType.ID">{{itemReadingType.Name}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="DipReadingDate">Reading Date</label>
+        <input type="date" placeholder="Reading Date" class="form-control" formControlName="DipReadingDate">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="DipOpeningReading">Opening Reading</label>
+        <input type="number" placeholder="Opening Reading" class="form-control" name="DipOpeningReading" required formControlName="DipOpeningReading">
+        <!-- <div *ngFor="let validation of validation_messages.LicenseStartDate">
+                          <span class="error-message" *ngIf="registerForm.get('LicenseStartDate').hasError(validation.type) && (registerForm.get('LicenseStartDate').dirty || registerForm.get('LicenseStartDate').touched)">{{validation.message}}</span>
+                  </div> -->
+      </div>
+    </div>
+  </div>
+  <!-- <div *ngFor="let nozzle of tank.pp_Nozzles; let i=index" class="panel panel-default">
+    <div class="panel-heading">
+      <span>Nozzle {{i + 1}}</span>
+      <span class="glyphicon glyphicon-remove pull-right" *ngIf="tank.pp_Nozzles.length > 1" (click)="removeNozzle(i)"></span>
+    </div> -->
+  <!--  <div class="panel-body">
+      <div class="form-group col-xs-6">
+        <label>street</label>
+        <input type="text" class="form-control" formControlName="street">
+        <small [hidden]="myForm.controls.addresses.controls[i].controls.street.valid" class="text-danger">
+          Street is required
+        </small>
+      </div>
+      <div class="form-group col-xs-6">
+        <label>Opening Reading</label>
+        <input type="number" class="form-control" name="OpeningReading" [(ngModel)]="nozzle.OpeningReading" #OpeningReading="ngModel">
+      </div>
+    </div> -->
+  <!-- </div> -->
+  <!-- <div class="margin-20">
+    <a (click)="addNozzle()" style="cursor: default">
+      Add another nozzle +
+    </a>
+  </div> -->
+  <!-- <div class="col-md-1 offset-md-5">
+    <button class="btn btn-primary" (click)="createTank()">Save</button>
+  </div> -->
+
+  <!-- <div class="col-md-12" *ngIf="pumpTanks.length>0">
+    <div class="row" style="border-width: 1px 1px 1px 1px;border-style: solid;border-color:black;background-color: black;color: white;">
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="TankName">Name</label>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="Fuel Type">Product</label>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngFor="let tank of pumpTanks let i=index" style="border-width: 0px 1px 1px 1px;border-style: solid;border-color:black">
+      <div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <div>
+              <span>{{tank.TankName}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <div>
+              <span>{{getTankFuelType(tank.FuelTypeID)}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <mat-dialog-actions style="float: right;">
+    <button class="btn btn-default" [mat-dialog-close]="true">Cancel</button>&nbsp;&nbsp;&nbsp;
+    <button type="submit" class="btn btn-primary" [disabled]="!tankform.valid">Save</button>
+  </mat-dialog-actions>
+</form>
+
+
+<!-- <div class="col-md-6">
+    <div class="form-group">
+        <label for="TankCapacity">Tank Capacity</label>
+        <input type="number" placeholder="Tank Capacity" class="form-control" name="TankCapacity" [(ngModel)]="tank.TankCapacity"
+          #TankCapacity="ngModel" required>            
+    </div>
+  </div> -->

@@ -1,0 +1,102 @@
+<h2 mat-dialog-title>Pump User</h2>
+<form [formGroup]="userform" (ngSubmit)="createUser()">
+    <div class="row" >
+      <div class="col-md-6">
+          <div class="form-group">
+              <label for="UserId">User Id</label>
+              <input class="form-control" formControlName="UserId">
+              <!-- <div *ngFor="let validation of validation_messages.UserId">
+                    <span class="error-message" *ngIf="userform.get('UserId').hasError(validation.type) && (userform.get('UserId').dirty || userform.get('UserId').touched)">{{validation.message}}</span>
+            </div> -->
+          </div>
+      </div>
+      <div class="col-md-6">
+          <div class="form-group">
+              <label for="FullName">Full Name</label>
+              <input placeholder="Full Name" class="form-control" formControlName="FullName" >
+              <div *ngFor="let validation of validation_messages.FullName">
+                    <span class="error-message" *ngIf="userform.get('FullName').hasError(validation.type) && (userform.get('FullName').dirty || userform.get('FullName').touched)">{{validation.message}}</span>
+            </div>
+          </div>                 
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Email">Email</label>
+                <input placeholder="Email" class="form-control" formControlName="Email" >
+                <div *ngFor="let validation of validation_messages.Email">
+                        <span class="error-message" *ngIf="userform.get('Email').hasError(validation.type) && (userform.get('Email').dirty || userform.get('Email').touched)">{{validation.message}}</span>
+                </div>
+            </div>                 
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Role">Role</label>
+                <select class="form-control" formControlName="RoleID" (change)="onChange()">
+                        <option [ngValue]="0" disabled>--Select--</option>
+                        <option *ngFor="let role of roles;let i=index" [ngValue]="role.ID">{{role.Name}}</option>
+                </select>                      
+                <div *ngFor="let validation of validation_messages.RoleID">
+                        <span class="error-message" *ngIf="userform.get('RoleID').hasError(validation.type) && (userform.get('RoleID').dirty || userform.get('RoleID').touched)">{{validation.message}}</span>
+                </div>
+            </div>                 
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-md-6">
+              <div class="form-group">
+                  <label for="Phone">Phone</label>
+                  <input placeholder="Phone" class="form-control" formControlName="Phone" >
+                  <div *ngFor="let validation of validation_messages.Phone">
+                        <span class="error-message" *ngIf="userform.get('Phone').hasError(validation.type) && (userform.get('Phone').dirty || userform.get('Phone').touched)">{{validation.message}}</span>
+                </div>
+              </div>                 
+          </div>
+          <div class="col-md-6">
+              <div class="form-group">
+                    <label for="CreditLimit">CreditLimit</label>
+                    <input type="number" placeholder="CreditLimit" class="form-control" formControlName="CreditLimit" [disabled]="disableControl">
+                    <div *ngFor="let validation of validation_messages.CreditLimit">
+                            <span class="error-message" *ngIf="userform.get('CreditLimit').hasError(validation.type) && (userform.get('CreditLimit').dirty || userform.get('CreditLimit').touched)">{{validation.message}}</span>
+                    </div>
+              </div>                 
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    
+                    <label for="Address">Address</label>
+                  <input placeholder="Address" class="form-control" formControlName="Address">
+                  <div *ngFor="let validation of validation_messages.Address">
+                        <span class="error-message" *ngIf="userform.get('Address').hasError(validation.type) && (userform.get('Address').dirty || userform.get('Address').touched)">{{validation.message}}</span>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Description">Description</label>
+                    <input placeholder="Description" class="form-control" formControlName="Description" >
+                    <div *ngFor="let validation of validation_messages.Description">
+                            <span class="error-message" *ngIf="userform.get('Description').hasError(validation.type) && (userform.get('Description').dirty || userform.get('Description').touched)">{{validation.message}}</span>
+                    </div>
+                </div>                 
+            </div>
+          </div>
+          <div class="row" *ngIf="!PasswordControlsVisbility()">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Password">Password</label>
+                        <input  placeholder="Password" class="form-control" formControlName="Password" >
+                        <div *ngFor="let validation of validation_messages.Password">
+                                <span class="error-message" *ngIf="userform.get('Password').hasError(validation.type) && (userform.get('Password').dirty || userform.get('Password').touched)">{{validation.message}}</span>
+                        </div>
+                    </div>
+                </div>
+                </div>
+          <mat-dialog-actions style="float: right;">
+              <button class="btn btn-default" [mat-dialog-close]="true">Cancel</button>&nbsp;&nbsp;&nbsp;
+            <button type="submit" class="btn btn-primary" [disabled]="!userform.valid">Save</button>
+          </mat-dialog-actions>
+  </form>

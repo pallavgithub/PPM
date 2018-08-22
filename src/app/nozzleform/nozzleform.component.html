@@ -1,0 +1,104 @@
+<h2 mat-dialog-title>Nozzle Form</h2>
+<form [formGroup]="nozzleform" (ngSubmit)="createNozzle()">
+    <div class="row" *ngIf="IsEditDialog == true">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="NozzleCode">Nozzle Code</label>
+                <span class="required">*</span>
+                <input type="string" class="form-control" name="NozzleCode" formControlName="NozzleCode" disabled>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="FuleType">Fuel Type</label>
+                <span class="required">*</span>
+                <select name="fuelType" class="form-control" (change)="onChange()" formControlName="FuelTypeID">
+                    <option [ngValue]="0" disabled>--Select--</option>
+                    <option *ngFor="let fuelType of fuelTypes;let i=index" [ngValue]="fuelType.ID">{{fuelType.Name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="NozzleName">Nozzle Name</label>
+                <span class="required">*</span>
+                <input type="string" placeholder="Nozzle Name" class="form-control" name="NozzleName" formControlName="NozzleName" required>
+                <div *ngFor="let validation of validation_messages.NozzleName">
+                    <span class="error-message" *ngIf="nozzleform.get('NozzleName').hasError(validation.type) && (nozzleform.get('NozzleName').dirty || nozzleform.get('NozzleName').touched)">{{validation.message}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="TankName">Tank</label>
+                <select name="tank" class="form-control" formControlName="TankID">
+                    <option [ngValue]="0" disabled>--Select--</option>
+                    <option *ngFor="let itemTank of tank;let i=index" [ngValue]="itemTank.ID">{{itemTank.Name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="OpeningReading">Opening Reading</label>
+                <input type="number" placeholder="Opening Reading" class="form-control" name="OpeningReading" formControlName="OpeningReading"
+                    required>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="ReadingDate">Reading Date</label>
+                <input type="date" placeholder="Reading Date" class="form-control" formControlName="ReadingDate">
+                <!-- <div *ngFor="let validation of validation_messages.LicenseStartDate">
+                                <span class="error-message" *ngIf="registerForm.get('LicenseStartDate').hasError(validation.type) && (registerForm.get('LicenseStartDate').dirty || registerForm.get('LicenseStartDate').touched)">{{validation.message}}</span>
+                        </div> -->
+            </div>
+        </div>
+        <div class="col-md-6">
+                <div class="form-group">
+                        <label for="AssignedTo">Assigned To</label>
+                        <span class="required">*</span>
+                        <select name="fuelType" class="form-control" formControlName="AssignedTo">
+                            <option [ngValue]="0" disabled>--Select--</option>
+                            <option *ngFor="let itemUserIdName of newUserIdName;let i=index" [ngValue]="itemUserIdName.ID">{{itemUserIdName.UserId}}</option>
+                        </select>
+                </div>
+            </div>
+    </div>
+    <!-- <div *ngFor="let nozzle of tank.pp_Nozzles; let i=index" class="panel panel-default">
+      <div class="panel-heading">
+        <span>Nozzle {{i + 1}}</span>
+        <span class="glyphicon glyphicon-remove pull-right" *ngIf="tank.pp_Nozzles.length > 1" (click)="removeNozzle(i)"></span>
+      </div> -->
+    <!--  <div class="panel-body">
+        <div class="form-group col-xs-6">
+          <label>street</label>
+          <input type="text" class="form-control" formControlName="street">
+          <small [hidden]="myForm.controls.addresses.controls[i].controls.street.valid" class="text-danger">
+            Street is required
+          </small>
+        </div>
+        <div class="form-group col-xs-6">
+          <label>Opening Reading</label>
+          <input type="number" class="form-control" name="OpeningReading" [(ngModel)]="nozzle.OpeningReading" #OpeningReading="ngModel">
+        </div>
+      </div> -->
+    <!-- </div> -->
+    <!-- <div class="margin-20">
+      <a (click)="addNozzle()" style="cursor: default">
+        Add another nozzle +
+      </a>
+    </div> -->
+    <!-- <div class="col-md-1 offset-md-5">
+        <button class="btn btn-primary" (click)="createTank()">Save</button>
+    </div> -->
+    <mat-dialog-actions style="float: right;">
+        <button class="btn btn-default" [mat-dialog-close]="true">Cancel</button>&nbsp;&nbsp;&nbsp;
+        <button type="submit" class="btn btn-primary" [disabled]="!nozzleform.valid">Save</button>
+    </mat-dialog-actions>
+</form>

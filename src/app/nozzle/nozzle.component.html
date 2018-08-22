@@ -1,0 +1,19 @@
+<h1>Nozzles</h1>
+<nozzleform (nozzleCreated)="addNozzle($event)"></nozzleform>
+
+<div class="col-md-12" *ngIf="pumpNozzles.length>0">
+  <table style="border: 1px solid black" class="table table-striped">
+    <tr>
+      <th>#</th>
+      <th>Fuel Type</th>
+      <th>Capacity</th>
+      <th>Action</th>
+    </tr>
+    <tr *ngFor ="let nozzle of pumpNozzles let i=index">
+      <td>{{i+1}}</td>
+      <td>{{nozzle.Tank}}</td>
+      <td>{{nozzle.OpeningReading}}</td>
+      <td><a (click)="removeTank(i)">Remove Tank</a></td>
+    </tr>
+  </table>
+</div>

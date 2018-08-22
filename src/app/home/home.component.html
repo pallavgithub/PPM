@@ -1,0 +1,38 @@
+﻿<div class="col-md-12 table-responsive" *ngIf="pumpList && pumpList.length>0" >
+    <div class="text-left"><h3>List of Registered Pumps</h3></div>
+    <table style="border: 1px solid black" class="table hoverTable">
+        <thead class="thead-dark">
+            <tr>
+                <!-- <th>Petrol Pump Code</th> -->
+                <th>Name</th>
+                <th>Owner Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <!-- <th>Address</th>
+                <th>Petrol Pump Pincode</th> -->
+                <th>TIN</th>
+                <th>CST</th>
+                <!-- <th>License Start Date</th>
+                <th>License End Date</th> -->
+                <!-- <th>Action</th> -->
+            </tr>
+        </thead>
+        <tr *ngFor="let pump of pumpList" [routerLink]="['/pumpDetails',pump.PetrolPumpCode]">
+            <!-- <td>{{pump.PetrolPumpCode}}</td> -->
+            <td>{{pump.PetrolPumpName}}</td>
+            <td>{{pump.OwnerName}}</td>
+            <td>{{pump.Email}}</td>
+            <td>{{pump.Mobile}}</td>
+            <!-- <td>{{pump.Address}}</td>
+            <td>{{pump.PetrolPumpPincode}}</td> -->
+            <td>{{pump.TIN}}</td>
+            <td>{{pump.CST}}</td>
+            <!-- <td>{{pump.LicenseStartDate | date}}</td>
+            <td>{{pump.LicenseEndDate | date}}</td> -->
+            <!-- <td><a [routerLink]="['/pumpDetails',pump.PetrolPumpCode]" >View Details</a></td> -->
+        </tr>
+    </table>
+</div>
+<div *ngIf="!pumpList">
+    There is no Petrol Pump
+</div>

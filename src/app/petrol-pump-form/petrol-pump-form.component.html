@@ -1,0 +1,164 @@
+<!-- <mat-horizontal-stepper [linear]="isLinear" #stepper> -->
+  <!-- <mat-step [stepControl]="registerForm">
+    <form [formGroup]="registerForm" (ngSubmit)="submitRegister()">
+      <ng-template matStepLabel>Pump Register</ng-template>
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="Petrol Pump Name" formControlName="PetrolPumpName">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input required matInput placeholder="Petrol Pump Pincode" formControlName="PetrolPumpPincode">
+        </mat-form-field>
+      </div>
+      <div style="float:right;">
+        <button mat-button matStepperNext type="submit" [disabled]="!registerForm.valid">Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="pumpAdminForm" (ngSubmit)="submitPumpAdmin()">
+      <ng-template matStepLabel>Pump User</ng-template>
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="PumpUser" formControlName="UserId">
+        </mat-form-field>
+      </div>
+      <div style="float:right;">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext type="submit" [disabled]="!pumpAdminForm.valid">Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="thirdFormGroup">
+    <form [formGroup]="pumpInfoForm" (ngSubmit)="submitPumpInfo()">
+      <ng-template matStepLabel>Pump Info</ng-template>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field>
+            <input matInput placeholder="Owner Name" formControlName="OwnerName">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <input matInput placeholder="Logo" formControlName="Logo" required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field>
+            <input matInput placeholder="Address" formControlName="Address">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <input matInput placeholder="Pincode" formControlName="Pincode">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field>
+            <input matInput placeholder="Mobile" formControlName="Mobile" required>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <input type="email" matInput placeholder="Email" formControlName="Mobile" required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field>
+            <input matInput placeholder="TIN" formControlName="TIN" required>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <input matInput placeholder="CST" formControlName="CST" required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field>
+            <input matInput [matDatepicker]="startDatePicker" placeholder="Start Date" formControlName="StartDate">
+            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field>
+            <input matInput [matDatepicker]="endDatePicker" placeholder="End Date" formControlName="StartDate">
+            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #endDatePicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div style="float:right;">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="forthFormGroup">
+    <form [formGroup]="pumpUserForm" (ngSubmit)="submitPumpUsers">
+      <ng-template matStepLabel>Pump Users</ng-template>
+      <div formArrayName="users">
+        <div *ngFor="let user of pumpUserForm.controls.users.controls; let i=index">
+          <div>
+            <span>{{i + 1}}</span>
+            <span *ngIf="pumpUserForm.controls.users.controls.length > 1" (click)="removeUser(i)">
+            </span>
+          </div>
+          <div [formGroupName]="i">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field>
+                  <input matInput placeholder="TIN" formControlName="UserId" required>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field>
+                  <input matInput placeholder="Full Name" formControlName="FullName" required>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="margin-20">
+          <a (click)="addUser()" style="cursor: default">
+            Add another User +
+          </a>
+        </div>        
+      </div>
+      <div style="float:right;">
+        <button mat-button matStepperPrevious>Back</button>
+        <button type="submit" mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step> -->
+  <!--<mat-step [stepControl]="fifthFormGroup">
+    <form [formGroup]="fifthFormGroup">
+      <ng-template matStepLabel>Tank</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="PumpUser" formControlName="fifthCtrl" required>
+      </mat-form-field>
+      <div style="float:right;">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    You are now done.
+    <div style="float:right;">
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step> -->
+<!-- </mat-horizontal-stepper> -->

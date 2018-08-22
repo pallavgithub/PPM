@@ -1,0 +1,126 @@
+<!-- <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading> -->
+<div id="wrapper" class="toggled">
+  <div class=""></div>
+  <!-- Sidebar -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+    <ul class="nav sidebar-nav">
+      <li class="sidebar-brand">
+        <a routerLink="/app" class="line-bottom">
+          PetrolPump Managment
+          <!-- <img src="../../assets/explorer.png" class="img-explorer" /> -->
+        </a>
+      </li>
+      <p class="text-center color-white"> ADMIN PORTAL</p>
+      <!--<li>
+        <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-fw fa-folder"></i> Map</a>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-fw fa-file-o"></i> Collection Sets</a>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-fw fa-cog"></i>Objects</a>
+      </li>-->
+      <li><a routerLink="/app" routerLinkActive="sidebar-active" [routerLinkActiveOptions]="{ exact: true }"><!--<i class="fa fa-calendar-o" aria-hidden="true"></i>-->Event</a></li>
+      <li><a routerLink="/app/locationmap" routerLinkActive="sidebar-active"><!--<i class="fa fa-map-o gap-icon" aria-hidden="true"></i>-->Location Map</a></li>
+      <li><a routerLink="/app/eventboundary" routerLinkActive="sidebar-active">Event Boundary</a></li>
+      <li><a routerLink="/app/token" routerLinkActive="sidebar-active">Token</a></li>
+      <li><a routerLink="/app/eventCollections" routerLinkActive="sidebar-active">Collections</a></li>
+      <li><a routerLink="/app/collectionsets" routerLinkActive="sidebar-active">Collection Set</a></li>
+      <li><a routerLink="/app/dashboard" routerLinkActive="sidebar-active">Objects</a></li>
+    </ul>
+  </nav>
+  <!-- /#sidebar-wrapper -->
+  <nav class="navbar navbar-default border-radius-zero">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <!--<a class="navbar-brand" routerLink="/app"></a>-->
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ol class="nav navbar-nav navbar-left breadcrumb ">
+          <!--<ol class=" breadcrumb ">
+            <li class=""><a routerLink="/app">Home</a></li>
+            <li class=""><a routerLink="/app">Create Event</a></li>
+          </ol>-->
+        </ol>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="sign-out-block">
+            <div class="login-name">Hi {{username}}!</div>
+            <div>
+              <div class="sign-out">Sign out <i class="fa fa-sign-out" aria-hidden="true"></i></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+    <button type="button" class="hamburger is-closed animated fadeInLeft" data-toggle="offcanvas">
+      <span class="hamb-top"></span>
+      <span class="hamb-middle"></span>
+      <span class="hamb-bottom"></span>
+    </button>
+  </div>
+  <!-- /#page-content-wrapper -->
+  <!-- content -->
+  <div style="overflow:auto;min-height:550px">
+    <router-outlet></router-outlet>
+  </div>
+  <!-- content -->
+</div>
+
+<!-- <div bsModal #childMessageModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-width">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-heading">Message</h4>
+        <button type="button" class="close" aria-label="Close" (click)="hideMessageModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{modalMessage}}</p>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- <div bsModal #childConfirmModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-width">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-heading">Confirm</h4>
+      </div>
+      <div class="modal-body">
+        <p style="text-align:center">Do you really want to signout?</p>
+        <div style="text-align:right">
+          <button  class="btn btn-primary" style="display:inline;background-color:#ff1e74;" (click)="signOut()">Yes</button>
+          <button  class="btn btn-cancel" style="display:inline" (click)="hideConfirmModal()">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- /#wrapper -->
+<!--Footer-->
+<footer class="page-footer center-on-small-only stylish-color-dark ">
+  <div class="footer-copyright">
+    <div class="container-fluid">
+      <p class="copyright">Copyright © 2017 Explorer App. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+<!--/.Footer-->

@@ -1,0 +1,19 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '../node_modules/angular2-toaster/toaster.css';
+/* You can add global styles to this file, and also import other style files */
+.error-message{
+    color: red;
+}
+.navbartext {
+    color: white;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.table .thead-dark th {
+    color: #fff;
+    background-color: #212529;
+    border-color: #32383e;
+}
+.required{
+    color:red;
+}

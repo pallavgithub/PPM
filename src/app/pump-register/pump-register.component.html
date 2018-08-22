@@ -1,0 +1,151 @@
+<h1>Petrol Pump Details</h1>
+<br/>
+<form [formGroup]="registerForm" (ngSubmit)="submitRegister()" novalidate>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Petrol Pump Name">Name
+                    <span class="required">*</span>
+                </label>
+                <input placeholder="Petrol Pump Name" class="form-control" formControlName="PetrolPumpName">
+                <div *ngFor="let validation of validation_messages.PetrolPumpName">
+                    <span class="error-message" *ngIf="registerForm.get('PetrolPumpName').hasError(validation.type) && (registerForm.get('PetrolPumpName').dirty || registerForm.get('PetrolPumpName').touched)">{{validation.message}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="OwnerName">Owner Name
+                    <span class="required">*</span>
+                </label>
+                <input placeholder="Owner Name" class="form-control" formControlName="OwnerName">
+                <div *ngFor="let validation of validation_messages.OwnerName">
+                    <span class="error-message" *ngIf="registerForm.get('OwnerName').hasError(validation.type) && (registerForm.get('OwnerName').dirty || registerForm.get('OwnerName').touched)">{{validation.message}}</span>
+                </div>
+
+            </div>
+        </div>
+        <!-- <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Pincode">Pincode <span class="required">*</span></label>
+                    <input placeholder="Pincode" class="form-control" formControlName="PetrolPumpPincode">
+                    <div *ngFor="let validation of validation_messages.PetrolPumpPincode">
+                            <span class="error-message" *ngIf="registerForm.get('PetrolPumpPincode').hasError(validation.type) && (registerForm.get('PetrolPumpPincode').dirty || registerForm.get('PetrolPumpPincode').touched)">{{validation.message}}</span>
+                    </div>
+                </div>
+        </div> -->
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="email">Email
+                    <span class="required">*</span>
+                </label>
+                <input placeholder="Email" class="form-control" formControlName="Email">
+                <div *ngFor="let validation of validation_messages.Email">
+                    <span class="error-message" *ngIf="registerForm.get('Email').hasError(validation.type) && (registerForm.get('Email').dirty || registerForm.get('Email').touched)">{{validation.message}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Pincode">Mobile
+                    <span class="required">*</span>
+                </label>
+                <input placeholder="Mobile" class="form-control" formControlName="Mobile">
+                <div *ngFor="let validation of validation_messages.Mobile">
+                    <span class="error-message" *ngIf="registerForm.get('Mobile').hasError(validation.type) && (registerForm.get('Mobile').dirty || registerForm.get('Mobile').touched)">{{validation.message}}</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Password">Password
+                    <span class="required">*</span>
+                </label>
+                <input placeholder="Password" class="form-control" formControlName="Password">
+                <div *ngFor="let validation of validation_messages.Password">
+                    <span class="error-message" *ngIf="registerForm.get('Password').hasError(validation.type) && (registerForm.get('Password').dirty || registerForm.get('Password').touched)">{{validation.message}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="ConfirmPassword">Confirm Password
+                    <span class="required">*</span>
+                </label>
+                <input placeholder="Confirm Password" class="form-control" formControlName="ConfirmPassword">
+                <div *ngFor="let validation of validation_messages.ConfirmPassword">
+                    <span class="error-message" *ngIf="registerForm.get('ConfirmPassword').hasError(validation.type) && (registerForm.get('ConfirmPassword').dirty || registerForm.get('ConfirmPassword').touched)">{{validation.message}}</span>
+                    <!-- <span>Passwords do not match</span> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- <div class="col-md-6">
+        <div class="form-group">
+            <label for="Address">Address</label>
+            <input placeholder="Address" class="form-control" formControlName="Address">
+        </div>
+    </div> -->
+
+
+    </div>
+    <!--  <div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="CST">TIN</label>
+            <input placeholder="TIN" class="form-control" formControlName="TIN">
+            <div *ngFor="let validation of validation_messages.TIN">
+                    <span class="error-message" *ngIf="registerForm.get('TIN').hasError(validation.type) && (registerForm.get('TIN').dirty || registerForm.get('TIN').touched)">{{validation.message}}</span>
+            </div>
+        </div>        
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="CST">CST</label>
+            <input placeholder="CST" class="form-control" formControlName="CST">
+            <div *ngFor="let validation of validation_messages.CST">
+                    <span class="error-message" *ngIf="registerForm.get('CST').hasError(validation.type) && (registerForm.get('CST').dirty || registerForm.get('CST').touched)">{{validation.message}}</span>
+            </div>
+        </div>        
+    </div>
+  </div> -->
+    <!-- <div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="StartDate">License Start Date</label>
+            <input type="date" placeholder="License Start Date" class="form-control" formControlName="LicenseStartDate">
+            <div *ngFor="let validation of validation_messages.LicenseStartDate">
+                    <span class="error-message" *ngIf="registerForm.get('LicenseStartDate').hasError(validation.type) && (registerForm.get('LicenseStartDate').dirty || registerForm.get('LicenseStartDate').touched)">{{validation.message}}</span>
+            </div>
+        </div>
+      
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="EndDate">License End Date</label>
+            <input type="date" placeholder="License End Date " class="form-control" formControlName="LicenseEndDate">
+            <div *ngFor="let validation of validation_messages.LicenseEndDate">
+                    <span class="error-message" *ngIf="registerForm.get('LicenseEndDate').hasError(validation.type) && (registerForm.get('LicenseEndDate').dirty || registerForm.get('LicenseEndDate').touched)">{{validation.message}}</span>
+            </div>
+        </div>
+    </div>
+  </div> -->
+    <!-- <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="Logo">Logo</label>
+            <input type="file" placeholder="Logo" class="form-control" formControlName="Logo">
+            </div>          
+        </div>
+      </div> -->
+    <div style="float:right;">
+        <button class="btn btn-default" (click)="cancel()">Cancel</button> &nbsp;&nbsp;&nbsp;
+        <button class="btn btn-primary" type="submit" [disabled]="!registerForm.valid">Register</button>
+    </div>
+</form>
