@@ -13,6 +13,7 @@ import { UserformComponent } from './userform/userform.component';
 import { ChangePasswordComponent } from './ChangePassword/ChangePassword.Component';
 import { ResultComponent } from './result/result.component';
 import { PumpDetailsComponent } from './pump-details/pump-details.component';
+import { DashBoardComponent } from './dashboard/dashboard.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent,canActivate: [AuthGuard] },
@@ -24,6 +25,8 @@ const appRoutes: Routes = [
     { path: 'pumpDetails', component: PumpDetailsComponent,canActivate: [AuthGuard],runGuardsAndResolvers: 'always' },
     { path: 'pumpDetails/:pumpcode', component: PumpDetailsComponent,canActivate: [AuthGuard] },
     { path: 'pumpInfo', component: PumpInfoComponent,canActivate: [AuthGuard] },
+    { path: 'dashboard', component: DashBoardComponent,canActivate: [AuthGuard],runGuardsAndResolvers: 'always' },
+    { path: 'dashboard/:pumpcode', component: DashBoardComponent,canActivate: [AuthGuard] },
     // { path: 'pumpUsers', component: PumpUsersComponent,canActivate: [AuthGuard,WorkflowGuard] },
     // { path: 'pumpTanks', component: PumpTankComponent,canActivate: [AuthGuard,WorkflowGuard] },    
     // //{ path: 'nozzles', component: NozzleComponent,canActivate: [AuthGuard,WorkflowGuard] },

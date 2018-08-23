@@ -31,7 +31,11 @@ export class PaymentComponent implements OnInit {
   //   return product ? product.Name : '';
   // }
 
-  getPaymentTypeName(ID) {    
+  getPaymentTypeName(ID) { 
+    if(ID == 0)
+    {
+      this.paymentTypes = new Array<PaymentType>();
+    }   
     var paymentTypeName = this.paymentTypes.find(c => c.ID == ID);
     return paymentTypeName ? paymentTypeName.Name : '';
   }

@@ -1,30 +1,29 @@
- 
-
 <br/>
+
 
 
 <!-- <userform (userCreated)="addUser($event)"></userform> -->
 <div class="col-md-12 table-responsive" *ngIf="pumpProduct != null && pumpProduct.length>0">
   <table style="border: 1px solid black" class="table table-striped">
     <thead class="thead-dark">
-    <tr>
-      <!-- <th>Product Id</th> -->
-      <th>Name</th>
-      <th>Unit</th>
-      <th>Quantity</th>      
-      <th>Purchase Rate</th>
-      <th>Sale Rate</th>
-      <th>Description</th>
-      <!-- <th>Modified By</th> -->
-      <th>Action</th>
-    </tr>
-  </thead>
-    
-    <tr *ngFor ="let product of pumpProduct let i=index">
+      <tr>
+        <!-- <th>Product Id</th> -->
+        <th>Name</th>
+        <th>Unit</th>
+        <th>InitialQuantity</th>
+        <th>Purchase Rate</th>
+        <th>Sale Rate</th>
+        <th>Description</th>
+        <!-- <th>Modified By</th> -->
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tr *ngFor="let product of pumpProduct let i=index">
       <!-- <td>{{product.ProductID}}</td> -->
       <th>{{getProductName(product.ProductID)}}</th>
       <td>{{getUnitName(product.Unit)}}</td>
-      <td>{{product.Quantity}}</td>
+      <td>{{product.InitialQuantity}}</td>
       <td>{{product.PurchaseRate}}</td>
       <td>{{product.SaleRate}}</td>
       <td>{{product.Description}}</td>
@@ -37,4 +36,7 @@
       </td>
     </tr>
   </table>
+</div>
+<div>
+  <a [routerLink]="['/dashboard',this.pumpCode]">Manage Inventory</a>
 </div>

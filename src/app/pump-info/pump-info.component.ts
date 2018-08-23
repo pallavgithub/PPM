@@ -39,30 +39,6 @@ export class PumpInfoComponent implements OnInit {
       { type: 'minlength', message: 'Mobile must be at least 10 characters long' },
       { type: 'maxlength', message: 'Mobile can be 12 characters long' },
       { type: 'pattern', message: 'Only Numbers are allowed.' }
-    ],
-    'PetrolPumpPincode': [
-      { type: 'required', message: 'Pincode is required' },
-      { type: 'minlength', message: 'Pincode must be 6 characters long' },
-      { type: 'maxlength', message: 'Pincode must be 6 characters long' },
-      { type: 'pattern', message: 'Only Numbers are allowed.' }
-    ],
-    'TIN': [
-      { type: 'required', message: 'TIN is required' },
-      { type: 'minlength', message: 'TIN must be 11 characters long' },
-      { type: 'maxlength', message: 'TIN must be 11 characters long' },
-      { type: 'pattern', message: 'Only Numbers are allowed.' }
-    ],
-    'CST': [
-      { type: 'required', message: 'CST is required' },
-      { type: 'minlength', message: 'CST must be 11 characters long' },
-      { type: 'maxlength', message: 'CST must be 11 characters long' },
-      { type: 'pattern', message: 'Only numbers are allowed.' }
-    ],
-    'LicenseStartDate':[
-      {type: 'required', message: 'License Start Date is required' }
-    ],
-    'LicenseEndDate':[
-      {type: 'required', message: 'License End Date is required' }
     ]
   }
   constructor(private toasterService: ToasterService,private _formBuilder: FormBuilder,private router: Router,private petrolPumpService: PetrolPumpService) { 
@@ -73,7 +49,7 @@ export class PumpInfoComponent implements OnInit {
     this.pumpInfoForm = this._formBuilder.group({
       PetrolPumpCode:[this.petrolPump.PetrolPumpCode],
       PetrolPumpName: [this.petrolPump.PetrolPumpName,Validators.compose([ Validators.required,Validators.minLength(3),Validators.pattern('^[a-zA-Z0-9@&]*$')])],
-      PetrolPumpPincode:[this.petrolPump.PetrolPumpPincode,Validators.compose([ Validators.required,Validators.minLength(6),Validators.maxLength(6),Validators.pattern('^[0-9]*$')])],
+      PetrolPumpPincode:[this.petrolPump.PetrolPumpPincode,Validators.compose([ Validators.pattern('^(\\s*|\\d{6,6})$')])],
       OwnerName: [this.petrolPump.OwnerName,Validators.compose([ Validators.required,Validators.minLength(3),Validators.pattern('^[a-zA-Z0-9\\s]*$')])],
       Logo: [this.petrolPump.Logo],
       Address: [this.petrolPump.Address],

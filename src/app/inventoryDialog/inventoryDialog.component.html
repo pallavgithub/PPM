@@ -1,0 +1,197 @@
+<h2 mat-dialog-title>Product</h2>
+<form [formGroup]="inventoryDialogform" (ngSubmit)="createProduct()">
+    <!-- <div class="row" *ngIf="IsEditDialog == true">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="ProductCode">Product Code</label>
+                <input class="form-control" formControlName="ProductCode" disabled>
+            </div>
+        </div>
+    </div> -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="ProductID">Product</label>
+                <select class="form-control" formControlName="ProductID" (change)="onChange()">                    
+                    <option [ngValue]="0" disabled>--Select--</option>
+                    <optgroup label="{{allProduct[0].CategoryName}}">
+                        <option *ngFor="let product of allProduct[0].pumpProducts;let i=index" [ngValue]="product.ID">{{product.Name}}</option>
+                    </optgroup>
+                    <optgroup label="{{allProduct[1].CategoryName}}">
+                        <option *ngFor="let product of allProduct[1].pumpProducts;let i=index" [ngValue]="product.ID">{{product.Name}}</option>
+                    </optgroup>
+                    <optgroup label="{{allProduct[2].CategoryName}}">
+                        <option *ngFor="let product of allProduct[2].pumpProducts;let i=index" [ngValue]="product.ID">{{product.Name}}</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+    </div>
+    <!-- <div id="dvLubricants" *ngIf="divCategory == 2">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="Lubricants">Lubricants</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Unit">Unit</label>
+                    <select class="form-control" formControlName="Unit" (change)="onChange()">
+                        <option [ngValue]="0" disabled>--Select--</option>
+                        <option *ngFor="let itemUnit of units;let i=index" [ngValue]="itemUnit.ID">{{itemUnit.Name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Description">Description</label>
+                    <input placeholder="Description" class="form-control" formControlName="Description">
+                    <div *ngFor="let validation of validation_messages.Description">
+                        <span class="error-message" *ngIf="productDialogform.get('Description').hasError(validation.type) && (productDialogform.get('Description').dirty || productDialogform.get('Description').touched)">{{validation.message}}</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Quantity">Initial Quantity</label>
+                    <input placeholder="Initial Quantity" class="form-control" formControlName="Quantity">
+                    <div *ngFor="let validation of validation_messages.Quantity">
+                        <span class="error-message" *ngIf="productDialogform.get('Quantity').hasError(validation.type) && (productDialogform.get('Quantity').dirty || productDialogform.get('Quantity').touched)">{{validation.message}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="DateStockMeasuredOn">Date stock measured on</label>
+                    <input type="date" placeholder="Date Stock Measured On" class="form-control" formControlName="DateStockMeasuredOn">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="Quantity">Add Quantity</label>
+                        <input placeholder="Add Quantity" class="form-control" formControlName="Quantity">
+                        <div *ngFor="let validation of validation_messages.Quantity">
+                            <span class="error-message" *ngIf="productDialogform.get('Quantity').hasError(validation.type) && (productDialogform.get('Quantity').dirty || productDialogform.get('Quantity').touched)">{{validation.message}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="DateStockMeasuredOn">Adding Date.</label>
+                        <input type="date" placeholder="Date Stock Measured On" class="form-control" formControlName="DateStockMeasuredOn">
+                    </div>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="PurchaseRate">Purchase Rate</label>
+                    <input placeholder="Purchase Rate" class="form-control" formControlName="PurchaseRate">
+                    <div *ngFor="let validation of validation_messages.PurchaseRate">
+                        <span class="error-message" *ngIf="productDialogform.get('PurchaseRate').hasError(validation.type) && (productDialogform.get('PurchaseRate').dirty || productDialogform.get('PurchaseRate').touched)">{{validation.message}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="PurchaseDate">Purchase Date</label>
+                    <input type="date" placeholder="Purchase Date" class="form-control" formControlName="PurchaseDate">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="SaleRate">Sale Rate</label>
+                    <input placeholder="Sale Rate" class="form-control" formControlName="SaleRate">
+                    <div *ngFor="let validation of validation_messages.SaleRate">
+                        <span class="error-message" *ngIf="productDialogform.get('SaleRate').hasError(validation.type) && (productDialogform.get('SaleRate').dirty || productDialogform.get('SaleRate').touched)">{{validation.message}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="SaleDate">Sale Date</label>
+                    <input type="date" placeholder="Sale Date" class="form-control" formControlName="SaleDate">
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- <div id="dvFuel" *ngIf="divCategory == 1">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="Fuel">Standard</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Unit">Unit</label>
+                    <select class="form-control" formControlName="Unit" (change)="onChange()">
+                        <option [ngValue]="0" disabled>--Select--</option>
+                        <option *ngFor="let itemUnit of units;let i=index" [ngValue]="itemUnit.ID">{{itemUnit.Name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Description">Description</label>
+                    <input placeholder="Description" class="form-control" formControlName="Description">
+                    <div *ngFor="let validation of validation_messages.Description">
+                        <span class="error-message" *ngIf="productDialogform.get('Description').hasError(validation.type) && (productDialogform.get('Description').dirty || productDialogform.get('Description').touched)">{{validation.message}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>       
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="PurchaseRate">Purchase Rate</label>
+                    <input placeholder="Purchase Rate" class="form-control" formControlName="PurchaseRate">
+                    <div *ngFor="let validation of validation_messages.PurchaseRate">
+                        <span class="error-message" *ngIf="productDialogform.get('PurchaseRate').hasError(validation.type) && (productDialogform.get('PurchaseRate').dirty || productDialogform.get('PurchaseRate').touched)">{{validation.message}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="PurchaseDate">Purchase Date</label>
+                    <input type="date" placeholder="Purchase Date" class="form-control" formControlName="PurchaseDate">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="SaleRate">Sale Rate</label>
+                    <input placeholder="Sale Rate" class="form-control" formControlName="SaleRate">
+                    <div *ngFor="let validation of validation_messages.SaleRate">
+                        <span class="error-message" *ngIf="productDialogform.get('SaleRate').hasError(validation.type) && (productDialogform.get('SaleRate').dirty || productDialogform.get('SaleRate').touched)">{{validation.message}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="SaleDate">Sale Date</label>
+                    <input type="date" placeholder="Sale Date" class="form-control" formControlName="SaleDate">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="dvMisc" *ngIf="divCategory == 3">        
+    </div> -->
+    <mat-dialog-actions style="float: right;">
+        <button class="btn btn-default" [mat-dialog-close]="true">Cancel</button>&nbsp;&nbsp;&nbsp;
+        <button type="submit" class="btn btn-primary" [disabled]="!productDialogform.valid">Save</button>
+    </mat-dialog-actions>
+</form>

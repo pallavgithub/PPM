@@ -53,11 +53,19 @@ export class PumpTankComponent implements OnInit {
   }
 
   getTankFuelType(fuelTypeID: number) {
+    if(fuelTypeID == 0)
+    {
+      this.fuelTypes = new Array<FuelType>();
+    }
     var fuelType = this.fuelTypes.find(c => c.ID == fuelTypeID);
     return fuelType ? fuelType.Name : '';
   }
 
   getReadingByID(readingTypeID: number) {
+    if(readingTypeID == 0)
+    {
+      this.readingTypes = new Array<ReadingType>();
+    }
     var readingType = this.readingTypes.find(c => c.ID == readingTypeID);
     return readingType ? readingType.Name : '';
   }

@@ -19,20 +19,19 @@ export class ProductDialogFormComponent implements OnInit {
   pumpProduct: pp_PumpProduct;
   allProduct: ProductWithCategory[];
   units: Unit[]
-  divCategory : number;
+  divCategory: number;
   //allProduct:AllProduct[];
   IsEditDialog: boolean;
   btnDisabled: boolean = false;
   productDialogform: FormGroup;
+  validationProductIDMessage:string;
   validation_messages = {
     'Email': [
       { type: 'required', message: 'Email is required' },
       { type: 'email', message: 'Enter a valid email' }
     ],
-    'Password': [
-      { type: 'required', message: 'Password is required' },
-      { type: 'minlength', message: 'Password must be at least 8 characters long' },
-      { type: 'pattern', message: 'Only Alphabets, Numbers, @, &, !, -, _ and . are allowed.' }
+    'ProductID': [
+      { type: 'required', message: 'ProductID is required' }
     ],
     'UserId': [
       { type: 'required', message: 'UserId is required' },
@@ -73,7 +72,8 @@ export class ProductDialogFormComponent implements OnInit {
       ID: [this.pumpProduct.ID],
       PetrolPumpCode: [this.pumpProduct.PetrolPumpCode],
       ProductID: [this.pumpProduct.ProductID],
-      Quantity: [this.pumpProduct.Quantity],
+      InitialQuantity: [this.pumpProduct.InitialQuantity],
+      PurchaseQuantity: [this.pumpProduct.PurchaseQuantity],
       Unit: [this.pumpProduct.Unit],
       PurchaseRate: [this.pumpProduct.PurchaseRate],
       SaleRate: [this.pumpProduct.SaleRate],
@@ -87,11 +87,17 @@ export class ProductDialogFormComponent implements OnInit {
       PurchaseDate: [this.pumpProduct.PurchaseDate],
       SaleDate: [this.pumpProduct.SaleDate],
       DateStockMeasuredOn: [this.pumpProduct.DateStockMeasuredOn],
-      CategoryID:[this.pumpProduct.CategoryID]
+      CategoryID: [this.pumpProduct.CategoryID]
     });
     // this.DisableControlsByRole();
   }
 
+  checkFormValid() {
+    if (this.productDialogform.controls['ProductID'].value == 0) {
+      this.validationProductIDMessage = "Please select Product ID";
+      return false;
+    }
+  }
   getAllProducts() {
     this.userService.getAllProductsWithCategory().subscribe(data => {
       this.allProduct = data;
@@ -123,8 +129,8 @@ export class ProductDialogFormComponent implements OnInit {
     this.DisableControlsByRole(categoryID);
   }
 
-  DisableControlsByRole(categoryID:number) {   
-    
+  DisableControlsByRole(categoryID: number) {
+
     if (categoryID == 1) { // Lubricants
       // this.productDialogform.controls['Quantity'].enable();
       this.divCategory = 1;
@@ -139,8 +145,7 @@ export class ProductDialogFormComponent implements OnInit {
     }
   }
 
-  GetCategoryID()
-  {
+  GetCategoryID() {
     let categoryID = 0;
     this.allProduct.forEach(element => {
       element.pumpProducts.forEach(element => {
@@ -152,8 +157,7 @@ export class ProductDialogFormComponent implements OnInit {
     return categoryID;
   }
 
-  GetCategoryByProductID(productID:number)
-  {
+  GetCategoryByProductID(productID: number) {
     let categoryID = 0;
     this.allProduct.forEach(element => {
       element.pumpProducts.forEach(element => {

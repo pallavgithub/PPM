@@ -43,11 +43,14 @@ import { GlobalErrorHandler } from './_helpers/GlobalErrorHandler';
 import { ToasterModule } from 'angular2-toaster';
 import { MatTabsModule,MatDialogModule } from '@angular/material';
 import { PumpDetailsComponent } from './pump-details/pump-details.component';
+import {DashBoardComponent} from './dashboard/dashboard.component';
 import {ProductComponent} from './product/product.component';
-import {PaymentComponent} from './payment/payment.component'
+import {InventoryComponent} from './inventory/inventory.component';
+import {PaymentComponent} from './payment/payment.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ProductDialogFormComponent} from './productDialog/productDialog.component';
 import {PaymentDialogFormComponent} from './paymentDialog/paymentDialog.component';
+import {InventoryDialogFormComponent} from './inventoryDialog/inventoryDialog.component'
 import { DatePipe } from '@angular/common';
 import { HeaderLoginComponent } from './header-login/header-login.component';
 @NgModule({
@@ -62,7 +65,7 @@ import { HeaderLoginComponent } from './header-login/header-login.component';
         BrowserAnimationsModule,ToasterModule.forRoot(),NgbModule.forRoot()
         //HttpService
     ],
-    entryComponents: [PumpUsersComponent,UserformComponent,PumpTankComponent,TankformComponent,NozzleformComponent,ChangePasswordComponent,ProductDialogFormComponent,PumpNozzleComponent,PaymentDialogFormComponent],
+    entryComponents: [PumpUsersComponent,UserformComponent,PumpTankComponent,TankformComponent,NozzleformComponent,ChangePasswordComponent,ProductDialogFormComponent,PumpNozzleComponent,PaymentDialogFormComponent,InventoryDialogFormComponent],
     declarations: [
         AppComponent,
         AlertComponent,
@@ -82,8 +85,11 @@ import { HeaderLoginComponent } from './header-login/header-login.component';
         ChangePasswordComponent,
         ProductComponent,
         ProductDialogFormComponent,
+        InventoryDialogFormComponent,
         PaymentComponent,
         PaymentDialogFormComponent,
+        DashBoardComponent,
+        InventoryComponent,
         TankformComponent,NozzleformComponent,ResultComponent,MasterComponent,HeaderComponent,PumpDetailsComponent,FooterComponent,HeaderLoginComponent], 
     providers: [
        // HttpService,111

@@ -13,7 +13,9 @@
             </div> -->
         <div class="col-md-6">
             <div class="form-group">
-                <label for="Address">Address Line 1</label>
+                <label for="PetrolPumpName">Address Line 1
+                    <span class="required">*</span>
+                </label>
                 <input placeholder="Address Line 1" class="form-control" formControlName="Address">
             </div>
         </div>
@@ -36,8 +38,8 @@
                 <label for="State">State</label>
                 <!-- <input placeholder="State" class="form-control" formControlName="State"> -->
                 <select class="form-control" formControlName="State" (change)="onChange()">
-                        <option [ngValue]="0" disabled>--Select--</option>
-                        <option *ngFor="let itemState of states;let i=index" [ngValue]="itemState.ID">{{itemState.Name}}</option>
+                    <option [ngValue]="0" disabled>--Select--</option>
+                    <option *ngFor="let itemState of states;let i=index" [ngValue]="itemState.ID">{{itemState.Name}}</option>
                 </select>
             </div>
         </div>
@@ -59,7 +61,7 @@
                     <span class="error-message" *ngIf="pumpAdditionalInfoForm.get('PetrolPumpPincode').hasError(validation.type) && (pumpAdditionalInfoForm.get('PetrolPumpPincode').dirty || pumpAdditionalInfoForm.get('PetrolPumpPincode').touched)">{{validation.message}}</span>
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
     <!-- <div class="row">
         <div class="col-md-6">

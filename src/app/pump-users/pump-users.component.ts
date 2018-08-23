@@ -23,6 +23,10 @@ export class PumpUsersComponent implements OnInit {
 
   }
   getUserRole(roleId) {
+    if(roleId == 0)
+    {
+      this.roles = new Array<Role>();
+    }
     var userRole = this.roles.find(c => c.ID == roleId);
     return userRole ? userRole.Name : '';
   }

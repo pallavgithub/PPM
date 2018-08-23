@@ -15,13 +15,15 @@ import { UserIdName } from '../_models/UserIdName';
 import { pp_Payment } from '../_models/pp_Payment';
 import { PaymentDialogFormComponent } from '../paymentDialog/paymentDialog.component';
 import { PumpStatus } from '../_models/PumpStatus';
+import { pp_Inventory } from '../_models/pp_Inventory';
+import { InventoryDialogFormComponent } from '../inventoryDialog/inventoryDialog.component';
 
 @Component({
-  selector: 'app-pump-details',
-  templateUrl: './pump-details.component.html',
-  styleUrls: ['./pump-details.component.css']
+  selector: 'pump-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
-export class PumpDetailsComponent implements OnInit {
+export class DashBoardComponent implements OnInit {
 
   public petrolPumpInfo: pp_PetrolPump;  
   public pumpUsers: pp_User[]=new Array<pp_User>();
@@ -29,6 +31,7 @@ export class PumpDetailsComponent implements OnInit {
   public pumpNozzles: pp_Nozzle[]=new Array<pp_Nozzle>();
   public pumpProduct: pp_PumpProduct[]=new Array<pp_PumpProduct>();
   public pumpPayment: pp_Payment[]=new Array<pp_Payment>();
+  public pumpInventory: pp_Inventory[]=new Array<pp_Inventory>();
   public pumpStatus: PumpStatus;
   navigationSubscription;
   public petrolPumpCode:string;
@@ -58,6 +61,7 @@ export class PumpDetailsComponent implements OnInit {
       this.pumpProduct = res.pp_PumpProduct;
       this.pumpNozzles = res.pp_Nozzles;
       this.pumpPayment = res.pp_Payment;
+      this.pumpInventory = res.pp_Inventory;
     });
   }
   getPumpStatus(pumpCode){    
@@ -97,6 +101,15 @@ export class PumpDetailsComponent implements OnInit {
     pumpProductNew.IsEditModal = false;
     const dialogRef =this.dialog.open(ProductDialogFormComponent,{
        data: {pumpProductNew},
+       disableClose: true
+     });     
+   }
+   openAddInventoryDialog() {
+    let pumpInventoryNew:pp_Inventory= new pp_Inventory();
+    pumpInventoryNew.PetrolPumpCode=this.petrolPumpCode;
+    pumpInventoryNew.IsEditModal = false;
+    const dialogRef =this.dialog.open(InventoryDialogFormComponent,{
+       data: {pumpInventoryNew},
        disableClose: true
      });     
    }

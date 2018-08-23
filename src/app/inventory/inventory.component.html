@@ -1,0 +1,40 @@
+ 
+
+<br/>
+
+
+<!-- <userform (userCreated)="addUser($event)"></userform> -->
+<div class="col-md-12 table-responsive" *ngIf="pumpInventory != null && pumpInventory.length>0">
+  <table style="border: 1px solid black" class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+      <!-- <th>Product Id</th> -->
+      <th>Name</th>
+      <th>Unit</th>
+      <th>Quantity</th>      
+      <th>Purchase Rate</th>
+      <th>Sale Rate</th>
+      <th>Description</th>
+      <!-- <th>Modified By</th> -->
+      <th>Action</th>
+    </tr>
+  </thead>
+    
+    <tr *ngFor ="let itemPumpInventory of pumpInventory let i=index">
+      <!-- <td>{{product.ProductID}}</td> -->
+      <th>{{itemPumpInventory.ID}}</th>
+      <td>{{itemPumpInventory.ProductID}}</td>
+      <td>{{itemPumpInventory.TankID}}</td>
+      <td>{{itemPumpInventory.TankID}}</td>
+      <td>{{itemPumpInventory.TankID}}</td>
+      <td>{{itemPumpInventory.TankID}}</td>
+      <!-- <td>{{product.CreatedOn}}</td>
+      <td>{{product.CreatedBy}}</td> -->
+      <!-- <td>{{getUserRole(product.RoleID)}}</td> -->
+      <td>
+        <a (click)="editProduct(itemPumpInventory)" style="cursor: pointer;">Edit</a>&nbsp;
+        <a (click)="DeleteProduct(itemPumpInventory)" style="cursor: pointer;">Delete</a>
+      </td>
+    </tr>
+  </table>
+</div>

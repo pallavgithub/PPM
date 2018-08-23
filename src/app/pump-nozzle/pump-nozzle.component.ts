@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NozzleformComponent } from "../nozzleform/nozzleform.component";
 import { ToasterService } from 'angular2-toaster';
 import { UserIdName } from "../_models/UserIdName";
+import { User } from "../_models";
 
 @Component({
   selector: "pump-nozzle",
@@ -21,27 +22,26 @@ import { UserIdName } from "../_models/UserIdName";
   styleUrls: ["./pump-nozzle.component.css"]
 })
 export class PumpNozzleComponent implements OnInit {
-  @Input() pumpNozzle: pp_Nozzle[]; 
-  fuelTypes:FuelType[];
+  @Input() pumpNozzle: pp_Nozzle[];
+  fuelTypes: FuelType[];
   tank: Tank[];
   newUserIdName: UserIdName[];
   public isCollapsed = false;
-  @Input() pumpCode:string;
+  @Input() pumpCode: string;
   constructor(
-    public dialog: MatDialog, private userService:UserService,private router:Router, private toasterService: ToasterService
-  ) {}
+    public dialog: MatDialog, private userService: UserService, private router: Router, private toasterService: ToasterService
+  ) { }
 
-  ngOnInit() {  
+  ngOnInit() {
     //this.getAllFuelType();
     //this.getAllProducts();
     this.getTanksByID(this.pumpCode);
     this.getIdAndNameForAllUser(this.pumpCode);
-  }  
+  }
 
-  getAllFuelType()
-  {
-    this.userService.getAllFuelType().subscribe(data=>{      
-      this.fuelTypes=data;
+  getAllFuelType() {
+    this.userService.getAllFuelType().subscribe(data => {
+      this.fuelTypes = data;
     });
   }
   getTanksByID(petrolPumpCode: string) {
@@ -50,36 +50,47 @@ export class PumpNozzleComponent implements OnInit {
     });
   }
 
-  getAllProducts()
-  {
-    this.userService.getAllProducts().subscribe(data=>{      
-      this.fuelTypes=data;
+  getAllProducts() {
+    this.userService.getAllProducts().subscribe(data => {
+      this.fuelTypes = data;
     });
   }
 
-  getTankFuelType(fuelTypeID:number){    
-    var fuelType=this.fuelTypes.find(c=>c.ID==fuelTypeID);
-    return fuelType ? fuelType.Name:'';
+  getTankFuelType(fuelTypeID: number) {
+    if(fuelTypeID == 0)
+    {
+      this.fuelTypes = new Array<FuelType>();
+    }
+    var fuelType = this.fuelTypes.find(c => c.ID == fuelTypeID);
+    return fuelType ? fuelType.Name : '';
   }
 
-  getTankName(tankID:number){    
-    var tankName=this.tank.find(c=>c.ID==tankID);
-    return tankName ? tankName.Name:'';
+  getTankName(tankID: number) {
+    if(tankID == 0)
+    {
+      this.tank = new Array<Tank>();
+    }
+    var tankName = this.tank.find(c => c.ID == tankID);
+    return tankName ? tankName.Name : '';
   }
 
-  getUserName(userIDPara:number){   
-    var user=this.newUserIdName.find(c=>c.ID==userIDPara);
-    return user ? user.UserId:'';
+  getUserName(userIDPara: number) {
+    if(userIDPara == 0)
+    {
+      this.newUserIdName = new Array<UserIdName>();
+    }
+    var user = this.newUserIdName.find(c => c.ID == userIDPara);
+    return user ? user.UserId : '';
   }
 
   editNozzle(nozzle: pp_Nozzle) {
     nozzle.IsEditModal = true;
-    const dialogRef=this.dialog.open(NozzleformComponent,{
-      data: {nozzle}
+    const dialogRef = this.dialog.open(NozzleformComponent, {
+      data: { nozzle }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.ngOnInit();
-     });
+    });
   }
   DeleteNozzle(nozzle: pp_Nozzle) {
     if (confirm("Do you want to delete this Nozzle?")) {
@@ -99,9 +110,9 @@ export class PumpNozzleComponent implements OnInit {
       // && item.Name != 'Lubes - Gear Oil' && item.Name != 'Lubes - Transmission Fluid' 
       // && item.Name != 'Lubes - White Grease' && item.Name != 'Lubes - Electronic Grease');
     });
-  //  this.newUserIdName = this.user.map(item => {
-  //    return { ID: item.ID, Name: item.UserId };
-  //  });
-  //  return this.newUserIdName;
- }
+    //  this.newUserIdName = this.user.map(item => {
+    //    return { ID: item.ID, Name: item.UserId };
+    //  });
+    //  return this.newUserIdName;
+  }
 }

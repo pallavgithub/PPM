@@ -2,7 +2,7 @@ export class pp_Nozzle {
   ID: number;
   NozzleCode: string;
   TankID: number;
-  OpeningReading: number;
+  OpeningReading: string;
   PetrolPumpCode: string;
   IsEditModal:boolean;
   FuelTypeID: number;
@@ -16,7 +16,7 @@ export class pp_Nozzle {
     this.ID=0;
     this.NozzleCode='';
     this.TankID=0;
-    this.OpeningReading=0;
+    this.OpeningReading='';
     this.PetrolPumpCode = '';
     this.IsEditModal = false;
     this.FuelTypeID = 0;

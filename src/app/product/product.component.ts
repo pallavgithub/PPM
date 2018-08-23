@@ -22,12 +22,20 @@ export class ProductComponent implements OnInit {
   constructor(private router:Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService) {
 
   }
-  getProductName(ID) {    
+  getProductName(ID) { 
+    if(ID == 0)
+    {
+      this.allProducts = new Array<AllProduct>();
+    }   
     var product = this.allProducts.find(c => c.ID == ID);
     return product ? product.Name : '';
   }
 
-  getUnitName(ID) {    
+  getUnitName(ID) {   
+    if(ID == 0)
+    {
+      this.units = new Array<Unit>();
+    }   
     var unitName = this.units.find(c => c.ID == ID);
     return unitName ? unitName.Name : '';
   }
