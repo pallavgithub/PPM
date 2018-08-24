@@ -11,33 +11,36 @@
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
-        <label for="FuelType">Products</label>
+        <label for="FuelType">Fuel Type</label>
         <span class="required">*</span>
-        <select name="FuelTypeID" class="form-control" formControlName="FuelTypeID">
+        <select name="FuelTypeID" class="form-control" formControlName="FuelTypeID" (change)="onchange()">
           <option [ngValue]="0" disabled>--Select--</option>
           <option *ngFor="let fuelType of fuelTypes;let i=index" [ngValue]="fuelType.ID">{{fuelType.Name}}</option>
         </select>
+        <span class="error-message">{{validationFuelTypeMessage}}</span>
       </div>
     </div>
+  </div>
+  <div class="row saperatorDiv"><span class="saperatorSpan">Tank Detail</span></div>
+  <div class="row">
     <div class="col-md-6">
       <div class="form-group">
         <label for="TankName">Tank Name</label>
         <span class="required">*</span>
-        <input type="string" placeholder="Tank Name" class="form-control" name="TankName" required formControlName="TankName">
+        <input type="string" placeholder="Tank Name" class="form-control" name="TankName" formControlName="TankName">
         <div *ngFor="let validation of validation_messages.TankName">
           <span class="error-message" *ngIf="tankform.get('TankName').hasError(validation.type) && (tankform.get('TankName').dirty || tankform.get('TankName').touched)">{{validation.message}}</span>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row">
     <div class="col-md-6">
       <div class="form-group">
         <label for="TankCapacity">Tank Capacity</label>
-        <input type="number" placeholder="Tank Capacity" class="form-control" name="TankCapacity" required formControlName="TankCapacity">
+        <input type="number" placeholder="Tank Capacity" class="form-control" name="TankCapacity" formControlName="TankCapacity">
       </div>
     </div>
   </div>
+  <div class="row saperatorDiv"><span class="saperatorSpan">Reading</span></div>
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
@@ -72,7 +75,7 @@
     <div class="col-md-6">
       <div class="form-group">
         <label for="OpeningReading">Opening Reading</label>
-        <input type="number" placeholder="Opening Reading" class="form-control" name="OpeningReading" required formControlName="OpeningReading">
+        <input type="number" placeholder="Opening Reading" class="form-control" name="OpeningReading" formControlName="OpeningReading">
         <!-- <div *ngFor="let validation of validation_messages.LicenseStartDate">
                         <span class="error-message" *ngIf="registerForm.get('LicenseStartDate').hasError(validation.type) && (registerForm.get('LicenseStartDate').dirty || registerForm.get('LicenseStartDate').touched)">{{validation.message}}</span>
                 </div> -->
@@ -102,7 +105,7 @@
     <div class="col-md-6">
       <div class="form-group">
         <label for="DipOpeningReading">Opening Reading</label>
-        <input type="number" placeholder="Opening Reading" class="form-control" name="DipOpeningReading" required formControlName="DipOpeningReading">
+        <input type="number" placeholder="Opening Reading" class="form-control" name="DipOpeningReading" formControlName="DipOpeningReading">
         <!-- <div *ngFor="let validation of validation_messages.LicenseStartDate">
                           <span class="error-message" *ngIf="registerForm.get('LicenseStartDate').hasError(validation.type) && (registerForm.get('LicenseStartDate').dirty || registerForm.get('LicenseStartDate').touched)">{{validation.message}}</span>
                   </div> -->
@@ -172,7 +175,7 @@
 
   <mat-dialog-actions style="float: right;">
     <button class="btn btn-default" [mat-dialog-close]="true">Cancel</button>&nbsp;&nbsp;&nbsp;
-    <button type="submit" class="btn btn-primary" [disabled]="!tankform.valid">Save</button>
+    <button type="submit" class="btn btn-primary" [disabled]="!tankform.valid" (click)="checkFormValid()">Save</button>
   </mat-dialog-actions>
 </form>
 

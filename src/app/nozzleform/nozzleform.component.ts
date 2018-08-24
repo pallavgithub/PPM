@@ -21,15 +21,19 @@ export class NozzleformComponent implements OnInit {
 
   nozzle: pp_Nozzle = new pp_Nozzle();
   tank: Tank[];
+  isTankVisisble:boolean;
   IsEditDialog: boolean;
   nozzleform: FormGroup;
   fuelTypes: FuelType[];
+  validationAssignedToMessage: string;
+  validationTankNameMessage: string;
+  validationFuelTypeMessage: string;
   newUserIdName: UserIdName[];
-  validation_messages = {    
+  validation_messages = {
     'Email': [
       { type: 'required', message: 'Email is required' },
       { type: 'email', message: 'Enter a valid email' }
-    ],    
+    ],
     'Password': [
       { type: 'required', message: 'Password is required' },
       { type: 'minlength', message: 'Password must be at least 8 characters long' },
@@ -48,43 +52,50 @@ export class NozzleformComponent implements OnInit {
     'ReadingType': [
       { type: 'required', message: 'Reading Type is required' }
     ],
+    'OpeningReading': [
+      { type: 'required', message: 'Opening Reading is required' },
+      { type: 'pattern', message: 'Only digits are allowed' }
+    ],
     'Phone': [
       { type: 'required', message: 'Phone is required' },
       { type: 'minlength', message: 'Phone must be at least 10 characters long' },
       { type: 'maxlength', message: 'Phone can be 12 characters long' },
       { type: 'pattern', message: 'Only Numbers are allowed.' }
     ],
-    'CreditLimit': [      
+    'CreditLimit': [
       { type: 'pattern', message: 'Only Numbers are allowed.' }
-    ]    
+    ]
   }
   constructor(private toasterService: ToasterService, private router: Router, private userService: UserService, @Inject(MAT_DIALOG_DATA) public data, private pumpService: PetrolPumpService,
-    private dialogRef: MatDialogRef<NozzleformComponent>, private _formBuilder: FormBuilder,public datepipe: DatePipe) { }
+    private dialogRef: MatDialogRef<NozzleformComponent>, private _formBuilder: FormBuilder, public datepipe: DatePipe) { }
 
   ngOnInit() {
     this.nozzle = this.data.nozzle;
+    this.isTankVisisble = true;
     if (this.nozzle.IsEditModal) {
       this.IsEditDialog = true;
     }
     else {
       this.IsEditDialog = false;
     }
-    this.getTanksByID(this.nozzle.PetrolPumpCode);
+    //this.getTanksByID(this.nozzle.PetrolPumpCode);
+    this.getTanksByIDAndFuelType(this.nozzle.PetrolPumpCode,this.nozzle.FuelTypeID);
     this.getFuelTypeByID(this.nozzle.PetrolPumpCode);
     this.getIdAndNameForAllUser(this.nozzle.PetrolPumpCode);
+    this.DisableControlsByFuelTypeInEdit();
     this.nozzleform = this._formBuilder.group({
       ID: [this.nozzle.ID],
       PetrolPumpCode: [this.nozzle.PetrolPumpCode],
       NozzleCode: [this.nozzle.NozzleCode],
       TankID: [this.nozzle.TankID],
-      OpeningReading: [this.nozzle.OpeningReading],
+      OpeningReading: [this.nozzle.OpeningReading, Validators.compose([Validators.required, Validators.pattern('^(\\d{1,20})$')])],
       IsEditModal: [this.nozzle.IsEditModal],
       FuelTypeID: [this.nozzle.FuelTypeID],
-      NozzleName:[this.nozzle.NozzleName,Validators.compose([Validators.required])],
-      ReadingDate:[this.nozzle.ReadingDate],
-      AssignedTo:[this.nozzle.AssignedTo]
+      NozzleName: [this.nozzle.NozzleName, Validators.compose([Validators.required])],
+      ReadingDate: [this.nozzle.ReadingDate],
+      AssignedTo: [this.nozzle.AssignedTo]
     });
-    let latest_date =this.datepipe.transform(this.nozzle.ReadingDate, 'yyyy-MM-dd');
+    let latest_date = this.datepipe.transform(this.nozzle.ReadingDate, 'yyyy-MM-dd');
     this.nozzleform.get('ReadingDate').setValue(latest_date);
     //this.nozzle.pp_Nozzles.length==0 && this.nozzle.pp_Nozzles.push(new pp_Nozzle());
   }
@@ -97,24 +108,71 @@ export class NozzleformComponent implements OnInit {
 
   onChange() {
     //this.getTanksByID(this.nozzle.PetrolPumpCode);
-    this.getTanksByIDAndFuelType(this.nozzle.PetrolPumpCode,this.nozzleform.controls['FuelTypeID'].value)
+    this.getTanksByIDAndFuelType(this.nozzle.PetrolPumpCode, this.nozzleform.controls['FuelTypeID'].value)
     this.DisableControlsByRole();
+    this.checkFormValid();
+  }
+  onChangeTank() {
+    this.checkFormValid();
+  }
+  onChangeAssignedTo() {
+    this.checkFormValid();
+  }
+
+  checkFormValid() {
+    if (this.nozzleform.controls['FuelTypeID'].value == 0) {
+      this.validationFuelTypeMessage = "Please select Fuel Type";
+      return false;
+    }
+    else {
+      this.validationFuelTypeMessage = "";
+    }
+    if (this.nozzleform.controls['FuelTypeID'].value != 5) // 5 for cng
+    {
+      if (this.nozzleform.controls['TankID'].value == 0) {
+        this.validationTankNameMessage = "Please select Tank";
+        return false;
+      }
+      else {
+        this.validationTankNameMessage = "";
+      }
+    }
+
+    if (this.nozzleform.controls['AssignedTo'].value == 0) {
+      this.validationAssignedToMessage = "Please select Assigned To";
+      return false;
+    }
+    else {
+      this.validationAssignedToMessage = "";
+    }
   }
 
 
   DisableControlsByRole() {
-    
-    if (this.nozzleform.controls['FuelTypeID'].value == '5') { // 2 for Creditor
+
+    if (this.nozzleform.controls['FuelTypeID'].value == '5') { // 5 for Creditor
       this.nozzleform.controls['TankID'].setValue(0);
       this.nozzleform.controls['TankID'].disable();
-      
+      this.isTankVisisble = false;
+
     }
     else {
       this.nozzleform.controls['TankID'].enable();
+      this.isTankVisisble = true;
     }
   }
-  getTanksByIDAndFuelType(petrolPumpCode: string, fuelTypeID:number) {
-    this.userService.getTanksByIDAndFuelType(petrolPumpCode,fuelTypeID).subscribe(data => {
+  DisableControlsByFuelTypeInEdit() {
+
+    if (this.nozzle.FuelTypeID == 5) { // 5 for Creditor      
+      this.isTankVisisble = false;
+
+    }
+    else {
+      this.isTankVisisble = true;
+    }
+  }
+  getTanksByIDAndFuelType(petrolPumpCode: string, fuelTypeID: number) {
+    this.userService.getTanksByIDAndFuelType(petrolPumpCode, fuelTypeID).subscribe(data => {
       this.tank = data;
     });
   }
@@ -127,9 +185,9 @@ export class NozzleformComponent implements OnInit {
   getFuelTypeByID(petrolPumpCode: string) {
     this.userService.getFuelTypeByID(petrolPumpCode).subscribe(data => {
       this.fuelTypes = data;
-      this.fuelTypes = this.fuelTypes.filter(item=>item.Name != 'Lubes - Motor Oil'
-      && item.Name != 'Lubes - Gear Oil' && item.Name != 'Lubes - Transmission Fluid' 
-      && item.Name != 'Lubes - White Grease' && item.Name != 'Lubes - Electronic Grease');
+      this.fuelTypes = this.fuelTypes.filter(item => item.Name != 'Lubes - Motor Oil'
+        && item.Name != 'Lubes - Gear Oil' && item.Name != 'Lubes - Transmission Fluid'
+        && item.Name != 'Lubes - White Grease' && item.Name != 'Lubes - Electronic Grease' && item.Name != 'Polution');
     });
   }
 
@@ -140,18 +198,17 @@ export class NozzleformComponent implements OnInit {
       // && item.Name != 'Lubes - Gear Oil' && item.Name != 'Lubes - Transmission Fluid' 
       // && item.Name != 'Lubes - White Grease' && item.Name != 'Lubes - Electronic Grease');
     });
-  //  this.newUserIdName = this.user.map(item => {
-  //    return { ID: item.ID, Name: item.UserId };
-  //  });
-  //  return this.newUserIdName;
- }
+    //  this.newUserIdName = this.user.map(item => {
+    //    return { ID: item.ID, Name: item.UserId };
+    //  });
+    //  return this.newUserIdName;
+  }
 
-  createNozzle()
-  {
-    this.pumpService.addUpdatePumpNozzle(this.nozzleform.value).subscribe(res=>{
-      this.toasterService.pop('success','',"Saved successfully");
+  createNozzle() {
+    this.pumpService.addUpdatePumpNozzle(this.nozzleform.value).subscribe(res => {
+      this.toasterService.pop('success', '', "Saved successfully");
       this.dialogRef.close();
-      this.router.navigate(['/pumpDetails',this.nozzle.PetrolPumpCode]);
+      this.router.navigate(['/pumpDetails', this.nozzle.PetrolPumpCode]);
     })
   }
   // addNozzle()

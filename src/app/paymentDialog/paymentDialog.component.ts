@@ -26,6 +26,7 @@ export class PaymentDialogFormComponent implements OnInit {
   IsEditDialog: boolean;
   btnDisabled: boolean = false;
   paymentDialogform: FormGroup;
+  validationPaymentTypeMessage : string;
   validation_messages = {
     'Email': [
       { type: 'required', message: 'Email is required' },
@@ -89,6 +90,15 @@ export class PaymentDialogFormComponent implements OnInit {
     });
     // this.DisableControlsByRole();
   }
+  checkFormValid() {
+    if (this.paymentDialogform.controls['PaymentTypeID'].value == 0) {
+      this.validationPaymentTypeMessage = "Please select Payment Type";
+      return false;
+    }
+    else{
+      this.validationPaymentTypeMessage = "";
+    }
+  }
 
   // getAllProducts() {
   //   this.userService.getAllProductsWithCategory().subscribe(data => {
@@ -119,6 +129,7 @@ export class PaymentDialogFormComponent implements OnInit {
     let paymentTypeID = 0;
     paymentTypeID = this.paymentDialogform.controls['PaymentTypeID'].value;
     this.DisableControlsByRole(paymentTypeID);
+    this.checkFormValid();
   }
 
   DisableControlsByRole(paymentTypeID: number) {

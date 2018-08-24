@@ -1,28 +1,31 @@
-<mat-tab-group>
-    <mat-tab>
-        <ng-template mat-tab-label>
-          DashBoard          
-        </ng-template>        
-        <pump-inventory *ngIf="pumpInventory" [pumpInventory]='pumpInventory' [pumpCode]='petrolPumpCode'></pump-inventory>
-      </mat-tab>
-    <mat-tab>
-      <ng-template mat-tab-label>
-        Inventory
-        <div>
-          <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].BasicInfo == 1">
-            <img src="../../assets/smalltickumber.png" class="imgTab">
-          </div>
-          <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].BasicInfo == 0">
-            <img src="../../assets/small-red-cross.png"  class="imgTab">
-          </div>
+<mat-tab-group aria-orientation="vertical">
+  <mat-tab aria-orientation="vertical">
+    <ng-template mat-tab-label>
+      DashBoard
+    </ng-template>
+    <pump-inventory *ngIf="pumpInventory" [pumpInventory]='pumpInventory' [pumpCode]='petrolPumpCode'></pump-inventory>
+  </mat-tab>
+  <mat-tab aria-orientation="vertical">
+    <ng-template mat-tab-label>
+      Inventory
+      <div>
+        <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].BasicInfo == 1">
+          <img src="../../assets/smalltickumber.png" class="imgTab">
         </div>
-      </ng-template>
-      <div class="col-md-12">
-        <button class="btn btn-primary" style="float:right;" (click)="openAddInventoryDialog()">Add Inventory</button>
+        <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].BasicInfo == 0">
+          <img src="../../assets/small-red-cross.png" class="imgTab">
+        </div>
       </div>
-      <pump-inventory *ngIf="pumpInventory" [pumpInventory]='pumpInventory' [pumpCode]='petrolPumpCode'></pump-inventory>
-    </mat-tab>
-    <!-- <mat-tab>
+    </ng-template>
+    <div class="col-md-12">
+      <button class="btn btn-primary" style="float:right;" (click)="openAddInventoryDialog()">Add Inventory</button>
+    </div>
+    <pump-inventory *ngIf="pumpInventory" [pumpInventory]='pumpInventory' [pumpCode]='petrolPumpCode'></pump-inventory>
+  </mat-tab>
+
+</mat-tab-group>
+
+<!-- <mat-tab>
       <ng-template mat-tab-label>
         Additional Details
         <div>
@@ -121,4 +124,3 @@
       </div>
       <pump-nozzle *ngIf="pumpNozzles" [pumpNozzle]='pumpNozzles' [pumpCode]='petrolPumpCode'></pump-nozzle>
     </mat-tab> -->
-  </mat-tab-group>

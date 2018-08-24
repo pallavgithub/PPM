@@ -18,8 +18,12 @@
                     <option [ngValue]="0" disabled>--Select--</option>
                     <option *ngFor="let fuelType of fuelTypes;let i=index" [ngValue]="fuelType.ID">{{fuelType.Name}}</option>
                 </select>
+                <span class="error-message">{{validationFuelTypeMessage}}</span>
             </div>
         </div>
+    </div>
+    <div class="row saperatorDiv"><span class="saperatorSpan">Nozzle</span></div>
+    <div class="row">
         <div class="col-md-6">
             <div class="form-group">
                 <label for="NozzleName">Nozzle Name</label>
@@ -31,25 +35,18 @@
             </div>
         </div>
     </div>
+    <div class="row saperatorDiv"><span class="saperatorSpan">Nozzle Initial</span></div>
     <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="TankName">Tank</label>
-                <select name="tank" class="form-control" formControlName="TankID">
-                    <option [ngValue]="0" disabled>--Select--</option>
-                    <option *ngFor="let itemTank of tank;let i=index" [ngValue]="itemTank.ID">{{itemTank.Name}}</option>
-                </select>
-            </div>
-        </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label for="OpeningReading">Opening Reading</label>
                 <input type="number" placeholder="Opening Reading" class="form-control" name="OpeningReading" formControlName="OpeningReading"
                     required>
+                    <div *ngFor="let validation of validation_messages.OpeningReading">
+                            <span class="error-message" *ngIf="nozzleform.get('OpeningReading').hasError(validation.type) && (nozzleform.get('OpeningReading').dirty || nozzleform.get('OpeningReading').touched)">{{validation.message}}</span>
+                        </div>
             </div>
         </div>
-    </div>
-    <div class="row">
         <div class="col-md-6">
             <div class="form-group">
                 <label for="ReadingDate">Reading Date</label>
@@ -59,16 +56,33 @@
                         </div> -->
             </div>
         </div>
+    </div>
+    <div class="row saperatorDiv" *ngIf="isTankVisisble"><span class="saperatorSpan">Select Tank</span></div>
+    <div class="row" *ngIf="isTankVisisble">
         <div class="col-md-6">
-                <div class="form-group">
-                        <label for="AssignedTo">Assigned To</label>
-                        <span class="required">*</span>
-                        <select name="fuelType" class="form-control" formControlName="AssignedTo">
-                            <option [ngValue]="0" disabled>--Select--</option>
-                            <option *ngFor="let itemUserIdName of newUserIdName;let i=index" [ngValue]="itemUserIdName.ID">{{itemUserIdName.UserId}}</option>
-                        </select>
-                </div>
+            <div class="form-group">
+                <label for="TankName">Tank</label>
+                <select name="tank" class="form-control" formControlName="TankID" (change)="onChangeTank()">
+                    <option [ngValue]="0" disabled>--Select--</option>
+                    <option *ngFor="let itemTank of tank;let i=index" [ngValue]="itemTank.ID">{{itemTank.Name}}</option>
+                </select>
+                <span class="error-message">{{validationTankNameMessage}}</span>
             </div>
+        </div>
+    </div>
+    <div class="row saperatorDiv"><span class="saperatorSpan">Nozzle Assigned To</span></div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="AssignedTo">Assigned To</label>
+                <span class="required">*</span>
+                <select name="fuelType" class="form-control" formControlName="AssignedTo" (change)="onChangeAssignedTo()">
+                    <option [ngValue]="0" disabled>--Select--</option>
+                    <option *ngFor="let itemUserIdName of newUserIdName;let i=index" [ngValue]="itemUserIdName.ID">{{itemUserIdName.UserId}}</option>
+                </select>
+                <span class="error-message">{{validationAssignedToMessage}}</span>
+            </div>
+        </div>
     </div>
     <!-- <div *ngFor="let nozzle of tank.pp_Nozzles; let i=index" class="panel panel-default">
       <div class="panel-heading">
@@ -99,6 +113,6 @@
     </div> -->
     <mat-dialog-actions style="float: right;">
         <button class="btn btn-default" [mat-dialog-close]="true">Cancel</button>&nbsp;&nbsp;&nbsp;
-        <button type="submit" class="btn btn-primary" [disabled]="!nozzleform.valid">Save</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!nozzleform.valid" (click)="checkFormValid()">Save</button>
     </mat-dialog-actions>
 </form>

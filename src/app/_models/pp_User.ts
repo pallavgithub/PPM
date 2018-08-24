@@ -2,6 +2,7 @@ export class pp_User {
   ID: number;
   UserId: string;
   Password: string;
+  ConfirmPassword: string;
   PetrolPumpCode: string;
   FullName: string;
   Email: string;
@@ -25,5 +26,6 @@ export class pp_User {
     this.CreditLimit=0;
     this.Description=null;
     this.IsEditModal = false;
+    this.ConfirmPassword = null;
   }
 }

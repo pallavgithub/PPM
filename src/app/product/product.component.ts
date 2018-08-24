@@ -18,7 +18,7 @@ export class ProductComponent implements OnInit {
   @Input() pumpProduct: pp_PumpProduct[];
   @Input() pumpCode: string;
   allProducts: AllProduct[];
-  units: Unit[]
+  units: Unit[];
   constructor(private router:Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService) {
 
   }

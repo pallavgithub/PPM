@@ -8,6 +8,7 @@ import { pp_PumpProduct } from '../_models/pp_PumpProduct';
 import { TankformComponent } from '../tankform/tankform.component';
 import { NozzleformComponent } from '../nozzleform/nozzleform.component';
 import { MatDialog } from '@angular/material';
+import {MatSidenavModule} from '@angular/material/sidenav';
 import { UserformComponent } from '../userform/userform.component';
 import { ProductDialogFormComponent } from '../productDialog/productDialog.component';
 import { pp_Nozzle } from '../_models/pp_Nozzle';
@@ -49,7 +50,7 @@ export class DashBoardComponent implements OnInit {
   ngOnInit() {
     if (this.petrolPumpCode && this.petrolPumpCode!='') {
       this.getPumpInfo(this.petrolPumpCode);
-      this.getPumpStatus(this.petrolPumpCode);
+      //this.getPumpStatus(this.petrolPumpCode);
     }
   }
 

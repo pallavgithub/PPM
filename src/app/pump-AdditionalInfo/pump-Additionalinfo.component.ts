@@ -15,15 +15,26 @@ import { State } from '../_models/State';
 export class PumpAdditionalInfoComponent implements OnInit {
   @Input() petrolPump: pp_PetrolPump;
   pumpAdditionalInfoForm: FormGroup;
+  validationStateMessage:string;
   states: State[]
   validation_messages = {
     'Email': [
       { type: 'required', message: 'Email is required' },
       { type: 'email', message: 'Enter a valid email' }
     ],
-    'Password': [
-      { type: 'required', message: 'Password is required' },
-      { type: 'minlength', message: 'Password must be at least 8 characters long' },
+    'Address': [
+      { type: 'required', message: 'Address is required' },
+      { type: 'maxlength', message: 'Maximum 255 charecters are allowed' },
+      { type: 'pattern', message: 'Only Alphabets, Numbers, @, &, !, -, _ and . are allowed.' }
+    ],
+    'Address2': [
+      { type: 'required', message: 'Address2 is required' },
+      { type: 'maxlength', message: 'Maximum 255 charecters are allowed' },
+      { type: 'pattern', message: 'Only Alphabets, Numbers, @, &, !, -, _ and . are allowed.' }
+    ],
+    'City': [
+      { type: 'required', message: 'City is required' },
+      { type: 'maxlength', message: 'Maximum 20 charecters are allowed' },
       { type: 'pattern', message: 'Only Alphabets, Numbers, @, &, !, -, _ and . are allowed.' }
     ],
     'PetrolPumpName': [
@@ -75,13 +86,13 @@ export class PumpAdditionalInfoComponent implements OnInit {
     this.pumpAdditionalInfoForm = this._formBuilder.group({
       PetrolPumpCode: [this.petrolPump.PetrolPumpCode],
       PetrolPumpName: [this.petrolPump.PetrolPumpName, Validators.compose([Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z0-9@&]*$')])],
-      PetrolPumpPincode: [this.petrolPump.PetrolPumpPincode, Validators.compose([Validators.pattern('^(\\s*|\\d{6,6})$')])],
+      PetrolPumpPincode: [this.petrolPump.PetrolPumpPincode, Validators.compose([Validators.required,Validators.minLength(6), Validators.maxLength(6), Validators.pattern('^(\\s*|\\d{6,6})$')])],
       OwnerName: [this.petrolPump.OwnerName, Validators.compose([Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z0-9\\s]*$')])],
       Logo: [this.petrolPump.Logo],
       Address: [this.petrolPump.Address, Validators.compose([Validators.required, Validators.maxLength(255)])],
-      Address2: [this.petrolPump.Address2],
-      City: [this.petrolPump.City],
-      State: [this.petrolPump.State],
+      Address2: [this.petrolPump.Address2, Validators.compose([Validators.required, Validators.maxLength(255)])],
+      City: [this.petrolPump.City, Validators.compose([Validators.required, Validators.maxLength(20)])],
+      State: [this.petrolPump.State, Validators.compose([Validators.required])],
       Mobile: [this.petrolPump.Mobile, Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(12), Validators.pattern('^[0-9]*$')])],
       Email: [this.petrolPump.Email, Validators.compose([Validators.required, Validators.email])],
       TIN: [this.petrolPump.TIN, Validators.compose([Validators.pattern('^(\\s*|\\d{11,11})$')])],
@@ -104,5 +115,19 @@ export class PumpAdditionalInfoComponent implements OnInit {
     this.petrolPumpService.getAllStates().subscribe(data => {
       this.states = data;
     });
+  }
+  checkFormValid() {
+    if (this.pumpAdditionalInfoForm.controls['State'].value == 0) {
+      this.validationStateMessage = "Please select State";
+      return false;
+    }
+    else
+    {
+      this.validationStateMessage = "";
+    }
+  }
+  onChange()
+  {
+    this.checkFormValid();
   }
 }

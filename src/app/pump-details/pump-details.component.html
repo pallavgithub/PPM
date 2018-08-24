@@ -1,4 +1,4 @@
-<mat-tab-group>
+<mat-tab-group (selectedTabChange)="onLinkClick($event)">
   <mat-tab>
     <ng-template mat-tab-label>
       Basic
@@ -27,7 +27,7 @@
     </ng-template>
     <pump-Additionalinfo *ngIf="petrolPumpInfo" [petrolPump]='petrolPumpInfo'></pump-Additionalinfo>
   </mat-tab>
-  <mat-tab>
+  <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].AdditionalInfo == 1)'>
     <ng-template mat-tab-label>
       Products
       <div>
@@ -44,7 +44,7 @@
     </div>
     <pump-product *ngIf="pumpProduct" [pumpProduct]='pumpProduct' [pumpCode]='petrolPumpCode'></pump-product>
   </mat-tab>
-  <mat-tab>
+  <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Product == 1)'>
     <ng-template mat-tab-label>
       Payment
       <div>
@@ -61,7 +61,7 @@
     </div>
     <pump-payment *ngIf="pumpPayment" [pumpPayment]='pumpPayment' [pumpCode]='petrolPumpCode'></pump-payment>
   </mat-tab>
-  <mat-tab>
+  <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Payment == 1)'>
     <ng-template mat-tab-label>
       Users
       <div>
@@ -78,7 +78,7 @@
     </div>
     <pump-users *ngIf="pumpUsers" [pumpUsers]='pumpUsers' [pumpCode]='petrolPumpCode'></pump-users>
   </mat-tab>
-  <mat-tab>
+  <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Payment == 1)'>
     <ng-template mat-tab-label>
       Tanks
       <div>
@@ -95,7 +95,7 @@
     </div>
     <pump-tank *ngIf="pumpTanks" [pumpTanks]='pumpTanks' [pumpCode]='petrolPumpCode'></pump-tank>
   </mat-tab>
-  <mat-tab>
+  <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Tank == 1)'>
     <ng-template mat-tab-label>
       Nozzles
       <div>

@@ -66,7 +66,7 @@
                 <label for="Password">Password
                     <span class="required">*</span>
                 </label>
-                <input placeholder="Password" class="form-control" formControlName="Password">
+                <input type="password" placeholder="Password" class="form-control" formControlName="Password">
                 <div *ngFor="let validation of validation_messages.Password">
                     <span class="error-message" *ngIf="registerForm.get('Password').hasError(validation.type) && (registerForm.get('Password').dirty || registerForm.get('Password').touched)">{{validation.message}}</span>
                 </div>
@@ -77,7 +77,7 @@
                 <label for="ConfirmPassword">Confirm Password
                     <span class="required">*</span>
                 </label>
-                <input placeholder="Confirm Password" class="form-control" formControlName="ConfirmPassword">
+                <input type="password" placeholder="Confirm Password" class="form-control" formControlName="ConfirmPassword">
                 <div *ngFor="let validation of validation_messages.ConfirmPassword">
                     <span class="error-message" *ngIf="registerForm.get('ConfirmPassword').hasError(validation.type) && (registerForm.get('ConfirmPassword').dirty || registerForm.get('ConfirmPassword').touched)">{{validation.message}}</span>
                     <!-- <span>Passwords do not match</span> -->

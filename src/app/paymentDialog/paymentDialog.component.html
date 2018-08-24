@@ -9,20 +9,23 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="form-group">
-                <label for="PaymentTypeID">Payment Type</label>
+                <label for="PaymentTypeID">Payment Type
+                        <span class="required">*</span>
+                </label>
                 <select class="form-control" formControlName="PaymentTypeID" (change)="onChange()">
                     <option [ngValue]="0" disabled>--Select--</option>
                     <option *ngFor="let itemPaymentTypes of paymentTypes;let i=index" [ngValue]="itemPaymentTypes.ID">{{itemPaymentTypes.Name}}</option>
                 </select>
+                <span class="error-message">{{validationPaymentTypeMessage}}</span>
                 <!-- <div *ngFor="let validation of validation_messages.ProductID">
                     <span class="error-message" *ngIf="paymentDialogform.get('PaymentTypeID').hasError(validation.type) && (paymentDialogform.get('PaymentTypeID').dirty || paymentDialogform.get('PaymentTypeID').touched)">{{validation.message}}</span>
                 </div> -->
             </div>
         </div>
     </div>
-    <div>
+    <!-- <div>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -34,9 +37,6 @@
                 <div class="form-group">
                     <label for="BankCode">Bank Code</label>
                     <input placeholder="Bank Code" class="form-control" formControlName="BankCode">
-                    <!-- <div *ngFor="let validation of validation_messages.Description">
-                        <span class="error-message" *ngIf="productDialogform.get('Description').hasError(validation.type) && (productDialogform.get('Description').dirty || productDialogform.get('Description').touched)">{{validation.message}}</span>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -45,9 +45,6 @@
                 <div class="form-group">
                     <label for="ChequeNumber">Cheque Number</label>
                     <input placeholder="Cheque Number" class="form-control" formControlName="ChequeNumber">
-                    <!-- <div *ngFor="let validation of validation_messages.Quantity">
-                        <span class="error-message" *ngIf="productDialogform.get('Quantity').hasError(validation.type) && (productDialogform.get('Quantity').dirty || productDialogform.get('Quantity').touched)">{{validation.message}}</span>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -56,9 +53,6 @@
                 <div class="form-group">
                     <label for="DraftNumber">Draft Number</label>
                     <input placeholder="Draft Number" class="form-control" formControlName="DraftNumber">
-                    <!-- <div *ngFor="let validation of validation_messages.Quantity">
-                            <span class="error-message" *ngIf="productDialogform.get('Quantity').hasError(validation.type) && (productDialogform.get('Quantity').dirty || productDialogform.get('Quantity').touched)">{{validation.message}}</span>
-                        </div> -->
                 </div>
             </div>
         </div>
@@ -66,16 +60,13 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="WalletNumber">Wallet Number</label>
-                    <input placeholder="Wallet Number" class="form-control" formControlName="WalletNumber">
-                    <!-- <div *ngFor="let validation of validation_messages.Quantity">
-                                <span class="error-message" *ngIf="productDialogform.get('Quantity').hasError(validation.type) && (productDialogform.get('Quantity').dirty || productDialogform.get('Quantity').touched)">{{validation.message}}</span>
-                            </div> -->
+                    <input placeholder="Wallet Number" class="form-control" formControlName="WalletNumber">                   
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <mat-dialog-actions style="float: right;">
         <button class="btn btn-default" [mat-dialog-close]="true">Cancel</button>&nbsp;&nbsp;&nbsp;
-        <button type="submit" class="btn btn-primary" [disabled]="!paymentDialogform.valid">Save</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!paymentDialogform.valid" (click)="checkFormValid()">Save</button>
     </mat-dialog-actions>
 </form>

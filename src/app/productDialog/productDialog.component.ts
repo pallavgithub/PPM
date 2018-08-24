@@ -24,7 +24,9 @@ export class ProductDialogFormComponent implements OnInit {
   IsEditDialog: boolean;
   btnDisabled: boolean = false;
   productDialogform: FormGroup;
-  validationProductIDMessage:string;
+  validationProductIDMessage: string;
+  validationUnitMessage: string;
+  isInitials:boolean;
   validation_messages = {
     'Email': [
       { type: 'required', message: 'Email is required' },
@@ -37,8 +39,23 @@ export class ProductDialogFormComponent implements OnInit {
       { type: 'required', message: 'UserId is required' },
       { type: 'minlength', message: 'UserId must be at least 5 characters long' }
     ],
-    'FullName': [
-      { type: 'required', message: 'Name is required' }
+    'InitialQuantity': [
+      { type: 'required', message: 'Initial Quantity is required' }
+    ],
+    'InitialReading': [
+      { type: 'required', message: 'Initial Reading is required' }
+    ],
+    'PurchaseRate': [
+      { type: 'required', message: 'Purchase Rate is required' }
+    ],
+    'PurchaseDate': [
+      { type: 'required', message: 'Purchase Date is required' }
+    ],
+    'SaleRate': [
+      { type: 'required', message: 'Sale Rate is required' }
+    ],
+    'SaleDate': [
+      { type: 'required', message: 'Sale Date is required' }
     ],
     'Phone': [
       { type: 'required', message: 'Phone is required' },
@@ -58,6 +75,7 @@ export class ProductDialogFormComponent implements OnInit {
   ngOnInit() {
     this.pumpProduct = this.data.pumpProductNew;
     this.divCategory = 0;
+    this.isInitials = true;
     if (this.pumpProduct.IsEditModal == true) {
       this.IsEditDialog = true;
     }
@@ -66,7 +84,7 @@ export class ProductDialogFormComponent implements OnInit {
     }
     this.getAllProducts();
     this.getAllUnits();
-    this.DisableControlsByRole(this.pumpProduct.CategoryID);
+    this.DisableControlsByRole(this.pumpProduct.CategoryID,this.pumpProduct.ProductID);
 
     this.productDialogform = this._formBuilder.group({
       ID: [this.pumpProduct.ID],
@@ -97,6 +115,21 @@ export class ProductDialogFormComponent implements OnInit {
       this.validationProductIDMessage = "Please select Product ID";
       return false;
     }
+    else
+    {
+      this.validationProductIDMessage = "";
+    }
+    let categoryID = 0;
+    categoryID = this.GetCategoryByProductID(this.productDialogform.controls['ProductID'].value);
+    if (categoryID == 1 || categoryID == 2) {
+      if (this.productDialogform.controls['Unit'].value == 0) {
+        this.validationUnitMessage = "Please select Unit";
+        return false;
+      }
+      else{
+        this.validationUnitMessage = "";
+      }
+    }
   }
   getAllProducts() {
     this.userService.getAllProductsWithCategory().subscribe(data => {
@@ -125,19 +158,30 @@ export class ProductDialogFormComponent implements OnInit {
 
   onChange() {
     let categoryID = 0;
+    let productID =this.productDialogform.controls['ProductID'].value;
     categoryID = this.GetCategoryID();
-    this.DisableControlsByRole(categoryID);
+    this.DisableControlsByRole(categoryID,productID);
+    this.checkFormValid();
   }
 
-  DisableControlsByRole(categoryID: number) {
+  DisableControlsByRole(categoryID: number, productID:number) {
 
     if (categoryID == 1) { // Lubricants
       // this.productDialogform.controls['Quantity'].enable();
+      if(productID == 5) // 5 for cng
+      {
+        this.isInitials = false;
+      }
+      else
+      {
+        this.isInitials = true;
+      }
       this.divCategory = 1;
     }
-    else if (categoryID == 2) {
-      // this.productDialogform.controls['Quantity'].disable();
+    else if (categoryID == 2) {      
       this.divCategory = 2;
+      // this.productDialogform.controls['Quantity'].disable();
+      
     }
     else {
       // this.productDialogform.controls['Quantity'].disable();

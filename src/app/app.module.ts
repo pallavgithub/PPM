@@ -41,7 +41,8 @@ import { HeaderComponent } from './header/header.component';// import { HttpServ
 import { FooterComponent } from './footer/footer.component';// import { HttpService } from 'src/app/_services/http.service';
 import { GlobalErrorHandler } from './_helpers/GlobalErrorHandler';
 import { ToasterModule } from 'angular2-toaster';
-import { MatTabsModule,MatDialogModule } from '@angular/material';
+import { MatTabsModule,MatDialogModule,MatTabChangeEvent   } from '@angular/material';
+import {MatSidenavModule} from '@angular/material/sidenav';
 import { PumpDetailsComponent } from './pump-details/pump-details.component';
 import {DashBoardComponent} from './dashboard/dashboard.component';
 import {ProductComponent} from './product/product.component';
@@ -61,6 +62,7 @@ import { HeaderLoginComponent } from './header-login/header-login.component';
         HttpClientModule,
         MatTabsModule,
         MatDialogModule,
+        MatSidenavModule, 
         routing,
         BrowserAnimationsModule,ToasterModule.forRoot(),NgbModule.forRoot()
         //HttpService

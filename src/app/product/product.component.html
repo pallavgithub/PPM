@@ -7,14 +7,12 @@
   <table style="border: 1px solid black" class="table table-striped">
     <thead class="thead-dark">
       <tr>
-        <!-- <th>Product Id</th> -->
         <th>Name</th>
         <th>Unit</th>
-        <th>InitialQuantity</th>
         <th>Purchase Rate</th>
-        <th>Sale Rate</th>
-        <th>Description</th>
-        <!-- <th>Modified By</th> -->
+        <th>Purchase Date</th>
+        <th>Sale Price</th>
+        <th>Sale Date</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -23,10 +21,10 @@
       <!-- <td>{{product.ProductID}}</td> -->
       <th>{{getProductName(product.ProductID)}}</th>
       <td>{{getUnitName(product.Unit)}}</td>
-      <td>{{product.InitialQuantity}}</td>
       <td>{{product.PurchaseRate}}</td>
+      <td>{{product.PurchaseDate | date}}</td>
       <td>{{product.SaleRate}}</td>
-      <td>{{product.Description}}</td>
+      <td>{{product.SaleDate | date}}</td>
       <!-- <td>{{product.CreatedOn}}</td>
       <td>{{product.CreatedBy}}</td> -->
       <!-- <td>{{getUserRole(product.RoleID)}}</td> -->
@@ -37,6 +35,6 @@
     </tr>
   </table>
 </div>
-<div>
+<!-- <div>
   <a [routerLink]="['/dashboard',this.pumpCode]">Manage Inventory</a>
-</div>
+</div> -->

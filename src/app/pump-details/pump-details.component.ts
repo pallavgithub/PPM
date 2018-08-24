@@ -15,6 +15,7 @@ import { UserIdName } from '../_models/UserIdName';
 import { pp_Payment } from '../_models/pp_Payment';
 import { PaymentDialogFormComponent } from '../paymentDialog/paymentDialog.component';
 import { PumpStatus } from '../_models/PumpStatus';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-pump-details',
@@ -30,6 +31,7 @@ export class PumpDetailsComponent implements OnInit {
   public pumpProduct: pp_PumpProduct[]=new Array<pp_PumpProduct>();
   public pumpPayment: pp_Payment[]=new Array<pp_Payment>();
   public pumpStatus: PumpStatus;
+
   navigationSubscription;
   public petrolPumpCode:string;
   constructor(public dialog: MatDialog,private activatedRoute: ActivatedRoute,private router: Router,private petrolPumpService: PetrolPumpService) { 
@@ -49,7 +51,8 @@ export class PumpDetailsComponent implements OnInit {
       this.getPumpStatus(this.petrolPumpCode);
     }
   }
-
+  onLinkClick(event) {
+  }
   getPumpInfo(pumpCode){    
     this.petrolPumpService.getPetrolPumpInfo(pumpCode).subscribe(res=>{
       this.petrolPumpInfo=res.pp_PetrolPump;

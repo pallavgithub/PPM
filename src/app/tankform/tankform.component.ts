@@ -23,6 +23,7 @@ export class TankformComponent implements OnInit {
   fuelTypes: FuelType[];
   readingTypes: ReadingType[];
   tankform: FormGroup;
+  validationFuelTypeMessage: string;
   validation_messages = {
     'Email': [
       { type: 'required', message: 'Email is required' },
@@ -94,6 +95,19 @@ export class TankformComponent implements OnInit {
     // });
     this.tank.pp_Nozzles.length == 0 && this.tank.pp_Nozzles.push(new pp_Nozzle());
   }
+
+  checkFormValid() {
+    if (this.tankform.controls['FuelTypeID'].value == 0) {
+      this.validationFuelTypeMessage = "Please select Fuel Type";
+      return false;
+    }
+    else {
+      this.validationFuelTypeMessage = "";
+    }
+  }
+  onchange() {
+    this.checkFormValid();
+  }
   getAllFuelType() {
     this.userService.getAllFuelType().subscribe(data => {
       this.fuelTypes = data;
@@ -109,7 +123,7 @@ export class TankformComponent implements OnInit {
       this.fuelTypes = data;
       this.fuelTypes = this.fuelTypes.filter(item => item.Name != 'CNG' && item.Name != 'Lubes - Motor Oil'
         && item.Name != 'Lubes - Gear Oil' && item.Name != 'Lubes - Transmission Fluid'
-        && item.Name != 'Lubes - White Grease' && item.Name != 'Lubes - Electronic Grease');
+        && item.Name != 'Lubes - White Grease' && item.Name != 'Lubes - Electronic Grease' && item.Name != 'Polution');
     });
   }
   createTank() {
