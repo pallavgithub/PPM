@@ -13,6 +13,7 @@ import { pp_Payment } from '../_models/pp_Payment';
 import { PaymentType } from '../_models/PaymentType';
 import { ReadingTypeDetail } from '../_models/readingTypeDetail';
 import { ReadingType } from '../_models/ReadingType';
+import { DatePipe } from '../../../node_modules/@angular/common';
 
 @Component({
   selector: 'readingTypeDialogform',
@@ -58,7 +59,7 @@ export class ReadingTypeDialogFormComponent implements OnInit {
     ]
   }
   constructor(private toasterService: ToasterService, public dialog: MatDialog, private router: Router, private userService: UserService, private _formBuilder: FormBuilder, private petrolPumpService: PetrolPumpService, @Inject(MAT_DIALOG_DATA) public data,
-    private dialogRef: MatDialogRef<ReadingTypeDialogFormComponent>) {
+    private dialogRef: MatDialogRef<ReadingTypeDialogFormComponent>, public datepipe: DatePipe) {
 
   }
 
@@ -72,6 +73,8 @@ export class ReadingTypeDialogFormComponent implements OnInit {
       ID: [this.pumpPayment.ID],
       PetrolPumpCode : [this.pumpPayment.PetrolPumpCode]
     });
+    let latest_ReadingDate = this.datepipe.transform(((this.pumpPayment.ReadingDate == "" || this.pumpPayment.ReadingDate == null ) ? new Date().toString() : this.pumpPayment.ReadingDate), 'yyyy-MM-dd');
+    this.readingTypeDialogform.get('ReadingDate').setValue(latest_ReadingDate);
     this.getReadingType();
   }
 

@@ -27,41 +27,21 @@
   </table> -->
 
   <div class="row" style="border-width: 1px 1px 1px 1px;border-style: solid;border-color:black;background-color: black;color: white;">
-    <div class="col-md-2">
+    <div class="col-md-3">
       <div class="form-group">
         <label for="TankName">Name</label>
       </div>
     </div>
-    <div class="col-md-1">
+    <div class="col-md-3">
       <div class="form-group">
         <label for="Fuel Type">Product</label>
       </div>
     </div>
-    <div class="col-md-1">
+    <div class="col-md-3">
       <div class="form-group">
         <label for="Capacity">Capacity</label>
       </div>
-    </div>
-    <div class="col-md-2">
-      <div class="form-group">
-        <label for="ReadingDate">Electronic Date</label>
-      </div>
-    </div>
-    <div class="col-md-1">
-      <div class="form-group">
-        <label for="ReadingType">Reading</label>
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="form-group">
-        <label for="ReadingDate">Dip Date</label>
-      </div>
-    </div>
-    <div class="col-md-1">
-      <div class="form-group">
-        <label for="ReadingType">Reading</label>
-      </div>
-    </div>
+    </div>    
     <div class="col-md-2">
       <div class="form-group">
         <label for="StartDate">Action</label>
@@ -70,56 +50,28 @@
   </div>
 
   <div class="row" *ngFor="let tank of pumpTanks let i=index" style="border-width: 0px 1px 1px 1px;border-style: solid;border-color:black">
-      <div class="col-md-2">
+      <div class="col-md-3">
         <div class="form-group">
           <div>
             <span>{{tank.TankName}}</span>
           </div>
         </div>
       </div>
-      <div class="col-md-1">
+      <div class="col-md-3">
         <div class="form-group">
           <div>
             <span>{{tank.ProductName}}</span>
           </div>
         </div>
       </div>
-      <div class="col-md-1">
+      <div class="col-md-3">
         <div class="form-group">
           <div>
             <span>{{tank.TankCapacity}}</span>
           </div>
         </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <div>
-            <span>{{tank.ReadingDate | date}}</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-1">
-        <div class="form-group">
-          <div>
-            <span>{{tank.OpeningReading}}</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <div>
-            <span>{{tank.DipReadingDate | date}}</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-1">
-        <div class="form-group">
-          <div>
-            <span>{{tank.DipOpeningReading}}</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-2">
+      </div>      
+      <div class="col-md-3">
         <div class="form-group">
           <div>
             <a (click)="editTank(tank)">Edit</a>&nbsp;

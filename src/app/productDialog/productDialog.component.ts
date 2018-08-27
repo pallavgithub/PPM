@@ -9,6 +9,7 @@ import { ToasterService } from 'angular2-toaster';
 import { Router } from '@angular/router';
 import { ProductWithCategory } from '../_models/ProductWithCategory';
 import { Unit } from '../_models/Unit';
+import { DatePipe } from '../../../node_modules/@angular/common';
 
 @Component({
   selector: 'productDialogform',
@@ -68,7 +69,7 @@ export class ProductDialogFormComponent implements OnInit {
     ]
   }
   constructor(private toasterService: ToasterService, public dialog: MatDialog, private router: Router, private userService: UserService, private _formBuilder: FormBuilder, private petrolPumpService: PetrolPumpService, @Inject(MAT_DIALOG_DATA) public data,
-    private dialogRef: MatDialogRef<ProductDialogFormComponent>) {
+    private dialogRef: MatDialogRef<ProductDialogFormComponent>, public datepipe: DatePipe) {
 
   }
 
@@ -107,9 +108,13 @@ export class ProductDialogFormComponent implements OnInit {
       DateStockMeasuredOn: [this.pumpProduct.DateStockMeasuredOn],
       CategoryID: [this.pumpProduct.CategoryID]
     });
+    let latest_PurchaseDate = this.datepipe.transform(((this.pumpProduct.PurchaseDate == "" || this.pumpProduct.PurchaseDate == null ) ? new Date().toString() : this.pumpProduct.PurchaseDate), 'yyyy-MM-dd');
+    this.productDialogform.get('PurchaseDate').setValue(latest_PurchaseDate);
+
+    let latest_SaleDate = this.datepipe.transform(((this.pumpProduct.SaleDate == "" || this.pumpProduct.SaleDate == null ) ? new Date().toString() : this.pumpProduct.SaleDate), 'yyyy-MM-dd');
+    this.productDialogform.get('SaleDate').setValue(latest_SaleDate);
     // this.DisableControlsByRole();
   }
-
   checkFormValid() {
     if (this.productDialogform.controls['ProductID'].value == 0) {
       this.validationProductIDMessage = "Please select Product ID";

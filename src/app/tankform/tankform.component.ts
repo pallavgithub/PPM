@@ -90,8 +90,8 @@ export class TankformComponent implements OnInit {
       DipReadingDate: [this.tank.DipReadingDate],
       DipOpeningReading: [this.tank.DipOpeningReading],
     });
-    let latest_date = this.datepipe.transform(this.tank.ReadingDate, 'yyyy-MM-dd');
-    this.tankform.get('ReadingDate').setValue(latest_date);
+    let latest_ReadingDate = this.datepipe.transform(((this.tank.ReadingDate == "" || this.tank.ReadingDate == null ) ? new Date().toString() : this.tank.ReadingDate), 'yyyy-MM-dd');
+    this.tankform.get('ReadingDate').setValue(latest_ReadingDate);
     // let dateTemp:string = this.tank.ReadingDate;
     // this.tankform.get('ReadingType').setValue({
     //   year: parseInt((dateTemp.format('YYYY'), 10),
@@ -142,14 +142,12 @@ export class TankformComponent implements OnInit {
   }
 
   openAddReadingTypeDialog() {
-    debugger
     let readingTypeDetailTemp: ReadingTypeDetail = new ReadingTypeDetail();
     //nozzle.PetrolPumpCode = this.petrolPumpCode;
     const dialogRef = this.dialog.open(ReadingTypeDialogFormComponent, {
       data: { readingTypeDetailTemp }
     });
     dialogRef.afterClosed().subscribe(result => {
-      debugger
       if (result.data != undefined && result.data != null) {
         let counter: number = 0;
         this.readingTypeDetails.forEach(element => {

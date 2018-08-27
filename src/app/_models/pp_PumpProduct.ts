@@ -22,7 +22,7 @@ export class pp_PumpProduct {
   ProductName:string;
   UnitName:string
   
-  constructor() {
+  constructor() {   
     this.ID=0;
     this.PetrolPumpCode = null;
     this.ProductID=0;

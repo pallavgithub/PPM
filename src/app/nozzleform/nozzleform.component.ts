@@ -95,8 +95,8 @@ export class NozzleformComponent implements OnInit {
       ReadingDate: [this.nozzle.ReadingDate],
       AssignedTo: [this.nozzle.AssignedTo]
     });
-    let latest_date = this.datepipe.transform(this.nozzle.ReadingDate, 'yyyy-MM-dd');
-    this.nozzleform.get('ReadingDate').setValue(latest_date);
+    let latest_ReadingDate = this.datepipe.transform(((this.nozzle.ReadingDate == "" || this.nozzle.ReadingDate == null ) ? new Date().toString() : this.nozzle.ReadingDate), 'yyyy-MM-dd');
+    this.nozzleform.get('ReadingDate').setValue(latest_ReadingDate);
     //this.nozzle.pp_Nozzles.length==0 && this.nozzle.pp_Nozzles.push(new pp_Nozzle());
   }
   // getAllFuelType()
