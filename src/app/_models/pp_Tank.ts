@@ -14,6 +14,7 @@ export class pp_Tank {
   ReadingType:number;
   DipReadingType:number;
   IsEditModal:boolean;
+  ProductName:string;
   /**
    *
    */
@@ -32,5 +33,6 @@ export class pp_Tank {
     this.ReadingType = 1;
     this.IsEditModal = false;
     this.DipReadingType = 2;
+    this.ProductName = '';
   }
 }

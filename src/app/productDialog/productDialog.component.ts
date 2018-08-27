@@ -166,16 +166,17 @@ export class ProductDialogFormComponent implements OnInit {
 
   DisableControlsByRole(categoryID: number, productID:number) {
 
-    if (categoryID == 1) { // Lubricants
+    if (categoryID == 1) { // Standard
       // this.productDialogform.controls['Quantity'].enable();
-      if(productID == 5) // 5 for cng
-      {
-        this.isInitials = false;
-      }
-      else
-      {
-        this.isInitials = true;
-      }
+      this.isInitials = false;
+      // if(productID == 5) // 5 for cng
+      // {
+      //   this.isInitials = false;
+      // }
+      // else
+      // {
+      //   this.isInitials = true;
+      // }
       this.divCategory = 1;
     }
     else if (categoryID == 2) {      

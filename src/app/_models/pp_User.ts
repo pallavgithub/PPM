@@ -12,6 +12,7 @@ export class pp_User {
   CreditLimit: number;
   Description: string;
   IsEditModal:boolean;
+  RoleName:string;
   
   constructor() {
     this.ID=0;
@@ -27,5 +28,6 @@ export class pp_User {
     this.Description=null;
     this.IsEditModal = false;
     this.ConfirmPassword = null;
+    this.RoleName = null;
   }
 }

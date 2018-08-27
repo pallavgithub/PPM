@@ -35,8 +35,8 @@ export class PumpNozzleComponent implements OnInit {
   ngOnInit() {
     //this.getAllFuelType();
     //this.getAllProducts();
-    this.getTanksByID(this.pumpCode);
-    this.getIdAndNameForAllUser(this.pumpCode);
+    //this.getTanksByID(this.pumpCode);
+    //this.getIdAndNameForAllUser(this.pumpCode);
   }
 
   getAllFuelType() {

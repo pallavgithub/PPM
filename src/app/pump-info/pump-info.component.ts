@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { pp_PetrolPump } from '../_models/pp_PetrolPump';
 import { PetrolPumpService } from '../_services/petrolpump.service';
 import { ToasterService } from 'angular2-toaster';
+import { UserDetail } from '../_models/userDetail';
 
 
 @Component({
@@ -13,12 +14,13 @@ import { ToasterService } from 'angular2-toaster';
 })
 export class PumpInfoComponent implements OnInit {
   @Input() petrolPump: pp_PetrolPump;
+  public userData: UserDetail;
   pumpInfoForm: FormGroup;
-  validation_messages = {    
+  validation_messages = {
     'Email': [
       { type: 'required', message: 'Email is required' },
       { type: 'email', message: 'Enter a valid email' }
-    ],    
+    ],
     'Password': [
       { type: 'required', message: 'Password is required' },
       { type: 'minlength', message: 'Password must be at least 8 characters long' },
@@ -41,30 +43,51 @@ export class PumpInfoComponent implements OnInit {
       { type: 'pattern', message: 'Only Numbers are allowed.' }
     ]
   }
-  constructor(private toasterService: ToasterService,private _formBuilder: FormBuilder,private router: Router,private petrolPumpService: PetrolPumpService) { 
-    
+  constructor(private toasterService: ToasterService, private _formBuilder: FormBuilder, private router: Router, private petrolPumpService: PetrolPumpService) {
+
   }
 
   ngOnInit() {
     this.pumpInfoForm = this._formBuilder.group({
-      PetrolPumpCode:[this.petrolPump.PetrolPumpCode],
-      PetrolPumpName: [this.petrolPump.PetrolPumpName,Validators.compose([ Validators.required,Validators.minLength(3),Validators.pattern('^[a-zA-Z0-9@&]*$')])],
-      PetrolPumpPincode:[this.petrolPump.PetrolPumpPincode,Validators.compose([ Validators.pattern('^(\\s*|\\d{6,6})$')])],
-      OwnerName: [this.petrolPump.OwnerName,Validators.compose([ Validators.required,Validators.minLength(3),Validators.pattern('^[a-zA-Z0-9\\s]*$')])],
+      PetrolPumpCode: [this.petrolPump.PetrolPumpCode],
+      PetrolPumpName: [this.petrolPump.PetrolPumpName, Validators.compose([Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z0-9@&]*$')])],
+      PetrolPumpPincode: [this.petrolPump.PetrolPumpPincode, Validators.compose([Validators.pattern('^(\\s*|\\d{6,6})$')])],
+      OwnerName: [this.petrolPump.OwnerName, Validators.compose([Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z0-9\\s]*$')])],
       Logo: [this.petrolPump.Logo],
       Address: [this.petrolPump.Address],
-      Mobile: [this.petrolPump.Mobile, Validators.compose([ Validators.required,Validators.minLength(10),Validators.maxLength(12),Validators.pattern('^[0-9]*$')])],
-      Email: [this.petrolPump.Email,Validators.compose([Validators.required,Validators.email])],
-      TIN: [this.petrolPump.TIN, Validators.compose([ Validators.minLength(11),Validators.maxLength(11),Validators.pattern('^[0-9]*$')])],
-      CST: [this.petrolPump.CST, Validators.compose([ Validators.minLength(11),Validators.maxLength(11),Validators.pattern('^[0-9]*$')])],
+      Mobile: [this.petrolPump.Mobile, Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(12), Validators.pattern('^[0-9]*$')])],
+      Email: [this.petrolPump.Email, Validators.compose([Validators.required, Validators.email])],
+      TIN: [this.petrolPump.TIN, Validators.compose([Validators.minLength(11), Validators.maxLength(11), Validators.pattern('^[0-9]*$')])],
+      CST: [this.petrolPump.CST, Validators.compose([Validators.minLength(11), Validators.maxLength(11), Validators.pattern('^[0-9]*$')])],
       LicenseStartDate: [this.petrolPump.LicenseStartDate, Validators.required],
       LicenseEndDate: [this.petrolPump.LicenseEndDate, Validators.required]
-})
-  }
-  
-  savePumpInfo(){
-    this.petrolPumpService.updatePetrolPumpInfo(this.pumpInfoForm.value).subscribe(res=>{
-      this.toasterService.pop('success','','Pump details updated successfully.');
     });
+    //this.getUserInfo();
+  }
+
+  savePumpInfo() {
+    this.petrolPumpService.updatePetrolPumpInfo(this.pumpInfoForm.value).subscribe(res => {
+      this.toasterService.pop('success', '', 'Pump details updated successfully.');
+    });
+  }
+  getUserInfo() {
+    this.petrolPumpService.getUserDetail().subscribe((res) => {
+      this.userData = res;
+      this.DisableControlsByRoleID(this.userData.RoleID);
+    }
+    // ,
+    //   (err) => {
+    //     this.alertService.error(err);
+    //   }
+    );
+  }
+
+  DisableControlsByRoleID(roleID: number) {
+    if (roleID != -2) {
+      this.pumpInfoForm.controls["PetrolPumpName"].disable();
+      this.pumpInfoForm.controls["OwnerName"].disable();
+      this.pumpInfoForm.controls["Email"].disable();
+      this.pumpInfoForm.controls["Mobile"].disable();
+    }
   }
 }

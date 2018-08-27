@@ -10,6 +10,7 @@ import { pp_Nozzle } from '../_models/pp_Nozzle';
 import { State } from '../_models/State';
 import { pp_Payment } from '../_models/pp_Payment';
 import { PumpStatus } from '../_models/PumpStatus';
+import { UserDetail } from '../_models/userDetail';
 
 @Injectable()
 export class PetrolPumpService {
@@ -35,6 +36,9 @@ export class PetrolPumpService {
 
     getPumpStatus(petrolPumpCode:string){
         return this.http.get<PumpStatus>(`${environment.apiUrl}/Pump/CheckFormCompletenes?petrolPumpCode=`+petrolPumpCode,);
+    }
+    getUserDetail(){
+        return this.http.get<UserDetail>(`${environment.apiUrl}/Pump/UserInfo`);
     }
     updatePetrolPumpInfo(pumpInfo:pp_PetrolPump){
         return this.http.post(`${environment.apiUrl}/Pump/UpdatePetrolPumpInfo`,JSON.stringify(pumpInfo));

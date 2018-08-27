@@ -33,7 +33,7 @@ export class PumpUsersComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getAllRoles();
+    //this.getAllRoles();
   }
   editUser(user: pp_User) {
     user.IsEditModal = true;

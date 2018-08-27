@@ -13,6 +13,7 @@ export class pp_Payment {
     ModifiedBy: number;
     ModifiedOn: string;
     IsEditModal: boolean;
+    PaymentTypeName:string;
     /**
      *
      */
@@ -31,5 +32,6 @@ export class pp_Payment {
         this.ModifiedOn = '';
         this.IsEditModal = false;
         this.WalletNumber = '';
+        this.PaymentTypeName = '';
     }
 }

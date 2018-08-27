@@ -30,8 +30,8 @@ export class PumpTankComponent implements OnInit {
 
   ngOnInit() {
     //this.getAllFuelType();
-    this.getAllProducts();
-    this.getReadingType();
+    //this.getAllProducts();
+    //this.getReadingType();
   }
 
   getReadingType() {

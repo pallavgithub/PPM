@@ -42,7 +42,7 @@ export class PaymentComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getAllPaymentType();
+    //this.getAllPaymentType();
     // this.getAllProducts();
     // this.getAllUnits();
   }

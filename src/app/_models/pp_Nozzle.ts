@@ -8,7 +8,9 @@ export class pp_Nozzle {
   FuelTypeID: number;
   NozzleName: string;
   ReadingDate:string;
-  AssignedTo:number
+  AssignedTo:number;
+  AssignedUserName:string;
+  TankName:string;
   /**
    *
    */
@@ -23,5 +25,7 @@ export class pp_Nozzle {
     this.NozzleName = '';
     this.ReadingDate = '';
     this.AssignedTo = 0;
+    this.AssignedUserName = '';
+    this.TankName = '';
   }
 }

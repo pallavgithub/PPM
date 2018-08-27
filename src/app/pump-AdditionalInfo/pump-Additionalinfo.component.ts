@@ -5,6 +5,7 @@ import { pp_PetrolPump } from '../_models/pp_PetrolPump';
 import { PetrolPumpService } from '../_services/petrolpump.service';
 import { ToasterService } from 'angular2-toaster';
 import { State } from '../_models/State';
+import { UserDetail } from '../_models/userDetail';
 
 
 @Component({
@@ -15,6 +16,7 @@ import { State } from '../_models/State';
 export class PumpAdditionalInfoComponent implements OnInit {
   @Input() petrolPump: pp_PetrolPump;
   pumpAdditionalInfoForm: FormGroup;
+  public userData: UserDetail;
   validationStateMessage:string;
   states: State[]
   validation_messages = {
@@ -102,6 +104,29 @@ export class PumpAdditionalInfoComponent implements OnInit {
       Country: [this.petrolPump.Country]
     });
     this.getAllStates();
+    //this.getUserInfo();
+  }
+
+  getUserInfo() {
+    this.petrolPumpService.getUserDetail().subscribe((res) => {
+      this.userData = res;
+      this.DisableControlsByRoleID(this.userData.RoleID);
+    }
+    // ,
+    //   (err) => {
+    //     this.alertService.error(err);
+    //   }
+    );
+  }
+
+  DisableControlsByRoleID(roleID: number) {
+    if (roleID != -2) {
+      this.pumpAdditionalInfoForm.controls["Address"].disable();
+      this.pumpAdditionalInfoForm.controls["Address2"].disable();
+      this.pumpAdditionalInfoForm.controls["City"].disable();
+      this.pumpAdditionalInfoForm.controls["State"].disable();
+      this.pumpAdditionalInfoForm.controls["PetrolPumpPincode"].disable();
+    }
   }
 
   savePumpInfo() {

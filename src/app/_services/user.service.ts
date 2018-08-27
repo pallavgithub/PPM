@@ -20,6 +20,7 @@ import { ProductWithCategory } from '../_models/ProductWithCategory';
 import { Unit } from '../_models/Unit';
 import { PaymentType } from '../_models/PaymentType';
 import { pp_Payment } from '../_models/pp_Payment';
+import { UserDetail } from '../_models/userDetail';
 
 @Injectable()
 export class UserService {
@@ -64,6 +65,7 @@ export class UserService {
     getUserInfo(){
         return this.http.get(`${environment.apiUrl}/Pump/UserInfo`);
     }
+    
     getUserDetailInfo(){
         return this.http.get<UserInfo>(`${environment.apiUrl}/Pump/UserInfo`);
     }

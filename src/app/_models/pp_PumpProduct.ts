@@ -18,6 +18,9 @@ export class pp_PumpProduct {
   ProductCode : string;
   DateStockMeasuredOn:string;
   CategoryID:number;
+  ProductCategoryName:string;
+  ProductName:string;
+  UnitName:string
   
   constructor() {
     this.ID=0;
@@ -39,5 +42,8 @@ export class pp_PumpProduct {
     this.ProductCode = '';
     this.DateStockMeasuredOn = '';
     this.CategoryID = 0;
+    this.ProductCategoryName = '';
+    this.ProductName = '';
+    this.UnitName = '';
   }
 }

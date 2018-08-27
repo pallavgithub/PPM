@@ -19,8 +19,8 @@
 
     <tr *ngFor="let product of pumpProduct let i=index">
       <!-- <td>{{product.ProductID}}</td> -->
-      <th>{{getProductName(product.ProductID)}}</th>
-      <td>{{getUnitName(product.Unit)}}</td>
+      <th>{{product.ProductName}}</th>
+      <td>{{product.UnitName}}</td>
       <td>{{product.PurchaseRate}}</td>
       <td>{{product.PurchaseDate | date}}</td>
       <td>{{product.SaleRate}}</td>

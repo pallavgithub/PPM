@@ -42,8 +42,8 @@ export class ProductComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getAllProducts();
-    this.getAllUnits();
+    //this.getAllProducts();
+    //this.getAllUnits();
   }
   editProduct(pumpProductNew: pp_PumpProduct) {
     pumpProductNew.IsEditModal = true;
