@@ -54,6 +54,7 @@ import {PaymentDialogFormComponent} from './paymentDialog/paymentDialog.componen
 import {InventoryDialogFormComponent} from './inventoryDialog/inventoryDialog.component'
 import { DatePipe } from '@angular/common';
 import { HeaderLoginComponent } from './header-login/header-login.component';
+import {ReadingTypeDialogFormComponent} from './readingTypeDialog/readingTypeDialog.component'
 @NgModule({
     imports: [
         BrowserModule,
@@ -67,7 +68,7 @@ import { HeaderLoginComponent } from './header-login/header-login.component';
         BrowserAnimationsModule,ToasterModule.forRoot(),NgbModule.forRoot()
         //HttpService
     ],
-    entryComponents: [PumpUsersComponent,UserformComponent,PumpTankComponent,TankformComponent,NozzleformComponent,ChangePasswordComponent,ProductDialogFormComponent,PumpNozzleComponent,PaymentDialogFormComponent,InventoryDialogFormComponent],
+    entryComponents: [PumpUsersComponent,UserformComponent,PumpTankComponent,TankformComponent,NozzleformComponent,ChangePasswordComponent,ProductDialogFormComponent,PumpNozzleComponent,PaymentDialogFormComponent,InventoryDialogFormComponent,ReadingTypeDialogFormComponent],
     declarations: [
         AppComponent,
         AlertComponent,
@@ -92,6 +93,7 @@ import { HeaderLoginComponent } from './header-login/header-login.component';
         PaymentDialogFormComponent,
         DashBoardComponent,
         InventoryComponent,
+        ReadingTypeDialogFormComponent,
         TankformComponent,NozzleformComponent,ResultComponent,MasterComponent,HeaderComponent,PumpDetailsComponent,FooterComponent,HeaderLoginComponent], 
     providers: [
        // HttpService,111

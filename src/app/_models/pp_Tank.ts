@@ -1,4 +1,5 @@
 import { pp_Nozzle } from './pp_Nozzle';
+import { ReadingTypeDetail } from './readingTypeDetail';
 export class pp_Tank {
   ID: number;
   PetrolPumpCode: string;
@@ -15,6 +16,7 @@ export class pp_Tank {
   DipReadingType:number;
   IsEditModal:boolean;
   ProductName:string;
+  pp_TankReading:ReadingTypeDetail[]
   /**
    *
    */
@@ -34,5 +36,6 @@ export class pp_Tank {
     this.IsEditModal = false;
     this.DipReadingType = 2;
     this.ProductName = '';
+    this.pp_TankReading = Array<ReadingTypeDetail>();
   }
 }

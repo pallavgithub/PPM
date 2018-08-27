@@ -21,6 +21,7 @@ import { Unit } from '../_models/Unit';
 import { PaymentType } from '../_models/PaymentType';
 import { pp_Payment } from '../_models/pp_Payment';
 import { UserDetail } from '../_models/userDetail';
+import { ReadingTypeDetail } from '../_models/readingTypeDetail';
 
 @Injectable()
 export class UserService {
@@ -59,6 +60,9 @@ export class UserService {
     getFuelTypeByID(petrolPumpCode:string){
         return this.http.get<FuelType[]>(`${environment.apiUrl}/Pump/PumpProductsByID/?petrolPumpCode=`+petrolPumpCode);
     }
+    getTankReadingByTankID(tankID:number,petrolPumpCode:string){
+        return this.http.get<ReadingTypeDetail[]>(`${environment.apiUrl}/Pump/TankReadingInfo/?petrolPumpCode=`+petrolPumpCode +'&tankID=' + tankID);
+    }
     submitPumpData(pumpData){
         return this.http.post(`${environment.apiUrl}/Pump/RegisterPump`,JSON.stringify(pumpData));
     }
@@ -74,6 +78,9 @@ export class UserService {
     }
     deleteTank(tank: pp_Tank) {
         return this.http.post(`${environment.apiUrl}/Pump/DeleteTank`, JSON.stringify(tank));
+    }
+    deleteTankReading(tank: ReadingTypeDetail) {
+        return this.http.post(`${environment.apiUrl}/Pump/DeleteTankReading`, JSON.stringify(tank));
     }
     deleteNozzle(nozzle: pp_Nozzle) {
         return this.http.post(`${environment.apiUrl}/Pump/DeleteNozzle`, JSON.stringify(nozzle));

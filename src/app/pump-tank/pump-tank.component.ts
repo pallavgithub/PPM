@@ -74,12 +74,16 @@ export class PumpTankComponent implements OnInit {
     // var datePipe = new DatePipe("en-US");
     // tank.ReadingDate = datePipe.transform(tank.ReadingDate, 'dd-mm-yyyy');
     tank.IsEditModal = true;
-    const dialogRef = this.dialog.open(TankformComponent, {
-      data: { tank }
+    this.userService.getTankReadingByTankID(tank.ID,this.pumpCode).subscribe(data => {
+      tank.pp_TankReading = data;
+      const dialogRef = this.dialog.open(TankformComponent, {
+        data: { tank }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        this.ngOnInit();
+      });
     });
-    dialogRef.afterClosed().subscribe(result => {
-      this.ngOnInit();
-    });
+    
   }
   DeleteTank(tank: pp_Tank) {
     if (confirm("Do you want to delete this Tank?")) {

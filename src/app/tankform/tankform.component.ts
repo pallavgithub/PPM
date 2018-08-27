@@ -10,6 +10,9 @@ import { ToasterService } from 'angular2-toaster';
 import { FormsModule, FormBuilder, FormGroup, Validators, NgControl } from '@angular/forms'
 import { Router } from '@angular/router';
 import { DatePipe } from '../../../node_modules/@angular/common';
+import { ReadingTypeDetail } from '../_models/ReadingTypeDetail';
+import { ReadingTypeDialogFormComponent } from '../readingTypeDialog/readingTypeDialog.component';
+import { AlertService } from '../_services/alert.service';
 
 @Component({
   selector: 'tankform',
@@ -22,6 +25,7 @@ export class TankformComponent implements OnInit {
   IsEditDialog: boolean;
   fuelTypes: FuelType[];
   readingTypes: ReadingType[];
+  public readingTypeDetails: ReadingTypeDetail[] = new Array<ReadingTypeDetail>();
   tankform: FormGroup;
   validationFuelTypeMessage: string;
   validation_messages = {
@@ -58,10 +62,11 @@ export class TankformComponent implements OnInit {
     ]
   }
   constructor(private toasterService: ToasterService, private router: Router, private userService: UserService, @Inject(MAT_DIALOG_DATA) public data, private pumpService: PetrolPumpService,
-    private dialogRef: MatDialogRef<TankformComponent>, private _formBuilder: FormBuilder, public datepipe: DatePipe) { }
+    private dialogRef: MatDialogRef<TankformComponent>, private _formBuilder: FormBuilder, public datepipe: DatePipe, public dialog: MatDialog, private alertService: AlertService) { }
 
   ngOnInit() {
     this.tank = this.data.tank;
+    this.readingTypeDetails = this.tank.pp_TankReading;
     if (this.tank.IsEditModal) {
       this.IsEditDialog = true;
     }
@@ -127,12 +132,80 @@ export class TankformComponent implements OnInit {
     });
   }
   createTank() {
-    this.pumpService.addUpdatePumpTank(this.tankform.value).subscribe(res => {
+    let itemPP_Tank: pp_Tank = this.tankform.value;
+    itemPP_Tank.pp_TankReading = this.readingTypeDetails;
+    this.pumpService.addUpdatePumpTank(itemPP_Tank).subscribe(res => {
       this.toasterService.pop('success', '', "Saved successfully");
       this.dialogRef.close();
       this.router.navigate(['/pumpDetails', this.tank.PetrolPumpCode]);
     })
   }
+
+  openAddReadingTypeDialog() {
+    debugger
+    let readingTypeDetailTemp: ReadingTypeDetail = new ReadingTypeDetail();
+    //nozzle.PetrolPumpCode = this.petrolPumpCode;
+    const dialogRef = this.dialog.open(ReadingTypeDialogFormComponent, {
+      data: { readingTypeDetailTemp }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      debugger
+      if (result.data != undefined && result.data != null) {
+        let counter: number = 0;
+        this.readingTypeDetails.forEach(element => {
+          if (element.ReadingType == result.data.ReadingType) {
+            counter = 1;
+          }
+        });
+        if (counter == 0) {
+          this.readingTypeDetails.push(result.data);
+        }
+        else {
+          this.toasterService.pop('Error', '', "This is already exist");
+          //this.alertService.error("This is already exist");
+        }
+      }
+      else {
+      }
+    });
+  }
+  openEditReadingTypeDialog(readingTypeDetailTemp: ReadingTypeDetail) {
+    //nozzle.PetrolPumpCode = this.petrolPumpCode;
+    const dialogRef = this.dialog.open(ReadingTypeDialogFormComponent, {
+      data: { readingTypeDetailTemp }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.data != undefined && result.data != null) {
+        this.readingTypeDetails.forEach(element => {
+          if (element.ID == result.data.ID) {
+            element.OpeningReading = result.data.OpeningReading,
+              element.ReadingDate = result.data.ReadingDate,
+              element.ReadingType = result.data.ReadingType
+          }
+        });
+        //this.readingTypeDetails.push(result.data);
+      }
+    });
+  }
+
+  DeleteReadingType(readingTypeDetailTemp: ReadingTypeDetail) {
+    if (confirm("Do you want to delete this Tank?")) {
+      readingTypeDetailTemp.PetrolPumpCode = this.tankform.controls["PetrolPumpCode"].value;
+      this.userService.deleteTankReading(readingTypeDetailTemp).subscribe((res: any) => {
+        this.toasterService.pop('Deleted successfully', '', res.Result.toString());
+      },
+        (err) => {
+
+        });
+      this.readingTypeDetails.forEach(element => {
+        var index = this.readingTypeDetails.indexOf(readingTypeDetailTemp);
+        this.readingTypeDetails.splice(index, 1);
+      });
+    }
+
+    //this.readingTypeDetails.push(result.data);
+  }
+
   addNozzle() {
     this.tank.pp_Nozzles.push(new pp_Nozzle());
   }

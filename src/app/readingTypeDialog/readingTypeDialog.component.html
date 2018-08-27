@@ -1,0 +1,37 @@
+<h2 mat-dialog-title>Reading Type</h2>
+<form [formGroup]="readingTypeDialogform" (ngSubmit)="createPayment()">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="ReadingType">Reading Type</label>
+                <span class="required">*</span>
+                <!-- <input placeholder="Reading Date" class="form-control" formControlName="ReadingType"> -->
+                <select name="ReadingType" class="form-control" formControlName="ReadingType">
+                    <option [ngValue]="0" disabled>--Select--</option>
+                    <option *ngFor="let itemReadingType of readingTypes;let i=index" [ngValue]="itemReadingType.ID">{{itemReadingType.Name}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="ReadingDate">Reading Date</label>
+                <input type="date" placeholder="Reading Date" class="form-control" formControlName="ReadingDate">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="OpeningReading">Opening Reading</label>
+                <input type="number" placeholder="Opening Reading" class="form-control" name="OpeningReading" formControlName="OpeningReading">
+                <!-- <div *ngFor="let validation of validation_messages.LicenseStartDate">
+                            <span class="error-message" *ngIf="registerForm.get('LicenseStartDate').hasError(validation.type) && (registerForm.get('LicenseStartDate').dirty || registerForm.get('LicenseStartDate').touched)">{{validation.message}}</span>
+                    </div> -->
+            </div>
+        </div>
+    </div>
+    <mat-dialog-actions style="float: right;">
+        <button class="btn btn-default" [mat-dialog-close]="true">Cancel</button>&nbsp;&nbsp;&nbsp;
+        <button type="submit" class="btn btn-primary">Save</button>
+    </mat-dialog-actions>
+</form>
