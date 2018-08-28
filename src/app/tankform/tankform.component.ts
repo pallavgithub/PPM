@@ -84,7 +84,7 @@ export class TankformComponent implements OnInit {
       PetrolPumpCode: [this.tank.PetrolPumpCode],
       TankCode: [this.tank.TankCode],
       FuelTypeID: [this.tank.FuelTypeID],
-      TankCapacity: [this.tank.TankCapacity, Validators.compose([Validators.required,Validators.pattern('^(\\d{1,20})$')])],
+      TankCapacity: [this.tank.TankCapacity, Validators.compose([Validators.required])],
       TankName: [this.tank.TankName, Validators.compose([Validators.required])],
       ReadingDate: [this.tank.ReadingDate],
       OpeningReading: [this.tank.OpeningReading],
@@ -136,6 +136,7 @@ export class TankformComponent implements OnInit {
     });
   }
   createTank() {
+    this.tankform.controls["TankCapacity"].setValue(Number(this.tankform.controls["TankCapacity"].value));
     let itemPP_Tank: pp_Tank = this.tankform.value;
     itemPP_Tank.pp_TankReading = this.readingTypeDetails;
     this.pumpService.addUpdatePumpTank(itemPP_Tank).subscribe(res => {

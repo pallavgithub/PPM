@@ -5,7 +5,7 @@ export class pp_Tank {
   PetrolPumpCode: string;
   TankCode: string;
   FuelTypeID: number;
-  TankCapacity: number;
+  TankCapacity: string;
   pp_Nozzles:pp_Nozzle[];
   TankName:string;
   ReadingDate:string;
@@ -25,7 +25,7 @@ export class pp_Tank {
     this.PetrolPumpCode=null;
     this.TankCode=null;
     this.FuelTypeID=0;
-    this.TankCapacity=0;
+    this.TankCapacity='';
     this.pp_Nozzles=Array<pp_Nozzle>();
     this.TankName = '';
     this.ReadingDate = '';

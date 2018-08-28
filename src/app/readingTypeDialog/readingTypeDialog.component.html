@@ -38,6 +38,6 @@
     </div>
     <mat-dialog-actions style="float: right;">
         <button class="btn btn-default" [mat-dialog-close]="true">Cancel</button>&nbsp;&nbsp;&nbsp;
-        <button type="submit" class="btn btn-primary" (click)="checkFormValid()">Save</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!readingTypeDialogform.valid" (click)="checkFormValid()">Save</button>
     </mat-dialog-actions>
 </form>

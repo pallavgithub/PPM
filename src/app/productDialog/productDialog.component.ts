@@ -94,8 +94,8 @@ export class ProductDialogFormComponent implements OnInit {
       InitialQuantity: [this.pumpProduct.InitialQuantity],
       PurchaseQuantity: [this.pumpProduct.PurchaseQuantity],
       Unit: [this.pumpProduct.Unit],
-      PurchaseRate: [this.pumpProduct.PurchaseRate],
-      SaleRate: [this.pumpProduct.SaleRate],
+      PurchaseRate: [this.pumpProduct.PurchaseRate,Validators.compose([Validators.required,Validators.pattern('^[0-9.]*$')])],
+      SaleRate: [this.pumpProduct.SaleRate,Validators.compose([Validators.required,Validators.pattern('^[0-9.]*$')])],
       Description: [this.pumpProduct.Description],
       CreatedBy: [this.pumpProduct.CreatedBy],
       CreatedOn: [this.pumpProduct.CreatedOn],
@@ -154,6 +154,17 @@ export class ProductDialogFormComponent implements OnInit {
   // }
 
   createProduct() {
+    this.productDialogform.controls["PurchaseRate"].setValue(Number(this.productDialogform.controls["PurchaseRate"].value));
+    this.productDialogform.controls["SaleRate"].setValue(Number(this.productDialogform.controls["SaleRate"].value));
+    if(this.productDialogform.controls["InitialQuantity"].value == "")
+    {
+      this.productDialogform.controls["InitialQuantity"].setValue(0);
+    }
+    else
+    {
+      this.productDialogform.controls["InitialQuantity"].setValue(Number(this.productDialogform.controls["InitialQuantity"].value));
+    }
+    
     this.petrolPumpService.addUpdatePumpProduct(this.productDialogform.value).subscribe((res: any) => {
       this.toasterService.pop('success', '', res.Result.toString());
       this.dialogRef.close();

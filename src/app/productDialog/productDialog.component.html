@@ -98,7 +98,7 @@
                         Initial Quantity
                         <span class="required">*</span>
                     </label>
-                    <input placeholder="Initial Quantity" class="form-control" formControlName="InitialQuantity" required>
+                    <input type="number" placeholder="Initial Quantity" class="form-control" formControlName="InitialQuantity" required>
                     <div *ngFor="let validation of validation_messages.InitialQuantity">
                         <span class="error-message" *ngIf="productDialogform.get('InitialQuantity').hasError(validation.type) && (productDialogform.get('InitialQuantity').dirty || productDialogform.get('InitialQuantity').touched)">{{validation.message}}</span>
                     </div>
@@ -114,7 +114,7 @@
                     <label for="PurchaseRate">Purchase Rate
                         <span class="required">*</span>
                     </label>
-                    <input placeholder="Purchase Rate" class="form-control" formControlName="PurchaseRate" required>
+                    <input type="number" placeholder="Purchase Rate" class="form-control" formControlName="PurchaseRate" required>
                     <div *ngFor="let validation of validation_messages.PurchaseRate">
                         <span class="error-message" *ngIf="productDialogform.get('PurchaseRate').hasError(validation.type) && (productDialogform.get('PurchaseRate').dirty || productDialogform.get('PurchaseRate').touched)">{{validation.message}}</span>
                     </div>
@@ -139,7 +139,7 @@
                     <label for="SaleRate">Sale Price
                         <span class="required">*</span>
                     </label>
-                    <input placeholder="Sale Price" class="form-control" formControlName="SaleRate" required>
+                    <input type="number" placeholder="Sale Price" class="form-control" formControlName="SaleRate" required>
                     <div *ngFor="let validation of validation_messages.SaleRate">
                         <span class="error-message" *ngIf="productDialogform.get('SaleRate').hasError(validation.type) && (productDialogform.get('SaleRate').dirty || productDialogform.get('SaleRate').touched)">{{validation.message}}</span>
                     </div>
@@ -194,7 +194,7 @@
                     <label for="InitialQuantity">Initial Reading
                         <span class="required">*</span>
                     </label>
-                    <input placeholder="Initial Reading" class="form-control" formControlName="InitialQuantity" required>
+                    <input type="number" placeholder="Initial Reading" class="form-control" formControlName="InitialQuantity" required>
                     <div *ngFor="let validation of validation_messages.InitialReading">
                         <span class="error-message" *ngIf="productDialogform.get('InitialQuantity').hasError(validation.type) && (productDialogform.get('InitialQuantity').dirty || productDialogform.get('InitialQuantity').touched)">{{validation.message}}</span>
                     </div>
@@ -213,7 +213,7 @@
                     <label for="PurchaseRate">Purchase Rate
                         <span class="required">*</span>
                     </label>
-                    <input placeholder="Purchase Rate" class="form-control" formControlName="PurchaseRate" required>
+                    <input type="number" placeholder="Purchase Rate" class="form-control" formControlName="PurchaseRate" required>
                     <div *ngFor="let validation of validation_messages.PurchaseRate">
                         <span class="error-message" *ngIf="productDialogform.get('PurchaseRate').hasError(validation.type) && (productDialogform.get('PurchaseRate').dirty || productDialogform.get('PurchaseRate').touched)">{{validation.message}}</span>
                     </div>
@@ -238,7 +238,7 @@
                     <label for="SaleRate">Sale Price
                         <span class="required">*</span>
                     </label>
-                    <input placeholder="Sale Price" class="form-control" formControlName="SaleRate" required>
+                    <input type="number" placeholder="Sale Price" class="form-control" formControlName="SaleRate" required>
                     <div *ngFor="let validation of validation_messages.SaleRate">
                         <span class="error-message" *ngIf="productDialogform.get('SaleRate').hasError(validation.type) && (productDialogform.get('SaleRate').dirty || productDialogform.get('SaleRate').touched)">{{validation.message}}</span>
                     </div>

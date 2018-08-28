@@ -88,7 +88,7 @@ export class NozzleformComponent implements OnInit {
       PetrolPumpCode: [this.nozzle.PetrolPumpCode],
       NozzleCode: [this.nozzle.NozzleCode],
       TankID: [this.nozzle.TankID],
-      OpeningReading: [this.nozzle.OpeningReading, Validators.compose([Validators.required, Validators.pattern('^(\\d{1,20})$')])],
+      OpeningReading: [this.nozzle.OpeningReading, Validators.compose([Validators.required])],
       IsEditModal: [this.nozzle.IsEditModal],
       FuelTypeID: [this.nozzle.FuelTypeID],
       NozzleName: [this.nozzle.NozzleName, Validators.compose([Validators.required])],
@@ -205,6 +205,7 @@ export class NozzleformComponent implements OnInit {
   }
 
   createNozzle() {
+    this.nozzleform.controls["OpeningReading"].setValue(Number(this.nozzleform.controls["OpeningReading"].value));
     this.pumpService.addUpdatePumpNozzle(this.nozzleform.value).subscribe(res => {
       this.toasterService.pop('success', '', "Saved successfully");
       this.dialogRef.close();

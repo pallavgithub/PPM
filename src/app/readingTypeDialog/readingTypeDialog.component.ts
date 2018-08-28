@@ -67,7 +67,7 @@ export class ReadingTypeDialogFormComponent implements OnInit {
     this.readingTypeDialogform = this._formBuilder.group({
       ReadingDate: [this.pumpPayment.ReadingDate, Validators.compose([Validators.required])],
       ReadingType: [this.pumpPayment.ReadingType],
-      OpeningReading: [this.pumpPayment.OpeningReading, Validators.compose([Validators.required,Validators.pattern('^(\\d{1,20})$')])],
+      OpeningReading: [this.pumpPayment.OpeningReading, Validators.compose([Validators.required])],
       ID: [this.pumpPayment.ID],
       PetrolPumpCode : [this.pumpPayment.PetrolPumpCode]
     });
@@ -87,6 +87,7 @@ export class ReadingTypeDialogFormComponent implements OnInit {
   }
 
   createPayment() {
+    this.readingTypeDialogform.controls["OpeningReading"].setValue(Number(this.readingTypeDialogform.controls["OpeningReading"].value));
     this.dialogRef.close({ 
       data: this.readingTypeDialogform.value 
     });
