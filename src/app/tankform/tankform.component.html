@@ -50,7 +50,7 @@
       <div class="form-group">
         <div class="margin-20">
           <!-- <b>Add Reading Type</b> -->
-          <a (click)="openAddReadingTypeDialog()" style="cursor: default">
+          <a (click)="openAddReadingTypeDialog()" style="cursor: pointer">
             Add Reading +
           </a>
         </div>
@@ -58,51 +58,51 @@
     </div>
   </div>
   <div class="row" style="border-width: 1px 1px 1px 1px;border-style: solid;border-color:black;background-color: black;color: white;">
-    <div class="col-md-3">
+    <div class="col-md-4">
       <div class="form-group">
         <label for="OpeningReading">Opening Reading</label>
       </div>
     </div>
-    <div class="col-md-3">
+    <!-- <div class="col-md-3">
       <div class="form-group">
         <label for="ReadingDate">ReadingDate</label>
       </div>
-    </div>
-    <div class="col-md-3">
+    </div> -->
+    <div class="col-md-4">
       <div class="form-group">
         <label for="ReadingType">Reading Type</label>
       </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
       <div class="form-group">
-        <label for="ReadingType">Action</label>
+        <label for="Action">Action</label>
       </div>
     </div>
   </div>
 
   <div class="row" *ngFor="let tank of readingTypeDetails let i=index" style="border-width: 0px 1px 1px 1px;border-style: solid;border-color:black">
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="form-group">
           <div>
             <span>{{tank.OpeningReading}}</span>
           </div>
         </div>
       </div>
-      <div class="col-md-3">
+      <!-- <div class="col-md-3">
         <div class="form-group">
           <div>
             <span>{{tank.ReadingDate}}</span>
           </div>
         </div>
-      </div>
-      <div class="col-md-3">
+      </div> -->
+      <div class="col-md-4">
         <div class="form-group">
           <div>
             <span>{{tank.ReadingTypeName}}</span>
           </div>
         </div>
       </div>      
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="form-group">
           <div>
             <a (click)="openEditReadingTypeDialog(tank)">Edit</a>&nbsp;

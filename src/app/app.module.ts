@@ -2,16 +2,17 @@
 import { NozzleComponent } from './nozzle/nozzle.component';
 import { PumpTankComponent } from './pump-tank/pump-tank.component';
 import { PumpNozzleComponent } from './pump-nozzle/pump-nozzle.component';
-import { NgModule, ErrorHandler }      from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule,ReactiveFormsModule }    from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {StateMainService} from './_services/statemain.service'
 
 // used to create fake backend
 import { fakeBackendProvider } from './_helpers';
 
-import { AppComponent }  from './app.component';
-import { routing }        from './app.routing';
+import { AppComponent } from './app.component';
+import { routing } from './app.routing';
 
 import { AlertComponent } from './_directives';
 import { AuthGuard } from './_guards';
@@ -25,8 +26,9 @@ import { PumpUserMapComponent } from './pump-user-map/pump-user-map.component';
 import { PumpInfoComponent } from './pump-info/pump-info.component';
 import { PumpAdditionalInfoComponent } from './pump-Additionalinfo/pump-Additionalinfo.component';
 import { PumpUsersComponent } from './pump-users/pump-users.component';
+import { CreditorComponent } from './creditor/creditor.component';
 import 'hammerjs';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PetrolPumpFormComponent } from './petrol-pump-form/petrol-pump-form.component';
 import { WorkflowService } from './workflow/workflow.service';
 import { WorkflowGuard } from './workflow/workflow-guard.service';
@@ -41,20 +43,25 @@ import { HeaderComponent } from './header/header.component';// import { HttpServ
 import { FooterComponent } from './footer/footer.component';// import { HttpService } from 'src/app/_services/http.service';
 import { GlobalErrorHandler } from './_helpers/GlobalErrorHandler';
 import { ToasterModule } from 'angular2-toaster';
-import { MatTabsModule,MatDialogModule,MatTabChangeEvent   } from '@angular/material';
-import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatTabsModule, MatDialogModule, MatTabChangeEvent, MatSidenavModule,MatButtonModule, MatNativeDateModule, MatIconModule, MatToolbarModule,MatCheckboxModule } from '@angular/material';
+import { MatSidenavMenuModule } from 'mat-sidenav-menu';
+import {MatListModule} from '@angular/material/list'
 import { PumpDetailsComponent } from './pump-details/pump-details.component';
-import {DashBoardComponent} from './dashboard/dashboard.component';
-import {ProductComponent} from './product/product.component';
-import {InventoryComponent} from './inventory/inventory.component';
-import {PaymentComponent} from './payment/payment.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {ProductDialogFormComponent} from './productDialog/productDialog.component';
-import {PaymentDialogFormComponent} from './paymentDialog/paymentDialog.component';
-import {InventoryDialogFormComponent} from './inventoryDialog/inventoryDialog.component'
+import { DashBoardComponent } from './dashboard/dashboard.component';
+import { ProductComponent } from './product/product.component';
+import { InventoryComponent } from './inventory/inventory.component';
+import { PaymentComponent } from './payment/payment.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ProductDialogFormComponent } from './productDialog/productDialog.component';
+import { PaymentDialogFormComponent } from './paymentDialog/paymentDialog.component';
+import { InventoryDialogFormComponent } from './inventoryDialog/inventoryDialog.component'
 import { DatePipe } from '@angular/common';
 import { HeaderLoginComponent } from './header-login/header-login.component';
-import {ReadingTypeDialogFormComponent} from './readingTypeDialog/readingTypeDialog.component'
+import { ReadingTypeDialogFormComponent } from './readingTypeDialog/readingTypeDialog.component'
+import { TestPage1Component, TestPage2Component, TestPage3Component, TestPageComponent } from './test-pages/test-pages.component';
+import { MenuStateComponent } from './test-pages/manu-state.component';
+import { CreditorformComponent } from './creditorform/creditorform.component';
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -63,12 +70,15 @@ import {ReadingTypeDialogFormComponent} from './readingTypeDialog/readingTypeDia
         HttpClientModule,
         MatTabsModule,
         MatDialogModule,
-        MatSidenavModule, 
+        MatSidenavModule,
+        MatListModule,
         routing,
-        BrowserAnimationsModule,ToasterModule.forRoot(),NgbModule.forRoot()
+        MatSidenavModule,MatButtonModule, MatNativeDateModule, MatIconModule, MatToolbarModule,MatCheckboxModule,
+        MatSidenavMenuModule,
+        BrowserAnimationsModule, ToasterModule.forRoot(), NgbModule.forRoot()
         //HttpService
     ],
-    entryComponents: [PumpUsersComponent,UserformComponent,PumpTankComponent,TankformComponent,NozzleformComponent,ChangePasswordComponent,ProductDialogFormComponent,PumpNozzleComponent,PaymentDialogFormComponent,InventoryDialogFormComponent,ReadingTypeDialogFormComponent],
+    entryComponents: [PumpUsersComponent, UserformComponent, PumpTankComponent, TankformComponent, NozzleformComponent, ChangePasswordComponent, ProductDialogFormComponent, PumpNozzleComponent, PaymentDialogFormComponent, InventoryDialogFormComponent, ReadingTypeDialogFormComponent,CreditorformComponent],
     declarations: [
         AppComponent,
         AlertComponent,
@@ -77,13 +87,16 @@ import {ReadingTypeDialogFormComponent} from './readingTypeDialog/readingTypeDia
         RegisterComponent,
         PumpRegisterComponent,
         PumpUserMapComponent,
-        PumpInfoComponent ,
+        CreditorComponent,
+        CreditorformComponent,
+        PumpInfoComponent,
         PumpAdditionalInfoComponent,
         PetrolPumpFormComponent,
         PumpTankComponent,
         PumpNozzleComponent,
         NozzleComponent,
         UserformComponent,
+        CreditorformComponent,
         PumpUsersComponent,
         ChangePasswordComponent,
         ProductComponent,
@@ -94,20 +107,22 @@ import {ReadingTypeDialogFormComponent} from './readingTypeDialog/readingTypeDia
         DashBoardComponent,
         InventoryComponent,
         ReadingTypeDialogFormComponent,
-        TankformComponent,NozzleformComponent,ResultComponent,MasterComponent,HeaderComponent,PumpDetailsComponent,FooterComponent,HeaderLoginComponent], 
+        TestPage1Component, TestPage2Component, TestPage3Component, TestPageComponent, MenuStateComponent,
+        TankformComponent, NozzleformComponent, ResultComponent, MasterComponent, HeaderComponent, PumpDetailsComponent, FooterComponent, HeaderLoginComponent],
     providers: [
-       // HttpService,111
+        // HttpService,111
         AuthGuard,
         AlertService,
         AuthenticationService,
         UserService,
+        StateMainService,
         //{provide: ErrorHandler,useClass: GlobalErrorHandler},
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
         { provide: WorkflowService, useClass: WorkflowService },
-        WorkflowGuard,FormDataService,PetrolPumpService,
+        WorkflowGuard, FormDataService, PetrolPumpService,
         // provider used to create fake backend
-        fakeBackendProvider,DatePipe
+        fakeBackendProvider, DatePipe
     ],
     bootstrap: [AppComponent]
 })

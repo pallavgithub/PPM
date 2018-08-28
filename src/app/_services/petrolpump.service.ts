@@ -31,7 +31,10 @@ export class PetrolPumpService {
     }
 
     getPetrolPumpInfo(petrolPumpCode:string){
-        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpInfo?petrolPumpCode=`+petrolPumpCode,);
+        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpInfo?petrolPumpCode=`+petrolPumpCode);
+    }
+    getPetrolPumpDashboard(petrolPumpCode:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpDashboard?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
     }
 
     getPumpStatus(petrolPumpCode:string){

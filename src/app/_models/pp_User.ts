@@ -9,10 +9,15 @@ export class pp_User {
   RoleID: number;
   Phone: string;
   Address: string;
-  CreditLimit: number;
+  CreditLimit: string;
   Description: string;
   IsEditModal:boolean;
   RoleName:string;
+  PaymentTypeID:number
+  PaymentTypeName:string
+  PaymentDate:string
+  IsEncashed:boolean
+  EncashementDate:string
   
   constructor() {
     this.ID=0;
@@ -24,10 +29,15 @@ export class pp_User {
     this.RoleID=0;
     this.Phone=null;
     this.Address=null;
-    this.CreditLimit=0;
+    this.CreditLimit='';
     this.Description=null;
     this.IsEditModal = false;
     this.ConfirmPassword = null;
     this.RoleName = null;
+    this.PaymentTypeID = 0;
+    this.PaymentTypeName = '';
+    this.PaymentDate = '';
+    this.IsEncashed = false;
+    this.EncashementDate = '';
   }
 }

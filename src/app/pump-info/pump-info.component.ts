@@ -16,6 +16,7 @@ export class PumpInfoComponent implements OnInit {
   @Input() petrolPump: pp_PetrolPump;
   public userData: UserDetail;
   pumpInfoForm: FormGroup;
+  RoleID:number;
   validation_messages = {
     'Email': [
       { type: 'required', message: 'Email is required' },
@@ -62,7 +63,7 @@ export class PumpInfoComponent implements OnInit {
       LicenseStartDate: [this.petrolPump.LicenseStartDate, Validators.required],
       LicenseEndDate: [this.petrolPump.LicenseEndDate, Validators.required]
     });
-    //this.getUserInfo();
+    this.getUserInfo();
   }
 
   savePumpInfo() {
@@ -83,11 +84,12 @@ export class PumpInfoComponent implements OnInit {
   }
 
   DisableControlsByRoleID(roleID: number) {
-    if (roleID != -2) {
-      this.pumpInfoForm.controls["PetrolPumpName"].disable();
-      this.pumpInfoForm.controls["OwnerName"].disable();
-      this.pumpInfoForm.controls["Email"].disable();
-      this.pumpInfoForm.controls["Mobile"].disable();
-    }
+    this.RoleID = roleID;
+    // if (roleID != -2) {
+    //   this.pumpInfoForm.controls["PetrolPumpName"].disable();
+    //   this.pumpInfoForm.controls["OwnerName"].disable();
+    //   this.pumpInfoForm.controls["Email"].disable();
+    //   this.pumpInfoForm.controls["Mobile"].disable();
+    // }
   }
 }

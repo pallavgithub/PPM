@@ -18,7 +18,7 @@
                 <label for="UserId">User Id
                         <span class="required">*</span>
                 </label>
-                <input placeholder="User Id" class="form-control" formControlName="UserId" required>
+                <input placeholder="User Id" class="form-control" formControlName="UserId" required [readonly]="IsEditDialog">
                 <div *ngFor="let validation of validation_messages.UserId">
                       <span class="error-message" *ngIf="userform.get('UserId').hasError(validation.type) && (userform.get('UserId').dirty || userform.get('UserId').touched)">{{validation.message}}</span>
               </div>
@@ -31,7 +31,7 @@
                 <label for="Password">Password
                         <span class="required">*</span>
                 </label>
-                <input placeholder="Password" class="form-control" formControlName="Password" required>
+                <input type="password" placeholder="Password" class="form-control" formControlName="Password" required>
                 <div *ngFor="let validation of validation_messages.Password">
                     <span class="error-message" *ngIf="userform.get('Password').hasError(validation.type) && (userform.get('Password').dirty || userform.get('Password').touched)">{{validation.message}}</span>
                 </div>

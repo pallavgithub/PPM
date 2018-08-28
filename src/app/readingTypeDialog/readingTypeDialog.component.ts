@@ -69,7 +69,8 @@ export class ReadingTypeDialogFormComponent implements OnInit {
       ReadingType: [this.pumpPayment.ReadingType],
       OpeningReading: [this.pumpPayment.OpeningReading, Validators.compose([Validators.required])],
       ID: [this.pumpPayment.ID],
-      PetrolPumpCode : [this.pumpPayment.PetrolPumpCode]
+      PetrolPumpCode : [this.pumpPayment.PetrolPumpCode],
+      ReadingTypeName: [this.pumpPayment.ReadingTypeName]
     });
     let latest_ReadingDate = this.datepipe.transform(((this.pumpPayment.ReadingDate == "" || this.pumpPayment.ReadingDate == null ) ? new Date().toString() : this.pumpPayment.ReadingDate), 'yyyy-MM-dd');
     this.readingTypeDialogform.get('ReadingDate').setValue(latest_ReadingDate);
@@ -88,6 +89,7 @@ export class ReadingTypeDialogFormComponent implements OnInit {
 
   createPayment() {
     this.readingTypeDialogform.controls["OpeningReading"].setValue(Number(this.readingTypeDialogform.controls["OpeningReading"].value));
+    this.readingTypeDialogform.controls["ReadingTypeName"].setValue(this.getReadingTypeName(this.readingTypeDialogform.controls["ReadingType"].value));
     this.dialogRef.close({ 
       data: this.readingTypeDialogform.value 
     });
@@ -101,5 +103,9 @@ export class ReadingTypeDialogFormComponent implements OnInit {
     this.userService.getReadingType().subscribe(data => {
       this.readingTypes = data;
     });
+  }
+  getReadingTypeName(ID) {    
+    var product = this.readingTypes.find(c => c.ID == ID);
+    return product ? product.Name : '';
   }
 }

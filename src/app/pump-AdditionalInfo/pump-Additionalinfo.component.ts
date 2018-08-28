@@ -17,6 +17,7 @@ export class PumpAdditionalInfoComponent implements OnInit {
   @Input() petrolPump: pp_PetrolPump;
   pumpAdditionalInfoForm: FormGroup;
   public userData: UserDetail;
+  RoleID:number;
   validationStateMessage:string;
   states: State[]
   validation_messages = {
@@ -104,7 +105,7 @@ export class PumpAdditionalInfoComponent implements OnInit {
       Country: [this.petrolPump.Country]
     });
     this.getAllStates();
-    //this.getUserInfo();
+    this.getUserInfo();
   }
 
   getUserInfo() {
@@ -120,13 +121,13 @@ export class PumpAdditionalInfoComponent implements OnInit {
   }
 
   DisableControlsByRoleID(roleID: number) {
-    if (roleID != -2) {
-      this.pumpAdditionalInfoForm.controls["Address"].disable();
-      this.pumpAdditionalInfoForm.controls["Address2"].disable();
-      this.pumpAdditionalInfoForm.controls["City"].disable();
-      this.pumpAdditionalInfoForm.controls["State"].disable();
-      this.pumpAdditionalInfoForm.controls["PetrolPumpPincode"].disable();
-    }
+    this.RoleID = roleID;
+    // if (roleID != -2) {
+    //   this.pumpInfoForm.controls["PetrolPumpName"].disable();
+    //   this.pumpInfoForm.controls["OwnerName"].disable();
+    //   this.pumpInfoForm.controls["Email"].disable();
+    //   this.pumpInfoForm.controls["Mobile"].disable();
+    // }
   }
 
   savePumpInfo() {

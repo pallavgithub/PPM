@@ -16,7 +16,7 @@
                 <label for="PetrolPumpName">Address Line 1
                     <span class="required">*</span>
                 </label>
-                <input placeholder="Address Line 1" class="form-control" formControlName="Address">
+                <input placeholder="Address Line 1" class="form-control" formControlName="Address" [readonly]="RoleID != -2">
                 <div *ngFor="let validation of validation_messages.Address">
                         <span class="error-message" *ngIf="pumpAdditionalInfoForm.get('Address').hasError(validation.type) && (pumpAdditionalInfoForm.get('Address').dirty || pumpAdditionalInfoForm.get('Address').touched)">{{validation.message}}</span>
                     </div>
@@ -27,7 +27,7 @@
                 <label for="Address2">Address Line 2
                         <span class="required">*</span>
                 </label>
-                <input placeholder="Address Line 2" class="form-control" formControlName="Address2">
+                <input placeholder="Address Line 2" class="form-control" formControlName="Address2" [readonly]="RoleID != -2">
                 <div *ngFor="let validation of validation_messages.Address2">
                         <span class="error-message" *ngIf="pumpAdditionalInfoForm.get('Address2').hasError(validation.type) && (pumpAdditionalInfoForm.get('Address2').dirty || pumpAdditionalInfoForm.get('Address2').touched)">{{validation.message}}</span>
                     </div>
@@ -40,7 +40,7 @@
                 <label for="City">City
                         <span class="required">*</span>
                 </label>
-                <input placeholder="City" class="form-control" formControlName="City">
+                <input placeholder="City" class="form-control" formControlName="City" [readonly]="RoleID != -2">
                 <div *ngFor="let validation of validation_messages.City">
                         <span class="error-message" *ngIf="pumpAdditionalInfoForm.get('City').hasError(validation.type) && (pumpAdditionalInfoForm.get('City').dirty || pumpAdditionalInfoForm.get('City').touched)">{{validation.message}}</span>
                     </div>
@@ -74,7 +74,7 @@
                 <label for="Pincode">Pincode
                         <span class="required">*</span>
                 </label>
-                <input placeholder="Pincode" class="form-control" formControlName="PetrolPumpPincode">
+                <input placeholder="Pincode" class="form-control" formControlName="PetrolPumpPincode" [readonly]="RoleID != -2">
                 <div *ngFor="let validation of validation_messages.PetrolPumpPincode">
                     <span class="error-message" *ngIf="pumpAdditionalInfoForm.get('PetrolPumpPincode').hasError(validation.type) && (pumpAdditionalInfoForm.get('PetrolPumpPincode').dirty || pumpAdditionalInfoForm.get('PetrolPumpPincode').touched)">{{validation.message}}</span>
                 </div>
