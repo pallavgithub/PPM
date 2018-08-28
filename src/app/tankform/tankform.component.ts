@@ -38,6 +38,10 @@ export class TankformComponent implements OnInit {
       { type: 'minlength', message: 'Password must be at least 8 characters long' },
       { type: 'pattern', message: 'Only Alphabets, Numbers, @, &, !, -, _ and . are allowed.' }
     ],
+    'TankCapacity': [
+      { type: 'required', message: 'Tank Capacity is required' },
+      { type: 'pattern', message: 'Only numbers are allowed.' }
+    ],
     'UserId': [
       { type: 'required', message: 'UserId is required' },
       { type: 'minlength', message: 'UserId must be at least 5 characters long' }
@@ -80,7 +84,7 @@ export class TankformComponent implements OnInit {
       PetrolPumpCode: [this.tank.PetrolPumpCode],
       TankCode: [this.tank.TankCode],
       FuelTypeID: [this.tank.FuelTypeID],
-      TankCapacity: [this.tank.TankCapacity],
+      TankCapacity: [this.tank.TankCapacity, Validators.compose([Validators.required,Validators.pattern('^(\\d{1,20})$')])],
       TankName: [this.tank.TankName, Validators.compose([Validators.required])],
       ReadingDate: [this.tank.ReadingDate],
       OpeningReading: [this.tank.OpeningReading],
@@ -90,7 +94,7 @@ export class TankformComponent implements OnInit {
       DipReadingDate: [this.tank.DipReadingDate],
       DipOpeningReading: [this.tank.DipOpeningReading],
     });
-    let latest_ReadingDate = this.datepipe.transform(((this.tank.ReadingDate == "" || this.tank.ReadingDate == null ) ? new Date().toString() : this.tank.ReadingDate), 'yyyy-MM-dd');
+    let latest_ReadingDate = this.datepipe.transform(((this.tank.ReadingDate == "" || this.tank.ReadingDate == null) ? new Date().toString() : this.tank.ReadingDate), 'yyyy-MM-dd');
     this.tankform.get('ReadingDate').setValue(latest_ReadingDate);
     // let dateTemp:string = this.tank.ReadingDate;
     // this.tankform.get('ReadingType').setValue({
@@ -150,11 +154,16 @@ export class TankformComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result.data != undefined && result.data != null) {
         let counter: number = 0;
+        if (this.readingTypeDetails == null || this.readingTypeDetails == undefined) {
+          this.readingTypeDetails = new Array<ReadingTypeDetail>();
+        }
         this.readingTypeDetails.forEach(element => {
           if (element.ReadingType == result.data.ReadingType) {
             counter = 1;
           }
         });
+
+
         if (counter == 0) {
           this.readingTypeDetails.push(result.data);
         }

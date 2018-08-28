@@ -40,6 +40,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="OpeningReading">Opening Reading</label>
+                <span class="required">*</span>
                 <input type="number" placeholder="Opening Reading" class="form-control" name="OpeningReading" formControlName="OpeningReading"
                     required>
                     <div *ngFor="let validation of validation_messages.OpeningReading">
@@ -50,10 +51,11 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="ReadingDate">Reading Date</label>
+                <span class="required">*</span>
                 <input type="date" placeholder="Reading Date" class="form-control" formControlName="ReadingDate">
-                <!-- <div *ngFor="let validation of validation_messages.LicenseStartDate">
-                                <span class="error-message" *ngIf="registerForm.get('LicenseStartDate').hasError(validation.type) && (registerForm.get('LicenseStartDate').dirty || registerForm.get('LicenseStartDate').touched)">{{validation.message}}</span>
-                        </div> -->
+                <div *ngFor="let validation of validation_messages.ReadingDate">
+                                <span class="error-message" *ngIf="nozzleform.get('ReadingDate').hasError(validation.type) && (nozzleform.get('ReadingDate').dirty || nozzleform.get('ReadingDate').touched)">{{validation.message}}</span>
+                        </div>
             </div>
         </div>
     </div>
@@ -62,6 +64,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="TankName">Tank</label>
+                <span class="required">*</span>
                 <select name="tank" class="form-control" formControlName="TankID" (change)="onChangeTank()">
                     <option [ngValue]="0" disabled>--Select--</option>
                     <option *ngFor="let itemTank of tank;let i=index" [ngValue]="itemTank.ID">{{itemTank.Name}}</option>

@@ -36,7 +36,11 @@
     <div class="col-md-6">
       <div class="form-group">
         <label for="TankCapacity">Tank Capacity</label>
-        <input type="number" placeholder="Tank Capacity" class="form-control" name="TankCapacity" formControlName="TankCapacity">
+        <span class="required">*</span>
+        <input type="number" placeholder="Tank Capacity" class="form-control" name="TankCapacity" formControlName="TankCapacity" required>
+        <div *ngFor="let validation of validation_messages.TankCapacity">
+          <span class="error-message" *ngIf="tankform.get('TankCapacity').hasError(validation.type) && (tankform.get('TankCapacity').dirty || tankform.get('TankCapacity').touched)">{{validation.message}}</span>
+        </div>
       </div>
     </div>
   </div>

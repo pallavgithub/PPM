@@ -30,16 +30,14 @@ export class ReadingTypeDialogFormComponent implements OnInit {
   //btnDisabled: boolean = false;
   readingTypeDialogform: FormGroup;
   readingTypes: ReadingType[];
-  validationPaymentTypeMessage : string;
+  validationReadingTypeMessage : string;
   validation_messages = {
-    'Email': [
-      { type: 'required', message: 'Email is required' },
-      { type: 'email', message: 'Enter a valid email' }
+    'ReadingDate': [
+      { type: 'required', message: 'Reading Date is required' }
     ],
-    'Password': [
-      { type: 'required', message: 'Password is required' },
-      { type: 'minlength', message: 'Password must be at least 8 characters long' },
-      { type: 'pattern', message: 'Only Alphabets, Numbers, @, &, !, -, _ and . are allowed.' }
+    'OpeningReading': [
+      { type: 'required', message: 'Opening Reading is required' },
+      { type: 'pattern', message: 'Only Numbers are allowed.' }
     ],
     'UserId': [
       { type: 'required', message: 'UserId is required' },
@@ -67,15 +65,25 @@ export class ReadingTypeDialogFormComponent implements OnInit {
     this.pumpPayment = this.data.readingTypeDetailTemp;
 
     this.readingTypeDialogform = this._formBuilder.group({
-      ReadingDate: [this.pumpPayment.ReadingDate],
+      ReadingDate: [this.pumpPayment.ReadingDate, Validators.compose([Validators.required])],
       ReadingType: [this.pumpPayment.ReadingType],
-      OpeningReading: [this.pumpPayment.OpeningReading],
+      OpeningReading: [this.pumpPayment.OpeningReading, Validators.compose([Validators.required,Validators.pattern('^(\\d{1,20})$')])],
       ID: [this.pumpPayment.ID],
       PetrolPumpCode : [this.pumpPayment.PetrolPumpCode]
     });
     let latest_ReadingDate = this.datepipe.transform(((this.pumpPayment.ReadingDate == "" || this.pumpPayment.ReadingDate == null ) ? new Date().toString() : this.pumpPayment.ReadingDate), 'yyyy-MM-dd');
     this.readingTypeDialogform.get('ReadingDate').setValue(latest_ReadingDate);
     this.getReadingType();
+  }
+
+  checkFormValid() {
+    if (this.readingTypeDialogform.controls['ReadingType'].value == 0) {
+      this.validationReadingTypeMessage = "Please select Reading Type";
+      return false;
+    }
+    else {
+      this.validationReadingTypeMessage = "";
+    }
   }
 
   createPayment() {
