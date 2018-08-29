@@ -42,11 +42,11 @@
     <ng-template mat-tab-label>
       DashBoard
     </ng-template>
-    <pump-inventory *ngIf="pumpInventory" [pumpInventory]='pumpInventory' [pumpCode]='petrolPumpCode'></pump-inventory>
+    <pump-landingDashboard *ngIf="pumpStatus" [pumpStatus]='pumpStatus' [pumpCode]='petrolPumpCode'></pump-landingDashboard>
   </mat-tab>
   <mat-tab aria-orientation="vertical">
     <ng-template mat-tab-label>
-      Inventory
+      Inventory and Price Management
       <!-- <div>
         <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].BasicInfo == 1">
           <img src="../../assets/smalltickumber.png" class="imgTab">
@@ -56,10 +56,10 @@
         </div>
       </div> -->
     </ng-template>
-    <div class="col-md-12">
+    <!-- <div class="col-md-12">
       <button class="btn btn-primary" style="float:right;" (click)="openAddInventoryDialog()">Add Inventory</button>
-    </div>
-    <pump-inventory *ngIf="pumpInventory" [pumpInventory]='pumpInventory' [pumpCode]='petrolPumpCode'></pump-inventory>
+    </div> -->
+    <pump-inventory *ngIf="pumpProduct" [pumpProduct]='pumpProduct' [pumpCode]='petrolPumpCode'></pump-inventory>
   </mat-tab>
   <mat-tab aria-orientation="vertical">
     <ng-template mat-tab-label>
@@ -78,6 +78,23 @@
     </div>
     <pump-creditor *ngIf="pumpUsers" [pumpUsers]='pumpUsers' [pumpCode]='petrolPumpCode'></pump-creditor>
   </mat-tab>
+  <mat-tab aria-orientation="vertical">
+      <ng-template mat-tab-label>
+        Set Daily Price
+        <!-- <div>
+          <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].BasicInfo == 1">
+            <img src="../../assets/smalltickumber.png" class="imgTab">
+          </div>
+          <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].BasicInfo == 0">
+            <img src="../../assets/small-red-cross.png" class="imgTab">
+          </div>
+        </div> -->
+      </ng-template>
+      <!-- <div class="col-md-12">
+        <button class="btn btn-primary" style="float:right;" (click)="openAddUserDialog()">Add Creditor</button>
+      </div> -->
+      <pump-priceAdjustment *ngIf="pumpProduct" [pumpProduct]='pumpProduct' [pumpCode]='petrolPumpCode'></pump-priceAdjustment>
+    </mat-tab>
 
 </mat-tab-group>
 

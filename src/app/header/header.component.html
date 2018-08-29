@@ -6,6 +6,7 @@
         <ul class="nav navbar-nav">
                 <li><a [routerLink]="['']">Home</a></li>
                 <li *ngIf="userData.RoleID==-2"><a [routerLink]="['/pumpRegister']" >Register Pump</a></li>
+                <li *ngIf="userData.RoleID!=-2"><a [routerLink]="['/dashboard',userData.PetrolPumpCode]">DashBoard</a></li>
                 <!-- <li><a href="#">Page 2</a></li> -->
               </ul>
         <ul class="nav navbar-nav navbar-right">

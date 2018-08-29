@@ -35,16 +35,23 @@
     </div>
     <div class="col-md-6">
       <div class="form-group">
-        <label for="TankCapacity">Tank Capacity</label>
+          <label for="ChartType">Chart Type</label>
+          <span class="required">*</span>
+          <select name="ChartTypeID" class="form-control" formControlName="ChartTypeID" (change)="onchange()">
+            <option [ngValue]="0" disabled>--Select--</option>
+            <option *ngFor="let chartType of chartTypes;let i=index" [ngValue]="chartType.ID">{{chartType.Name}}</option>
+          </select>
+          <span class="error-message">{{validationChartTypeMessage}}</span>
+        <!-- <label for="TankCapacity">Tank Capacity</label>
         <span class="required">*</span>
         <input type="number" placeholder="Tank Capacity" class="form-control" name="TankCapacity" formControlName="TankCapacity" required>
         <div *ngFor="let validation of validation_messages.TankCapacity">
           <span class="error-message" *ngIf="tankform.get('TankCapacity').hasError(validation.type) && (tankform.get('TankCapacity').dirty || tankform.get('TankCapacity').touched)">{{validation.message}}</span>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
-  <div class="row saperatorDiv"><span class="saperatorSpan">Reading</span></div>
+  <div class="row saperatorDiv"><span class="saperatorSpan">Initial Reading</span></div>
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">

@@ -22,6 +22,7 @@ import { PaymentType } from '../_models/PaymentType';
 import { pp_Payment } from '../_models/pp_Payment';
 import { UserDetail } from '../_models/userDetail';
 import { ReadingTypeDetail } from '../_models/readingTypeDetail';
+import { ChartType } from '../_models/ChartType';
 
 @Injectable()
 export class UserService {
@@ -53,6 +54,9 @@ export class UserService {
     }    
     getAllFuelType(){
         return this.http.get<FuelType[]>(`${environment.apiUrl}/Pump/FuelType`);
+    }
+    getAllChartType(){
+        return this.http.get<ChartType[]>(`${environment.apiUrl}/Pump/ChartType`);
     }
     getReadingType(){
         return this.http.get<ReadingType[]>(`${environment.apiUrl}/Pump/GetReadingType`);
@@ -113,6 +117,9 @@ export class UserService {
 
     getUserListByID(petrolPumpCode:string){
         return this.http.get<UserIdName[]>(`${environment.apiUrl}/Pump/UserList/?petrolPumpCode=`+petrolPumpCode);
+    }
+    getAssignedToListByID(petrolPumpCode:string){
+        return this.http.get<UserIdName[]>(`${environment.apiUrl}/Pump/AssignedToList/?petrolPumpCode=`+petrolPumpCode);
     }
     
 }

@@ -27,7 +27,7 @@ export class ProductDialogFormComponent implements OnInit {
   productDialogform: FormGroup;
   validationProductIDMessage: string;
   validationUnitMessage: string;
-  isInitials:boolean;
+  isInitials: boolean;
   validation_messages = {
     'Email': [
       { type: 'required', message: 'Email is required' },
@@ -85,7 +85,7 @@ export class ProductDialogFormComponent implements OnInit {
     }
     this.getAllProducts();
     this.getAllUnits();
-    this.DisableControlsByRole(this.pumpProduct.CategoryID,this.pumpProduct.ProductID);
+    this.DisableControlsByRole(this.pumpProduct.CategoryID, this.pumpProduct.ProductID);
 
     this.productDialogform = this._formBuilder.group({
       ID: [this.pumpProduct.ID],
@@ -94,8 +94,8 @@ export class ProductDialogFormComponent implements OnInit {
       InitialQuantity: [this.pumpProduct.InitialQuantity],
       PurchaseQuantity: [this.pumpProduct.PurchaseQuantity],
       Unit: [this.pumpProduct.Unit],
-      PurchaseRate: [this.pumpProduct.PurchaseRate,Validators.compose([Validators.required,Validators.pattern('^[0-9.]*$')])],
-      SaleRate: [this.pumpProduct.SaleRate,Validators.compose([Validators.required,Validators.pattern('^[0-9.]*$')])],
+      PurchaseRate: [this.pumpProduct.PurchaseRate, Validators.compose([Validators.required])],
+      SaleRate: [this.pumpProduct.SaleRate, Validators.compose([Validators.required])],
       Description: [this.pumpProduct.Description],
       CreatedBy: [this.pumpProduct.CreatedBy],
       CreatedOn: [this.pumpProduct.CreatedOn],
@@ -108,11 +108,14 @@ export class ProductDialogFormComponent implements OnInit {
       DateStockMeasuredOn: [this.pumpProduct.DateStockMeasuredOn],
       CategoryID: [this.pumpProduct.CategoryID]
     });
-    let latest_PurchaseDate = this.datepipe.transform(((this.pumpProduct.PurchaseDate == "" || this.pumpProduct.PurchaseDate == null ) ? new Date().toString() : this.pumpProduct.PurchaseDate), 'yyyy-MM-dd');
+    let latest_PurchaseDate = this.datepipe.transform(((this.pumpProduct.PurchaseDate == "" || this.pumpProduct.PurchaseDate == null) ? new Date().toString() : this.pumpProduct.PurchaseDate), 'yyyy-MM-dd');
     this.productDialogform.get('PurchaseDate').setValue(latest_PurchaseDate);
 
-    let latest_SaleDate = this.datepipe.transform(((this.pumpProduct.SaleDate == "" || this.pumpProduct.SaleDate == null ) ? new Date().toString() : this.pumpProduct.SaleDate), 'yyyy-MM-dd');
+    let latest_SaleDate = this.datepipe.transform(((this.pumpProduct.SaleDate == "" || this.pumpProduct.SaleDate == null) ? new Date().toString() : this.pumpProduct.SaleDate), 'yyyy-MM-dd');
     this.productDialogform.get('SaleDate').setValue(latest_SaleDate);
+
+    let latest_DateStockMeasuredOn = this.datepipe.transform(((this.pumpProduct.DateStockMeasuredOn == "" || this.pumpProduct.DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct.DateStockMeasuredOn), 'yyyy-MM-dd');
+    this.productDialogform.get('DateStockMeasuredOn').setValue(latest_DateStockMeasuredOn);
     // this.DisableControlsByRole();
   }
   checkFormValid() {
@@ -120,8 +123,7 @@ export class ProductDialogFormComponent implements OnInit {
       this.validationProductIDMessage = "Please select Product ID";
       return false;
     }
-    else
-    {
+    else {
       this.validationProductIDMessage = "";
     }
     let categoryID = 0;
@@ -131,7 +133,7 @@ export class ProductDialogFormComponent implements OnInit {
         this.validationUnitMessage = "Please select Unit";
         return false;
       }
-      else{
+      else {
         this.validationUnitMessage = "";
       }
     }
@@ -156,15 +158,25 @@ export class ProductDialogFormComponent implements OnInit {
   createProduct() {
     this.productDialogform.controls["PurchaseRate"].setValue(Number(this.productDialogform.controls["PurchaseRate"].value));
     this.productDialogform.controls["SaleRate"].setValue(Number(this.productDialogform.controls["SaleRate"].value));
-    if(this.productDialogform.controls["InitialQuantity"].value == "")
-    {
+    if (this.productDialogform.controls["InitialQuantity"].value == "") {
       this.productDialogform.controls["InitialQuantity"].setValue(0);
     }
-    else
-    {
+    else {
       this.productDialogform.controls["InitialQuantity"].setValue(Number(this.productDialogform.controls["InitialQuantity"].value));
     }
-    
+    if (this.productDialogform.controls["PurchaseRate"].value == "") {
+      this.productDialogform.controls["PurchaseRate"].setValue(0);
+    }
+    else {
+      this.productDialogform.controls["PurchaseRate"].setValue(Number(this.productDialogform.controls["PurchaseRate"].value));
+    }
+    if (this.productDialogform.controls["SaleRate"].value == "") {
+      this.productDialogform.controls["SaleRate"].setValue(0);
+    }
+    else {
+      this.productDialogform.controls["SaleRate"].setValue(Number(this.productDialogform.controls["SaleRate"].value));
+    }
+
     this.petrolPumpService.addUpdatePumpProduct(this.productDialogform.value).subscribe((res: any) => {
       this.toasterService.pop('success', '', res.Result.toString());
       this.dialogRef.close();
@@ -174,13 +186,59 @@ export class ProductDialogFormComponent implements OnInit {
 
   onChange() {
     let categoryID = 0;
-    let productID =this.productDialogform.controls['ProductID'].value;
+    let productID = this.productDialogform.controls['ProductID'].value;
     categoryID = this.GetCategoryID();
-    this.DisableControlsByRole(categoryID,productID);
+    this.DisableControlsByRole(categoryID, productID);
     this.checkFormValid();
+    if (categoryID == 3) {
+      let pumpProductNew: pp_PumpProduct = new pp_PumpProduct();
+      pumpProductNew.PetrolPumpCode = this.pumpProduct.PetrolPumpCode;
+      pumpProductNew.IsEditModal = false;
+      this.productDialogform = this._formBuilder.group({
+        ID: [this.pumpProduct.ID],
+        PetrolPumpCode: [this.pumpProduct.PetrolPumpCode],
+        ProductID: productID,
+        InitialQuantity: [this.pumpProduct.InitialQuantity],
+        PurchaseQuantity: [this.pumpProduct.PurchaseQuantity],
+        Unit: [this.pumpProduct.Unit],
+        PurchaseRate: [this.pumpProduct.PurchaseRate],
+        SaleRate: [this.pumpProduct.SaleRate],
+        Description: [this.pumpProduct.Description],
+        CreatedBy: [this.pumpProduct.CreatedBy],
+        CreatedOn: [this.pumpProduct.CreatedOn],
+        ModifiedBy: [this.pumpProduct.ModifiedBy],
+        ModifiedOn: [this.pumpProduct.ModifiedOn],
+        isEditModal: [this.pumpProduct.IsEditModal],
+        ProductCode: [this.pumpProduct.ProductCode],
+        PurchaseDate: [this.pumpProduct.PurchaseDate],
+        SaleDate: [this.pumpProduct.SaleDate],
+        DateStockMeasuredOn: [this.pumpProduct.DateStockMeasuredOn],
+        CategoryID: categoryID
+      });
+      this.productDialogform.controls["PurchaseRate"].setValue(Number(this.productDialogform.controls["PurchaseRate"].value));
+      this.productDialogform.controls["SaleRate"].setValue(Number(this.productDialogform.controls["SaleRate"].value));
+      if (this.productDialogform.controls["InitialQuantity"].value == "") {
+        this.productDialogform.controls["InitialQuantity"].setValue(0);
+      }
+      else {
+        this.productDialogform.controls["InitialQuantity"].setValue(Number(this.productDialogform.controls["InitialQuantity"].value));
+      }
+      if (this.productDialogform.controls["PurchaseRate"].value == "") {
+        this.productDialogform.controls["PurchaseRate"].setValue(0);
+      }
+      else {
+        this.productDialogform.controls["PurchaseRate"].setValue(Number(this.productDialogform.controls["PurchaseRate"].value));
+      }
+      if (this.productDialogform.controls["SaleRate"].value == "") {
+        this.productDialogform.controls["SaleRate"].setValue(0);
+      }
+      else {
+        this.productDialogform.controls["SaleRate"].setValue(Number(this.productDialogform.controls["SaleRate"].value));
+      }
+    }
   }
 
-  DisableControlsByRole(categoryID: number, productID:number) {
+  DisableControlsByRole(categoryID: number, productID: number) {
 
     if (categoryID == 1) { // Standard
       // this.productDialogform.controls['Quantity'].enable();
@@ -195,10 +253,10 @@ export class ProductDialogFormComponent implements OnInit {
       // }
       this.divCategory = 1;
     }
-    else if (categoryID == 2) {      
+    else if (categoryID == 2) {
       this.divCategory = 2;
       // this.productDialogform.controls['Quantity'].disable();
-      
+
     }
     else {
       // this.productDialogform.controls['Quantity'].disable();

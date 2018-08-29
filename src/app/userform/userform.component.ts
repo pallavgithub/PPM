@@ -60,7 +60,6 @@ export class UserformComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.data.user;
-    debugger
     this.getAllRoles();
     this.userform = this._formBuilder.group({
       ID: [this.user.ID],

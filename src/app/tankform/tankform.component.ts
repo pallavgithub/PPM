@@ -13,6 +13,7 @@ import { DatePipe } from '../../../node_modules/@angular/common';
 import { ReadingTypeDetail } from '../_models/ReadingTypeDetail';
 import { ReadingTypeDialogFormComponent } from '../readingTypeDialog/readingTypeDialog.component';
 import { AlertService } from '../_services/alert.service';
+import { ChartType } from '../_models/ChartType';
 
 @Component({
   selector: 'tankform',
@@ -24,10 +25,12 @@ export class TankformComponent implements OnInit {
   tank: pp_Tank = new pp_Tank();
   IsEditDialog: boolean;
   fuelTypes: FuelType[];
+  chartTypes: ChartType[];
   readingTypes: ReadingType[];
   public readingTypeDetails: ReadingTypeDetail[] = new Array<ReadingTypeDetail>();
   tankform: FormGroup;
   validationFuelTypeMessage: string;
+  validationChartTypeMessage:string;
   validation_messages = {
     'Email': [
       { type: 'required', message: 'Email is required' },
@@ -79,12 +82,14 @@ export class TankformComponent implements OnInit {
     }
     this.getFuelTypeByID(this.tank.PetrolPumpCode);
     this.getReadingType();
+    this.getAllChartType();
     this.tankform = this._formBuilder.group({
       ID: [this.tank.ID],
       PetrolPumpCode: [this.tank.PetrolPumpCode],
       TankCode: [this.tank.TankCode],
       FuelTypeID: [this.tank.FuelTypeID],
-      TankCapacity: [this.tank.TankCapacity, Validators.compose([Validators.required])],
+      ChartTypeID: [this.tank.ChartTypeID],
+      TankCapacity: [this.tank.TankCapacity],
       TankName: [this.tank.TankName, Validators.compose([Validators.required])],
       ReadingDate: [this.tank.ReadingDate],
       OpeningReading: [this.tank.OpeningReading],
@@ -113,6 +118,13 @@ export class TankformComponent implements OnInit {
     else {
       this.validationFuelTypeMessage = "";
     }
+    if (this.tankform.controls['ChartTypeID'].value == 0) {
+      this.validationChartTypeMessage = "Please select Chart Type";
+      return false;
+    }
+    else {
+      this.validationChartTypeMessage = "";
+    }
   }
   onchange() {
     this.checkFormValid();
@@ -120,6 +132,11 @@ export class TankformComponent implements OnInit {
   getAllFuelType() {
     this.userService.getAllFuelType().subscribe(data => {
       this.fuelTypes = data;
+    });
+  }
+  getAllChartType() {
+    this.userService.getAllChartType().subscribe(data => {
+      this.chartTypes = data;
     });
   }
   getReadingType() {
@@ -136,7 +153,7 @@ export class TankformComponent implements OnInit {
     });
   }
   createTank() {
-    this.tankform.controls["TankCapacity"].setValue(Number(this.tankform.controls["TankCapacity"].value));
+    //this.tankform.controls["TankCapacity"].setValue(Number(this.tankform.controls["TankCapacity"].value));
     let itemPP_Tank: pp_Tank = this.tankform.value;
     itemPP_Tank.pp_TankReading = this.readingTypeDetails;
     this.pumpService.addUpdatePumpTank(itemPP_Tank).subscribe(res => {

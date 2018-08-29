@@ -24,7 +24,9 @@ import { RegisterComponent } from './register';;
 import { PumpRegisterComponent } from './pump-register/pump-register.component';;
 import { PumpUserMapComponent } from './pump-user-map/pump-user-map.component';
 import { PumpInfoComponent } from './pump-info/pump-info.component';
+import {LandingDashboardComponent} from './landingDashboard/landingDashboard.component';
 import { PumpAdditionalInfoComponent } from './pump-Additionalinfo/pump-Additionalinfo.component';
+import { PriceAdjustmentComponent } from './priceAdjustment/priceAdjustment.component';
 import { PumpUsersComponent } from './pump-users/pump-users.component';
 import { CreditorComponent } from './creditor/creditor.component';
 import 'hammerjs';
@@ -90,7 +92,9 @@ import { CreditorformComponent } from './creditorform/creditorform.component';
         CreditorComponent,
         CreditorformComponent,
         PumpInfoComponent,
+        LandingDashboardComponent,
         PumpAdditionalInfoComponent,
+        PriceAdjustmentComponent,
         PetrolPumpFormComponent,
         PumpTankComponent,
         PumpNozzleComponent,

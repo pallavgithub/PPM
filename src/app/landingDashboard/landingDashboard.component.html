@@ -1,0 +1,23 @@
+<br/>
+<form [formGroup]="pump-landingDashboard" (ngSubmit)="savePumpInfo()" style="width: 98%;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="PetrolPumpCode">{{status}}
+                </label>               
+            </div>
+        </div>
+    </div>
+    <div class="row">        
+        <div class="col-md-12">
+            <div class="form-group">                
+                <div *ngIf="countStatus == 1">
+                    <img src="../../assets/smalltickumber.png" class="imgTab" height="50px;">
+                </div>
+                <div *ngIf="countStatus == 0">
+                    <img src="../../assets/small-red-cross.png" class="imgTab" height="50px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

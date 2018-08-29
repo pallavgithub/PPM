@@ -58,9 +58,15 @@ export class PetrolPumpService {
     updatePetrolPumpAdditionalInfo(pumpInfo:pp_PetrolPump){
         return this.http.post(`${environment.apiUrl}/Pump/UpdatePetrolPumpInfo`,JSON.stringify(pumpInfo));
     }
+    updatePetrolPumpPriceAdjustmentInfo(pumpInfo:pp_PumpProduct[]){
+        return this.http.post(`${environment.apiUrl}/Pump/UpdatePriceAdjustmentInfo`,JSON.stringify(pumpInfo));
+    }
 
     addUpdatePumpProduct(pumpProduct:pp_PumpProduct){
         return this.http.post(`${environment.apiUrl}/Pump/UpdateProductInfo`,JSON.stringify(pumpProduct))
+    }
+    AddProductInventoryInfo(pumpProduct:pp_PumpProduct){
+        return this.http.post(`${environment.apiUrl}/Pump/AddProductInventoryInfo`,JSON.stringify(pumpProduct))
     }
     addUpdatePumpPayment(pumpPayment:pp_Payment){
         return this.http.post(`${environment.apiUrl}/Pump/UpdatePaymentInfo`,JSON.stringify(pumpPayment))

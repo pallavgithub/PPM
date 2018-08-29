@@ -1,40 +1,41 @@
- 
-
 <br/>
 
 
+
 <!-- <userform (userCreated)="addUser($event)"></userform> -->
-<div class="col-md-12 table-responsive" *ngIf="pumpInventory != null && pumpInventory.length>0">
+<div class="col-md-12 table-responsive" *ngIf="pumpProduct != null && pumpProduct.length>0">
   <table style="border: 1px solid black" class="table table-striped">
     <thead class="thead-dark">
-    <tr>
-      <!-- <th>Product Id</th> -->
-      <th>Name</th>
-      <th>Unit</th>
-      <th>Quantity</th>      
-      <th>Purchase Rate</th>
-      <th>Sale Rate</th>
-      <th>Description</th>
-      <!-- <th>Modified By</th> -->
-      <th>Action</th>
-    </tr>
-  </thead>
-    
-    <tr *ngFor ="let itemPumpInventory of pumpInventory let i=index">
+      <tr>
+        <th>Name</th>
+        <th>Unit</th>
+        <th>Purchase Rate</th>
+        <th>Purchase Date</th>
+        <th>Sale Price</th>
+        <th>Sale Date</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tr *ngFor="let product of pumpProduct let i=index">
       <!-- <td>{{product.ProductID}}</td> -->
-      <th>{{itemPumpInventory.ID}}</th>
-      <td>{{itemPumpInventory.ProductID}}</td>
-      <td>{{itemPumpInventory.TankID}}</td>
-      <td>{{itemPumpInventory.TankID}}</td>
-      <td>{{itemPumpInventory.TankID}}</td>
-      <td>{{itemPumpInventory.TankID}}</td>
+      <th>{{product.ProductName}}</th>
+      <td>{{product.UnitName}}</td>
+      <td>{{product.PurchaseRate}}</td>
+      <td>{{product.PurchaseDate | date}}</td>
+      <td>{{product.SaleRate}}</td>
+      <td>{{product.SaleDate | date}}</td>
       <!-- <td>{{product.CreatedOn}}</td>
       <td>{{product.CreatedBy}}</td> -->
       <!-- <td>{{getUserRole(product.RoleID)}}</td> -->
       <td>
-        <a (click)="editProduct(itemPumpInventory)" style="cursor: pointer;">Edit</a>&nbsp;
-        <a (click)="DeleteProduct(itemPumpInventory)" style="cursor: pointer;">Delete</a>
+        <a (click)="editProduct(product)" style="cursor: pointer;">Add Inventory</a>&nbsp;
+        <a (click)="editProduct(product)" style="cursor: pointer;" *ngIf="product.CategoryID==2">Adjust Price</a>&nbsp;
+         <!-- <a (click)="DeleteProduct(product)" style="cursor: pointer;">Delete</a>-->
       </td>
     </tr>
   </table>
 </div>
+<!-- <div>
+  <a [routerLink]="['/dashboard',this.pumpCode]">Manage Inventory</a>
+</div> -->

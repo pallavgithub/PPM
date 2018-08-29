@@ -20,6 +20,8 @@ import { UserService } from '../_services';
 import { AlertService } from '../_services/alert.service';
 import { UserDetail } from '../_models/userDetail';
 import { CreditorformComponent } from '../creditorform/creditorform.component';
+import { InventoryDialogFormComponent } from '../inventoryDialog/inventoryDialog.component';
+import { pp_Inventory } from '../_models/pp_Inventory';
 
 @Component({
   selector: 'pump-dashboard',
@@ -117,6 +119,15 @@ export class DashBoardComponent implements OnInit {
     pumpPaymentNew.IsEditModal = false;
     const dialogRef = this.dialog.open(PaymentDialogFormComponent, {
       data: { pumpPaymentNew },
+      disableClose: true
+    });
+  }
+  openAddInventoryDialog() {
+    let pumpInventoryNew: pp_Inventory = new pp_Inventory();
+    pumpInventoryNew.PetrolPumpCode = this.petrolPumpCode;
+    pumpInventoryNew.IsEditModal = false;
+    const dialogRef = this.dialog.open(InventoryDialogFormComponent, {
+      data: { pumpInventoryNew },
       disableClose: true
     });
   }

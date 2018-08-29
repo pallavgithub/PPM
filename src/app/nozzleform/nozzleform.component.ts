@@ -192,7 +192,7 @@ export class NozzleformComponent implements OnInit {
   }
 
   getIdAndNameForAllUser(petrolPumpCode: string) {
-    this.userService.getUserListByID(petrolPumpCode).subscribe(data => {
+    this.userService.getAssignedToListByID(petrolPumpCode).subscribe(data => {
       this.newUserIdName = data;
       // this.fuelTypes = this.fuelTypes.filter(item=>item.Name != 'Lubes - Motor Oil'
       // && item.Name != 'Lubes - Gear Oil' && item.Name != 'Lubes - Transmission Fluid' 
