@@ -1,13 +1,13 @@
 <h2 mat-dialog-title>Product</h2>
 <form [formGroup]="productDialogform" (ngSubmit)="createProduct()">
-    <div class="row" *ngIf="IsEditDialog == true">
+    <!-- <div class="row" *ngIf="IsEditDialog == true">
         <div class="col-md-6">
             <div class="form-group">
                 <label for="ProductCode">Product Code</label>
                 <input class="form-control" formControlName="ProductCode" disabled>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -90,15 +90,15 @@
                 </div>
             </div> -->
         </div>
-        <div class="row saperatorDiv"><span class="saperatorSpan">Initials</span></div>
+        <div class="row saperatorDiv"><span class="saperatorSpan">Enter the Stock</span></div>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="InitialQuantity">
-                        Initial Quantity
+                            Opening Stock
                         <span class="required">*</span>
                     </label>
-                    <input type="number" placeholder="Initial Quantity" class="form-control" formControlName="InitialQuantity" required>
+                    <input type="number" placeholder="Opening Stock" class="form-control" formControlName="InitialQuantity" required>
                     <div *ngFor="let validation of validation_messages.InitialQuantity">
                         <span class="error-message" *ngIf="productDialogform.get('InitialQuantity').hasError(validation.type) && (productDialogform.get('InitialQuantity').dirty || productDialogform.get('InitialQuantity').touched)">{{validation.message}}</span>
                     </div>
@@ -109,10 +109,10 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="DateStockMeasuredOn">
-                        Date Stock Measured On
+                        Date Measured On
                         <span class="required">*</span>
                     </label>
-                    <input type="date" placeholder="Date Stock Measured On" class="form-control" formControlName="DateStockMeasuredOn" required>
+                    <input type="date" placeholder="Date Measured On" class="form-control" formControlName="DateStockMeasuredOn" required>
                     <div *ngFor="let validation of validation_messages.DateStockMeasuredOn">
                         <span class="error-message" *ngIf="productDialogform.get('DateStockMeasuredOn').hasError(validation.type) && (productDialogform.get('DateStockMeasuredOn').dirty || productDialogform.get('DateStockMeasuredOn').touched)">{{validation.message}}</span>
                     </div>
@@ -121,11 +121,11 @@
                 </div>
             </div>
         </div>
-        <div class="row saperatorDiv"><span class="saperatorSpan">Purchase</span></div>
+        <div class="row saperatorDiv"><span class="saperatorSpan">Purchase Pricing</span></div>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="PurchaseRate">Purchase Rate
+                    <label for="PurchaseRate">Purchase Price
                         <span class="required">*</span>
                     </label>
                     <input type="number" placeholder="Purchase Rate" class="form-control" formControlName="PurchaseRate" required>
@@ -146,7 +146,7 @@
                 </div>
             </div>
         </div>
-        <div class="row saperatorDiv"><span class="saperatorSpan">Sales</span></div>
+        <div class="row saperatorDiv"><span class="saperatorSpan">Sale Pricing</span></div>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -205,10 +205,10 @@
         <div class="row" *ngIf="isInitials">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="InitialQuantity">Initial Reading
+                    <label for="InitialQuantity">Opening Reading
                         <span class="required">*</span>
                     </label>
-                    <input type="number" placeholder="Initial Reading" class="form-control" formControlName="InitialQuantity" required>
+                    <input type="number" placeholder="Opening Reading" class="form-control" formControlName="InitialQuantity" required>
                     <div *ngFor="let validation of validation_messages.InitialReading">
                         <span class="error-message" *ngIf="productDialogform.get('InitialQuantity').hasError(validation.type) && (productDialogform.get('InitialQuantity').dirty || productDialogform.get('InitialQuantity').touched)">{{validation.message}}</span>
                     </div>
@@ -220,14 +220,14 @@
                 </div>
             </div>
         </div>
-        <div class="row saperatorDiv"><span class="saperatorSpan">Purchase</span></div>
+        <div class="row saperatorDiv"><span class="saperatorSpan">Purchase Pricing</span></div>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="PurchaseRate">Purchase Rate
+                    <label for="PurchaseRate">Purchase Price
                         <span class="required">*</span>
                     </label>
-                    <input type="number" placeholder="Purchase Rate" class="form-control" formControlName="PurchaseRate" required>
+                    <input type="number" placeholder="Purchase Price" class="form-control" formControlName="PurchaseRate" required>
                     <div *ngFor="let validation of validation_messages.PurchaseRate">
                         <span class="error-message" *ngIf="productDialogform.get('PurchaseRate').hasError(validation.type) && (productDialogform.get('PurchaseRate').dirty || productDialogform.get('PurchaseRate').touched)">{{validation.message}}</span>
                     </div>
@@ -245,7 +245,7 @@
                 </div>
             </div>
         </div>
-        <div class="row saperatorDiv"><span class="saperatorSpan">Sales</span></div>
+        <div class="row saperatorDiv"><span class="saperatorSpan">Sale Pricing</span></div>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">

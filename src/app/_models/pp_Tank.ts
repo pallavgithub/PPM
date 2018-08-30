@@ -10,7 +10,8 @@ export class pp_Tank {
   pp_Nozzles:pp_Nozzle[];
   TankName:string;
   ReadingDate:string;
-  OpeningReading:number;
+  OpeningReading:string;
+  OpeningStock:string;
   DipReadingDate:string;
   DipOpeningReading:number;
   ReadingType:number;
@@ -30,7 +31,8 @@ export class pp_Tank {
     this.pp_Nozzles=Array<pp_Nozzle>();
     this.TankName = '';
     this.ReadingDate = '';
-    this.OpeningReading = 0;
+    this.OpeningReading = '';
+    this.OpeningStock = '';
     this.DipReadingDate = '';
     this.DipOpeningReading = 0;
     this.ReadingType = 1;

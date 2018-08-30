@@ -1,7 +1,7 @@
 <br/>
 
 <form [formGroup]="pumpInfoForm" (ngSubmit)="savePumpInfo()" style="width: 98%;">
-        <div class="row">
+    <!-- <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="PetrolPumpCode">Petrol Pump Code
@@ -9,11 +9,19 @@
                         <input class="form-control" formControlName="PetrolPumpCode" disabled>
                     </div>
                 </div>
+            </div> -->
+    <div class="row">
+        <div class="col-md-6 setupHeader">
+            <div class="form-group">
+                <label>Basic
+                </label>
             </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="PetrolPumpName">Name
+                <label for="PetrolPumpName">Pump Name
                     <span class="required">*</span>
                 </label>
                 <input placeholder="Petrol Pump Name" class="form-control" formControlName="PetrolPumpName" [readonly]="RoleID != -2">
@@ -156,7 +164,8 @@
         </div>
       </div> -->
     <div style="float:right;">
-        <button class="btn btn-default" (click)="cancel()">Cancel</button> &nbsp;&nbsp;&nbsp;
-        <button class="btn btn-primary" type="submit" [disabled]="!pumpInfoForm.valid">Save</button>
+        <!-- <button class="btn btn-default" (click)="reset()">Reset</button> &nbsp;&nbsp;&nbsp; -->
+        <input type="button" class="btn btn-primary" value="Reset" (click)="reset()">&nbsp;&nbsp;&nbsp;
+        <button class="btn btn-primary" type="submit" [disabled]="!pumpInfoForm.valid">Save & Next</button>
     </div>
 </form>

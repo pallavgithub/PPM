@@ -1,5 +1,5 @@
 
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { pp_User } from '../_models/pp_User';
 import { UserService } from '../_services';
@@ -19,7 +19,7 @@ export class PumpUsersComponent implements OnInit {
   @Input() pumpUsers: pp_User[];
   @Input() pumpCode: string;
   roles: Role[];
-  constructor(private router:Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService) {
+  constructor(private router:Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService,private viewContainerRef: ViewContainerRef) {
 
   }
   getUserRole(roleId) {
@@ -43,6 +43,10 @@ export class PumpUsersComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.ngOnInit();
     });
+  }
+  moveToNext()
+  {
+    this.viewContainerRef[ '_data' ].componentView.parent.component.selectedTab=5;
   }
   getAllRoles() {
     this.userService.getAllRole().subscribe(data => {

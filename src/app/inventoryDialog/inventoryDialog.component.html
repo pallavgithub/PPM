@@ -59,10 +59,10 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="InitialQuantity">
-                        Add Quantity
+                        Add Stock
                         <span class="required">*</span>
                     </label>
-                    <input type="number" placeholder="Add Quantity" class="form-control" formControlName="InitialQuantity" required>
+                    <input type="number" placeholder="Add Stock" class="form-control" formControlName="InitialQuantity" required>
                     <div *ngFor="let validation of validation_messages.InitialQuantity">
                         <span class="error-message" *ngIf="productDialogform.get('InitialQuantity').hasError(validation.type) && (productDialogform.get('InitialQuantity').dirty || productDialogform.get('InitialQuantity').touched)">{{validation.message}}</span>
                     </div>
@@ -73,10 +73,10 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="DateStockMeasuredOn">
-                        Date Stock Measured On
+                        Date Measured On
                         <span class="required">*</span>
                     </label>
-                    <input type="date" placeholder="Date Stock Measured On" class="form-control" formControlName="DateStockMeasuredOn" required>
+                    <input type="date" placeholder="Date Measured On" class="form-control" formControlName="DateStockMeasuredOn" required>
                     <div *ngFor="let validation of validation_messages.DateStockMeasuredOn">
                         <span class="error-message" *ngIf="productDialogform.get('DateStockMeasuredOn').hasError(validation.type) && (productDialogform.get('DateStockMeasuredOn').dirty || productDialogform.get('DateStockMeasuredOn').touched)">{{validation.message}}</span>
                     </div>

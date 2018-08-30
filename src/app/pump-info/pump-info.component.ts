@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewContainerRef, ComponentRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { pp_PetrolPump } from '../_models/pp_PetrolPump';
@@ -44,14 +44,14 @@ export class PumpInfoComponent implements OnInit {
       { type: 'pattern', message: 'Only Numbers are allowed.' }
     ]
   }
-  constructor(private toasterService: ToasterService, private _formBuilder: FormBuilder, private router: Router, private petrolPumpService: PetrolPumpService) {
+  constructor(private toasterService: ToasterService, private _formBuilder: FormBuilder, private router: Router, private petrolPumpService: PetrolPumpService,private viewContainerRef: ViewContainerRef) {
 
   }
 
   ngOnInit() {
     this.pumpInfoForm = this._formBuilder.group({
       PetrolPumpCode: [this.petrolPump.PetrolPumpCode],
-      PetrolPumpName: [this.petrolPump.PetrolPumpName, Validators.compose([Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z0-9@&]*$')])],
+      PetrolPumpName: [this.petrolPump.PetrolPumpName, Validators.compose([Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z0-9@&\\s]*$')])],
       PetrolPumpPincode: [this.petrolPump.PetrolPumpPincode, Validators.compose([Validators.pattern('^(\\s*|\\d{6,6})$')])],
       OwnerName: [this.petrolPump.OwnerName, Validators.compose([Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z0-9\\s]*$')])],
       Logo: [this.petrolPump.Logo],
@@ -69,7 +69,15 @@ export class PumpInfoComponent implements OnInit {
   savePumpInfo() {
     this.petrolPumpService.updatePetrolPumpInfo(this.pumpInfoForm.value).subscribe(res => {
       this.toasterService.pop('success', '', 'Pump details updated successfully.');
+      this.viewContainerRef[ '_data' ].componentView.parent.component.selectedTab=1;
     });
+    //var aa = this.viewContainerRef[ '_data' ].componentView.component.viewContainerRef[ '_view' ].component;
+    //this.viewContainerRef[ '_data' ].componentView.parent.component
+    //this.viewContainerRef.matgroup.selectedIndex = 5
+  }
+  reset()
+  {
+    this.ngOnInit();
   }
   getUserInfo() {
     this.petrolPumpService.getUserDetail().subscribe((res) => {

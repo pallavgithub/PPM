@@ -9,11 +9,11 @@ import { PumpStatus } from '../_models/PumpStatus';
 
 
 @Component({
-  selector: 'pump-landingDashboard',
-  templateUrl: './landingDashboard.component.html',
-  styleUrls: ['./landingDashboard.component.css']
+  selector: 'pump-CompleteStatus',
+  templateUrl: './pumpCompleteStatus.component.html',
+  styleUrls: ['./pumpCompleteStatus.component.css']
 })
-export class LandingDashboardComponent implements OnInit {
+export class PumpCompleteStatusComponent implements OnInit {
   @Input() pumpStatus: PumpStatus[];
   @Input() pumpCode: string;
   status: string;

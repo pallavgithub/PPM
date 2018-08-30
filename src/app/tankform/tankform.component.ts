@@ -25,7 +25,7 @@ export class TankformComponent implements OnInit {
   tank: pp_Tank = new pp_Tank();
   IsEditDialog: boolean;
   fuelTypes: FuelType[];
-  chartTypes: ChartType[];
+  chartTypes: ChartType[]; 
   readingTypes: ReadingType[];
   public readingTypeDetails: ReadingTypeDetail[] = new Array<ReadingTypeDetail>();
   tankform: FormGroup;
@@ -43,6 +43,14 @@ export class TankformComponent implements OnInit {
     ],
     'TankCapacity': [
       { type: 'required', message: 'Tank Capacity is required' },
+      { type: 'pattern', message: 'Only numbers are allowed.' }
+    ],
+    'OpeningReading': [
+      { type: 'required', message: 'Opening Reading is required' },
+      { type: 'pattern', message: 'Only numbers are allowed.' }
+    ],
+    'OpeningStock': [
+      { type: 'required', message: 'Opening Stock is required' },
       { type: 'pattern', message: 'Only numbers are allowed.' }
     ],
     'UserId': [
@@ -73,7 +81,7 @@ export class TankformComponent implements OnInit {
 
   ngOnInit() {
     this.tank = this.data.tank;
-    this.readingTypeDetails = this.tank.pp_TankReading;
+    this.readingTypeDetails = this.tank.pp_TankReading;    
     if (this.tank.IsEditModal) {
       this.IsEditDialog = true;
     }
@@ -91,8 +99,9 @@ export class TankformComponent implements OnInit {
       ChartTypeID: [this.tank.ChartTypeID],
       TankCapacity: [this.tank.TankCapacity],
       TankName: [this.tank.TankName, Validators.compose([Validators.required])],
-      ReadingDate: [this.tank.ReadingDate],
-      OpeningReading: [this.tank.OpeningReading],
+      ReadingDate: [this.tank.ReadingDate, Validators.compose([Validators.required])],
+      OpeningReading: [this.tank.OpeningReading, Validators.compose([Validators.required])],
+      OpeningStock: [this.tank.OpeningStock, Validators.compose([Validators.required])],
       ReadingType: [this.tank.ReadingType],
       DipReadingType: [this.tank.DipReadingType],
       IsEditModal: [this.tank.IsEditModal],
@@ -154,13 +163,42 @@ export class TankformComponent implements OnInit {
   }
   createTank() {
     //this.tankform.controls["TankCapacity"].setValue(Number(this.tankform.controls["TankCapacity"].value));
+    if (this.tankform.controls["OpeningReading"].value == "") {
+      this.tankform.controls["OpeningReading"].setValue(0);
+    }
+    else {
+      this.tankform.controls["OpeningReading"].setValue(Number(this.tankform.controls["OpeningReading"].value));
+    }
+    if (this.tankform.controls["OpeningStock"].value == "") {
+      this.tankform.controls["OpeningStock"].setValue(0);
+    }
+    else {
+      this.tankform.controls["OpeningStock"].setValue(Number(this.tankform.controls["OpeningStock"].value));
+    }
     let itemPP_Tank: pp_Tank = this.tankform.value;
-    itemPP_Tank.pp_TankReading = this.readingTypeDetails;
+    itemPP_Tank.pp_TankReading = null;
+    // if(this.readingTypeDetails == null || this.readingTypeDetails == undefined)
+    // {
+    //   itemPP_Tank.pp_TankReading = new Array<ReadingTypeDetail>()
+    // }
+    // else
+    // {
+    //   itemPP_Tank.pp_TankReading = this.readingTypeDetails;
+    // }
     this.pumpService.addUpdatePumpTank(itemPP_Tank).subscribe(res => {
       this.toasterService.pop('success', '', "Saved successfully");
       this.dialogRef.close();
       this.router.navigate(['/pumpDetails', this.tank.PetrolPumpCode]);
     })
+  }
+  onBlurOpeningReading()
+  {
+    this.tankform.controls["OpeningStock"].setValue(Number(this.tankform.controls["OpeningReading"].value + 5));
+  }
+
+  onBlurOpeningStock()
+  {
+    this.tankform.controls["OpeningReading"].setValue(Number(this.tankform.controls["OpeningStock"].value - 5));
   }
 
   openAddReadingTypeDialog() {

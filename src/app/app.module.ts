@@ -25,6 +25,7 @@ import { PumpRegisterComponent } from './pump-register/pump-register.component';
 import { PumpUserMapComponent } from './pump-user-map/pump-user-map.component';
 import { PumpInfoComponent } from './pump-info/pump-info.component';
 import {LandingDashboardComponent} from './landingDashboard/landingDashboard.component';
+import {PumpCompleteStatusComponent} from './pumpCompleteStatus/pumpCompleteStatus.component';
 import { PumpAdditionalInfoComponent } from './pump-Additionalinfo/pump-Additionalinfo.component';
 import { PriceAdjustmentComponent } from './priceAdjustment/priceAdjustment.component';
 import { PumpUsersComponent } from './pump-users/pump-users.component';
@@ -93,6 +94,7 @@ import { CreditorformComponent } from './creditorform/creditorform.component';
         CreditorformComponent,
         PumpInfoComponent,
         LandingDashboardComponent,
+        PumpCompleteStatusComponent,
         PumpAdditionalInfoComponent,
         PriceAdjustmentComponent,
         PetrolPumpFormComponent,

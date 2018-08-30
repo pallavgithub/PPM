@@ -56,7 +56,7 @@ export class DashBoardComponent implements OnInit {
     if (this.petrolPumpCode && this.petrolPumpCode != '') {
       //this.getUserInfo();
       this.getPumpInfo(this.petrolPumpCode);
-      this.getPumpStatus(this.petrolPumpCode);
+      this.getPumpStatus(this.petrolPumpCode);      
     }
   }
 
@@ -69,6 +69,7 @@ export class DashBoardComponent implements OnInit {
       this.pumpUsers = res.pp_Users;
       this.pumpTanks = res.pp_Tanks;
       this.pumpProduct = res.pp_PumpProduct;
+      this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID != 3);
       this.pumpNozzles = res.pp_Nozzles;
       this.pumpPayment = res.pp_Payment;
     });

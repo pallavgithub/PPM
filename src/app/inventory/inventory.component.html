@@ -16,7 +16,6 @@
         <th>Action</th>
       </tr>
     </thead>
-
     <tr *ngFor="let product of pumpProduct let i=index">
       <!-- <td>{{product.ProductID}}</td> -->
       <th>{{product.ProductName}}</th>
@@ -29,7 +28,7 @@
       <td>{{product.CreatedBy}}</td> -->
       <!-- <td>{{getUserRole(product.RoleID)}}</td> -->
       <td>
-        <a (click)="editProduct(product)" style="cursor: pointer;">Add Inventory</a>&nbsp;
+        <a (click)="editProduct(product)" style="cursor: pointer;">Purchase Stock</a>&nbsp;
         <a (click)="editProduct(product)" style="cursor: pointer;" *ngIf="product.CategoryID==2">Adjust Price</a>&nbsp;
          <!-- <a (click)="DeleteProduct(product)" style="cursor: pointer;">Delete</a>-->
       </td>

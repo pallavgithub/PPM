@@ -1,5 +1,5 @@
 
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { pp_PumpProduct } from '../_models/pp_PumpProduct';
 import { UserService } from '../_services';
@@ -23,7 +23,7 @@ export class PaymentComponent implements OnInit {
   paymentTypes: PaymentType[];
   //allProducts: AllProduct[];
   //units: Unit[]
-  constructor(private router:Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService) {
+  constructor(private router:Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService,private viewContainerRef: ViewContainerRef) {
 
   }
   // getProductName(ID) {    
@@ -39,7 +39,10 @@ export class PaymentComponent implements OnInit {
     var paymentTypeName = this.paymentTypes.find(c => c.ID == ID);
     return paymentTypeName ? paymentTypeName.Name : '';
   }
-
+  moveToNext()
+  {
+    this.viewContainerRef[ '_data' ].componentView.parent.component.selectedTab=4;
+  }
 
   ngOnInit() {
     //this.getAllPaymentType();

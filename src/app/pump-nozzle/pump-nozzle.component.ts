@@ -1,7 +1,7 @@
 
 
 import { UserService } from "../_services/user.service";
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ViewContainerRef } from "@angular/core";
 import { FormDataService } from "../_services/pumpRegister.service";
 import { Router } from "@angular/router";
 import { pp_Tank } from "../_models/pp_Tank";
@@ -29,7 +29,7 @@ export class PumpNozzleComponent implements OnInit {
   public isCollapsed = false;
   @Input() pumpCode: string;
   constructor(
-    public dialog: MatDialog, private userService: UserService, private router: Router, private toasterService: ToasterService
+    public dialog: MatDialog, private userService: UserService, private router: Router, private toasterService: ToasterService,private viewContainerRef: ViewContainerRef
   ) { }
 
   ngOnInit() {
@@ -37,6 +37,10 @@ export class PumpNozzleComponent implements OnInit {
     //this.getAllProducts();
     //this.getTanksByID(this.pumpCode);
     //this.getIdAndNameForAllUser(this.pumpCode);
+  }
+  moveToNext()
+  {
+    this.viewContainerRef[ '_data' ].componentView.parent.component.selectedTab=7;
   }
 
   getAllFuelType() {

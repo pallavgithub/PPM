@@ -1,13 +1,13 @@
 <h2 mat-dialog-title>Tank Form</h2>
 <form [formGroup]="tankform" (ngSubmit)="createTank()">
-  <div class="row" *ngIf="IsEditDialog == true">
+  <!-- <div class="row" *ngIf="IsEditDialog == true">
     <div class="col-md-6">
       <div class="form-group">
         <label for="TankCode">Tank Code</label>
         <input type="string" class="form-control" name="TankCode" formControlName="TankCode" disabled>
       </div>
     </div>
-  </div>
+  </div> -->
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
@@ -35,13 +35,13 @@
     </div>
     <div class="col-md-6">
       <div class="form-group">
-          <label for="ChartType">Chart Type</label>
-          <span class="required">*</span>
-          <select name="ChartTypeID" class="form-control" formControlName="ChartTypeID" (change)="onchange()">
-            <option [ngValue]="0" disabled>--Select--</option>
-            <option *ngFor="let chartType of chartTypes;let i=index" [ngValue]="chartType.ID">{{chartType.Name}}</option>
-          </select>
-          <span class="error-message">{{validationChartTypeMessage}}</span>
+        <label for="ChartType">Chart Type</label>
+        <span class="required">*</span>
+        <select name="ChartTypeID" class="form-control" formControlName="ChartTypeID" (change)="onchange()">
+          <option [ngValue]="0" disabled>--Select--</option>
+          <option *ngFor="let chartType of chartTypes;let i=index" [ngValue]="chartType.ID">{{chartType.Name}}</option>
+        </select>
+        <span class="error-message">{{validationChartTypeMessage}}</span>
         <!-- <label for="TankCapacity">Tank Capacity</label>
         <span class="required">*</span>
         <input type="number" placeholder="Tank Capacity" class="form-control" name="TankCapacity" formControlName="TankCapacity" required>
@@ -51,30 +51,24 @@
       </div>
     </div>
   </div>
-  <div class="row saperatorDiv"><span class="saperatorSpan">Initial Reading</span></div>
-  <div class="row">
+  <div class="row saperatorDiv"><span class="saperatorSpan">Opening Stock Info</span></div>
+  <!-- <div class="row">
     <div class="col-md-6">
       <div class="form-group">
         <div class="margin-20">
-          <!-- <b>Add Reading Type</b> -->
           <a (click)="openAddReadingTypeDialog()" style="cursor: pointer">
             Add Reading +
           </a>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row" style="border-width: 1px 1px 1px 1px;border-style: solid;border-color:black;background-color: black;color: white;">
+  </div> -->
+  <!-- <div class="row" style="border-width: 1px 1px 1px 1px;border-style: solid;border-color:black;background-color: black;color: white;">
     <div class="col-md-4">
       <div class="form-group">
         <label for="OpeningReading">Opening Reading</label>
       </div>
     </div>
-    <!-- <div class="col-md-3">
-      <div class="form-group">
-        <label for="ReadingDate">ReadingDate</label>
-      </div>
-    </div> -->
     <div class="col-md-4">
       <div class="form-group">
         <label for="ReadingType">Reading Type</label>
@@ -85,9 +79,9 @@
         <label for="Action">Action</label>
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <div class="row" *ngFor="let tank of readingTypeDetails let i=index" style="border-width: 0px 1px 1px 1px;border-style: solid;border-color:black">
+  <!-- <div class="row" *ngFor="let tank of readingTypeDetails let i=index" style="border-width: 0px 1px 1px 1px;border-style: solid;border-color:black">
       <div class="col-md-4">
         <div class="form-group">
           <div>
@@ -95,13 +89,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="col-md-3">
-        <div class="form-group">
-          <div>
-            <span>{{tank.ReadingDate}}</span>
-          </div>
-        </div>
-      </div> -->
       <div class="col-md-4">
         <div class="form-group">
           <div>
@@ -117,7 +104,7 @@
           </div>
         </div>
       </div>
-  </div>
+  </div> -->
   <!-- <div class="row">
     <div class="col-md-6">
       <div class="form-group">
@@ -130,20 +117,38 @@
       </div>
     </div>
   </div> -->
-  <!-- <div class="row">
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="ReadingDate">Reading Date</label>
-        <input type="date" placeholder="Reading Date" class="form-control" formControlName="ReadingDate">
-      </div>
-    </div>
+
+  <div class="row">
     <div class="col-md-6">
       <div class="form-group">
         <label for="OpeningReading">Opening Reading</label>
-        <input type="number" placeholder="Opening Reading" class="form-control" name="OpeningReading" formControlName="OpeningReading">
+        <span class="required">*</span>
+        <input type="number" placeholder="Opening Reading" class="form-control" name="OpeningReading" formControlName="OpeningReading" (blur)="onBlurOpeningReading()">
+        <div *ngFor="let validation of validation_messages.OpeningReading">
+            <span class="error-message" *ngIf="tankform.get('OpeningReading').hasError(validation.type) && (tankform.get('OpeningReading').dirty || tankform.get('OpeningReading').touched)">{{validation.message}}</span>
+          </div>
       </div>
     </div>
-  </div> -->
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="OpeningStock">Opening Stock</label>
+        <span class="required">*</span>
+        <input type="number" placeholder="Opening Stock" class="form-control" name="OpeningStock" formControlName="OpeningStock"  (blur)="onBlurOpeningStock()">
+        <div *ngFor="let validation of validation_messages.OpeningStock">
+            <span class="error-message" *ngIf="tankform.get('OpeningStock').hasError(validation.type) && (tankform.get('OpeningStock').dirty || tankform.get('OpeningStock').touched)">{{validation.message}}</span>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="ReadingDate">Stock Measured on</label>
+        <span class="required">*</span>
+        <input type="date" placeholder="Stock Measured on" class="form-control" formControlName="ReadingDate">
+      </div>
+    </div>
+  </div>
   <!-- <div class="row saperatorDiv"></div> -->
   <!-- <div class="row">
     <div class="col-md-6">

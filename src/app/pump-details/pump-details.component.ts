@@ -34,6 +34,7 @@ export class PumpDetailsComponent implements OnInit {
   public pumpProduct: pp_PumpProduct[] = new Array<pp_PumpProduct>();
   public pumpPayment: pp_Payment[] = new Array<pp_Payment>();
   public pumpStatus: PumpStatus;
+  public selectedTab:number;
   
 
   navigationSubscription;
@@ -54,11 +55,14 @@ export class PumpDetailsComponent implements OnInit {
       //this.getUserInfo();
       this.getPumpInfo(this.petrolPumpCode);
       this.getPumpStatus(this.petrolPumpCode);
+      //this.selectedTab = 0;
     }
   }
 
   
   onLinkClick(event) {
+  }
+  onTabClick(event) {
   }
   getPumpInfo(pumpCode) {
     this.petrolPumpService.getPetrolPumpInfo(pumpCode).subscribe(res => {

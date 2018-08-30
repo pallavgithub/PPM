@@ -1,7 +1,7 @@
 
 
 import { UserService } from "../_services/user.service";
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ViewContainerRef } from "@angular/core";
 import { FormDataService } from "../_services/pumpRegister.service";
 import { Router } from "@angular/router";
 import { pp_Tank } from "../_models/pp_Tank";
@@ -25,7 +25,7 @@ export class PumpTankComponent implements OnInit {
   public isCollapsed = false;
   @Input() pumpCode: string;
   constructor(
-    public dialog: MatDialog, private userService: UserService,private router:Router, private toasterService: ToasterService
+    public dialog: MatDialog, private userService: UserService,private router:Router, private toasterService: ToasterService,private viewContainerRef: ViewContainerRef
   ) { }
 
   ngOnInit() {
@@ -84,6 +84,10 @@ export class PumpTankComponent implements OnInit {
       });
     });
     
+  }
+  moveToNext()
+  {
+    this.viewContainerRef[ '_data' ].componentView.parent.component.selectedTab=6;
   }
   DeleteTank(tank: pp_Tank) {
     if (confirm("Do you want to delete this Tank?")) {

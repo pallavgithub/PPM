@@ -1,5 +1,5 @@
 
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewContainerRef } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { pp_PumpProduct } from '../_models/pp_PumpProduct';
 import { UserService } from '../_services';
@@ -19,7 +19,7 @@ export class ProductComponent implements OnInit {
   @Input() pumpCode: string;
   allProducts: AllProduct[];
   units: Unit[];
-  constructor(private router:Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService) {
+  constructor(private router:Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService,private viewContainerRef: ViewContainerRef) {
 
   }
   getProductName(ID) { 
@@ -29,6 +29,11 @@ export class ProductComponent implements OnInit {
     }   
     var product = this.allProducts.find(c => c.ID == ID);
     return product ? product.Name : '';
+  }
+
+  moveToNext()
+  {
+    this.viewContainerRef[ '_data' ].componentView.parent.component.selectedTab=3;
   }
 
   getUnitName(ID) {   

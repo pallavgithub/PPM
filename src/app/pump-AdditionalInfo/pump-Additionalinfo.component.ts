@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewContainerRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { pp_PetrolPump } from '../_models/pp_PetrolPump';
@@ -81,7 +81,7 @@ export class PumpAdditionalInfoComponent implements OnInit {
       { type: 'required', message: 'License End Date is required' }
     ]
   }
-  constructor(private toasterService: ToasterService, private _formBuilder: FormBuilder, private router: Router, private petrolPumpService: PetrolPumpService) {
+  constructor(private toasterService: ToasterService, private _formBuilder: FormBuilder, private router: Router, private petrolPumpService: PetrolPumpService,private viewContainerRef: ViewContainerRef) {
 
   }
 
@@ -134,9 +134,13 @@ export class PumpAdditionalInfoComponent implements OnInit {
     this.petrolPumpService.updatePetrolPumpAdditionalInfo(this.pumpAdditionalInfoForm.value).subscribe(res => {
       this.toasterService.pop('success', '', 'Pump details updated successfully.');
       this.router.navigate(['/pumpDetails', this.petrolPump.PetrolPumpCode]);
+      this.viewContainerRef[ '_data' ].componentView.parent.component.selectedTab=2;
     });
   }
-
+  reset()
+  {
+    this.ngOnInit();
+  }
   getAllStates() {
     this.petrolPumpService.getAllStates().subscribe(data => {
       this.states = data;

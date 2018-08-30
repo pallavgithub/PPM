@@ -18,7 +18,7 @@
                 <label for="UserId">Creditor Id
                     <span class="required">*</span>
                 </label>
-                <input placeholder="Creditor Id" class="form-control" formControlName="UserId" required  [readonly]="IsEditDialog">
+                <input placeholder="Creditor Id" class="form-control" formControlName="UserId" required [readonly]="IsEditDialog">
                 <div *ngFor="let validation of validation_messages.UserId">
                     <span class="error-message" *ngIf="userform.get('UserId').hasError(validation.type) && (userform.get('UserId').dirty || userform.get('UserId').touched)">{{validation.message}}</span>
                 </div>
@@ -74,7 +74,7 @@
             </div>
         </div>
     </div>
-    <div class="row saperatorDiv"><span class="saperatorSpan">Payment Info</span></div>
+    <div class="row saperatorDiv"><span class="saperatorSpan">Security Info</span></div>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -102,14 +102,11 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-6">
             <div class="form-group">
                 <label for="IsEncashed">Is Encashed</label>
                 <input type="checkbox" class="form-control" formControlName="IsEncashed" width="10px;">
-                <!-- <div *ngFor="let validation of validation_messages.IsEncashed">
-                    <span class="error-message" *ngIf="userform.get('IsEncashed').hasError(validation.type) && (userform.get('IsEncashed').dirty || userform.get('IsEncashed').touched)">{{validation.message}}</span>
-                </div> -->
             </div>
         </div>
         <div class="col-md-6">
@@ -123,25 +120,25 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="row saperatorDiv"><span class="saperatorSpan">Basic Info</span></div>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
                 <label for="Phone">Phone</label>
                 <input placeholder="Phone" class="form-control" formControlName="Phone">
-                <!-- <div *ngFor="let validation of validation_messages.Phone">
+                <div *ngFor="let validation of validation_messages.Phone">
                     <span class="error-message" *ngIf="userform.get('Phone').hasError(validation.type) && (userform.get('Phone').dirty || userform.get('Phone').touched)">{{validation.message}}</span>
-                </div> -->
+                </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label for="Address">Address</label>
                 <input placeholder="Address" class="form-control" formControlName="Address">
-                <!-- <div *ngFor="let validation of validation_messages.Address">
+                <div *ngFor="let validation of validation_messages.Address">
                     <span class="error-message" *ngIf="userform.get('Address').hasError(validation.type) && (userform.get('Address').dirty || userform.get('Address').touched)">{{validation.message}}</span>
-                </div> -->
+                </div>
             </div>
         </div>
         <!-- <div class="col-md-6">
@@ -159,18 +156,18 @@
             <div class="form-group">
                 <label for="Description">Description</label>
                 <input placeholder="Description" class="form-control" formControlName="Description">
-                <!-- <div *ngFor="let validation of validation_messages.Description">
+                <div *ngFor="let validation of validation_messages.Description">
                     <span class="error-message" *ngIf="userform.get('Description').hasError(validation.type) && (userform.get('Description').dirty || userform.get('Description').touched)">{{validation.message}}</span>
-                </div> -->
+                </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label for="Email">Email</label>
                 <input placeholder="Email" class="form-control" formControlName="Email">
-                <!-- <div *ngFor="let validation of validation_messages.Email">
+                <div *ngFor="let validation of validation_messages.Email">
                     <span class="error-message" *ngIf="userform.get('Email').hasError(validation.type) && (userform.get('Email').dirty || userform.get('Email').touched)">{{validation.message}}</span>
-                </div> -->
+                </div>
             </div>
         </div>
 
