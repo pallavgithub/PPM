@@ -11,6 +11,7 @@ export class pp_Tank {
   TankName:string;
   ReadingDate:string;
   OpeningReading:string;
+  Stock:number;
   OpeningStock:string;
   DipReadingDate:string;
   DipOpeningReading:number;
@@ -33,6 +34,7 @@ export class pp_Tank {
     this.ReadingDate = '';
     this.OpeningReading = '';
     this.OpeningStock = '';
+    this.Stock = 0;
     this.DipReadingDate = '';
     this.DipOpeningReading = 0;
     this.ReadingType = 1;

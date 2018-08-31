@@ -3,33 +3,31 @@
 
 
 <!-- <userform (userCreated)="addUser($event)"></userform> -->
-<div class="col-md-12 table-responsive" *ngIf="pumpProduct != null && pumpProduct.length>0">
+<div class="col-md-12 table-responsive" *ngIf="pumpProductWithLubesPrise != null && pumpProductWithLubesPrise.length>0">
   <table style="border: 1px solid black" class="table table-striped">
     <thead class="thead-dark">
       <tr>
         <th>Name</th>
         <th>Unit</th>
-        <th>Purchase Rate</th>
-        <th>Purchase Date</th>
+        <th>Purchase Price</th>
         <th>Sale Price</th>
-        <th>Sale Date</th>
+        <th>Date Measured on</th>
         <th>Action</th>
       </tr>
     </thead>
-    <tr *ngFor="let product of pumpProduct let i=index">
+    <tr *ngFor="let product of pumpProductWithLubesPrise let i=index">
       <!-- <td>{{product.ProductID}}</td> -->
       <th>{{product.ProductName}}</th>
       <td>{{product.UnitName}}</td>
       <td>{{product.PurchaseRate}}</td>
-      <td>{{product.PurchaseDate | date}}</td>
       <td>{{product.SaleRate}}</td>
-      <td>{{product.SaleDate | date}}</td>
+      <td>{{product.DateStockMeasuredOn | date}}</td>
       <!-- <td>{{product.CreatedOn}}</td>
       <td>{{product.CreatedBy}}</td> -->
       <!-- <td>{{getUserRole(product.RoleID)}}</td> -->
       <td>
         <a (click)="editProduct(product)" style="cursor: pointer;">Purchase Stock</a>&nbsp;
-        <a (click)="editProduct(product)" style="cursor: pointer;" *ngIf="product.CategoryID==2">Adjust Price</a>&nbsp;
+        <a (click)="editProductPrice(product)" style="cursor: pointer;" *ngIf="product.CategoryID==2">Adjust Price</a>&nbsp;
          <!-- <a (click)="DeleteProduct(product)" style="cursor: pointer;">Delete</a>-->
       </td>
     </tr>

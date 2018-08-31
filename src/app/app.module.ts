@@ -64,6 +64,8 @@ import { ReadingTypeDialogFormComponent } from './readingTypeDialog/readingTypeD
 import { TestPage1Component, TestPage2Component, TestPage3Component, TestPageComponent } from './test-pages/test-pages.component';
 import { MenuStateComponent } from './test-pages/manu-state.component';
 import { CreditorformComponent } from './creditorform/creditorform.component';
+import { InventoryLubesPriceDialogFormComponent } from './inventoryLubesPriceDialog/inventoryLubesPriceDialog.component';
+import { InventoryFuelTankDialogFormComponent } from './inventoryFuelTankDialog/inventoryFuelTankDialog.component';
 
 @NgModule({
     imports: [
@@ -81,7 +83,7 @@ import { CreditorformComponent } from './creditorform/creditorform.component';
         BrowserAnimationsModule, ToasterModule.forRoot(), NgbModule.forRoot()
         //HttpService
     ],
-    entryComponents: [PumpUsersComponent, UserformComponent, PumpTankComponent, TankformComponent, NozzleformComponent, ChangePasswordComponent, ProductDialogFormComponent, PumpNozzleComponent, PaymentDialogFormComponent, InventoryDialogFormComponent, ReadingTypeDialogFormComponent,CreditorformComponent],
+    entryComponents: [PumpUsersComponent, UserformComponent, PumpTankComponent, TankformComponent, NozzleformComponent, ChangePasswordComponent, ProductDialogFormComponent, PumpNozzleComponent, PaymentDialogFormComponent, InventoryDialogFormComponent, ReadingTypeDialogFormComponent,CreditorformComponent,InventoryLubesPriceDialogFormComponent,InventoryFuelTankDialogFormComponent],
     declarations: [
         AppComponent,
         AlertComponent,
@@ -108,11 +110,14 @@ import { CreditorformComponent } from './creditorform/creditorform.component';
         ProductComponent,
         ProductDialogFormComponent,
         InventoryDialogFormComponent,
+        InventoryLubesPriceDialogFormComponent,
+        InventoryFuelTankDialogFormComponent,
         PaymentComponent,
         PaymentDialogFormComponent,
         DashBoardComponent,
         InventoryComponent,
         ReadingTypeDialogFormComponent,
+        InventoryLubesPriceDialogFormComponent,
         TestPage1Component, TestPage2Component, TestPage3Component, TestPageComponent, MenuStateComponent,
         TankformComponent, NozzleformComponent, ResultComponent, MasterComponent, HeaderComponent, PumpDetailsComponent, FooterComponent, HeaderLoginComponent],
     providers: [

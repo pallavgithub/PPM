@@ -11,6 +11,7 @@ import { State } from '../_models/State';
 import { pp_Payment } from '../_models/pp_Payment';
 import { PumpStatus } from '../_models/PumpStatus';
 import { UserDetail } from '../_models/userDetail';
+import { TankWithProduct } from '../_models/TankWithProduct';
 
 @Injectable()
 export class PetrolPumpService {
@@ -61,6 +62,12 @@ export class PetrolPumpService {
     updatePetrolPumpPriceAdjustmentInfo(pumpInfo:pp_PumpProduct[]){
         return this.http.post(`${environment.apiUrl}/Pump/UpdatePriceAdjustmentInfo`,JSON.stringify(pumpInfo));
     }
+    updatePetrolPumpLubesPriceAdjustmentInfo(pumpProduct:pp_PumpProduct){
+        return this.http.post(`${environment.apiUrl}/Pump/UpdateLubesPriceAdjustmentInfo`,JSON.stringify(pumpProduct));
+    }
+    UpdatePetrolPumpLubesInventory(pumpProduct:pp_PumpProduct){
+        return this.http.post(`${environment.apiUrl}/Pump/UpdatePetrolPumpLubesInventory`,JSON.stringify(pumpProduct));
+    }
 
     addUpdatePumpProduct(pumpProduct:pp_PumpProduct){
         return this.http.post(`${environment.apiUrl}/Pump/UpdateProductInfo`,JSON.stringify(pumpProduct))
@@ -76,5 +83,8 @@ export class PetrolPumpService {
     }
     getAllStates(){
         return this.http.get<State[]>(`${environment.apiUrl}/Pump/State`);
+    }
+    AddTankAndFuelInventory(tankWithProduct:TankWithProduct,petrolPumpCode : string){
+        return this.http.post(`${environment.apiUrl}/Pump/AddTankAndFuelInventory?petrolPumpCode=`+ petrolPumpCode,JSON.stringify(tankWithProduct))
     }
 }

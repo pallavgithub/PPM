@@ -35,6 +35,8 @@ export class DashBoardComponent implements OnInit {
   public pumpTanks: pp_Tank[] = new Array<pp_Tank>();
   public pumpNozzles: pp_Nozzle[] = new Array<pp_Nozzle>();
   public pumpProduct: pp_PumpProduct[] = new Array<pp_PumpProduct>();
+  public pumpProductWithLubesPrise: pp_PumpProduct[] = new Array<pp_PumpProduct>();
+  public pumpProductPriceAdjust: pp_PumpProduct[] = new Array<pp_PumpProduct>();
   public pumpPayment: pp_Payment[] = new Array<pp_Payment>();
   public pumpStatus: PumpStatus;
   
@@ -69,7 +71,9 @@ export class DashBoardComponent implements OnInit {
       this.pumpUsers = res.pp_Users;
       this.pumpTanks = res.pp_Tanks;
       this.pumpProduct = res.pp_PumpProduct;
-      this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID != 3);
+      this.pumpProductWithLubesPrise = res.pp_PumpProductWithLubesPrise;
+      //this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID != 3);
+      //this.pumpProductPriceAdjust = this.pumpProduct.filter(c=>c.CategoryID == 1);
       this.pumpNozzles = res.pp_Nozzles;
       this.pumpPayment = res.pp_Payment;
     });

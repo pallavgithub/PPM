@@ -1,5 +1,5 @@
 <h2 mat-dialog-title>Product</h2>
-<form [formGroup]="inventoryDialogform" (ngSubmit)="createProduct()">
+<form (ngSubmit)="createProduct()">
     <!-- <div class="row" *ngIf="IsEditDialog == true">
         <div class="col-md-6">
             <div class="form-group">
@@ -55,7 +55,7 @@
             </div>
         </div> -->
         <!-- <div class="row saperatorDiv"><span class="saperatorSpan">Initials</span></div> -->
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="InitialQuantity">
@@ -66,8 +66,6 @@
                     <div *ngFor="let validation of validation_messages.InitialQuantity">
                         <span class="error-message" *ngIf="inventoryDialogform.get('InitialQuantity').hasError(validation.type) && (inventoryDialogform.get('InitialQuantity').dirty || inventoryDialogform.get('InitialQuantity').touched)">{{validation.message}}</span>
                     </div>
-                    <!-- <label for="PurchaseQuantity">Purchase Quantity</label>
-                    <input placeholder="Purchase Quantity" class="form-control" formControlName="PurchaseQuantity">-->
                 </div>
             </div>
             <div class="col-md-6">
@@ -80,11 +78,9 @@
                     <div *ngFor="let validation of validation_messages.DateStockMeasuredOn">
                         <span class="error-message" *ngIf="inventoryDialogform.get('DateStockMeasuredOn').hasError(validation.type) && (inventoryDialogform.get('DateStockMeasuredOn').dirty || inventoryDialogform.get('DateStockMeasuredOn').touched)">{{validation.message}}</span>
                     </div>
-                    <!-- <label for="PurchaseQuantity">Purchase Quantity</label>
-                        <input placeholder="Purchase Quantity" class="form-control" formControlName="PurchaseQuantity">-->
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- <div class="row saperatorDiv"><span class="saperatorSpan">Purchase</span></div>
         <div class="row">
             <div class="col-md-6">
@@ -137,37 +133,72 @@
         </div> -->
     </div>
     <div id="dvFuel" *ngIf="divCategory == 1">
-        <!-- <div class="row">
-            <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
                 <div class="form-group">
-                    <label for="TankerCapacity">Tanker
+                    <label for="TankerID">Tanker
                         <span class="required">*</span>
                     </label>
-                    <select class="form-control" formControlName="TankerCapacity" (change)="onChange()">
+                    <select class="form-control" name="TankerID" [(ngModel)]="TankerID" (change)="onChange()">
                         <option [ngValue]="0" disabled>--Select Tanker--</option>
-                        <option [ngValue]="1" disabled>12000</option>
-                        <option [ngValue]="2" disabled>18000</option>
+                        <option [ngValue]="12000">12000</option>
+                        <option [ngValue]="18000">18000</option>
+                        <!-- <option *ngFor="let itemUnit of units;let i=index" [ngValue]="itemUnit.ID">{{itemUnit.Name}}</option> -->
                     </select>
-                    <span class="error-message">{{validationUnitMessage}}</span>
+                    <span class="error-message">{{validationTankerMessage}}</span>
                 </div>
             </div>
-        </div> -->
-        <!-- <div class="row saperatorDiv"><span class="saperatorSpan">Tank Details</span></div> -->
-        <!-- <div *ngFor="let itemPumpProduct of pumpTanks; let in=index">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="ProductName">{{itemPumpProduct.TankName}}
-                        </label>
-                    </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="Date">Date Of Entry
+                        <span class="required">*</span>
+                    </label>
+                    <input type="date" placeholder="Date Of Entry" class="form-control" name="DateOfEntry" [(ngModel)]="DateOfEntry">
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <input placeholder="Opening Reading" class="form-control" [(ngModel)]="itemPumpProduct.OpeningReading" #OpeningReading="ngModel" name="OpeningReading-{{in}}">
+            </div>
+        </div>
+        <div class="row saperatorDiv"><span class="saperatorSpan">Add Stock in Tank</span></div>
+        <div *ngIf="IsTankerSelected">
+            <div *ngFor="let itemPumpProduct of pumpTanks; let in=index">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="ProductName">{{itemPumpProduct.TankName}}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <!-- <input placeholder="Opening Reading" class="form-control" [(ngModel)]="itemPumpProduct.OpeningReading" #OpeningReading="ngModel" name="OpeningReading-{{in}}"> -->
+                            <div *ngIf="IsTwelve">
+                                <select class="form-control" name="Stock" [(ngModel)]="itemPumpProduct.Stock" #Stock="ngModel"
+                                    name="Stock-{{in}}" (change)="onChange()">
+                                    <option [ngValue]="0" disabled>--Select Stock--</option>
+                                    <option [ngValue]="3000">3000</option>
+                                    <option [ngValue]="6000">6000</option>
+                                    <option [ngValue]="9000">9000</option>
+                                    <option [ngValue]="12000">12000</option>
+                                    <!-- <option *ngFor="let itemUnit of units;let i=index" [ngValue]="itemUnit.ID">{{itemUnit.Name}}</option> -->
+                                </select>
+                            </div>
+                            <div *ngIf="IsEIghteen">
+                                <select class="form-control" name="Stock" [(ngModel)]="itemPumpProduct.Stock" #Stock="ngModel" name="Stock-{{in}}"
+                                    *ngIf="IsEIghteen" (change)="onChange()">
+                                    <option [ngValue]="0" disabled>--Select Stock--</option>
+                                    <option [ngValue]="4500">4500</option>
+                                    <option [ngValue]="9000">9000</option>
+                                    <option [ngValue]="13500">13500</option>
+                                    <option [ngValue]="18000">18000</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
+        <span class="error-message">{{validationTankStockMessage}}</span>
         <!-- <div class="row saperatorDiv"><span class="saperatorSpan">Purchase</span></div>
         <div class="row">
             <div class="col-md-6">
@@ -302,6 +333,6 @@
     </div>
     <mat-dialog-actions style="float: right;">
         <button class="btn btn-default" [mat-dialog-close]="true">Cancel</button>&nbsp;&nbsp;&nbsp;
-        <button type="submit" class="btn btn-primary" [disabled]="!inventoryDialogform.valid">Save</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!inventoryFuelTankDialogform.valid" (click)="checkFormValid()">Save</button>
     </mat-dialog-actions>
 </form>

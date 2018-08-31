@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Product</h2>
+<h2 mat-dialog-title>Adjust Lubricant Price</h2>
 <form [formGroup]="inventoryDialogform" (ngSubmit)="createProduct()">
     <!-- <div class="row" *ngIf="IsEditDialog == true">
         <div class="col-md-6">
@@ -58,18 +58,29 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="InitialQuantity">
-                        Add Stock
+                    <label for="PurchaseRate">
+                        Purchase Price
                         <span class="required">*</span>
                     </label>
-                    <input type="number" placeholder="Add Stock" class="form-control" formControlName="InitialQuantity" required>
-                    <div *ngFor="let validation of validation_messages.InitialQuantity">
-                        <span class="error-message" *ngIf="inventoryDialogform.get('InitialQuantity').hasError(validation.type) && (inventoryDialogform.get('InitialQuantity').dirty || inventoryDialogform.get('InitialQuantity').touched)">{{validation.message}}</span>
+                    <input type="number" placeholder="Purchase Price" class="form-control" formControlName="PurchaseRate" required>
+                    <div *ngFor="let validation of validation_messages.PurchaseRate">
+                        <span class="error-message" *ngIf="inventoryDialogform.get('PurchaseRate').hasError(validation.type) && (inventoryDialogform.get('PurchaseRate').dirty || inventoryDialogform.get('PurchaseRate').touched)">{{validation.message}}</span>
                     </div>
-                    <!-- <label for="PurchaseQuantity">Purchase Quantity</label>
-                    <input placeholder="Purchase Quantity" class="form-control" formControlName="PurchaseQuantity">-->
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="SaleRate">Sale Price
+                        <span class="required">*</span>
+                    </label>
+                    <input type="number" placeholder="Sale Price" class="form-control" formControlName="SaleRate" required>
+                    <div *ngFor="let validation of validation_messages.SaleRate">
+                        <span class="error-message" *ngIf="inventoryDialogform.get('SaleRate').hasError(validation.type) && (inventoryDialogform.get('SaleRate').dirty || inventoryDialogform.get('SaleRate').touched)">{{validation.message}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="DateStockMeasuredOn">
@@ -80,8 +91,6 @@
                     <div *ngFor="let validation of validation_messages.DateStockMeasuredOn">
                         <span class="error-message" *ngIf="inventoryDialogform.get('DateStockMeasuredOn').hasError(validation.type) && (inventoryDialogform.get('DateStockMeasuredOn').dirty || inventoryDialogform.get('DateStockMeasuredOn').touched)">{{validation.message}}</span>
                     </div>
-                    <!-- <label for="PurchaseQuantity">Purchase Quantity</label>
-                        <input placeholder="Purchase Quantity" class="form-control" formControlName="PurchaseQuantity">-->
                 </div>
             </div>
         </div>
@@ -137,37 +146,39 @@
         </div> -->
     </div>
     <div id="dvFuel" *ngIf="divCategory == 1">
-        <!-- <div class="row">
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="TankerCapacity">Tanker
+                    <!-- <label for="Unit">Unit
                         <span class="required">*</span>
                     </label>
-                    <select class="form-control" formControlName="TankerCapacity" (change)="onChange()">
-                        <option [ngValue]="0" disabled>--Select Tanker--</option>
-                        <option [ngValue]="1" disabled>12000</option>
-                        <option [ngValue]="2" disabled>18000</option>
+                    <select class="form-control" formControlName="Unit" (change)="onChange()">
+                        <option [ngValue]="0" disabled>--Select Unit--</option>
+                        <option *ngFor="let itemUnit of units;let i=index" [ngValue]="itemUnit.ID">{{itemUnit.Name}}</option>
                     </select>
-                    <span class="error-message">{{validationUnitMessage}}</span>
+                    <span class="error-message">{{validationUnitMessage}}</span> -->
                 </div>
             </div>
-        </div> -->
-        <!-- <div class="row saperatorDiv"><span class="saperatorSpan">Tank Details</span></div> -->
-        <!-- <div *ngFor="let itemPumpProduct of pumpTanks; let in=index">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="ProductName">{{itemPumpProduct.TankName}}
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <input placeholder="Opening Reading" class="form-control" [(ngModel)]="itemPumpProduct.OpeningReading" #OpeningReading="ngModel" name="OpeningReading-{{in}}">
-                    </div>
+        </div>
+        <div class="row saperatorDiv"><span class="saperatorSpan">Initials</span></div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <!-- <label for="InitialQuantity">Add Reading
+                        <span class="required">*</span>
+                    </label>
+                    <input type="number" placeholder="Add Reading" class="form-control" formControlName="InitialQuantity" required>
+                    <div *ngFor="let validation of validation_messages.InitialReading">
+                        <span class="error-message" *ngIf="productDialogform.get('InitialQuantity').hasError(validation.type) && (productDialogform.get('InitialQuantity').dirty || productDialogform.get('InitialQuantity').touched)">{{validation.message}}</span>
+                    </div> -->
+                    <!-- <label for="PurchaseQuantity">Purchase Quantity</label>
+                    <input placeholder="Purchase Quantity" class="form-control" formControlName="PurchaseQuantity">
+                    <div *ngFor="let validation of validation_messages.PurchaseQuantity">
+                        <span class="error-message" *ngIf="productDialogform.get('PurchaseQuantity').hasError(validation.type) && (productDialogform.get('PurchaseQuantity').dirty || productDialogform.get('PurchaseQuantity').touched)">{{validation.message}}</span>
+                    </div> -->
                 </div>
             </div>
-        </div> -->
+        </div>
         <!-- <div class="row saperatorDiv"><span class="saperatorSpan">Purchase</span></div>
         <div class="row">
             <div class="col-md-6">

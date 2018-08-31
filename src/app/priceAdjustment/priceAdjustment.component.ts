@@ -1,5 +1,5 @@
 
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { pp_PumpProduct } from '../_models/pp_PumpProduct';
 import { UserService } from '../_services';
@@ -10,7 +10,7 @@ import { Unit } from '../_models/Unit';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { PetrolPumpService } from '../_services/petrolpump.service';
 import { DatePipe } from '../../../node_modules/@angular/common';
-import {PumpProductWithDate} from '../_models/PumpProductWithDate';
+import { PumpProductWithDate } from '../_models/PumpProductWithDate';
 
 @Component({
   selector: 'pump-priceAdjustment',
@@ -21,12 +21,12 @@ export class PriceAdjustmentComponent implements OnInit {
   @Input() pumpProduct: pp_PumpProduct[];
   @Input() pumpCode: string;
   allProducts: AllProduct[];
-  pumpProductWithDate:PumpProductWithDate;
+  pumpProductWithDate: PumpProductWithDate;
   DateOfEntry: string;
   productDialogform: FormGroup;
   units: Unit[];
   constructor(private router: Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService, private _formBuilder: FormBuilder, private petrolPumpService: PetrolPumpService, public datepipe: DatePipe) {
-    
+
   }
   // getProductName(ID) { 
   //   if(ID == 0)
@@ -57,13 +57,12 @@ export class PriceAdjustmentComponent implements OnInit {
       SaleRate: 0
     });
     //this.DateOfEntry = new Date().toJSON().slice(0,10).replace(/-/g,'/');
-    
-    if(this.pumpProduct != null && this.pumpProduct != undefined && this.pumpProduct.length)
-    {
+
+    if (this.pumpProduct != null && this.pumpProduct != undefined && this.pumpProduct.length) {
       //this.pumpProductWithDate.pp_PumpProduct = this.pumpProduct;
-      let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null ) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
+      let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
       this.DateOfEntry = latest_ReadingDate;
-    }    
+    }
 
     // const controls = this.pumpProduct.map(c => new FormArray(false));
     // controls[0].setValue(true); // Set the first checkbox to true (checked)
@@ -83,6 +82,17 @@ export class PriceAdjustmentComponent implements OnInit {
     // this.productDialogform.setControl('productDetails', employeeFormArray);
     //this.getAllProducts();
     //this.getAllUnits();
+  }
+
+  ngOnChanges(changes: SimpleChange) {
+    // changes['pumpProduct']
+    this.pumpProduct = changes["pumpProduct"].currentValue;
+    if(this.pumpProduct != null && this.pumpProduct != undefined && this.pumpProduct.length > 0)
+    {
+      this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);
+      let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
+      this.DateOfEntry = latest_ReadingDate;
+    }    
   }
 
   savePumpInfo(pumpProduct: pp_PumpProduct[]) {

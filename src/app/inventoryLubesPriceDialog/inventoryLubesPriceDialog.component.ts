@@ -10,17 +10,15 @@ import { Router } from '@angular/router';
 import { ProductWithCategory } from '../_models/ProductWithCategory';
 import { Unit } from '../_models/Unit';
 import { DatePipe } from '../../../node_modules/@angular/common';
-import { pp_Tank } from '../_models/pp_Tank';
 
 @Component({
   selector: 'inventoryDialogform',
-  templateUrl: './inventoryDialog.component.html',
-  styleUrls: ['./inventoryDialog.component.css']
+  templateUrl: './inventoryLubesPriceDialog.component.html',
+  styleUrls: ['./inventoryLubesPriceDialog.component.css']
 })
-export class InventoryDialogFormComponent implements OnInit {
+export class InventoryLubesPriceDialogFormComponent implements OnInit {
   pumpProduct: pp_PumpProduct;
   allProduct: ProductWithCategory[];
-  //pumpTanks:pp_Tank[];
   units: Unit[]
   divCategory: number;
   //allProduct:AllProduct[];
@@ -43,7 +41,7 @@ export class InventoryDialogFormComponent implements OnInit {
       { type: 'minlength', message: 'UserId must be at least 5 characters long' }
     ],
     'InitialQuantity': [
-      { type: 'required', message: 'Please add stock' }
+      { type: 'required', message: 'Initial Quantity is required' }
     ],
     'InitialReading': [
       { type: 'required', message: 'Initial Reading is required' }
@@ -71,13 +69,12 @@ export class InventoryDialogFormComponent implements OnInit {
     ]
   }
   constructor(private toasterService: ToasterService, public dialog: MatDialog, private router: Router, private userService: UserService, private _formBuilder: FormBuilder, private petrolPumpService: PetrolPumpService, @Inject(MAT_DIALOG_DATA) public data,
-    private dialogRef: MatDialogRef<InventoryDialogFormComponent>, public datepipe: DatePipe) {
+    private dialogRef: MatDialogRef<InventoryLubesPriceDialogFormComponent>, public datepipe: DatePipe) {
 
   }
 
   ngOnInit() {
     this.pumpProduct = this.data.pumpProductNew;
-    //this.pumpTanks = this.data.pumpTanks;
     this.divCategory = 0;
     this.isInitials = true;
     if (this.pumpProduct.IsEditModal == true) {
@@ -86,19 +83,19 @@ export class InventoryDialogFormComponent implements OnInit {
     else {
       this.IsEditDialog = false;
     }
-    // this.getAllProducts();
-    // this.getAllUnits();
+    //this.getAllProducts();
+    //this.getAllUnits();
     this.DisableControlsByRole(this.pumpProduct.CategoryID,this.pumpProduct.ProductID);
 
     this.inventoryDialogform = this._formBuilder.group({
       ID: [this.pumpProduct.ID],
       PetrolPumpCode: [this.pumpProduct.PetrolPumpCode],
       ProductID: [this.pumpProduct.ProductID],
-      InitialQuantity: [this.pumpProduct.InitialQuantity,Validators.compose([Validators.required])],
+      InitialQuantity: [this.pumpProduct.InitialQuantity],
       PurchaseQuantity: [this.pumpProduct.PurchaseQuantity],
       Unit: [this.pumpProduct.Unit],
-      PurchaseRate: [this.pumpProduct.PurchaseRate],
-      SaleRate: [this.pumpProduct.SaleRate],
+      PurchaseRate: [this.pumpProduct.PurchaseRate,Validators.compose([Validators.required,Validators.pattern('^[0-9.]*$')])],
+      SaleRate: [this.pumpProduct.SaleRate,Validators.compose([Validators.required,Validators.pattern('^[0-9.]*$')])],
       Description: [this.pumpProduct.Description],
       CreatedBy: [this.pumpProduct.CreatedBy],
       CreatedOn: [this.pumpProduct.CreatedOn],
@@ -108,7 +105,7 @@ export class InventoryDialogFormComponent implements OnInit {
       ProductCode: [this.pumpProduct.ProductCode],
       PurchaseDate: [this.pumpProduct.PurchaseDate],
       SaleDate: [this.pumpProduct.SaleDate],
-      DateStockMeasuredOn: [this.pumpProduct.DateStockMeasuredOn],
+      DateStockMeasuredOn: [this.pumpProduct.DateStockMeasuredOn,Validators.compose([Validators.required])],
       CategoryID: [this.pumpProduct.CategoryID]
     });
     // let latest_PurchaseDate = this.datepipe.transform(((this.pumpProduct.PurchaseDate == "" || this.pumpProduct.PurchaseDate == null ) ? new Date().toString() : this.pumpProduct.PurchaseDate), 'yyyy-MM-dd');
@@ -160,8 +157,8 @@ export class InventoryDialogFormComponent implements OnInit {
   // }
 
   createProduct() {
-    // this.inventoryDialogform.controls["PurchaseRate"].setValue(Number(this.inventoryDialogform.controls["PurchaseRate"].value));
-    // this.inventoryDialogform.controls["SaleRate"].setValue(Number(this.inventoryDialogform.controls["SaleRate"].value));
+    //this.inventoryDialogform.controls["PurchaseRate"].setValue(Number(this.inventoryDialogform.controls["PurchaseRate"].value));
+    //this.inventoryDialogform.controls["SaleRate"].setValue(Number(this.inventoryDialogform.controls["SaleRate"].value));
     if(this.inventoryDialogform.controls["InitialQuantity"].value == "")
     {
       this.inventoryDialogform.controls["InitialQuantity"].setValue(0);
@@ -186,7 +183,8 @@ export class InventoryDialogFormComponent implements OnInit {
     {
       this.inventoryDialogform.controls["SaleRate"].setValue(Number(this.inventoryDialogform.controls["SaleRate"].value));
     }
-    this.petrolPumpService.UpdatePetrolPumpLubesInventory(this.inventoryDialogform.value).subscribe((res: any) => {
+    
+    this.petrolPumpService.updatePetrolPumpLubesPriceAdjustmentInfo(this.inventoryDialogform.value).subscribe((res: any) => {
       this.toasterService.pop('success', '', res.Result.toString());
       this.dialogRef.close();
       this.router.navigate(['/dashboard', this.pumpProduct.PetrolPumpCode]);

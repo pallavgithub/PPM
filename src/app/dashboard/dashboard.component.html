@@ -44,7 +44,7 @@
     </ng-template>
     <pump-landingDashboard *ngIf="pumpStatus" [pumpStatus]='pumpStatus' [pumpCode]='petrolPumpCode'></pump-landingDashboard>
   </mat-tab>
-  <mat-tab aria-orientation="vertical">
+  <mat-tab aria-orientation="vertical" [disabled]='!(pumpProduct && pumpProduct.length > 0)'>
     <ng-template mat-tab-label>
       Inventory and Price Management
       <!-- <div>
@@ -59,9 +59,9 @@
     <!-- <div class="col-md-12">
       <button class="btn btn-primary" style="float:right;" (click)="openAddInventoryDialog()">Add Inventory</button>
     </div> -->
-    <pump-inventory *ngIf="pumpProduct" [pumpProduct]='pumpProduct' [pumpCode]='petrolPumpCode'></pump-inventory>
+    <pump-inventory *ngIf="pumpProduct" [pumpProduct]='pumpProduct' [pumpProductWithLubesPrise] = 'pumpProductWithLubesPrise' [pumpTanks] = 'pumpTanks' [pumpCode]='petrolPumpCode'></pump-inventory>
   </mat-tab>
-  <mat-tab aria-orientation="vertical">
+  <mat-tab aria-orientation="vertical" [disabled]='!(pumpUsers && pumpUsers.length > 0)'>
     <ng-template mat-tab-label>
       Creditor
       <!-- <div>
@@ -78,7 +78,7 @@
     </div>
     <pump-creditor *ngIf="pumpUsers" [pumpUsers]='pumpUsers' [pumpCode]='petrolPumpCode'></pump-creditor>
   </mat-tab>
-  <mat-tab aria-orientation="vertical">
+  <mat-tab aria-orientation="vertical" [disabled]='!(pumpProduct && pumpProduct.length > 0)'>
       <ng-template mat-tab-label>
         Set Daily Price
         <!-- <div>
