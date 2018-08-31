@@ -159,8 +159,8 @@
                 </div>
             </div>
         </div>
-        <div class="row saperatorDiv"><span class="saperatorSpan">Add Stock in Tank</span></div>
         <div *ngIf="IsTankerSelected">
+            <div class="row saperatorDiv"><span class="saperatorSpan">Add Stock in Tank</span></div>
             <div *ngFor="let itemPumpProduct of pumpTanks; let in=index">
                 <div class="row">
                     <div class="col-md-6">
@@ -173,8 +173,7 @@
                         <div class="form-group">
                             <!-- <input placeholder="Opening Reading" class="form-control" [(ngModel)]="itemPumpProduct.OpeningReading" #OpeningReading="ngModel" name="OpeningReading-{{in}}"> -->
                             <div *ngIf="IsTwelve">
-                                <select class="form-control" name="Stock" [(ngModel)]="itemPumpProduct.Stock" #Stock="ngModel"
-                                    name="Stock-{{in}}" (change)="onChange()">
+                                <select class="form-control" name="Stock" [(ngModel)]="itemPumpProduct.Stock" #Stock="ngModel" name="Stock-{{in}}" (change)="onChange()">
                                     <option [ngValue]="0" disabled>--Select Stock--</option>
                                     <option [ngValue]="3000">3000</option>
                                     <option [ngValue]="6000">6000</option>
@@ -184,8 +183,8 @@
                                 </select>
                             </div>
                             <div *ngIf="IsEIghteen">
-                                <select class="form-control" name="Stock" [(ngModel)]="itemPumpProduct.Stock" #Stock="ngModel" name="Stock-{{in}}"
-                                    *ngIf="IsEIghteen" (change)="onChange()">
+                                <select class="form-control" name="Stock" [(ngModel)]="itemPumpProduct.Stock" #Stock="ngModel" name="Stock-{{in}}" *ngIf="IsEIghteen"
+                                    (change)="onChange()">
                                     <option [ngValue]="0" disabled>--Select Stock--</option>
                                     <option [ngValue]="4500">4500</option>
                                     <option [ngValue]="9000">9000</option>

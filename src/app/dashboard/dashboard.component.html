@@ -61,7 +61,7 @@
     </div> -->
     <pump-inventory *ngIf="pumpProduct" [pumpProduct]='pumpProduct' [pumpProductWithLubesPrise] = 'pumpProductWithLubesPrise' [pumpTanks] = 'pumpTanks' [pumpCode]='petrolPumpCode'></pump-inventory>
   </mat-tab>
-  <mat-tab aria-orientation="vertical" [disabled]='!(pumpUsers && pumpUsers.length > 0)'>
+  <mat-tab aria-orientation="vertical">
     <ng-template mat-tab-label>
       Creditor
       <!-- <div>
