@@ -187,7 +187,7 @@ export class InventoryLubesPriceDialogFormComponent implements OnInit {
     this.petrolPumpService.updatePetrolPumpLubesPriceAdjustmentInfo(this.inventoryDialogform.value).subscribe((res: any) => {
       this.toasterService.pop('success', '', res.Result.toString());
       this.dialogRef.close();
-      this.router.navigate(['/dashboard', this.pumpProduct.PetrolPumpCode]);
+      this.router.navigate(['/Inventory', this.pumpProduct.PetrolPumpCode]);
     });
   }
 

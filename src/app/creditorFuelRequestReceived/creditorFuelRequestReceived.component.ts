@@ -11,20 +11,23 @@ import { AlertService } from '../_services/alert.service';
 import { Router, Params, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { CreditorformComponent } from '../creditorform/creditorform.component';
 import { PetrolPumpService } from '../_services/petrolpump.service';
-import {CreditorAddFundformComponent} from '../creditorFundForm/creditorFundForm.component';
+import { CreditorInventory } from '../_models/CreditorInventory';
+import { CreditorFuelRequestFormComponent } from '../creditorFuelRequestForm/creditorFuelRequestForm.component';
+import { CreditorFuelRequestReceivedFormComponent } from '../creditorFuelRequestReceivedForm/creditorFuelRequestReceivedForm.component';
 
 @Component({
-  selector: 'pump-creditor',
-  templateUrl: './creditor.component.html',
-  styleUrls: ['./creditor.component.css']
+  selector: 'pump-creditorFuelRequestReceived',
+  templateUrl: './creditorFuelRequestReceived.component.html',
+  styleUrls: ['./creditorFuelRequestReceived.component.css']
 })
-export class CreditorComponent implements OnInit {
+export class CreditorFuelRequestReceivedComponent implements OnInit {
   // @Input() pumpUsers: pp_User[];
   // @Input() pumpCode: string;
 
-  public pumpUsers: pp_User[];
+  public pumpUsers: CreditorInventory[];
   public pumpCode: string;
   navigationSubscription;
+  public ApprovalCode:string;
 
   roles: Role[];
   constructor(private router:Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService,private activatedRoute: ActivatedRoute,private petrolPumpService: PetrolPumpService) {
@@ -55,38 +58,29 @@ export class CreditorComponent implements OnInit {
     //this.getAllRoles();
   }
   getPumpInfo(pumpCode) {
-    this.petrolPumpService.getPetrolPumpDashboard(pumpCode).subscribe(res => {
-      this.pumpUsers = res.pp_Users;
+    this.petrolPumpService.getPetrolPumpCreditorInventory(pumpCode).subscribe(res => {
+      this.pumpUsers = res;
     });
   }
-  editUser(user: pp_User) {
-    user.IsEditModal = true;
-    const dialogRef = this.dialog.open(CreditorformComponent, {
-      data: { user }
+  editUser(creditorInventory: CreditorInventory) {
+    creditorInventory.IsEditModal = true;
+    creditorInventory.PetrolPumpCode = this.pumpCode;
+    this.ApprovalCode = creditorInventory.SMSCode;
+    creditorInventory.SMSCode = '';    
+    const dialogRef = this.dialog.open(CreditorFuelRequestReceivedFormComponent, {
+      data: { creditorInventory : creditorInventory, ApprovalCode:this.ApprovalCode }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.ngOnInit();
     });
   }
 
-  addFund(user: pp_User) {
-    user.IsEditModal = true;
-    user.PaymentTypeID = 0;
-    user.CreditLimit = '';
-    const dialogRef = this.dialog.open(CreditorAddFundformComponent, {
-      data: { user }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.ngOnInit();
-    });
-  }
-
-  openAddUserDialog() {
-    let user: pp_User = new pp_User();
-    user.PetrolPumpCode = this.pumpCode;
-    user.IsEditModal = false;
-    const dialogRef = this.dialog.open(CreditorformComponent, {
-      data: { user },
+  openAddFuelRequestDialog() {
+    let creditorInventory: CreditorInventory = new CreditorInventory();
+    creditorInventory.PetrolPumpCode = this.pumpCode;
+    creditorInventory.IsEditModal = false;
+    const dialogRef = this.dialog.open(CreditorFuelRequestReceivedFormComponent, {
+      data: { creditorInventory:creditorInventory },
       disableClose: true
     });
   }
@@ -100,19 +94,19 @@ export class CreditorComponent implements OnInit {
     this.pumpUsers.splice(i, 1);
   }
 
-  ChangePassword(user: pp_User) {
-    const dialogRef = this.dialog.open(ChangePasswordComponent, {
-      data: { user }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.ngOnInit();
-    });
-  }
-  DeleteUser(user: pp_User) {
-    if (confirm("Do you want to delete this user?")) {
-      this.userService.deleteUser(user).subscribe((res: any) => {
+  // ChangePassword(user: pp_User) {
+  //   const dialogRef = this.dialog.open(ChangePasswordComponent, {
+  //     data: { user }
+  //   });
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     this.ngOnInit();
+  //   });
+  // }
+  DeleteUser(user: CreditorInventory) {
+    if (confirm("Do you want to delete this fuel request?")) {
+      this.userService.deleteFuelRequest(user).subscribe((res: any) => {
         this.toasterService.pop('success', '', res.Result.toString());
-        this.router.navigate(['/pumpDetails',this.pumpCode]);
+        this.router.navigate(['/FuelRequestReceived',this.pumpCode]);
       },
         (err) => {
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
 import { pp_PetrolPump } from '../_models/pp_PetrolPump';
 import { PetrolPumpService } from '../_services/petrolpump.service';
 import { ToasterService } from 'angular2-toaster';
@@ -14,8 +14,12 @@ import { PumpStatus } from '../_models/PumpStatus';
   styleUrls: ['./landingDashboard.component.css']
 })
 export class LandingDashboardComponent implements OnInit {
-  @Input() pumpStatus: PumpStatus[];
-  @Input() pumpCode: string;
+  // @Input() pumpStatus: PumpStatus[];
+  // @Input() pumpCode: string;
+  public pumpStatus: PumpStatus;
+  public pumpCode: string;
+  navigationSubscription;
+
   status: string;
   countStatus: number;
   //public userData: UserDetail;
@@ -48,27 +52,43 @@ export class LandingDashboardComponent implements OnInit {
       { type: 'pattern', message: 'Only Numbers are allowed.' }
     ]
   }
-  constructor(private toasterService: ToasterService, private _formBuilder: FormBuilder, private router: Router, private petrolPumpService: PetrolPumpService) {
-
+  constructor(private toasterService: ToasterService, private _formBuilder: FormBuilder, private router: Router, private petrolPumpService: PetrolPumpService,private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.pumpCode = params['pumpCode'];
+    });
+    // this.navigationSubscription = this.router.events.subscribe((e: any) => {
+    //   if (e instanceof NavigationEnd) {
+    //     this.ngOnInit();
+    //   }
+    // });
   }
 
   ngOnInit() {
-    if (this.pumpStatus && this.pumpStatus.length > 0) {
-      if (this.pumpStatus[0].Payment == 1 && this.pumpStatus[0].Tank == 1 && this.pumpStatus[0].Nozzle == 1
-        && this.pumpStatus[0].Product == 1 && this.pumpStatus[0].User == 1 && this.pumpStatus[0].AdditionalInfo == 1
-        && this.pumpStatus[0].BasicInfo == 1) {
-        this.status = "Congratulation! Your Petrol pump set up is Complete."
-        this.countStatus = 1;
-      }
-      else {
-        this.status = "Petrol pump set up is In Progress."
-        this.countStatus = 0;
-      }
+    if (this.pumpCode && this.pumpCode != '') {
+      this.getPumpStatus(this.pumpCode);      
     }
+    
     // this.pumpLandingForm = this._formBuilder.group({
     //   PetrolPumpCode: [this.pumpStatus.PetrolPumpCode]      
     // });
     //this.getUserInfo();
+  }
+  getPumpStatus(pumpCode) {
+    this.petrolPumpService.getPumpStatus(pumpCode).subscribe(res => {
+      this.pumpStatus = res;
+      if (this.pumpStatus) {
+        if (this.pumpStatus[0].Payment == 1 && this.pumpStatus[0].Tank == 1 && this.pumpStatus[0].Nozzle == 1
+          && this.pumpStatus[0].Product == 1 && this.pumpStatus[0].User == 1 && this.pumpStatus[0].AdditionalInfo == 1
+          && this.pumpStatus[0].BasicInfo == 1) {
+          this.status = "Congratulation! Your Petrol pump set up is Complete."
+          this.countStatus = 1;
+        }
+        else {
+          this.status = "Petrol pump set up is In Progress."
+          this.countStatus = 0;
+        }
+      }
+    });
   }
 
   //   savePumpInfo() {

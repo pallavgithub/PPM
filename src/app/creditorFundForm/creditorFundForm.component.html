@@ -1,0 +1,59 @@
+<h2 mat-dialog-title>Add Fund</h2>
+<form [formGroup]="creditorAddFundform" (ngSubmit)="createUser()">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="CreditLimit">Credit Limit
+                </label>
+                <span class="required">*</span>
+                <input type="number" placeholder="Credit Limit" class="form-control" formControlName="CreditLimit" required>
+                <div *ngFor="let validation of validation_messages.CreditLimit">
+                    <span class="error-message" *ngIf="creditorAddFundform.get('CreditLimit').hasError(validation.type) && (creditorAddFundform.get('CreditLimit').dirty || creditorAddFundform.get('CreditLimit').touched)">{{validation.message}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row saperatorDiv"><span class="saperatorSpan">Security Info</span></div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="PaymentTypeID">Payment Type</label>
+                <span class="required">*</span>
+                <select class="form-control" formControlName="PaymentTypeID" (change)="onChange()">
+                    <option [ngValue]="0" disabled>--Select--</option>
+                    <option *ngFor="let itemPaymentTypes of paymentTypes;let i=index" [ngValue]="itemPaymentTypes.ID">{{itemPaymentTypes.Name}}</option>
+                </select>
+                <span class="error-message">{{validationPaymentTypeMessage}}</span>
+                <!-- <div *ngFor="let validation of validation_messages.PaymentTypeID">
+                    <span class="error-message" *ngIf="userform.get('PaymentTypeID').hasError(validation.type) && (userform.get('PaymentTypeID').dirty || userform.get('PaymentTypeID').touched)">{{validation.message}}</span>
+                </div> -->
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="PaymentDate">Payment Date
+                </label>
+                <span class="required">*</span>
+                <input type="date" placeholder="Payment Date" class="form-control" formControlName="PaymentDate">
+                <div *ngFor="let validation of validation_messages.PaymentDate">
+                    <span class="error-message" *ngIf="creditorAddFundform.get('PaymentDate').hasError(validation.type) && (creditorAddFundform.get('PaymentDate').dirty || creditorAddFundform.get('PaymentDate').touched)">{{validation.message}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Description">Description</label>
+                <input placeholder="Description" class="form-control" formControlName="Description">
+                <div *ngFor="let validation of validation_messages.Description">
+                    <span class="error-message" *ngIf="creditorAddFundform.get('Description').hasError(validation.type) && (creditorAddFundform.get('Description').dirty || creditorAddFundform.get('Description').touched)">{{validation.message}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <mat-dialog-actions style="float: right;">
+        <button class="btn btn-default" [mat-dialog-close]="true">Cancel</button>&nbsp;&nbsp;&nbsp;
+        <button type="submit" class="btn btn-primary" [disabled]="!creditorAddFundform.valid" (click)='checkFormValid()'>Save</button>
+    </mat-dialog-actions>
+</form>

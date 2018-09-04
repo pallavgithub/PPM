@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>Fuel Request</h2>
+<form [formGroup]="creditorFuelRequestForm" (ngSubmit)="createUser()">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="FuelType">Fuel Type</label>
+                <span class="required">*</span>
+                <select name="ProductID" class="form-control" formControlName="ProductID" (change)="onchange()">
+                    <option [ngValue]="0" disabled>--Select--</option>
+                    <option *ngFor="let fuelType of allProduct;let i=index" [ngValue]="fuelType.ID">{{fuelType.Name}}</option>
+                </select>
+                <span class="error-message">{{validationFuelTypeMessage}}</span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Unit">Unit
+                    <span class="required">*</span>
+                </label>
+                <select class="form-control" formControlName="Unit" (change)="onChange()">
+                    <option [ngValue]="0" disabled>--Select Unit--</option>
+                    <option *ngFor="let itemUnit of units;let i=index" [ngValue]="itemUnit.ID">{{itemUnit.Name}}</option>
+                </select>
+                <span class="error-message">{{validationUnitMessage}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="PurchaseQuantity">
+                        Purchase Stock
+                    <span class="required">*</span>
+                </label>
+                <input type="number" placeholder="Purchase Stock" class="form-control" formControlName="PurchaseQuantity" required>
+                <div *ngFor="let validation of validation_messages.PurchaseQuantity">
+                    <span class="error-message" *ngIf="creditorFuelRequestForm.get('PurchaseQuantity').hasError(validation.type) && (creditorFuelRequestForm.get('PurchaseQuantity').dirty || creditorFuelRequestForm.get('PurchaseQuantity').touched)">{{validation.message}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <mat-dialog-actions style="float: right;">
+        <button class="btn btn-default" [mat-dialog-close]="true">Cancel</button>&nbsp;&nbsp;&nbsp;
+        <button type="submit" class="btn btn-primary" [disabled]="!creditorFuelRequestForm.valid">Save</button>
+    </mat-dialog-actions>
+</form>

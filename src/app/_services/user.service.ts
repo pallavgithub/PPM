@@ -23,6 +23,7 @@ import { pp_Payment } from '../_models/pp_Payment';
 import { UserDetail } from '../_models/userDetail';
 import { ReadingTypeDetail } from '../_models/readingTypeDetail';
 import { ChartType } from '../_models/ChartType';
+import { CreditorInventory } from '../_models/CreditorInventory';
 
 @Injectable()
 export class UserService {
@@ -80,6 +81,9 @@ export class UserService {
     deleteUser(user: pp_User) {
         return this.http.post(`${environment.apiUrl}/Pump/DeleteUser`, JSON.stringify(user));
     }
+    deleteFuelRequest(user: CreditorInventory) {
+        return this.http.post(`${environment.apiUrl}/Pump/DeleteFuelRequest`, JSON.stringify(user));
+    }
     deleteTank(tank: pp_Tank) {
         return this.http.post(`${environment.apiUrl}/Pump/DeleteTank`, JSON.stringify(tank));
     }
@@ -103,6 +107,9 @@ export class UserService {
     }
     getAllUnits(){
         return this.http.get<Unit[]>(`${environment.apiUrl}/Pump/Unit`);
+    }
+    getAllRegisteredProducts(petrolPumpCode:string){
+        return this.http.get<AllProduct[]>(`${environment.apiUrl}/Pump/RegisteredProducts/?petrolPumpCode=` + petrolPumpCode);
     }
     getAllPaymentType(){
         return this.http.get<PaymentType[]>(`${environment.apiUrl}/Pump/PaymentType`);

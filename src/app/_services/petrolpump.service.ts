@@ -12,6 +12,7 @@ import { pp_Payment } from '../_models/pp_Payment';
 import { PumpStatus } from '../_models/PumpStatus';
 import { UserDetail } from '../_models/userDetail';
 import { TankWithProduct } from '../_models/TankWithProduct';
+import { CreditorInventory } from '../_models/CreditorInventory';
 
 @Injectable()
 export class PetrolPumpService {
@@ -37,6 +38,12 @@ export class PetrolPumpService {
     getPetrolPumpDashboard(petrolPumpCode:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpDashboard?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
     }
+    getPetrolPumpCreditorInventory(petrolPumpCode:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpCreditorInventory?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
+    }
+    GetPetrolPumpCreditorNetCreditLimit(petrolPumpCode:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/CreditorNetCreditLimit?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
+    }
 
     getPumpStatus(petrolPumpCode:string){
         return this.http.get<PumpStatus>(`${environment.apiUrl}/Pump/CheckFormCompletenes?petrolPumpCode=`+petrolPumpCode,);
@@ -49,6 +56,18 @@ export class PetrolPumpService {
     }
     addUpdatePumpUser(pumpUser:pp_User){
         return this.http.post(`${environment.apiUrl}/Pump/UpdateUserInfo`,JSON.stringify(pumpUser))
+    }
+
+    AddCreditorFund(pumpUser:pp_User){
+        return this.http.post(`${environment.apiUrl}/Pump/AddCreditorFund`,JSON.stringify(pumpUser))
+    }
+
+    AddUpdatePetrolPumpCreditorInventory(pumpUser:CreditorInventory){
+        return this.http.post(`${environment.apiUrl}/Pump/UpdatePetrolPumpCreditorInventory`,JSON.stringify(pumpUser))
+    }
+
+    ApprovePetrolPumpCreditorsInventory(pumpUser:CreditorInventory){
+        return this.http.post(`${environment.apiUrl}/Pump/ApprovePetrolPumpCreditorsInventory`,JSON.stringify(pumpUser))
     }
     addUpdatePumpTank(pumpTank:pp_Tank){
         return this.http.post(`${environment.apiUrl}/Pump/AddUpdateTank`,JSON.stringify(pumpTank))

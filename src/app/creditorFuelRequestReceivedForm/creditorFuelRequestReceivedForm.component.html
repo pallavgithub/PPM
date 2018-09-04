@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Creditors</h2>
+<form [formGroup]="creditorFuelRequestReceivedForm" (ngSubmit)="createUser()">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="SMSCode">Plase Enter Approval Code</label>
+                <span class="required">*</span>
+                <input type="number" placeholder="Plase Enter Approval Code" class="form-control" formControlName="SMSCode" required>
+                <div *ngFor="let validation of validation_messages.SMSCode">
+                    <span class="error-message" *ngIf="creditorFuelRequestReceivedForm.get('SMSCode').hasError(validation.type) && (creditorFuelRequestForm.get('SMSCode').dirty || creditorFuelRequestForm.get('SMSCode').touched)">{{validation.message}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <mat-dialog-actions style="float: right;">
+        <button class="btn btn-default" [mat-dialog-close]="true">Cancel</button>&nbsp;&nbsp;&nbsp;
+        <button type="submit" class="btn btn-primary" [disabled]="!creditorFuelRequestReceivedForm.valid">Submit</button>
+    </mat-dialog-actions>
+</form>

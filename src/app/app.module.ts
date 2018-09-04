@@ -66,6 +66,11 @@ import { MenuStateComponent } from './test-pages/manu-state.component';
 import { CreditorformComponent } from './creditorform/creditorform.component';
 import { InventoryLubesPriceDialogFormComponent } from './inventoryLubesPriceDialog/inventoryLubesPriceDialog.component';
 import { InventoryFuelTankDialogFormComponent } from './inventoryFuelTankDialog/inventoryFuelTankDialog.component';
+import { CreditorFuelRequestComponent } from './creditorFuelRequest/creditorFuelRequest.component';
+import { CreditorFuelRequestFormComponent } from './creditorFuelRequestForm/creditorFuelRequestForm.component';
+import { CreditorFuelRequestReceivedComponent } from './creditorFuelRequestReceived/creditorFuelRequestReceived.component';
+import { CreditorFuelRequestReceivedFormComponent } from './creditorFuelRequestReceivedForm/creditorFuelRequestReceivedForm.component';
+import { CreditorAddFundformComponent } from './creditorFundForm/creditorFundForm.component';
 
 @NgModule({
     imports: [
@@ -83,7 +88,7 @@ import { InventoryFuelTankDialogFormComponent } from './inventoryFuelTankDialog/
         BrowserAnimationsModule, ToasterModule.forRoot(), NgbModule.forRoot()
         //HttpService
     ],
-    entryComponents: [PumpUsersComponent, UserformComponent, PumpTankComponent, TankformComponent, NozzleformComponent, ChangePasswordComponent, ProductDialogFormComponent, PumpNozzleComponent, PaymentDialogFormComponent, InventoryDialogFormComponent, ReadingTypeDialogFormComponent,CreditorformComponent,InventoryLubesPriceDialogFormComponent,InventoryFuelTankDialogFormComponent],
+    entryComponents: [PumpUsersComponent, UserformComponent, PumpTankComponent, TankformComponent, NozzleformComponent, ChangePasswordComponent, ProductDialogFormComponent, PumpNozzleComponent, PaymentDialogFormComponent, InventoryDialogFormComponent, ReadingTypeDialogFormComponent,CreditorformComponent,InventoryLubesPriceDialogFormComponent,InventoryFuelTankDialogFormComponent,CreditorFuelRequestFormComponent,CreditorFuelRequestReceivedFormComponent,CreditorAddFundformComponent],
     declarations: [
         AppComponent,
         AlertComponent,
@@ -107,13 +112,18 @@ import { InventoryFuelTankDialogFormComponent } from './inventoryFuelTankDialog/
         CreditorformComponent,
         PumpUsersComponent,
         ChangePasswordComponent,
+        CreditorAddFundformComponent,
+        CreditorFuelRequestReceivedFormComponent,
         ProductComponent,
         ProductDialogFormComponent,
+        CreditorFuelRequestReceivedComponent,
         InventoryDialogFormComponent,
         InventoryLubesPriceDialogFormComponent,
         InventoryFuelTankDialogFormComponent,
         PaymentComponent,
         PaymentDialogFormComponent,
+        CreditorFuelRequestComponent,
+        CreditorFuelRequestFormComponent,
         DashBoardComponent,
         InventoryComponent,
         ReadingTypeDialogFormComponent,

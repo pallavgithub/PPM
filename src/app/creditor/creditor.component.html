@@ -1,37 +1,53 @@
- 
-
-<br/>
-
-
-<!-- <userform (userCreated)="addUser($event)"></userform> -->
-<div class="col-md-12 table-responsive" *ngIf="pumpUsers.length>0">
-  <table style="border: 1px solid black" class="table table-striped">
-    <thead class="thead-dark">
-    <tr>
-      <th>User Id</th>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Role</th>
-      <th>Phone</th>
-      <!-- <th>Address</th> -->
-      <!-- <th>Credit Limit</th> -->
-      <th>Action</th>
-    </tr>
-  </thead>
-    
-    <tr *ngFor ="let pumpUser of pumpUsers let i=index">
-      <td>{{pumpUser.UserId}}</td>
-      <td>{{pumpUser.FullName}}</td>
-      <td>{{pumpUser.Email}}</td>
-      <td>{{pumpUser.RoleName}}</td>
-      <td>{{pumpUser.Phone}}</td>
-      <!-- <td>{{pumpUser.Address}}</td> -->
-      <!-- <td>{{pumpUser.CreditLimit}}</td> -->
-      <td>
-          <a (click)="ChangePassword(pumpUser)" style="cursor: pointer;">Change Password</a><br>
-        <a (click)="editUser(pumpUser)" style="cursor: pointer;">Edit</a>&nbsp;
-        <a (click)="DeleteUser(pumpUser)" style="cursor: pointer;">Delete</a>
-      </td>
-    </tr>
-  </table>
+<div class="row">
+  <div class="form-group">
+    <div class="col-md-3">
+      <div id="mySidenav" class="sidenav">
+        <!-- <a href="javascript:void(0)" class="closebtn">&times;</a> -->
+        <a [routerLink]="['/Landing',pumpCode]">DashBoard</a>
+        <a [routerLink]="['/Inventory',pumpCode]">Inventory and Price Management</a>
+        <a [routerLink]="['/Creditor',pumpCode]">Creditor</a>
+        <a [routerLink]="['/DailyPrice',pumpCode]">Set Daily Price</a>
+        <a [routerLink]="['/FuelRequest',pumpCode]">Fuel Request</a>
+        <a [routerLink]="['/FuelRequestReceived',pumpCode]">Fuel Request Received</a>
+      </div>
+    </div>
+    <!-- <userform (userCreated)="addUser($event)"></userform> -->
+    <div class="col-md-9">
+      <div>
+        <div>
+          <button class="btn btn-primary" style="float:right;" (click)="openAddUserDialog()">Add Creditor</button>
+        </div>
+      </div>
+      <div class="table-responsive" *ngIf="pumpUsers && pumpUsers.length>0">
+        <table style="border: 1px solid black" class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th>User Id</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Phone</th>
+              <th>Action</th>
+              <th>Add Fund</th>
+            </tr>
+          </thead>
+          <tr *ngFor="let pumpUser of pumpUsers let i=index">
+            <td>{{pumpUser.UserId}}</td>
+            <td>{{pumpUser.FullName}}</td>
+            <td>{{pumpUser.Email}}</td>
+            <td>{{pumpUser.RoleName}}</td>
+            <td>{{pumpUser.Phone}}</td>
+            <td>
+              <a (click)="ChangePassword(pumpUser)" style="cursor: pointer;">Change Password</a><br>
+              <a (click)="editUser(pumpUser)" style="cursor: pointer;">Edit</a>&nbsp;
+              <a (click)="DeleteUser(pumpUser)" style="cursor: pointer;">Delete</a>
+            </td>
+            <td>
+                <a (click)="addFund(pumpUser)" style="cursor: pointer;">Add Fund</a><br>
+              </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

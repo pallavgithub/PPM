@@ -14,6 +14,12 @@ import { ChangePasswordComponent } from './ChangePassword/ChangePassword.Compone
 import { ResultComponent } from './result/result.component';
 import { PumpDetailsComponent } from './pump-details/pump-details.component';
 import { DashBoardComponent } from './dashboard/dashboard.component';
+import { LandingDashboardComponent } from './landingDashboard/landingDashboard.component';
+import {InventoryComponent} from './inventory/inventory.component';
+import {CreditorComponent} from './creditor/creditor.component';
+import {PriceAdjustmentComponent} from './priceAdjustment/priceAdjustment.component';
+import { CreditorFuelRequestComponent } from './creditorFuelRequest/creditorFuelRequest.component';
+import { CreditorFuelRequestReceivedComponent } from './creditorFuelRequestReceived/creditorFuelRequestReceived.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent,canActivate: [AuthGuard] },
@@ -21,6 +27,12 @@ const appRoutes: Routes = [
     { path: 'login', component: LoginComponent},
     // { path: 'adduser', component: UserformComponent,canActivate: [AuthGuard] },
     { path: 'pumpRegister', component: PumpRegisterComponent,canActivate: [AuthGuard] },
+    { path: 'Landing/:pumpCode', component: LandingDashboardComponent,canActivate: [AuthGuard] },
+    { path: 'Inventory/:pumpCode', component: InventoryComponent,canActivate: [AuthGuard] },
+    { path: 'Creditor/:pumpCode', component: CreditorComponent,canActivate: [AuthGuard] },
+    { path: 'DailyPrice/:pumpCode', component: PriceAdjustmentComponent,canActivate: [AuthGuard] },
+    { path: 'FuelRequest/:pumpCode', component: CreditorFuelRequestComponent,canActivate: [AuthGuard] },
+    { path: 'FuelRequestReceived/:pumpCode', component: CreditorFuelRequestReceivedComponent,canActivate: [AuthGuard] },    
     // { path: 'DeleteUser', component: PumpUsersComponent,canActivate: [AuthGuard] },
     { path: 'pumpDetails', component: PumpDetailsComponent,canActivate: [AuthGuard],runGuardsAndResolvers: 'always' },
     { path: 'pumpDetails/:pumpcode', component: PumpDetailsComponent,canActivate: [AuthGuard] },

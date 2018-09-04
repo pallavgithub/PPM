@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material';
 import { pp_PumpProduct } from '../_models/pp_PumpProduct';
 import { UserService } from '../_services';
 import { ToasterService } from 'angular2-toaster';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
 import { AllProduct } from '../AllProduct';
 import { Unit } from '../_models/Unit';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
@@ -18,15 +18,25 @@ import { PumpProductWithDate } from '../_models/PumpProductWithDate';
   styleUrls: ['./priceAdjustment.component.css']
 })
 export class PriceAdjustmentComponent implements OnInit {
-  @Input() pumpProduct: pp_PumpProduct[];
-  @Input() pumpCode: string;
+  // @Input() pumpProduct: pp_PumpProduct[];
+  // @Input() pumpCode: string;
+  public pumpProduct: pp_PumpProduct[];
+  public pumpCode: string;
   allProducts: AllProduct[];
   pumpProductWithDate: PumpProductWithDate;
   DateOfEntry: string;
   productDialogform: FormGroup;
+  navigationSubscription;
   units: Unit[];
-  constructor(private router: Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService, private _formBuilder: FormBuilder, private petrolPumpService: PetrolPumpService, public datepipe: DatePipe) {
-
+  constructor(private router: Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService, private _formBuilder: FormBuilder, private petrolPumpService: PetrolPumpService, public datepipe: DatePipe, private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.pumpCode = params['pumpCode'];
+    });
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      if (e instanceof NavigationEnd) {
+        this.ngOnInit();
+      }
+    });
   }
   // getProductName(ID) { 
   //   if(ID == 0)
@@ -48,6 +58,10 @@ export class PriceAdjustmentComponent implements OnInit {
 
 
   ngOnInit() {
+    if (this.pumpCode && this.pumpCode != '') {
+      //this.getUserInfo();
+      this.getPumpInfo(this.pumpCode);
+    }
     this.productDialogform = this._formBuilder.group({
       ID: 0,
       PetrolPumpCode: '',
@@ -83,17 +97,25 @@ export class PriceAdjustmentComponent implements OnInit {
     //this.getAllProducts();
     //this.getAllUnits();
   }
-
-  ngOnChanges(changes: SimpleChange) {
-    // changes['pumpProduct']
-    this.pumpProduct = changes["pumpProduct"].currentValue;
-    if(this.pumpProduct != null && this.pumpProduct != undefined && this.pumpProduct.length > 0)
-    {
+  getPumpInfo(pumpCode) {
+    this.petrolPumpService.getPetrolPumpDashboard(pumpCode).subscribe(res => {
+      this.pumpProduct = res.pp_PumpProduct;
       this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);
       let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
       this.DateOfEntry = latest_ReadingDate;
-    }    
+    });
   }
+
+  // ngOnChanges(changes: SimpleChange) {
+  //   // changes['pumpProduct']
+  //   this.pumpProduct = changes["pumpProduct"].currentValue;
+  //   if(this.pumpProduct != null && this.pumpProduct != undefined && this.pumpProduct.length > 0)
+  //   {
+  //     this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);
+  //     let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
+  //     this.DateOfEntry = latest_ReadingDate;
+  //   }    
+  // }
 
   savePumpInfo(pumpProduct: pp_PumpProduct[]) {
     var daatr = this.productDialogform.value;
@@ -103,7 +125,7 @@ export class PriceAdjustmentComponent implements OnInit {
     });
     this.petrolPumpService.updatePetrolPumpPriceAdjustmentInfo(pumpProduct).subscribe(res => {
       this.toasterService.pop('success', '', 'Price details updated successfully.');
-      this.router.navigate(['/dashboard', this.pumpCode]);
+      this.router.navigate(['/DailyPrice', this.pumpCode]);
     });
   }
 

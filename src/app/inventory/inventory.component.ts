@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material';
 import { pp_PumpProduct } from '../_models/pp_PumpProduct';
 import { UserService } from '../_services';
 import { ToasterService } from 'angular2-toaster';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
 import { AllProduct } from '../AllProduct';
 import { Unit } from '../_models/Unit';
 import { pp_Inventory } from '../_models/pp_Inventory';
@@ -12,6 +12,7 @@ import { InventoryDialogFormComponent } from '../inventoryDialog/inventoryDialog
 import { InventoryLubesPriceDialogFormComponent } from '../inventoryLubesPriceDialog/inventoryLubesPriceDialog.component';
 import { pp_Tank } from '../_models/pp_Tank';
 import { InventoryFuelTankDialogFormComponent } from '../inventoryFuelTankDialog/inventoryFuelTankDialog.component';
+import { PetrolPumpService } from '../_services/petrolpump.service';
 
 @Component({
   selector: 'pump-inventory',
@@ -19,14 +20,29 @@ import { InventoryFuelTankDialogFormComponent } from '../inventoryFuelTankDialog
   styleUrls: ['./inventory.component.css']
 })
 export class InventoryComponent implements OnInit {
-  @Input() pumpProduct: pp_PumpProduct[];
-  @Input() pumpProductWithLubesPrise: pp_PumpProduct[];
-  @Input() pumpTanks: pp_Tank[];
-  @Input() pumpCode: string;
+  // @Input() pumpProduct: pp_PumpProduct[];
+  // @Input() pumpProductWithLubesPrise: pp_PumpProduct[];
+  // @Input() pumpTanks: pp_Tank[];
+  // @Input() pumpCode: string;
+
+  public pumpProduct: pp_PumpProduct[];
+  public pumpProductWithLubesPrise: pp_PumpProduct[];
+  public pumpTanks: pp_Tank[];
+  public pumpCode: string;
+  navigationSubscription;
+
   //allProducts: AllProduct[];
   //listPumpProduct: pp_PumpProduct[];
   //units: Unit[];
-  constructor(private router: Router, private toasterService: ToasterService, public dialog: MatDialog,public dialog2: MatDialog, private userService: UserService) {
+  constructor(private router: Router, private toasterService: ToasterService, public dialog: MatDialog, public dialog2: MatDialog, private userService: UserService,private activatedRoute: ActivatedRoute, private petrolPumpService: PetrolPumpService) {
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.pumpCode = params['pumpCode'];
+    });
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      if (e instanceof NavigationEnd) {
+        this.ngOnInit();
+      }
+    });
     //this.listPumpProduct = this.pumpProduct;
   }
   // getProductName(ID) { 
@@ -49,42 +65,51 @@ export class InventoryComponent implements OnInit {
 
 
   ngOnInit() {
+    if (this.pumpCode && this.pumpCode != '') {
+      this.getPumpInfo(this.pumpCode);  
+    }
     //this.getAllProducts();
     //this.getAllUnits();
     //this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID != 3);
   }
-  ngOnChanges(changes: SimpleChange) {
-    // changes['pumpProduct']
-    this.pumpProduct = changes["pumpProduct"].currentValue;
-    if (this.pumpProduct != null && this.pumpProduct != undefined && this.pumpProduct.length > 0) {
-      this.pumpProduct = this.pumpProduct.filter(c => c.CategoryID != 3)
-    }
-
-    this.pumpProductWithLubesPrise = changes["pumpProductWithLubesPrise"].currentValue;
-    if (this.pumpProductWithLubesPrise != null && this.pumpProductWithLubesPrise != undefined && this.pumpProductWithLubesPrise.length > 0) {
-      this.pumpProductWithLubesPrise = this.pumpProductWithLubesPrise.filter(c => c.CategoryID != 3)
-    }
-    if (this.pumpTanks != null && this.pumpTanks != undefined && this.pumpTanks.length > 0) {
-      this.pumpTanks = changes["pumpTanks"].currentValue;
-    }
-    
+  getPumpInfo(pumpCode) {
+    this.petrolPumpService.getPetrolPumpDashboard(pumpCode).subscribe(res => {
+      this.pumpTanks = res.pp_Tanks;
+      this.pumpProduct = res.pp_PumpProduct;
+      this.pumpProductWithLubesPrise = res.pp_PumpProductWithLubesPrise; 
+      this.pumpProductWithLubesPrise = this.pumpProductWithLubesPrise.filter(c => c.CategoryID != 3)     
+    });
   }
+  // ngOnChanges(changes: SimpleChange) {
+  //   // changes['pumpProduct']
+  //   this.pumpProduct = changes["pumpProduct"].currentValue;
+  //   if (this.pumpProduct != null && this.pumpProduct != undefined && this.pumpProduct.length > 0) {
+  //     this.pumpProduct = this.pumpProduct.filter(c => c.CategoryID != 3)
+  //   }
+
+  //   this.pumpProductWithLubesPrise = changes["pumpProductWithLubesPrise"].currentValue;
+  //   if (this.pumpProductWithLubesPrise != null && this.pumpProductWithLubesPrise != undefined && this.pumpProductWithLubesPrise.length > 0) {
+  //     this.pumpProductWithLubesPrise = this.pumpProductWithLubesPrise.filter(c => c.CategoryID != 3)
+  //   }
+  //   if (this.pumpTanks != null && this.pumpTanks != undefined && this.pumpTanks.length > 0) {
+  //     this.pumpTanks = changes["pumpTanks"].currentValue;
+  //   }
+
+  // }
   editProduct(pumpProductNew: pp_PumpProduct) {
     pumpProductNew.IsEditModal = true;
     pumpProductNew.InitialQuantity = '';
     pumpProductNew.DateStockMeasuredOn = new Date().toString();
-    if(pumpProductNew.CategoryID == 2)
-    {
+    if (pumpProductNew.CategoryID == 2) {
       const dialogRef1 = this.dialog.open(InventoryDialogFormComponent, {
         data: { pumpProductNew: pumpProductNew }
       });
     }
-    else
-    {
+    else {
       const dialogRef2 = this.dialog2.open(InventoryFuelTankDialogFormComponent, {
-        data: { pumpProductNew: pumpProductNew, pumpTanks: this.pumpTanks, pumpCode:this.pumpCode }
+        data: { pumpProductNew: pumpProductNew, pumpTanks: this.pumpTanks, pumpCode: this.pumpCode }
       });
-    }  
+    }
     // dialogRef.afterClosed().subscribe(result => {
     //   this.ngOnInit();
     // });

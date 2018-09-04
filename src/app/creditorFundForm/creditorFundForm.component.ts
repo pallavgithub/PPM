@@ -11,18 +11,18 @@ import { PaymentType } from '../_models/PaymentType';
 import { DatePipe } from '../../../node_modules/@angular/common';
 
 @Component({
-  selector: 'creditorform',
-  templateUrl: './creditorform.component.html',
-  styleUrls: ['./creditorform.component.css']
+  selector: 'creditorAddFundform',
+  templateUrl: './creditorFundForm.component.html',
+  styleUrls: ['./creditorFundForm.component.css']
 })
-export class CreditorformComponent implements OnInit {
+export class CreditorAddFundformComponent implements OnInit {
   user: pp_User;
   roles: Role[];
   IsEditDialog: boolean;
   paymentTypes: PaymentType[];
   validationPaymentTypeMessage: string;
   btnDisabled: boolean = false;
-  userform: FormGroup;
+  creditorAddFundform: FormGroup;
   validationRoleMessage: string;
   validation_messages = {
     'Email': [
@@ -58,7 +58,7 @@ export class CreditorformComponent implements OnInit {
     ]
   }
   constructor(private toasterService: ToasterService, public dialog: MatDialog, private router: Router, private userService: UserService, private _formBuilder: FormBuilder, private petrolPumpService: PetrolPumpService, @Inject(MAT_DIALOG_DATA) public data,
-    private dialogRef: MatDialogRef<CreditorformComponent>, public datepipe: DatePipe) {
+    private dialogRef: MatDialogRef<CreditorAddFundformComponent>, public datepipe: DatePipe) {
 
   }
 
@@ -66,7 +66,7 @@ export class CreditorformComponent implements OnInit {
     this.user = this.data.user;
     this.getAllRoles();
     this.getAllPaymentType();
-    this.userform = this._formBuilder.group({
+    this.creditorAddFundform = this._formBuilder.group({
       ID: [this.user.ID],
       PetrolPumpCode: [this.user.PetrolPumpCode],
       UserId: [this.user.UserId, Validators.compose([Validators.required, Validators.minLength(5), Validators.pattern('^[a-zA-Z0-9@&!-_.]*$')])],
@@ -84,7 +84,7 @@ export class CreditorformComponent implements OnInit {
       EncashementDate: [this.user.EncashementDate, Validators.compose([Validators.required])],
       IsEncashed: [this.user.IsEncashed],
       PaymentTypeID: [this.user.PaymentTypeID]
-    }, { validator: this.matchingPasswords('Password', 'ConfirmPassword') });
+    });
     if (this.user.IsEditModal) {
       this.IsEditDialog = true;
       //this.userform.controls.UserId.disable();
@@ -94,12 +94,12 @@ export class CreditorformComponent implements OnInit {
       //this.userform.controls.UserId.enable();
     }
     this.DisableControlsByRole();
-    this.userform.controls["ConfirmPassword"].setValue(this.userform.controls["Password"].value);
+    this.creditorAddFundform.controls["ConfirmPassword"].setValue(this.creditorAddFundform.controls["Password"].value);
     let latest_PaymentDate = this.datepipe.transform(((this.user.PaymentDate == "" || this.user.PaymentDate == null) ? new Date().toString() : this.user.PaymentDate), 'yyyy-MM-dd');
-    this.userform.get('PaymentDate').setValue(latest_PaymentDate);
+    this.creditorAddFundform.get('PaymentDate').setValue(latest_PaymentDate);
 
     let latest_EncashementDate = this.datepipe.transform(((this.user.EncashementDate == "" || this.user.EncashementDate == null) ? new Date().toString() : this.user.EncashementDate), 'yyyy-MM-dd');
-    this.userform.get('EncashementDate').setValue(latest_EncashementDate);
+    this.creditorAddFundform.get('EncashementDate').setValue(latest_EncashementDate);
   }
   getAllPaymentType() {
     this.userService.getAllPaymentType().subscribe(data => {
@@ -108,7 +108,7 @@ export class CreditorformComponent implements OnInit {
   }
   onPaymentTypeChange() {
     let paymentTypeID = 0;
-    paymentTypeID = this.userform.controls['PaymentTypeID'].value;
+    paymentTypeID = this.creditorAddFundform.controls['PaymentTypeID'].value;
     this.checkFormValid();
   }
   matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
@@ -131,7 +131,7 @@ export class CreditorformComponent implements OnInit {
     // else{
     //   this.validationRoleMessage = "";
     // }
-    if (this.userform.controls['PaymentTypeID'].value == 0) {
+    if (this.creditorAddFundform.controls['PaymentTypeID'].value == 0) {
       this.validationPaymentTypeMessage = "Please select Payment Type";
       return false;
     }
@@ -149,9 +149,9 @@ export class CreditorformComponent implements OnInit {
   }
 
   createUser() {
-    this.userform.controls["RoleID"].setValue(2);
-    this.userform.controls["CreditLimit"].setValue(Number(this.userform.controls["CreditLimit"].value));
-    this.petrolPumpService.addUpdatePumpUser(this.userform.value).subscribe((res: any) => {
+    this.creditorAddFundform.controls["RoleID"].setValue(2);
+    this.creditorAddFundform.controls["CreditLimit"].setValue(Number(this.creditorAddFundform.controls["CreditLimit"].value));
+    this.petrolPumpService.AddCreditorFund(this.creditorAddFundform.value).subscribe((res: any) => {
       this.toasterService.pop('success', '', res.Result.toString());
       this.dialogRef.close();
       this.router.navigate(['/Creditor', this.user.PetrolPumpCode]);
@@ -173,7 +173,7 @@ export class CreditorformComponent implements OnInit {
   }
 
   PasswordControlsVisbility() {
-    if (this.userform.controls['isEditModal'].value == true) {
+    if (this.creditorAddFundform.controls['isEditModal'].value == true) {
       return true;
     }
     else {
