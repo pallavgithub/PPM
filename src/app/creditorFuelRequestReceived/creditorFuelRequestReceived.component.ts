@@ -14,6 +14,8 @@ import { PetrolPumpService } from '../_services/petrolpump.service';
 import { CreditorInventory } from '../_models/CreditorInventory';
 import { CreditorFuelRequestFormComponent } from '../creditorFuelRequestForm/creditorFuelRequestForm.component';
 import { CreditorFuelRequestReceivedFormComponent } from '../creditorFuelRequestReceivedForm/creditorFuelRequestReceivedForm.component';
+import { UserDetail } from '../_models/userDetail';
+import { UserInfo } from '../_models/UserInfo';
 
 @Component({
   selector: 'pump-creditorFuelRequestReceived',
@@ -26,6 +28,7 @@ export class CreditorFuelRequestReceivedComponent implements OnInit {
 
   public pumpUsers: CreditorInventory[];
   public pumpCode: string;
+  public userData:UserInfo;
   navigationSubscription;
   public ApprovalCode:string;
 
@@ -54,6 +57,7 @@ export class CreditorFuelRequestReceivedComponent implements OnInit {
     if (this.pumpCode && this.pumpCode != '') {
       //this.getUserInfo();
       this.getPumpInfo(this.pumpCode);
+      this.getUserDate();
     }
     //this.getAllRoles();
   }
@@ -102,6 +106,11 @@ export class CreditorFuelRequestReceivedComponent implements OnInit {
   //     this.ngOnInit();
   //   });
   // }
+  getUserDate() {
+    this.userService.getUserDetailInfo().subscribe((res)=>{
+      this.userData=res;
+    });
+}
   DeleteUser(user: CreditorInventory) {
     if (confirm("Do you want to delete this fuel request?")) {
       this.userService.deleteFuelRequest(user).subscribe((res: any) => {

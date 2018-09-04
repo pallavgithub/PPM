@@ -13,6 +13,8 @@ import { CreditorformComponent } from '../creditorform/creditorform.component';
 import { PetrolPumpService } from '../_services/petrolpump.service';
 import { CreditorInventory } from '../_models/CreditorInventory';
 import { CreditorFuelRequestFormComponent } from '../creditorFuelRequestForm/creditorFuelRequestForm.component';
+import { UserDetail } from '../_models/userDetail';
+import { UserInfo } from '../_models/UserInfo';
 
 @Component({
   selector: 'pump-creditorFuelRequest',
@@ -25,6 +27,7 @@ export class CreditorFuelRequestComponent implements OnInit {
 
   public pumpUsers: CreditorInventory[];
   public pumpCode: string;
+  public userData:UserInfo;
   public creditLimit:string;
   navigationSubscription;
 
@@ -47,6 +50,11 @@ export class CreditorFuelRequestComponent implements OnInit {
     var userRole = this.roles.find(c => c.ID == roleId);
     return userRole ? userRole.Name : '';
   }
+  getUserDate() {
+    this.userService.getUserDetailInfo().subscribe((res)=>{
+      this.userData=res;
+    });
+}
 
 
   ngOnInit() {
@@ -54,6 +62,7 @@ export class CreditorFuelRequestComponent implements OnInit {
       //this.getUserInfo();
       this.getPumpInfo(this.pumpCode);
       this.getCreditLimit(this.pumpCode);
+      this.getUserDate();
     }
     //this.getAllRoles();
   }

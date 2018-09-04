@@ -13,6 +13,8 @@ import { InventoryLubesPriceDialogFormComponent } from '../inventoryLubesPriceDi
 import { pp_Tank } from '../_models/pp_Tank';
 import { InventoryFuelTankDialogFormComponent } from '../inventoryFuelTankDialog/inventoryFuelTankDialog.component';
 import { PetrolPumpService } from '../_services/petrolpump.service';
+import { UserDetail } from '../_models/userDetail';
+import { UserInfo } from '../_models/UserInfo';
 
 @Component({
   selector: 'pump-inventory',
@@ -29,6 +31,7 @@ export class InventoryComponent implements OnInit {
   public pumpProductWithLubesPrise: pp_PumpProduct[];
   public pumpTanks: pp_Tank[];
   public pumpCode: string;
+  public userData:UserInfo;
   navigationSubscription;
 
   //allProducts: AllProduct[];
@@ -67,6 +70,7 @@ export class InventoryComponent implements OnInit {
   ngOnInit() {
     if (this.pumpCode && this.pumpCode != '') {
       this.getPumpInfo(this.pumpCode);  
+      this.getUserDate();
     }
     //this.getAllProducts();
     //this.getAllUnits();
@@ -96,6 +100,11 @@ export class InventoryComponent implements OnInit {
   //   }
 
   // }
+  getUserDate() {
+    this.userService.getUserDetailInfo().subscribe((res)=>{
+      this.userData=res;
+    });
+}
   editProduct(pumpProductNew: pp_PumpProduct) {
     pumpProductNew.IsEditModal = true;
     pumpProductNew.InitialQuantity = '';

@@ -7,7 +7,7 @@
         <a [routerLink]="['/Inventory',pumpCode]">Inventory and Price Management</a>
         <a [routerLink]="['/Creditor',pumpCode]">Creditor</a>
         <a [routerLink]="['/DailyPrice',pumpCode]">Set Daily Price</a>
-        <a [routerLink]="['/FuelRequest',pumpCode]">Fuel Request</a>
+        <a [routerLink]="['/FuelRequest',pumpCode]" *ngIf="userData.RoleID==2">Fuel Request</a>
         <a [routerLink]="['/FuelRequestReceived',pumpCode]">Fuel Request Received</a>
       </div>
     </div>

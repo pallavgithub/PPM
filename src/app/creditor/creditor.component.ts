@@ -12,6 +12,8 @@ import { Router, Params, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { CreditorformComponent } from '../creditorform/creditorform.component';
 import { PetrolPumpService } from '../_services/petrolpump.service';
 import {CreditorAddFundformComponent} from '../creditorFundForm/creditorFundForm.component';
+import { UserDetail } from '../_models/userDetail';
+import { UserInfo } from '../_models/UserInfo';
 
 @Component({
   selector: 'pump-creditor',
@@ -24,6 +26,7 @@ export class CreditorComponent implements OnInit {
 
   public pumpUsers: pp_User[];
   public pumpCode: string;
+  public userData:UserInfo;
   navigationSubscription;
 
   roles: Role[];
@@ -45,12 +48,17 @@ export class CreditorComponent implements OnInit {
     var userRole = this.roles.find(c => c.ID == roleId);
     return userRole ? userRole.Name : '';
   }
-
+  getUserDate() {
+    this.userService.getUserDetailInfo().subscribe((res)=>{
+      this.userData=res;
+    });
+}
 
   ngOnInit() {
     if (this.pumpCode && this.pumpCode != '') {
       //this.getUserInfo();
       this.getPumpInfo(this.pumpCode);
+      this.getUserDate();
     }
     //this.getAllRoles();
   }

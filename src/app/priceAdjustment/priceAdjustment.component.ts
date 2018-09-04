@@ -11,6 +11,8 @@ import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@ang
 import { PetrolPumpService } from '../_services/petrolpump.service';
 import { DatePipe } from '../../../node_modules/@angular/common';
 import { PumpProductWithDate } from '../_models/PumpProductWithDate';
+import { UserDetail } from '../_models/userDetail';
+import { UserInfo } from '../_models/UserInfo';
 
 @Component({
   selector: 'pump-priceAdjustment',
@@ -25,6 +27,7 @@ export class PriceAdjustmentComponent implements OnInit {
   allProducts: AllProduct[];
   pumpProductWithDate: PumpProductWithDate;
   DateOfEntry: string;
+  public userData:UserInfo;
   productDialogform: FormGroup;
   navigationSubscription;
   units: Unit[];
@@ -61,6 +64,7 @@ export class PriceAdjustmentComponent implements OnInit {
     if (this.pumpCode && this.pumpCode != '') {
       //this.getUserInfo();
       this.getPumpInfo(this.pumpCode);
+      this.getUserDate();
     }
     this.productDialogform = this._formBuilder.group({
       ID: 0,
@@ -128,6 +132,11 @@ export class PriceAdjustmentComponent implements OnInit {
       this.router.navigate(['/DailyPrice', this.pumpCode]);
     });
   }
+  getUserDate() {
+    this.userService.getUserDetailInfo().subscribe((res)=>{
+      this.userData=res;
+    });
+}
 
   // editProduct(pumpProductNew: pp_PumpProduct) {
   //   pumpProductNew.IsEditModal = true;

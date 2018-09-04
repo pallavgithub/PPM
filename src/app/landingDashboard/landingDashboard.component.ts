@@ -3,9 +3,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
 import { pp_PetrolPump } from '../_models/pp_PetrolPump';
 import { PetrolPumpService } from '../_services/petrolpump.service';
+import {UserService} from '../_services/user.service';
 import { ToasterService } from 'angular2-toaster';
 import { UserDetail } from '../_models/userDetail';
 import { PumpStatus } from '../_models/PumpStatus';
+import { UserInfo } from '../_models/UserInfo';
 
 
 @Component({
@@ -21,6 +23,7 @@ export class LandingDashboardComponent implements OnInit {
   navigationSubscription;
 
   status: string;
+  public userData:UserInfo;
   countStatus: number;
   //public userData: UserDetail;
   //pumpLandingForm: FormGroup;
@@ -52,7 +55,7 @@ export class LandingDashboardComponent implements OnInit {
       { type: 'pattern', message: 'Only Numbers are allowed.' }
     ]
   }
-  constructor(private toasterService: ToasterService, private _formBuilder: FormBuilder, private router: Router, private petrolPumpService: PetrolPumpService,private activatedRoute: ActivatedRoute) {
+  constructor(private toasterService: ToasterService, private _formBuilder: FormBuilder, private router: Router, private petrolPumpService: PetrolPumpService,private activatedRoute: ActivatedRoute,private userService: UserService) {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.pumpCode = params['pumpCode'];
     });
@@ -65,7 +68,8 @@ export class LandingDashboardComponent implements OnInit {
 
   ngOnInit() {
     if (this.pumpCode && this.pumpCode != '') {
-      this.getPumpStatus(this.pumpCode);      
+      this.getPumpStatus(this.pumpCode);  
+      this.getUserDate();    
     }
     
     // this.pumpLandingForm = this._formBuilder.group({
@@ -73,6 +77,11 @@ export class LandingDashboardComponent implements OnInit {
     // });
     //this.getUserInfo();
   }
+  getUserDate() {
+    this.userService.getUserDetailInfo().subscribe((res)=>{
+      this.userData=res;
+    });
+}
   getPumpStatus(pumpCode) {
     this.petrolPumpService.getPumpStatus(pumpCode).subscribe(res => {
       this.pumpStatus = res;
