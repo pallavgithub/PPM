@@ -80,7 +80,7 @@ export class CreditorFuelRequestComponent implements OnInit {
     creditorInventory.IsEditModal = true;
     creditorInventory.PetrolPumpCode = this.pumpCode;
     const dialogRef = this.dialog.open(CreditorFuelRequestFormComponent, {
-      data: { creditorInventory }
+      data: { creditorInventory:creditorInventory,creditLimit:this.creditLimit }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.ngOnInit();
@@ -92,7 +92,7 @@ export class CreditorFuelRequestComponent implements OnInit {
     creditorInventory.PetrolPumpCode = this.pumpCode;
     creditorInventory.IsEditModal = false;
     const dialogRef = this.dialog.open(CreditorFuelRequestFormComponent, {
-      data: { creditorInventory:creditorInventory },
+      data: { creditorInventory:creditorInventory,creditLimit:this.creditLimit },
       disableClose: true
     });
   }

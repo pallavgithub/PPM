@@ -69,6 +69,10 @@ export class PetrolPumpService {
         return this.http.post(`${environment.apiUrl}/Pump/UpdatePetrolPumpCreditorInventory`,JSON.stringify(pumpUser))
     }
 
+    GetPetrolPumpCreditorPurchaseLimit(pumpUser:CreditorInventory){
+        return this.http.post(`${environment.apiUrl}/Pump/CreditorPurchaseLimit`,JSON.stringify(pumpUser))
+    }
+
     ApprovePetrolPumpCreditorsInventory(pumpUser:CreditorInventory){
         return this.http.post(`${environment.apiUrl}/Pump/ApprovePetrolPumpCreditorsInventory`,JSON.stringify(pumpUser))
     }

@@ -5,7 +5,7 @@
             <div class="form-group">
                 <label for="FuelType">Fuel Type</label>
                 <span class="required">*</span>
-                <select name="ProductID" class="form-control" formControlName="ProductID" (change)="onchange()">
+                <select name="ProductID" class="form-control" formControlName="ProductID">
                     <option [ngValue]="0" disabled>--Select--</option>
                     <option *ngFor="let fuelType of allProduct;let i=index" [ngValue]="fuelType.ID">{{fuelType.Name}}</option>
                 </select>
@@ -17,7 +17,7 @@
                 <label for="Unit">Unit
                     <span class="required">*</span>
                 </label>
-                <select class="form-control" formControlName="Unit" (change)="onChange()">
+                <select class="form-control" formControlName="Unit">
                     <option [ngValue]="0" disabled>--Select Unit--</option>
                     <option *ngFor="let itemUnit of units;let i=index" [ngValue]="itemUnit.ID">{{itemUnit.Name}}</option>
                 </select>
@@ -41,6 +41,6 @@
     </div>
     <mat-dialog-actions style="float: right;">
         <button class="btn btn-default" [mat-dialog-close]="true">Cancel</button>&nbsp;&nbsp;&nbsp;
-        <button type="submit" class="btn btn-primary" [disabled]="!creditorFuelRequestForm.valid">Save</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!creditorFuelRequestForm.valid" (click)='checkFormValid()'>Save</button>
     </mat-dialog-actions>
 </form>

@@ -3,7 +3,7 @@ import { Component, OnInit, NgModule, Output, EventEmitter, Input, Inject } from
 import { pp_User } from '../_models/pp_User';
 import { FormsModule, FormBuilder, FormGroup, Validators, NgControl } from '@angular/forms'
 import { Role } from '../_models/Role';
-import {Unit} from '../_models/Unit';
+import { Unit } from '../_models/Unit';
 import { PetrolPumpService } from '../_services/petrolpump.service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { ToasterService } from 'angular2-toaster';
@@ -28,6 +28,8 @@ export class CreditorFuelRequestFormComponent implements OnInit {
   btnDisabled: boolean = false;
   creditorFuelRequestForm: FormGroup;
   validationRoleMessage: string;
+  public creditLimit: string;
+  public purchaseLimit: string;
   validation_messages = {
     'Email': [
       { type: 'required', message: 'Email is required' },
@@ -68,6 +70,7 @@ export class CreditorFuelRequestFormComponent implements OnInit {
 
   ngOnInit() {
     this.creditorInventory = this.data.creditorInventory;
+    this.creditLimit = this.data.creditLimit;
     // this.getAllRoles();
     // this.getAllPaymentType();
     this.creditorFuelRequestForm = this._formBuilder.group({
@@ -88,8 +91,8 @@ export class CreditorFuelRequestFormComponent implements OnInit {
       ModifiedOn: [this.creditorInventory.ModifiedOn],
       IsApproved: [this.creditorInventory.IsApproved]
     });
-     this.getAllUnits();
-     this.getAllRegisteredProducts();
+    this.getAllUnits();
+    this.getAllRegisteredProducts();
     if (this.creditorInventory.IsEditModal) {
       this.IsEditDialog = true;
       //this.userform.controls.UserId.disable();
@@ -128,22 +131,32 @@ export class CreditorFuelRequestFormComponent implements OnInit {
   //     }
   //   }
   // }
-  // checkFormValid() {
-  //   // if (this.userform.controls['RoleID'].value == 0) {
-  //   //   this.validationRoleMessage = "Please select Role";
-  //   //   return false;
-  //   // }
-  //   // else{
-  //   //   this.validationRoleMessage = "";
-  //   // }
-  //   if (this.userform.controls['PaymentTypeID'].value == 0) {
-  //     this.validationPaymentTypeMessage = "Please select Payment Type";
-  //     return false;
-  //   }
-  //   else {
-  //     this.validationPaymentTypeMessage = "";
-  //   }
-  // }
+  checkFormValid() {
+    // if (this.userform.controls['RoleID'].value == 0) {
+    //   this.validationRoleMessage = "Please select Role";
+    //   return false;
+    // }
+    // else{
+    //   this.validationRoleMessage = "";
+    // }
+    // if (this.userform.controls['PaymentTypeID'].value == 0) {
+    //   this.validationPaymentTypeMessage = "Please select Payment Type";
+    //   return false;
+    // }
+    // else {
+    //   this.validationPaymentTypeMessage = "";
+    // }
+    let status = 0;
+    this.petrolPumpService.GetPetrolPumpCreditorPurchaseLimit(this.creditorFuelRequestForm.value).subscribe((res: any) => {
+      if (res.Result < this.creditLimit) {
+        status = 1;
+      }      
+    });
+    if (status == 0) {
+      this.toasterService.pop('error', '', "Your credit limit is low. please add funds or low your purchase limit.");
+      return false;
+    }
+  }
   // getAllRoles() {
   //   this.userService.getAllRole().subscribe(data => {
   //     this.roles = data;
@@ -152,6 +165,14 @@ export class CreditorFuelRequestFormComponent implements OnInit {
   //     });
   //   });
   // }
+
+  getPurchaseLimit(pumpCode) {
+    this.petrolPumpService.GetPetrolPumpCreditorPurchaseLimit(this.creditorFuelRequestForm.value).subscribe((res: any) => {
+      this.toasterService.pop('success', '', res.Result.toString());
+      this.dialogRef.close();
+      this.router.navigate(['/FuelRequest', this.creditorInventory.PetrolPumpCode]);
+    });
+  }
 
   getAllUnits() {
     this.userService.getAllUnits().subscribe(data => {

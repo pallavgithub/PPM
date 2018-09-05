@@ -1,55 +1,55 @@
 <div class="row">
-        <div class="form-group">
-          <div class="col-md-3">
-            <div id="mySidenav" class="sidenav">
-              <!-- <a href="javascript:void(0)" class="closebtn">&times;</a> -->
-              <a [routerLink]="['/Landing',pumpCode]" *ngIf="userData && userData.RoleID!=2">DashBoard</a>
-              <a [routerLink]="['/Inventory',pumpCode]" *ngIf="userData && userData.RoleID!=2">Inventory and Price Management</a>
-              <a [routerLink]="['/Creditor',pumpCode]" *ngIf="userData && userData.RoleID!=2">Creditor</a>
-              <a [routerLink]="['/DailyPrice',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Price</a>
-              <a [routerLink]="['/FuelRequest',pumpCode]" *ngIf="userData && userData.RoleID==2">Fuel Request</a>
-              <a [routerLink]="['/FuelRequestReceived',pumpCode]" *ngIf="userData && userData.RoleID!=2">Fuel Request Received</a>
-            </div>
-          </div>
-          <!-- <userform (userCreated)="addUser($event)"></userform> -->
-          <div class="col-md-9">
-            <div>
-              <div>
-                <button class="btn btn-primary" style="float:right;" (click)="openAddFuelRequestDialog()">Add Fuel Request</button>
-              </div>
-            </div>
-            <div>
-                <div>
-                    Net Credit Limit: {{creditLimit}}
-                </div>
-              </div>
-            <div class="table-responsive" *ngIf="pumpUsers && pumpUsers.length>0">
-              <table style="border: 1px solid black" class="table table-striped">
-                <thead class="thead-dark">
-                  <tr>
-                    <th>Product Name</th>
-                    <th>Unit Name</th>                   
-                    <th>Purchase Stock</th>                   
-                    <th>Request Date</th> 
-                    <th>Status</th> 
-                    <th>Approval Code</th>                   
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tr *ngFor="let pumpUser of pumpUsers let i=index">
-                  <td>{{pumpUser.ProductName}}</td>
-                  <td>{{pumpUser.UnitName}}</td>    
-                  <td>{{pumpUser.PurchaseQuantity}}</td>    
-                  <td>{{pumpUser.DateMeasured | date}}</td>  
-                  <td>{{pumpUser.IsApproved == 1 ? 'Approved' : 'Pending'}}</td>                    
-                  <td>{{pumpUser.SMSCode}}</td>                  
-                  <td>
-                    <a (click)="editUser(pumpUser)" style="cursor: pointer;">Edit</a>&nbsp;
-                    <a (click)="DeleteUser(pumpUser)" style="cursor: pointer;">Delete</a>
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div>
+  <div class="form-group">
+    <div class="col-md-3">
+      <div id="mySidenav" class="sidenav">
+        <!-- <a href="javascript:void(0)" class="closebtn">&times;</a> -->
+        <a [routerLink]="['/Landing',pumpCode]" *ngIf="userData && userData.RoleID!=2">DashBoard</a>
+        <a [routerLink]="['/Inventory',pumpCode]" *ngIf="userData && userData.RoleID!=2">Inventory and Price Management</a>
+        <a [routerLink]="['/Creditor',pumpCode]" *ngIf="userData && userData.RoleID!=2">Creditor</a>
+        <a [routerLink]="['/DailyPrice',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Price</a>
+        <a [routerLink]="['/FuelRequest',pumpCode]" *ngIf="userData && userData.RoleID==2">Fuel Request</a>
+        <a [routerLink]="['/FuelRequestReceived',pumpCode]" *ngIf="userData && userData.RoleID!=2">Fuel Request Received</a>
+      </div>
+    </div>
+    <!-- <userform (userCreated)="addUser($event)"></userform> -->
+    <div class="col-md-9">
+      <div>
+        <div>
+          <button class="btn btn-primary" style="float:right;" (click)="openAddFuelRequestDialog()">Add Fuel Request</button>
         </div>
       </div>
+      <div>
+        <div>
+            <label for="NetCreditLimit">Net Credit Limit: {{creditLimit}}</label>          
+        </div>
+      </div>
+      <div class="table-responsive" *ngIf="pumpUsers && pumpUsers.length>0">
+        <table style="border: 1px solid black" class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th>Product Name</th>
+              <th>Unit Name</th>
+              <th>Purchase Stock</th>
+              <th>Request Date</th>
+              <th>Status</th>
+              <th>Approval Code</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tr *ngFor="let pumpUser of pumpUsers let i=index">
+            <td>{{pumpUser.ProductName}}</td>
+            <td>{{pumpUser.UnitName}}</td>
+            <td>{{pumpUser.PurchaseQuantity}}</td>
+            <td>{{pumpUser.DateMeasured | date}}</td>
+            <td>{{pumpUser.IsApproved == 1 ? 'Approved' : 'Pending'}}</td>
+            <td>{{pumpUser.SMSCode}}</td>
+            <td>
+              <a (click)="editUser(pumpUser)" style="cursor: pointer;">Edit</a>&nbsp;
+              <a (click)="DeleteUser(pumpUser)" style="cursor: pointer;">Delete</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
