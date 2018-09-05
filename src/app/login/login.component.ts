@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
                         // store user details and jwt token in local storage to keep user logged in between page refreshes
                         localStorage.setItem('currentUser', data.token);
                         if (data.roleID == 2) {
-                            this.router.navigate(['/Landing',data.petrolPumpCode]);
+                            this.router.navigate(['/FuelRequest',data.petrolPumpCode]);
                         }
                         else if (data.roleID != -2) {
                             this.router.navigate(['/pumpDetails',data.petrolPumpCode]);

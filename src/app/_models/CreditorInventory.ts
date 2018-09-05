@@ -16,6 +16,7 @@ export class CreditorInventory {
     SMSCode: string;
     IsEditModal:boolean;
     IsApproved:boolean;
+    UserId:string;
     constructor() {
         this.ID = 0;
         this.PetrolPumpCode = '';
@@ -34,5 +35,6 @@ export class CreditorInventory {
         this.SMSCode = '';
         this.IsEditModal = false;
         this.IsApproved = false;
+        this.UserId = '';
     }
 }

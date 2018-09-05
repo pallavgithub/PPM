@@ -3,12 +3,12 @@
     <div class="col-md-3">
       <div id="mySidenav" class="sidenav">
         <!-- <a href="javascript:void(0)" class="closebtn">&times;</a> -->
-        <a [routerLink]="['/Landing',pumpCode]">DashBoard</a>
-        <a [routerLink]="['/Inventory',pumpCode]">Inventory and Price Management</a>
-        <a [routerLink]="['/Creditor',pumpCode]">Creditor</a>
-        <a [routerLink]="['/DailyPrice',pumpCode]">Set Daily Price</a>
-        <a [routerLink]="['/FuelRequest',pumpCode]" *ngIf="userData.RoleID==2">Fuel Request</a>
-        <a [routerLink]="['/FuelRequestReceived',pumpCode]">Fuel Request Received</a>
+        <a [routerLink]="['/Landing',pumpCode]" *ngIf="userData && userData.RoleID!=2">DashBoard</a>
+              <a [routerLink]="['/Inventory',pumpCode]" *ngIf="userData && userData.RoleID!=2">Inventory and Price Management</a>
+              <a [routerLink]="['/Creditor',pumpCode]" *ngIf="userData && userData.RoleID!=2">Creditor</a>
+              <a [routerLink]="['/DailyPrice',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Price</a>
+              <a [routerLink]="['/FuelRequest',pumpCode]" *ngIf="userData && userData.RoleID==2">Fuel Request</a>
+              <a [routerLink]="['/FuelRequestReceived',pumpCode]" *ngIf="userData && userData.RoleID!=2">Fuel Request Received</a>
       </div>
     </div>
     <!-- <userform (userCreated)="addUser($event)"></userform> -->
