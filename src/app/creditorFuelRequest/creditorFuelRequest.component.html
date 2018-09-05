@@ -9,6 +9,7 @@
         <a [routerLink]="['/DailyPrice',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Price</a>
         <a [routerLink]="['/FuelRequest',pumpCode]" *ngIf="userData && userData.RoleID==2">Fuel Request</a>
         <a [routerLink]="['/FuelRequestReceived',pumpCode]" *ngIf="userData && userData.RoleID!=2">Fuel Request Received</a>
+        <a [routerLink]="['/CreditorLedger',pumpCode]" *ngIf="userData && userData.RoleID==2">Ledger</a>
       </div>
     </div>
     <!-- <userform (userCreated)="addUser($event)"></userform> -->

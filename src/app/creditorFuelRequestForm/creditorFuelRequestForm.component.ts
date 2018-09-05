@@ -12,6 +12,7 @@ import { PaymentType } from '../_models/PaymentType';
 import { DatePipe } from '../../../node_modules/@angular/common';
 import { CreditorInventory } from '../_models/CreditorInventory';
 import { AllProduct } from '../AllProduct';
+import { pp_PumpProduct } from '../_models/pp_PumpProduct';
 
 @Component({
   selector: 'creditorFuelRequestForm',
@@ -21,6 +22,7 @@ import { AllProduct } from '../AllProduct';
 export class CreditorFuelRequestFormComponent implements OnInit {
   creditorInventory: CreditorInventory;
   units: Unit[];
+  public pumpProduct: pp_PumpProduct[];
   allProduct: AllProduct[];
   IsEditDialog: boolean;
   paymentTypes: PaymentType[];
@@ -29,7 +31,8 @@ export class CreditorFuelRequestFormComponent implements OnInit {
   creditorFuelRequestForm: FormGroup;
   validationRoleMessage: string;
   public creditLimit: string;
-  public purchaseLimit: string;
+  public PurchasePrice: number;
+  public TotalPrice: number;
   validation_messages = {
     'Email': [
       { type: 'required', message: 'Email is required' },
@@ -89,10 +92,13 @@ export class CreditorFuelRequestFormComponent implements OnInit {
       Description: [this.creditorInventory.Description],
       ModifiedBy: [this.creditorInventory.ModifiedBy],
       ModifiedOn: [this.creditorInventory.ModifiedOn],
-      IsApproved: [this.creditorInventory.IsApproved]
+      IsApproved: [this.creditorInventory.IsApproved],
+      PurchasePrice: [this.creditorInventory.PurchasePrice],
+      TotalPrice: [this.creditorInventory.TotalPrice]
     });
     this.getAllUnits();
     this.getAllRegisteredProducts();
+    this.getPumpInfo(this.creditorInventory.PetrolPumpCode);
     if (this.creditorInventory.IsEditModal) {
       this.IsEditDialog = true;
       //this.userform.controls.UserId.disable();
@@ -146,16 +152,7 @@ export class CreditorFuelRequestFormComponent implements OnInit {
     // else {
     //   this.validationPaymentTypeMessage = "";
     // }
-    let status = 0;
-    this.petrolPumpService.GetPetrolPumpCreditorPurchaseLimit(this.creditorFuelRequestForm.value).subscribe((res: any) => {
-      if (res.Result < this.creditLimit) {
-        status = 1;
-      }      
-    });
-    if (status == 0) {
-      this.toasterService.pop('error', '', "Your credit limit is low. please add funds or low your purchase limit.");
-      return false;
-    }
+
   }
   // getAllRoles() {
   //   this.userService.getAllRole().subscribe(data => {
@@ -166,12 +163,26 @@ export class CreditorFuelRequestFormComponent implements OnInit {
   //   });
   // }
 
-  getPurchaseLimit(pumpCode) {
-    this.petrolPumpService.GetPetrolPumpCreditorPurchaseLimit(this.creditorFuelRequestForm.value).subscribe((res: any) => {
-      this.toasterService.pop('success', '', res.Result.toString());
-      this.dialogRef.close();
-      this.router.navigate(['/FuelRequest', this.creditorInventory.PetrolPumpCode]);
+  getPumpInfo(pumpCode) {
+    this.petrolPumpService.getPetrolPumpDashboard(pumpCode).subscribe(res => {
+      this.pumpProduct = res.pp_PumpProduct;
+      this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);
     });
+  }
+  getPurchaseLimit(pumpCode) {
+    // this.petrolPumpService.GetPetrolPumpCreditorPurchaseLimit(this.creditorFuelRequestForm.value).subscribe((res: any) => {
+    //   this.purchaseLimit = res.Result;
+    // });
+    let productID = this.creditorFuelRequestForm.controls["ProductID"].value;
+    let quantity = this.creditorFuelRequestForm.controls["PurchaseQuantity"].value;
+    let pumpProductTemp:pp_PumpProduct = null;
+    pumpProductTemp = this.pumpProduct.filter(p=>p.ProductID == this.creditorFuelRequestForm.controls["ProductID"].value)[0];
+    this.PurchasePrice = (Number(pumpProductTemp.SaleRate));
+    this.TotalPrice = (Number(pumpProductTemp.SaleRate) * Number(quantity));
+  }
+  onBlurGetPrice()
+  {
+    this.getPurchaseLimit(this.creditorInventory.PetrolPumpCode);
   }
 
   getAllUnits() {
@@ -187,11 +198,30 @@ export class CreditorFuelRequestFormComponent implements OnInit {
   }
 
   createUser() {
-    this.petrolPumpService.AddUpdatePetrolPumpCreditorInventory(this.creditorFuelRequestForm.value).subscribe((res: any) => {
-      this.toasterService.pop('success', '', res.Result.toString());
-      this.dialogRef.close();
-      this.router.navigate(['/FuelRequest', this.creditorInventory.PetrolPumpCode]);
-    });
+    // this.petrolPumpService.GetPetrolPumpCreditorPurchaseLimit(this.creditorFuelRequestForm.value).subscribe((res: any) => {
+    //   if (Number(res.Result) > Number(this.creditLimit)) {
+    //     this.toasterService.pop('error', '', "Your credit limit is low. please add funds or low your purchase limit.");
+    //   }
+    //   else {
+    //     this.petrolPumpService.AddUpdatePetrolPumpCreditorInventory(this.creditorFuelRequestForm.value).subscribe((res: any) => {
+    //       this.toasterService.pop('success', '', res.Result.toString());
+    //       this.dialogRef.close();
+    //       this.router.navigate(['/FuelRequest', this.creditorInventory.PetrolPumpCode]);
+    //     });
+    //   }
+    // });
+      if (Number(this.TotalPrice) > Number(this.creditLimit)) {
+        this.toasterService.pop('error', '', "Your credit limit is low. please add funds or low your purchase limit.");
+      }
+      else {
+        this.creditorFuelRequestForm.controls["PurchasePrice"].setValue(this.PurchasePrice);
+        this.creditorFuelRequestForm.controls["TotalPrice"].setValue(this.TotalPrice);
+        this.petrolPumpService.AddUpdatePetrolPumpCreditorInventory(this.creditorFuelRequestForm.value).subscribe((res: any) => {
+          this.toasterService.pop('success', '', res.Result.toString());
+          this.dialogRef.close();
+          this.router.navigate(['/FuelRequest', this.creditorInventory.PetrolPumpCode]);
+        });
+      }
   }
 
   // onChange() {

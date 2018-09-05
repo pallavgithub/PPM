@@ -29,13 +29,23 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="PurchaseQuantity">
-                        Purchase Stock
+                    Purchase Stock
                     <span class="required">*</span>
                 </label>
-                <input type="number" placeholder="Purchase Stock" class="form-control" formControlName="PurchaseQuantity" required>
+                <input type="number" placeholder="Purchase Stock" class="form-control" formControlName="PurchaseQuantity" required (blur)="onBlurGetPrice()">
                 <div *ngFor="let validation of validation_messages.PurchaseQuantity">
                     <span class="error-message" *ngIf="creditorFuelRequestForm.get('PurchaseQuantity').hasError(validation.type) && (creditorFuelRequestForm.get('PurchaseQuantity').dirty || creditorFuelRequestForm.get('PurchaseQuantity').touched)">{{validation.message}}</span>
                 </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>
+                    Total Price
+                </label><br>
+                <label for="TotalPrice">
+                    {{TotalPrice}}
+                </label>
             </div>
         </div>
     </div>

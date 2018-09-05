@@ -71,6 +71,8 @@ import { CreditorFuelRequestFormComponent } from './creditorFuelRequestForm/cred
 import { CreditorFuelRequestReceivedComponent } from './creditorFuelRequestReceived/creditorFuelRequestReceived.component';
 import { CreditorFuelRequestReceivedFormComponent } from './creditorFuelRequestReceivedForm/creditorFuelRequestReceivedForm.component';
 import { CreditorAddFundformComponent } from './creditorFundForm/creditorFundForm.component';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import { CreditorLedgerComponent } from './creditorLedger/creditorLedger.component';
 
 @NgModule({
     imports: [
@@ -126,6 +128,7 @@ import { CreditorAddFundformComponent } from './creditorFundForm/creditorFundFor
         CreditorFuelRequestFormComponent,
         DashBoardComponent,
         InventoryComponent,
+        CreditorLedgerComponent,
         ReadingTypeDialogFormComponent,
         InventoryLubesPriceDialogFormComponent,
         TestPage1Component, TestPage2Component, TestPage3Component, TestPageComponent, MenuStateComponent,
@@ -141,10 +144,11 @@ import { CreditorAddFundformComponent } from './creditorFundForm/creditorFundFor
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
         { provide: WorkflowService, useClass: WorkflowService },
+        {provide: LocationStrategy, useClass: HashLocationStrategy},
         WorkflowGuard, FormDataService, PetrolPumpService,
         // provider used to create fake backend
         fakeBackendProvider, DatePipe
-    ],
+    ],  
     bootstrap: [AppComponent]
 })
 

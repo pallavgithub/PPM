@@ -17,6 +17,8 @@ export class CreditorInventory {
     IsEditModal:boolean;
     IsApproved:boolean;
     UserId:string;
+    PurchasePrice:number;
+    TotalPrice:number;
     constructor() {
         this.ID = 0;
         this.PetrolPumpCode = '';
@@ -24,6 +26,8 @@ export class CreditorInventory {
         this.Unit = 0;
         this.CreditorID = 0;
         this.PurchaseQuantity = 0;
+        this.PurchasePrice = 0;
+        this.TotalPrice = 0;
         this.DateMeasured = '';
         this.Description = '';
         this.CreatedBy = 0;

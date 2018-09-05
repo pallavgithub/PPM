@@ -20,6 +20,7 @@ import {CreditorComponent} from './creditor/creditor.component';
 import {PriceAdjustmentComponent} from './priceAdjustment/priceAdjustment.component';
 import { CreditorFuelRequestComponent } from './creditorFuelRequest/creditorFuelRequest.component';
 import { CreditorFuelRequestReceivedComponent } from './creditorFuelRequestReceived/creditorFuelRequestReceived.component';
+import { CreditorLedgerComponent } from './creditorLedger/creditorLedger.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent,canActivate: [AuthGuard] },
@@ -33,6 +34,7 @@ const appRoutes: Routes = [
     { path: 'DailyPrice/:pumpCode', component: PriceAdjustmentComponent,canActivate: [AuthGuard] },
     { path: 'FuelRequest/:pumpCode', component: CreditorFuelRequestComponent,canActivate: [AuthGuard] },
     { path: 'FuelRequestReceived/:pumpCode', component: CreditorFuelRequestReceivedComponent,canActivate: [AuthGuard] },    
+    { path: 'CreditorLedger/:pumpCode', component: CreditorLedgerComponent,canActivate: [AuthGuard] },    
     // { path: 'DeleteUser', component: PumpUsersComponent,canActivate: [AuthGuard] },
     { path: 'pumpDetails', component: PumpDetailsComponent,canActivate: [AuthGuard],runGuardsAndResolvers: 'always' },
     { path: 'pumpDetails/:pumpcode', component: PumpDetailsComponent,canActivate: [AuthGuard] },
