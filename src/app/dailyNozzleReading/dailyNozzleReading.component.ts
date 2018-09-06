@@ -166,7 +166,7 @@ export class DailyNozzleReadingComponent implements OnInit {
     // });
     this.petrolPumpService.UpdateDailyNozzleReading(pumpProduct).subscribe(res => {
       this.toasterService.pop('success', '', 'Tank Readings updated successfully.');
-      this.router.navigate(['/DailyTankReading', this.pumpCode]);
+      this.router.navigate(['/DailyNozzleReading', this.pumpCode]);
     });
   }
   getUserDate() {
@@ -177,6 +177,11 @@ export class DailyNozzleReadingComponent implements OnInit {
 
   editProduct(pumpProductNew: pp_Nozzle,nozzleID:number) {
     pumpProductNew.IsEditModal = true;
+
+    // this.petrolPumpService.getPetrolPumpPaymentTypeWithBreakUp(pumpProductNew).subscribe(res => {     
+    //   this.nozzleDailyBreakUp = res;      
+    // });
+
     this.nozzleDailyBreakUp.forEach(element => {
       element.Amount = 0,
       element.DateEntered = new Date().toString();

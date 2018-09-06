@@ -48,6 +48,9 @@ export class PetrolPumpService {
     getPetrolPumpPaymentTypeWithDailyBreakUp(petrolPumpCode:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpPaymentTypeWithDailyBreakUp?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
     }
+    getPetrolPumpPaymentTypeWithBreakUp(petrolPumpCode:string, date:string,nozzleID:number){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpPaymentTypeWithBreakUp?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date + '&nozzleID=' + nozzleID);
+    }
     getPetrolPumpCreditorInventory(petrolPumpCode:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpCreditorInventory?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
     }
@@ -110,7 +113,6 @@ export class PetrolPumpService {
         return this.http.post(`${environment.apiUrl}/Pump/UpdateDailyNozzleReading`,JSON.stringify(pumpInfo));
     }
     UpdateDailyNozzleReadingBreakUp(pumpInfo:NozzleDailyBreakUp[]){
-        debugger;
         return this.http.post(`${environment.apiUrl}/Pump/UpdateDailyNozzleReadingBreakUp`,JSON.stringify(pumpInfo));
     }
     updatePetrolPumpLubesPriceAdjustmentInfo(pumpProduct:pp_PumpProduct){
