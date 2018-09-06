@@ -38,6 +38,9 @@ export class PetrolPumpService {
     getPetrolPumpDashboard(petrolPumpCode:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpDashboard?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
     }
+    getPetrolPumpTankInfoWithDailyEntry(petrolPumpCode:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpTankInfoWithDailyEntry?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
+    }
     getPetrolPumpCreditorInventory(petrolPumpCode:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpCreditorInventory?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
     }
@@ -92,6 +95,9 @@ export class PetrolPumpService {
     }
     updatePetrolPumpPriceAdjustmentInfo(pumpInfo:pp_PumpProduct[]){
         return this.http.post(`${environment.apiUrl}/Pump/UpdatePriceAdjustmentInfo`,JSON.stringify(pumpInfo));
+    }
+    updateDailyTankReading(pumpInfo:pp_Tank[]){
+        return this.http.post(`${environment.apiUrl}/Pump/updateDailyTankReading`,JSON.stringify(pumpInfo));
     }
     updatePetrolPumpLubesPriceAdjustmentInfo(pumpProduct:pp_PumpProduct){
         return this.http.post(`${environment.apiUrl}/Pump/UpdateLubesPriceAdjustmentInfo`,JSON.stringify(pumpProduct));

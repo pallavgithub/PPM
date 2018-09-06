@@ -73,6 +73,7 @@ import { CreditorFuelRequestReceivedFormComponent } from './creditorFuelRequestR
 import { CreditorAddFundformComponent } from './creditorFundForm/creditorFundForm.component';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { CreditorLedgerComponent } from './creditorLedger/creditorLedger.component';
+import { DailyTankReadingComponent } from './dailyTankReading/dailyTankReading.component';
 
 @NgModule({
     imports: [
@@ -123,6 +124,7 @@ import { CreditorLedgerComponent } from './creditorLedger/creditorLedger.compone
         InventoryLubesPriceDialogFormComponent,
         InventoryFuelTankDialogFormComponent,
         PaymentComponent,
+        DailyTankReadingComponent,
         PaymentDialogFormComponent,
         CreditorFuelRequestComponent,
         CreditorFuelRequestFormComponent,

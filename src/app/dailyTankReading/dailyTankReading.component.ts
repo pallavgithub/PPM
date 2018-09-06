@@ -1,0 +1,205 @@
+
+import { Component, OnInit, Input, SimpleChange } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { pp_PumpProduct } from '../_models/pp_PumpProduct';
+import { UserService } from '../_services';
+import { ToasterService } from 'angular2-toaster';
+import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
+import { AllProduct } from '../AllProduct';
+import { Unit } from '../_models/Unit';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { PetrolPumpService } from '../_services/petrolpump.service';
+import { DatePipe } from '../../../node_modules/@angular/common';
+import { PumpProductWithDate } from '../_models/PumpProductWithDate';
+import { UserDetail } from '../_models/userDetail';
+import { UserInfo } from '../_models/UserInfo';
+import { pp_Tank } from '../_models/pp_Tank';
+
+@Component({
+  selector: 'pump-dailyTankReading',
+  templateUrl: './dailyTankReading.component.html',
+  styleUrls: ['./dailyTankReading.component.css']
+})
+export class DailyTankReadingComponent implements OnInit {
+  // @Input() pumpProduct: pp_PumpProduct[];
+  // @Input() pumpCode: string;
+  public pumpProduct: pp_PumpProduct[];
+  public pumpTanks: pp_Tank[];
+  public pumpCode: string;
+  allProducts: AllProduct[];
+  pumpProductWithDate: PumpProductWithDate;
+  DateOfEntry: string;
+  public userData:UserInfo;
+  productDialogform: FormGroup;
+  navigationSubscription;
+  units: Unit[];
+  constructor(private router: Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService, private _formBuilder: FormBuilder, private petrolPumpService: PetrolPumpService, public datepipe: DatePipe, private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.pumpCode = params['pumpCode'];
+    });
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      if (e instanceof NavigationEnd) {
+        this.ngOnInit();
+      }
+    });
+  }
+  // getProductName(ID) { 
+  //   if(ID == 0)
+  //   {
+  //     this.allProducts = new Array<AllProduct>();
+  //   }   
+  //   var product = this.allProducts.find(c => c.ID == ID);
+  //   return product ? product.Name : '';
+  // }
+
+  // getUnitName(ID) {   
+  //   if(ID == 0)
+  //   {
+  //     this.units = new Array<Unit>();
+  //   }   
+  //   var unitName = this.units.find(c => c.ID == ID);
+  //   return unitName ? unitName.Name : '';
+  // }
+
+
+  ngOnInit() {
+    if (this.pumpCode && this.pumpCode != '') {
+      //this.getUserInfo();
+      this.getPumpInfo(this.pumpCode);
+      this.getUserDate();
+    }
+    this.productDialogform = this._formBuilder.group({
+      ID: 0,
+      PetrolPumpCode: '',
+      ProductName: '',
+      ProductID: 0,
+      PurchaseRate: 0,
+      SaleRate: 0
+    });
+    //this.DateOfEntry = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+
+    if (this.pumpProduct != null && this.pumpProduct != undefined && this.pumpProduct.length) {
+      //this.pumpProductWithDate.pp_PumpProduct = this.pumpProduct;
+      let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
+      this.DateOfEntry = latest_ReadingDate;
+    }
+
+    // const controls = this.pumpProduct.map(c => new FormArray(false));
+    // controls[0].setValue(true); // Set the first checkbox to true (checked)
+
+    // this.productDialogform2 = this._formBuilder.group({
+    //   pumpProduct: new FormArray(controls)
+    // });
+
+
+
+
+    // this.productDialogform = this._formBuilder.array({
+    //   'productDialogform2' : this.productDialogform2
+    // });
+    // let employeeFormGroups = this.productDetails.map(pumpProduct => this._formBuilder.group(pumpProduct));
+    // let employeeFormArray = this._formBuilder.array(employeeFormGroups);
+    // this.productDialogform.setControl('productDetails', employeeFormArray);
+    //this.getAllProducts();
+    //this.getAllUnits();
+  }
+  getPumpInfo(pumpCode) {
+    this.petrolPumpService.getPetrolPumpTankInfoWithDailyEntry(pumpCode).subscribe(res => {
+      // this.pumpProduct = res.pp_PumpProduct;
+      // this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);
+      this.pumpTanks = res;
+      this.pumpTanks.forEach(element => {
+        element.ReadingDate = this.datepipe.transform(((element.ReadingDate == "" || element.ReadingDate == null) ? new Date().toString() : element.ReadingDate), 'yyyy-MM-dd');
+      });
+      // let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
+      // this.DateOfEntry = latest_ReadingDate;
+    });
+  }
+
+  onBlurOpeningReading(tank:pp_Tank)
+  {
+    tank.OpeningStock = (Number(tank.OpeningReading) + 5).toString();
+
+    //this.tankform.controls["OpeningStock"].setValue(Number(this.tankform.controls["OpeningReading"].value + 5));
+  }
+
+  onBlurOpeningStock(tank:pp_Tank)
+  {
+    
+    tank.OpeningReading = (Number(tank.OpeningStock) - 5).toString();
+    //this.tankform.controls["OpeningReading"].setValue(Number(this.tankform.controls["OpeningStock"].value - 5));
+  }
+
+  // ngOnChanges(changes: SimpleChange) {
+  //   // changes['pumpProduct']
+  //   this.pumpProduct = changes["pumpProduct"].currentValue;
+  //   if(this.pumpProduct != null && this.pumpProduct != undefined && this.pumpProduct.length > 0)
+  //   {
+  //     this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);
+  //     let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
+  //     this.DateOfEntry = latest_ReadingDate;
+  //   }    
+  // }
+
+  savePumpInfo(pumpProduct: pp_Tank[]) {
+    // var daatr = this.productDialogform.value;
+    // var date = this.DateOfEntry;
+    // pumpProduct.forEach(element => {
+    //   element.DateStockMeasuredOn = date
+    // });
+    this.petrolPumpService.updateDailyTankReading(pumpProduct).subscribe(res => {
+      this.toasterService.pop('success', '', 'Tank Readings updated successfully.');
+      this.router.navigate(['/DailyTankReading', this.pumpCode]);
+    });
+  }
+  getUserDate() {
+    this.userService.getUserDetailInfo().subscribe((res)=>{
+      this.userData=res;
+    });
+}
+
+  // editProduct(pumpProductNew: pp_PumpProduct) {
+  //   pumpProductNew.IsEditModal = true;
+  //   const dialogRef = this.dialog.open(ProductDialogFormComponent, {
+  //     data: { pumpProductNew }
+  //   });
+  //   // dialogRef.afterClosed().subscribe(result => {
+  //   //   this.ngOnInit();
+  //   // });
+  // }
+  // getAllUnits() {
+  //   this.userService.getAllUnits().subscribe(data => {
+  //     this.units = data;
+  //   });
+  // }
+  // getAllProducts() {
+  //   this.userService.getAllProducts().subscribe(data => {
+  //     this.allProducts = data;
+  //   });
+  // }
+  // removeUser(i: number) {
+  //   //this.pumpUsers.splice(i, 1);
+  // }
+
+  // ChangePassword(user: pp_User) {
+  //   const dialogRef = this.dialog.open(ChangePasswordComponent, {
+  //     data: { user }
+  //   });
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     this.ngOnInit();
+  //   });
+  // }
+  // DeleteProduct(product: pp_PumpProduct) {
+  //   if (confirm("Do you want to delete this product?")) {
+  //     this.userService.deleteProduct(product).subscribe((res: any) => {
+  //       this.toasterService.pop('success', '', res.Result.toString());
+  //       this.router.navigate(['/pumpDetails',this.pumpCode]);
+  //     },
+  //       (err) => {
+
+  //       });
+
+
+  //   }
+  // }
+}
