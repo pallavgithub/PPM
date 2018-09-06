@@ -74,6 +74,8 @@ import { CreditorAddFundformComponent } from './creditorFundForm/creditorFundFor
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { CreditorLedgerComponent } from './creditorLedger/creditorLedger.component';
 import { DailyTankReadingComponent } from './dailyTankReading/dailyTankReading.component';
+import { DailyNozzleReadingComponent } from './dailyNozzleReading/dailyNozzleReading.component';
+import { DailyNozzleBreakUpFormComponent } from './dailyNozzleBreakUp/dailyNozzleBreakUp.component';
 
 @NgModule({
     imports: [
@@ -91,7 +93,7 @@ import { DailyTankReadingComponent } from './dailyTankReading/dailyTankReading.c
         BrowserAnimationsModule, ToasterModule.forRoot(), NgbModule.forRoot()
         //HttpService
     ],
-    entryComponents: [PumpUsersComponent, UserformComponent, PumpTankComponent, TankformComponent, NozzleformComponent, ChangePasswordComponent, ProductDialogFormComponent, PumpNozzleComponent, PaymentDialogFormComponent, InventoryDialogFormComponent, ReadingTypeDialogFormComponent,CreditorformComponent,InventoryLubesPriceDialogFormComponent,InventoryFuelTankDialogFormComponent,CreditorFuelRequestFormComponent,CreditorFuelRequestReceivedFormComponent,CreditorAddFundformComponent],
+    entryComponents: [PumpUsersComponent, UserformComponent, PumpTankComponent, TankformComponent, NozzleformComponent, ChangePasswordComponent, ProductDialogFormComponent, PumpNozzleComponent, PaymentDialogFormComponent, InventoryDialogFormComponent, ReadingTypeDialogFormComponent,CreditorformComponent,InventoryLubesPriceDialogFormComponent,InventoryFuelTankDialogFormComponent,CreditorFuelRequestFormComponent,CreditorFuelRequestReceivedFormComponent,CreditorAddFundformComponent,DailyNozzleBreakUpFormComponent],
     declarations: [
         AppComponent,
         AlertComponent,
@@ -125,6 +127,8 @@ import { DailyTankReadingComponent } from './dailyTankReading/dailyTankReading.c
         InventoryFuelTankDialogFormComponent,
         PaymentComponent,
         DailyTankReadingComponent,
+        DailyNozzleBreakUpFormComponent,
+        DailyNozzleReadingComponent,
         PaymentDialogFormComponent,
         CreditorFuelRequestComponent,
         CreditorFuelRequestFormComponent,

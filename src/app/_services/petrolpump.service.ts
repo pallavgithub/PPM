@@ -13,6 +13,7 @@ import { PumpStatus } from '../_models/PumpStatus';
 import { UserDetail } from '../_models/userDetail';
 import { TankWithProduct } from '../_models/TankWithProduct';
 import { CreditorInventory } from '../_models/CreditorInventory';
+import { NozzleDailyBreakUp } from '../_models/NozzleDailyBreakUp';
 
 @Injectable()
 export class PetrolPumpService {
@@ -40,6 +41,12 @@ export class PetrolPumpService {
     }
     getPetrolPumpTankInfoWithDailyEntry(petrolPumpCode:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpTankInfoWithDailyEntry?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
+    }
+    getPetrolPumpNozzleInfoWithDailyEntry(petrolPumpCode:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpNozzleInfoWithDailyEntry?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
+    }
+    getPetrolPumpPaymentTypeWithDailyBreakUp(petrolPumpCode:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpPaymentTypeWithDailyBreakUp?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
     }
     getPetrolPumpCreditorInventory(petrolPumpCode:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpCreditorInventory?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
@@ -98,6 +105,13 @@ export class PetrolPumpService {
     }
     updateDailyTankReading(pumpInfo:pp_Tank[]){
         return this.http.post(`${environment.apiUrl}/Pump/updateDailyTankReading`,JSON.stringify(pumpInfo));
+    }
+    UpdateDailyNozzleReading(pumpInfo:pp_Nozzle[]){
+        return this.http.post(`${environment.apiUrl}/Pump/UpdateDailyNozzleReading`,JSON.stringify(pumpInfo));
+    }
+    UpdateDailyNozzleReadingBreakUp(pumpInfo:NozzleDailyBreakUp[]){
+        debugger;
+        return this.http.post(`${environment.apiUrl}/Pump/UpdateDailyNozzleReadingBreakUp`,JSON.stringify(pumpInfo));
     }
     updatePetrolPumpLubesPriceAdjustmentInfo(pumpProduct:pp_PumpProduct){
         return this.http.post(`${environment.apiUrl}/Pump/UpdateLubesPriceAdjustmentInfo`,JSON.stringify(pumpProduct));

@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="form-group">
+        <div class="col-md-12">
+            <form (ngSubmit)="savePumpInfo(nozzleDailyBreakUp)" style="width: 98%;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="PaymentTypeID" style="font-size: 20px;">Payment TypeID
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="OpeningReading" style="font-size: 20px;">Amount
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div *ngFor="let itemNozzleDailyBreakUp of nozzleDailyBreakUp; let in=index">
+                            <!-- <span class="error-message" *ngIf="productDialogform.get('SaleRate').hasError(validation.type) && (productDialogform.get('SaleRate').dirty || productDialogform.get('SaleRate').touched)">{{validation.message}}</span> -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">{{itemNozzleDailyBreakUp.PaymentTypeName}}
+                                            <!-- <input class="form-control" [(ngModel)]="itempumpNozzles.PaymentTypeName" #PaymentTypeName="ngModel" name="PaymentTypeName-{{in}}"
+                                             readonly value="PaymentTypeName">                                       -->
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input placeholder="Amount" class="form-control" [(ngModel)]="itemNozzleDailyBreakUp.Amount" #Amount="ngModel" name="Amount-{{in}}"
+                                            >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="float:right;">
+                            <button class="btn btn-default" (click)="cancel()">Cancel</button> &nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-primary" type="submit">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
