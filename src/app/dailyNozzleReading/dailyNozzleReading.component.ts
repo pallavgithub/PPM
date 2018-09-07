@@ -120,13 +120,13 @@ export class DailyNozzleReadingComponent implements OnInit {
       // this.DateOfEntry = latest_ReadingDate;
     });
 
-    this.petrolPumpService.getPetrolPumpPaymentTypeWithDailyBreakUp(pumpCode).subscribe(res => {
+    //this.petrolPumpService.getPetrolPumpPaymentTypeWithDailyBreakUp(pumpCode).subscribe(res => {
       // this.pumpProduct = res.pp_PumpProduct;
       // this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);
-      this.nozzleDailyBreakUp = res;
+      //this.nozzleDailyBreakUp = res;
       // let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
       // this.DateOfEntry = latest_ReadingDate;
-    });
+    //});
   }
 
   editTank(nozzle)
@@ -177,21 +177,21 @@ export class DailyNozzleReadingComponent implements OnInit {
 
   editProduct(pumpProductNew: pp_Nozzle,nozzleID:number) {
     pumpProductNew.IsEditModal = true;
+    this.petrolPumpService.getPetrolPumpPaymentTypeWithBreakUp(pumpProductNew.PetrolPumpCode,pumpProductNew.ReadingDate,pumpProductNew.ID).subscribe(res => {     
+      this.nozzleDailyBreakUp = res;   
+      const dialogRef = this.dialog.open(DailyNozzleBreakUpFormComponent, {
+        data: { pumpProductNew:this.nozzleDailyBreakUp}
+      });   
+    });
 
-    // this.petrolPumpService.getPetrolPumpPaymentTypeWithBreakUp(pumpProductNew).subscribe(res => {     
-    //   this.nozzleDailyBreakUp = res;      
+    // this.nozzleDailyBreakUp.forEach(element => {
+    //   element.Amount = 0,
+    //   element.DateEntered = new Date().toString();
+    //   element.NozzleID = pumpProductNew.ID,
+    //   element.PetrolPumpCode = pumpProductNew.PetrolPumpCode,
+    //   element.Description = ""
     // });
-
-    this.nozzleDailyBreakUp.forEach(element => {
-      element.Amount = 0,
-      element.DateEntered = new Date().toString();
-      element.NozzleID = pumpProductNew.ID,
-      element.PetrolPumpCode = pumpProductNew.PetrolPumpCode,
-      element.Description = ""
-    });
-    const dialogRef = this.dialog.open(DailyNozzleBreakUpFormComponent, {
-      data: { pumpProductNew:this.nozzleDailyBreakUp}
-    });
+    
     // dialogRef.afterClosed().subscribe(result => {
     //   this.ngOnInit();
     // });

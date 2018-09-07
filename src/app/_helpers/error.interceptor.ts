@@ -14,9 +14,9 @@ export class ErrorInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError(err => {
             if (err.status === 401 && err.error==null) {
-                this.toasterService.pop('error','','Session Expired.');
+                // this.toasterService.pop('error','','Session Expired.');
                 this.authenticationService.logout();
-                location.reload(true);
+                //location.reload(true);
             }
             else if(err.status === 403 && err.error==null){
                 this.toasterService.pop('error','','You are not authroized.');   
