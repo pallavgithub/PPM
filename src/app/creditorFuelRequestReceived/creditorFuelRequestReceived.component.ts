@@ -62,7 +62,7 @@ export class CreditorFuelRequestReceivedComponent implements OnInit {
     //this.getAllRoles();
   }
   getPumpInfo(pumpCode) {
-    this.petrolPumpService.getPetrolPumpCreditorInventory(pumpCode).subscribe(res => {
+    this.petrolPumpService.getPetrolPumpCreditorInventoryReceived(pumpCode).subscribe(res => {
       this.pumpUsers = res;
     });
   }

@@ -54,6 +54,9 @@ export class PetrolPumpService {
     getPetrolPumpCreditorInventory(petrolPumpCode:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpCreditorInventory?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
     }
+    getPetrolPumpCreditorInventoryReceived(petrolPumpCode:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpCreditorInventoryReceived?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
+    }
     getPetrolPumpSpecificCreditorInventory(petrolPumpCode:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpSpecificCreditorInventory?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
     }
