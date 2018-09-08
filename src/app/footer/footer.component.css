@@ -1,28 +1,23 @@
-/* .footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: black;
-    color: white;
-    text-align: center;
- } */
+footer {
+  position:unset;
+  height:45px;
 
- /* Sticky footer styles
+}
+
+/* Sticky footer styles
 -------------------------------------------------- */
 /* html {
-    position: relative;
-    min-height: 100%;
-  }
-  body {
-    margin-bottom: 100px;
-  } */
- 
-  
-  
-  /* Custom page CSS
-  -------------------------------------------------- */
-  /* Not required for template or sticky footer method. */
-  
-  
-  
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 100px;
+} */
+
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+

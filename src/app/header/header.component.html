@@ -5,6 +5,7 @@
             <!-- <a class="navbar-brand" style="cursor:default;">Petrol Pump Management</a> -->
         </div>
         <ul class="nav navbar-nav">
+              <!--   -->
                 <li><a [routerLink]="['']" *ngIf="userData.RoleID!=2">Home</a></li>
                 <li *ngIf="userData.RoleID==-2"><a [routerLink]="['/pumpRegister']" >Register Pump</a></li>
                 <li *ngIf="userData.RoleID!=-2 && userData.RoleID!=2"><a [routerLink]="['/Landing',userData.PetrolPumpCode]">DashBoard</a></li>
@@ -12,6 +13,7 @@
                 <!-- <li><a style="padding-left:100px;" >26-Oct-2018 [11:52:08]</a></li> -->
                 <li><a style="padding-left:100px;" >{{ clock | date:'HH:mm:ss'}}</a></li>
                 
+               <!--  <p>{{ clock | date:'HH:mm:ss'}}</p> -->
               </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>

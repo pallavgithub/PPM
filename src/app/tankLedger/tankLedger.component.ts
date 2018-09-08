@@ -31,6 +31,10 @@ export class TankLedgerformComponent implements OnInit {
   tankName:String;
   tankOpeningStock:number;
   tankClosingStock:number;
+  pageNumber: number = 1;
+  indexValue: number = 1;
+  key: string = 'name'; //set default
+  reverse: boolean = false;
   validation_messages = {
     'Email': [
       { type: 'required', message: 'Email is required' },
@@ -69,6 +73,7 @@ export class TankLedgerformComponent implements OnInit {
 
   }
   ngOnInit() {
+    
     this.pumpTanksLedger = this.data.user;
     this.tankName=this.data.user[0].TankName;
     this.tankOpeningStock=this.data.user[0].OpeningStock;
@@ -76,5 +81,13 @@ export class TankLedgerformComponent implements OnInit {
     this.pumpTanksLedger.forEach(element => {
       element.ReadingDate = this.datepipe.transform((new Date(element.ReadingDate).toString()), 'yyyy-MM-dd');
     });
+  }
+  paginate(event) {
+    this.pageNumber = event;
+    this.indexValue = event > 0 ? 10 * (event - 1) + 1 : 1;
+  }
+  sort(key){
+    this.key = key;
+    this.reverse = !this.reverse;
   }
 }

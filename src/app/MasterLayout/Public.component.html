@@ -37,42 +37,49 @@
     </div>
 </div> -->
 <div class="container" style="width:100%">
-        <div class="row">
-            <div class="form-group">
-                <div class="sidebar-ppm">
-                    <div id="mySidenav" class="sidenav">
-                            <div class="logo-wrapper"><a  ng-reflect-router-link="" [routerLink]="['']" class="ng-star-inserted"><img class="ppm-logo" src="../../assets/Images/PPMlogo/logo.png"/></a></div>
-                        <div class="ppm-list-elem">
-                         <ul class="list-group sidebar-list-scroll"> 
-                            <li class="list-group-item active"><a [routerLink]="['/Landing',pumpCode]"> <i class="fa fa-tachometer" aria-hidden="true"></i>DashBoard</a></li> 
-                            <li class="list-group-item"><a [routerLink]="['/Inventory',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit"> <i class="fa fa-handshake-o" aria-hidden="true"></i>Inventory and Price Management</a></li>
-                            <li class="list-group-item"><a [routerLink]="['/Creditor',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit"><i class="fa fa-credit-card-alt" aria-hidden="true"></i>Creditor</a></li>
-                            <li class="list-group-item"><a [routerLink]="['/DailyPrice',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit">   <i class="fa fa-usd" aria-hidden="true"></i>Set Daily Price</a></li>
-                            <li class="list-group-item"><a [routerLink]="['/FuelRequest',pumpCode]" *ngIf="userData && userData.RoleID==2"> Fuel Request</a></li>
-                            <li class="list-group-item"><a [routerLink]="['/FuelRequestReceived',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit"> <i class="fa fa-battery-full" aria-hidden="true"> </i>Fuel Request Received</a></li>
-                            <li class="list-group-item"><a [routerLink]="['/CreditorLedger',pumpCode]" *ngIf="userData && userData.RoleID==2"> Ledger</a></li>
-                            <li class="list-group-item"> <a [routerLink]="['/DailyTankReading',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit"> Set Daily Tank Reading</a></li>
-                            <li class="list-group-item"> <a [routerLink]="['/DailyNozzleReading',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit"> <i class="fa fa-tint" aria-hidden="true"></i>Set Daily NozzleReading</a></li>
-                            <li class="list-group-item"><a  [routerLink]="['/PaymentLedger',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit"> <i class="fa fa-money" aria-hidden="true"></i>Payment Ledger</a></li>
-                            <li class="list-group-item"> <a [routerLink]="['/TankLedgerComponentComponent',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit"> <i class="fa fa-suitcase" aria-hidden="true"></i> Tank Ledger</a></li>
-                            <li class="list-group-item"> <a [routerLink]="['/NozzleLedgerComponent',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit"> <i class="fa fa-book" aria-hidden="true"></i>Nozzle Ledger</a></li>
-                            <li class="list-group-item"> <a [routerLink]="['/DailyPumpBreakUpFormComponent',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit"> <i class="fa fa-bar-chart" aria-hidden="true"></i> Pump Breakup</a></li>
-                            <li class="list-group-item"><a [routerLink]="['/PumpVsNozzleComponent',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit"><i class="fa fa-bar-chart" aria-hidden="true"></i> Pump V/S Nozzle Sale</a></li>
-                            <li class="list-group-item">  <a [routerLink]="['/Profile',pumpCode]" *ngIf="isPermit">  <i class="fa fa-user" aria-hidden="true"></i>Profile</a></li>
-                                              
-                         </ul>
-                     </div>
-                     </div>
-                </div>
-                <div class="visible-bar">
-                    
-                    <router-outlet></router-outlet>
-                </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="sidebar-ppm">
+                <div id="mySidenav" class="sidenav">
+                        <div class="logo-wrapper"><a  ng-reflect-router-link="" [routerLink]="['']" class="ng-star-inserted"><img class="ppm-logo" src="../../assets/Images/PPMlogo/logo.png"/></a></div>
+                    <div class="ppm-list-elem">
+                     <ul class="list-group sidebar-list-scroll"> 
+<!--                             <li class="list-group-item active"><a> <i class="fa fa-tachometer" aria-hidden="true"></i>DashBoard</a></li> 
+                        <li class="list-group-item "><a> <i class="fa fa-tachometer" aria-hidden="true"></i>DashBoard</a></li> 
+                        <li class="list-group-item "><a> <i class="fa fa-tachometer" aria-hidden="true"></i>DashBoard</a></li>  -->
+
+                        <li class="list-group-item active"><a [routerLink]="['/Landing',pumpCode]"> <i class="fa fa-tachometer" aria-hidden="true"></i>DashBoard</a></li> 
+
+                        <li class="list-group-item"><a [routerLink]="['/Inventory',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit"> <i class="fa fa-handshake-o" aria-hidden="true"></i>Inventory and Price Management</a></li>
+                        <li class="list-group-item"><a [routerLink]="['/Creditor',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit"><i class="fa fa-credit-card-alt" aria-hidden="true"></i>Creditor</a></li>
+                        <li class="list-group-item"><a [routerLink]="['/DailyPrice',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit">   <i class="fa fa-usd" aria-hidden="true"></i>Set Daily Price</a></li>
+                        <li class="list-group-item"><a [routerLink]="['/FuelRequest',pumpCode]" *ngIf="userData && userData.RoleID==2"> Fuel Request</a></li>
+                        <li class="list-group-item"><a [routerLink]="['/FuelRequestReceived',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit"> <i class="fa fa-battery-full" aria-hidden="true"> </i>Fuel Request Received</a></li>
+                        <li class="list-group-item"><a [routerLink]="['/CreditorLedger',pumpCode]" *ngIf="userData && userData.RoleID==2"> Ledger</a></li>
+                        <li class="list-group-item"> <a [routerLink]="['/DailyTankReading',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit"> Set Daily Tank Reading</a></li>
+                        <li class="list-group-item"> <a [routerLink]="['/DailyNozzleReading',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit"> <i class="fa fa-tint" aria-hidden="true"></i>Set Daily NozzleReading</a></li>
+                        <li class="list-group-item"><a  [routerLink]="['/PaymentLedger',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit"> <i class="fa fa-money" aria-hidden="true"></i>Payment Ledger</a></li>
+                        <li class="list-group-item"> <a [routerLink]="['/TankLedgerComponentComponent',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit"> <i class="fa fa-suitcase" aria-hidden="true"></i> Tank Ledger</a></li>
+                        <li class="list-group-item"> <a [routerLink]="['/NozzleLedgerComponent',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit"> <i class="fa fa-book" aria-hidden="true"></i>Nozzle Ledger</a></li>
+                        <li class="list-group-item"> <a [routerLink]="['/DailyPumpBreakUpFormComponent',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit"> <i class="fa fa-bar-chart" aria-hidden="true"></i> Pump Breakup</a></li>
+                        <li class="list-group-item"><a [routerLink]="['/PumpVsNozzleComponent',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit"><i class="fa fa-bar-chart" aria-hidden="true"></i> Pump V/S Nozzle Sale</a></li>
+                        <li class="list-group-item">  <a [routerLink]="['/Profile',pumpCode]" *ngIf="isPermit">  <i class="fa fa-user" aria-hidden="true"></i>Profile</a></li>
+                                          
+                     </ul>
+                 </div>
+                 </div>
+            </div>
+            <div class="visible-bar">
+                
+                <router-outlet></router-outlet>
             </div>
         </div>
     </div>
-    <!-- 
-    <div class="container">
-            <toaster-container [toasterconfig]="config"></toaster-container>
-            <router-outlet></router-outlet>
-        </div> -->
+</div>
+<!-- 
+<div class="container">
+        <toaster-container [toasterconfig]="config"></toaster-container>
+        <router-outlet></router-outlet>
+    </div> -->
+    
+

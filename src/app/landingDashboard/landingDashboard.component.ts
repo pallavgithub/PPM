@@ -341,6 +341,11 @@ public tankChartoptions: any = {
   public basicInfo: BasicInfo;
   countStatus: number;
  public TotalSale:number;
+ pumpDate:string;
+ fromDate:string;
+ toDate:string;
+ showcustom:string;
+ dateFilter:number;
 
   constructor(private toasterService: ToasterService, private _formBuilder: FormBuilder, private router: Router, private petrolPumpService: PetrolPumpService, private activatedRoute: ActivatedRoute, private userService: UserService, public dialog: MatDialog, public datepipe: DatePipe) {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -355,7 +360,11 @@ public tankChartoptions: any = {
 
   ngOnInit() {
     this.petrolPumpService.globalLoader=true;
+    this.dateFilter=1;
     if (this.pumpCode && this.pumpCode != '') {
+      this.pumpDate = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
+      this.fromDate = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
+      this.toDate = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
       this.getPumpStatus(this.pumpCode);
       this.getUserDate();
       this.getBasicInfo(this.pumpCode);
@@ -388,14 +397,34 @@ public tankChartoptions: any = {
   }
   GetAllProductSale(petrolPumpCode: string) {
     this.TotalSale=0;
-    debugger
-    this.petrolPumpService.getAllProductSale(petrolPumpCode).subscribe((res:any) => {
+    this.petrolPumpService.getAllProductSale(petrolPumpCode,1,this.fromDate,this.toDate).subscribe((res:any) => {
       this.allProductSale = res;   
       res.forEach(element=>{
         this.TotalSale+=<number>element.TotalPrice;
       });
     });
    
+  }
+  ChangeSaleValue(event)
+  {
+    debugger
+    this.dateFilter=event.target.value;
+    
+    this.TotalSale=0;
+    if(event.target.value=8)
+    {
+      this.showcustom="show";
+      return false;
+    }  
+    else{
+      this.showcustom=null;
+    }  
+    this.petrolPumpService.getAllProductSale(this.pumpCode,event.target.value,this.fromDate,this.toDate).subscribe((res:any) => {
+      this.allProductSale = res;   
+      res.forEach(element=>{
+        this.TotalSale+=<number>element.TotalPrice;
+      });
+    });
   }
   GetworkingCapital(petrolPumpCode: string) {
 debugger
@@ -564,6 +593,30 @@ debugger
       this.pumpProduct = this.pumpProduct.filter(c => c.CategoryID == 1);
       this.pumpUsers = res.pp_Users;
     });
+  }
+  onProductBlurDate(event) {
+    this.petrolPumpService.getPetrolPumpDashboardWithDate(this.pumpCode, event.target.value).subscribe(res => {
+      this.pumpProduct = res.pp_PumpProduct;
+      this.pumpProduct = this.pumpProduct.filter(c => c.CategoryID == 1);
+      this.pumpUsers = res.pp_Users;
+    });    
+  }
+  changeSaleFromDate(event)
+  {
+    this.fromDate=event.target.value;
+  }
+  changeSaleToDate(event)
+  {
+    debugger
+    this.toDate=event.target.value;
+    this.TotalSale=0;
+    this.petrolPumpService.getAllProductSale(this.pumpCode,this.dateFilter,this.fromDate,this.toDate).subscribe((res:any) => {
+      this.allProductSale = res;   
+      res.forEach(element=>{
+        this.TotalSale+=<number>element.TotalPrice;
+      });
+    });
+
   }
   getUserDate() {
     this.userService.getUserDetailInfo().subscribe((res) => {

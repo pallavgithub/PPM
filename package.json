@@ -32,6 +32,8 @@
     "mat-sidenav-menu": "^0.9.0",
     "ng2-charts": "^1.6.0",
     "ngx-bootstrap": "^3.0.1",
+    "ngx-order-pipe": "^2.0.1",
+    "ngx-pagination": "^3.2.1",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },

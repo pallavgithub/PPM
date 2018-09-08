@@ -1,18 +1,19 @@
 <br/>
 
 
-
+<div class="tab-content-wrapper">
 <!-- <userform (userCreated)="addUser($event)"></userform> -->
-<div class="col-md-12 table-responsive" *ngIf="pumpProduct != null && pumpProduct.length>0">
+<div class="col-md-12 " *ngIf="pumpProduct != null && pumpProduct.length>0">
   <div class="row">
     <div class="col-md-6 setupHeader">
       <div class="form-group">
-        <h3>Products
+        <h3 class="tab-content-table-heading">Products
         </h3>
       </div>
     </div>
   </div>
-  <table style="border: 1px solid black" class="table table-striped">
+  <div class="table-responsive">
+  <table  class="table tab-content-table table-striped">
     <thead class="thead-dark">
       <tr>
         <th>Name</th>
@@ -37,11 +38,12 @@
       <td>{{product.CreatedBy}}</td> -->
       <!-- <td>{{getUserRole(product.RoleID)}}</td> -->
       <td>
-        <a (click)="editProduct(product)" style="cursor: pointer;">Edit</a>&nbsp;
+        <a (click)="editProduct(product)" style="cursor: pointer;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;
         <a (click)="DeleteProduct(product)" style="cursor: pointer;" *ngIf="userData && userData.RoleID == -2">Delete</a>
       </td>
     </tr>
   </table>
+</div>
 </div>
 <div style="float:right;">
     <button class="btn btn-primary" type="submit" (click)="moveToNext()">Next</button>
@@ -49,3 +51,4 @@
 <!-- <div>
   <a [routerLink]="['/dashboard',this.pumpCode]">Manage Inventory</a>
 </div> -->
+</div>

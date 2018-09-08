@@ -1,5 +1,14 @@
 <div class="border-box-shadow">
+        <div class="row">
+        <div class="col-lg-6 col-md-6 col-xs-12">
         <div class="sales-heading text-bold prime-color">Daily Fuel Price</div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-xs-12">
+                </div>
+        <div class="col-lg-2 col-md-2 col-xs-12">
+        <input type="date" placeholder="Reading Date" class="form-control" [(ngModel)]="pumpDate" #ReadingDate="ngModel" name="ReadingDate-{{in}}" (change)="onProductBlurDate($event)">
+        </div>
+    </div>
         <div class="" *ngIf="pumpProduct && pumpProduct.length>0">
             <ul class="list-group list-inline oil-info-list" >
                     <li class="list-group-item" *ngFor="let itemPumpProduct of pumpProduct; let in=index">  <div><span class="currency-brand  prime-color">INR</span><span class="price-bold text-bold prime-color">{{itemPumpProduct.SaleRate}}</span></div>
@@ -15,17 +24,23 @@
                     <div class="col-lg-6 col-md-6 col-xs-12">
                           <form class="pull-right">
                                   <div class="form-group date-select-bar-wrapper">
-                                    <select class="form-control date-select-bar" id="datedd">
-                                      <option>Today</option>
-                                      <option>Yesterday</option>
-                                      <option>27/10/2018</option>
-                                      <option>27/10/2018</option>
-                                    </select>
-                                    <i class="fa fa-calendar calender-header-icon" aria-hidden="true"></i>
+                                    <select class="form-control date-select-bar" id="datedd" (change)="ChangeSaleValue($event)">
+                                      <option value="1">Today</option>
+                                      <option value="2">Yesterday</option>
+                                      <option value="3">Last Week</option>
+                                      <option value="4">Last Month</option>
+                                      <option value="5">Last Quater</option>
+                                      <option value="6">Last Year</option>
+                                      <option value="7">All Time</option>
+                                      <option value="8">Custom</option>
+                                    </select>                                    
+                                    <!-- <i class="fa fa-calendar calender-header-icon" aria-hidden="true"></i> -->
                                    <span class="ok-button-wrapper"> <button type="button" class="btn btn-prime">OK</button></span>
-                                  </div>
-                                  
+                                  </div>                                  
                               </form>
+                              <div *ngIf="showcustom && showcustom.length>0"><span>From <input type="date" placeholder="Reading Date" class="form-control" [(ngModel)]="fromDate" #ReadingDate="ngModel" name="ReadingDate-{{in}}" (change)="changeSaleFromDate($event)"></span>
+                                <span>To <input type="date" placeholder="Reading Date" class="form-control" [(ngModel)]="toDate" #ReadingDate="ngModel" name="ReadingDate-{{in}}" (change)="changeSaleToDate($event)"></span>
+                            </div>
                     </div>
                 </div>
             

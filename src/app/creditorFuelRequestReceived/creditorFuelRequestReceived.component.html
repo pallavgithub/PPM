@@ -21,20 +21,35 @@
               </div>
             </div> -->
             <div class="table-responsive" *ngIf="pumpUsers && pumpUsers.length>0">
+                <input type="text" class="col-md-2 top-creditor-search-input" id="search-top-creditor" placeholder="Search" [(ngModel)]="query">
               <table style="border: 1px solid black" class="table table-striped">
                 <thead class="thead-dark">
-                  <tr>
-                      <th>Creditor Id</th>
-                    <th>Product Name</th>
-                    <th>Unit Name</th>                   
-                    <th>Request Stock</th>                   
-                    <th>Request Amount</th>                   
-                    <th>Request Date</th> 
-                    <th>Status</th> 
+                  <tr>                      
+                      <th (click)="sort('UserId')" class="cursorpointer">Creditor Id
+                          <span class="glyphicon sort-icon" *ngIf="key =='UserId'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                      </th>
+                    <th (click)="sort('ProductName')" class="cursorpointer">Product Name
+                        <span class="glyphicon sort-icon" *ngIf="key =='ProductName'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>
+                    <th (click)="sort('UnitName')" class="cursorpointer">Unit Name
+                        <span class="glyphicon sort-icon" *ngIf="key =='UnitName'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>                   
+                    <th (click)="sort('PurchaseQuantity')" class="cursorpointer">Request Stock
+                        <span class="glyphicon sort-icon" *ngIf="key =='PurchaseQuantity'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>                   
+                    <th (click)="sort('TotalPrice')" class="cursorpointer">Request Amount
+                        <span class="glyphicon sort-icon" *ngIf="key =='TotalPrice'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th>                   
+                    <th (click)="sort('DateMeasured')" class="cursorpointer">Request Date
+                        <span class="glyphicon sort-icon" *ngIf="key =='DateMeasured'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th> 
+                    <th (click)="sort('IsApproved')" class="cursorpointer">Status
+                        <span class="glyphicon sort-icon" *ngIf="key =='IsApproved'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                    </th> 
                     <th>Action</th>
                   </tr>
                 </thead>
-                <tr *ngFor="let pumpUser of pumpUsers let i=index">
+                <tr *ngFor="let pumpUser of pumpUsers | orderBy: key : reverse | SearchFilter: query | paginate: { itemsPerPage: 10, currentPage: pageNumber }; let i=index">
                     <td>{{pumpUser.UserId}}</td>
                   <td>{{pumpUser.ProductName}}</td>
                   <td>{{pumpUser.UnitName}}</td>    
@@ -48,7 +63,10 @@
                   </td>
                 </tr>
               </table>
+              <pagination-controls (pageChange)="paginate($event)"></pagination-controls>
             </div>
           </div>
         </div>
       </div>
+
+      <div class="loadercheckout" style="display: block;" *ngIf="petrolPumpService.globalLoader"></div>

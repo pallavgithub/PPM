@@ -1,14 +1,18 @@
 <br/>
 
 <form [formGroup]="pumpAdditionalInfoForm" (ngSubmit)="savePumpInfo()" style="width: 98%;">
+  <div class="row">
+       <div class=" col-xs-12">
+
     <div class="row">
-        <div class="col-md-6 setupHeader">
+        <div class="col-xs-12 setupHeader">
             <div class="form-group">
-                <h3>Additional Details
+                <h3 class="tab-content-table-heading">Additional Details
                 </h3>
             </div>
         </div>
     </div>
+    <div class="center-form-wrapper">
     <div class="row">
         <!-- <div class="col-md-6">
                 <div class="form-group">
@@ -20,22 +24,22 @@
                 </div>      
             </div> -->
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group basic-info-block">
                 <label for="PetrolPumpName">Address Line 1
                     <span class="required">*</span>
                 </label>
-                <input placeholder="Address Line 1" class="form-control" formControlName="Address" [readonly]="RoleID != -2">
+                <input placeholder="Address Line 1" class="form-control primary-input" formControlName="Address" [readonly]="RoleID != -2">
                 <div *ngFor="let validation of validation_messages.Address">
                     <span class="error-message" *ngIf="pumpAdditionalInfoForm.get('Address').hasError(validation.type) && (pumpAdditionalInfoForm.get('Address').dirty || pumpAdditionalInfoForm.get('Address').touched)">{{validation.message}}</span>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group basic-info-block">
                 <label for="Address2">Address Line 2
                     <span class="required">*</span>
                 </label>
-                <input placeholder="Address Line 2" class="form-control" formControlName="Address2" [readonly]="RoleID != -2">
+                <input placeholder="Address Line 2" class="form-control primary-input" formControlName="Address2" [readonly]="RoleID != -2">
                 <div *ngFor="let validation of validation_messages.Address2">
                     <span class="error-message" *ngIf="pumpAdditionalInfoForm.get('Address2').hasError(validation.type) && (pumpAdditionalInfoForm.get('Address2').dirty || pumpAdditionalInfoForm.get('Address2').touched)">{{validation.message}}</span>
                 </div>
@@ -44,23 +48,23 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group basic-info-block">
                 <label for="City">City
                     <span class="required">*</span>
                 </label>
-                <input placeholder="City" class="form-control" formControlName="City" [readonly]="RoleID != -2">
+                <input placeholder="City" class="form-control primary-input" formControlName="City" [readonly]="RoleID != -2">
                 <div *ngFor="let validation of validation_messages.City">
                     <span class="error-message" *ngIf="pumpAdditionalInfoForm.get('City').hasError(validation.type) && (pumpAdditionalInfoForm.get('City').dirty || pumpAdditionalInfoForm.get('City').touched)">{{validation.message}}</span>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group basic-info-block">
                 <label for="State">State
                     <span class="required">*</span>
                 </label>
                 <!-- <input placeholder="State" class="form-control" formControlName="State"> -->
-                <select class="form-control" formControlName="State" (change)="onChange()">
+                <select class="form-control primary-input" formControlName="State" (change)="onChange()">
                     <option [ngValue]="0" disabled>--Select--</option>
                     <option *ngFor="let itemState of states;let i=index" [ngValue]="itemState.ID">{{itemState.Name}}</option>
                 </select>
@@ -70,19 +74,19 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group basic-info-block">
                 <label for="Country">Country
                     <span class="required">*</span>
                 </label>
-                <input placeholder="Country" class="form-control" formControlName="Country" disabled>
+                <input placeholder="Country" class="form-control primary-input" formControlName="Country" disabled>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group basic-info-block">
                 <label for="Pincode">Pincode
                     <span class="required">*</span>
                 </label>
-                <input placeholder="Pincode" class="form-control" formControlName="PetrolPumpPincode" [readonly]="RoleID != -2">
+                <input placeholder="Pincode" class="form-control primary-input" formControlName="PetrolPumpPincode" [readonly]="RoleID != -2">
                 <div *ngFor="let validation of validation_messages.PetrolPumpPincode">
                     <span class="error-message" *ngIf="pumpAdditionalInfoForm.get('PetrolPumpPincode').hasError(validation.type) && (pumpAdditionalInfoForm.get('PetrolPumpPincode').dirty || pumpAdditionalInfoForm.get('PetrolPumpPincode').touched)">{{validation.message}}</span>
                 </div>
@@ -134,11 +138,11 @@
     </div> -->
     <div class="row">
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group basic-info-block">
                 <label for="TIN">TIN
                     <!-- <span class="required">*</span> -->
                 </label>
-                <input placeholder="TIN" class="form-control" formControlName="TIN">
+                <input placeholder="TIN" class="form-control primary-input" formControlName="TIN">
                 <div *ngFor="let validation of validation_messages.TIN">
                     <span class="error-message" *ngIf="pumpAdditionalInfoForm.get('TIN').hasError(validation.type) && (pumpAdditionalInfoForm.get('TIN').dirty || pumpAdditionalInfoForm.get('TIN').touched)">{{validation.message}}</span>
                 </div>
@@ -146,11 +150,11 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group basic-info-block">
                 <label for="CST">CST
                     <!-- <span class="required">*</span> -->
                 </label>
-                <input placeholder="CST" class="form-control" formControlName="CST">
+                <input placeholder="CST" class="form-control primary-input" formControlName="CST">
                 <div *ngFor="let validation of validation_messages.CST">
                     <span class="error-message" *ngIf="pumpAdditionalInfoForm.get('CST').hasError(validation.type) && (pumpAdditionalInfoForm.get('CST').dirty || pumpAdditionalInfoForm.get('CST').touched)">{{validation.message}}</span>
                 </div>
@@ -159,9 +163,9 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <div class="form-group">
+            <div class="form-group basic-info-block">
                 <label for="Logo">Logo</label>
-                <input type="file" placeholder="Logo" class="form-control" formControlName="Logo">
+                <input type="file" placeholder="Logo" class="form-control primary-input" formControlName="Logo">
             </div>
         </div>
     </div>
@@ -204,8 +208,12 @@
             </div>
         </div>
       </div> -->
-    <div style="float:right;">
-            <input type="button" class="btn btn-primary" value="Reset" (click)="reset()">&nbsp;&nbsp;&nbsp;
-        <button class="btn btn-primary" type="submit" [disabled]="!pumpAdditionalInfoForm.valid" (click)='checkFormValid()'>Save & Next</button>
+    <div style="text-align:right;">
+            <input type="button" class="btn prime-btn" value="Reset" (click)="reset()">&nbsp;&nbsp;&nbsp;
+        <button class="btn prime-btn" type="submit" [disabled]="!pumpAdditionalInfoForm.valid" (click)='checkFormValid()'>Save & Next</button>
+    </div>
+
+    </div>
+     </div>
     </div>
 </form>

@@ -23,6 +23,10 @@ export class NozzleLedgerComponent implements OnInit {
   public pumpNozzles: pp_Nozzle[];
   public pumpNozzlesLedger: pp_Nozzle[];
   navigationSubscription;
+  pageNumber: number = 1;
+  indexValue: number = 1;
+  key: string = 'name'; //set default
+  reverse: boolean = false;
 
   constructor(private router:Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService,private activatedRoute: ActivatedRoute,private petrolPumpService: PetrolPumpService,private _formBuilder: FormBuilder, public datepipe: DatePipe) {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -36,6 +40,7 @@ export class NozzleLedgerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.petrolPumpService.globalLoader=true;
     this.pumpNozzlesLedger=this.pumpNozzlesLedger;
     this.GetNozzleInfo(this.pumpCode,new Date().toString());
    
@@ -45,6 +50,7 @@ export class NozzleLedgerComponent implements OnInit {
   {
     let readingdate: string = this.datepipe.transform(date.toString(), 'yyyy-MM-dd');
     this.petrolPumpService.getPetrolPumpNozzleInfoWithDailyEntry(petrolPumpCode,readingdate).subscribe(data => {
+      this.petrolPumpService.globalLoader=false;
       this.pumpNozzles = data;
     });
   }
@@ -63,5 +69,13 @@ export class NozzleLedgerComponent implements OnInit {
         disableClose: true
       });
     });
+  }
+  paginate(event) {
+    this.pageNumber = event;
+    this.indexValue = event > 0 ? 10 * (event - 1) + 1 : 1;
+  }
+  sort(key){
+    this.key = key;
+    this.reverse = !this.reverse;
   }
 }

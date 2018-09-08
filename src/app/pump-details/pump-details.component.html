@@ -1,139 +1,150 @@
-<mat-tab-group (selectedTabChange)="onLinkClick($event)" [selectedIndex]="selectedTab" #matgroup>
-  <mat-tab>
-    
-    <ng-template mat-tab-label >
-      Step 1<br>Basic Info
-      <div>
-        <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].BasicInfo == 1">
-          <img src="../../assets/smalltickumber.png" class="imgTab">
-        </div>
-        <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].BasicInfo == 0">
-          <img src="../../assets/small-red-cross.png"  class="imgTab">
-        </div>
-      </div>
-    </ng-template>
-  
-    <pump-info *ngIf="petrolPumpInfo" [petrolPump]='petrolPumpInfo'></pump-info>
-    <!-- <button class="btn btn-primary" type="submit" (click)='matgroup.selectedIndex = 1'>Next</button> -->
-  </mat-tab>
-  <mat-tab>
-    <ng-template mat-tab-label>
-      Step 2<br>Additional Info
-      <div>
-        <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].AdditionalInfo == 1">
-          <img src="../../assets/smalltickumber.png"  class="imgTab">
-        </div>
-        <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].AdditionalInfo == 0">
-          <img src="../../assets/small-red-cross.png"  class="imgTab">
-        </div>
-      </div>
-    </ng-template>
-    <pump-Additionalinfo *ngIf="petrolPumpInfo" [petrolPump]='petrolPumpInfo'></pump-Additionalinfo>
-    <!-- <button class="btn btn-primary" type="submit" (click)='matgroup.selectedIndex = 2'>Next</button> -->
-  </mat-tab>
-  <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].AdditionalInfo == 1)'>
-    <ng-template mat-tab-label>
-      Step 3<br>Add Products
-      <div>
-        <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Product == 1">
-          <img src="../../assets/smalltickumber.png"  class="imgTab">
-        </div>
-        <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Product == 0">
-          <img src="../../assets/small-red-cross.png"  class="imgTab">
-        </div>
-      </div>
-    </ng-template>
-    <div class="col-md-12">
-      <button class="btn btn-primary top-btn" style="float:right;" (click)="openAddProductDialog()">Add Product</button>
-    </div>
-    <pump-product *ngIf="pumpProduct" [pumpProduct]='pumpProduct' [pumpCode]='petrolPumpCode'></pump-product>
-    <!-- <button class="btn btn-primary" type="submit" (click)='matgroup.selectedIndex = 3'>Next</button> -->
-  </mat-tab>
-  <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Product == 1)'>
-    <ng-template mat-tab-label>
-      Step 4<br>Payment Modes
-      <div>
-        <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Payment == 1">
-          <img src="../../assets/smalltickumber.png"  class="imgTab">
-        </div>
-        <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Payment == 0">
-          <img src="../../assets/small-red-cross.png"  class="imgTab">
-        </div>
-      </div>
-    </ng-template>
-    <div class="col-md-12">
-      <button class="btn btn-primary top-btn" style="float:right;" (click)="openAddPaymentTypeDialog()">Add Payment Type</button>
-    </div>
-    <pump-payment *ngIf="pumpPayment" [pumpPayment]='pumpPayment' [pumpCode]='petrolPumpCode'></pump-payment>
-    <!-- <button class="btn btn-primary" type="submit" (click)='matgroup.selectedIndex = 4'>Next</button> -->
-  </mat-tab>
-  <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Payment == 1)'>
-    <ng-template mat-tab-label>
-      Step 5<br>Users
-      <div>
-        <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].User == 1">
-          <img src="../../assets/smalltickumber.png"  class="imgTab">
-        </div>
-        <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].User == 0">
-          <img src="../../assets/small-red-cross.png"  class="imgTab">
-        </div>
-      </div>
-    </ng-template>
-    <div class="col-md-12">
-      <button class="btn btn-primary top-btn" style="float:right;" (click)="openAddUserDialog()">Add User</button>
-    </div>
-    <pump-users *ngIf="pumpUsers" [pumpUsers]='pumpUsers' [pumpCode]='petrolPumpCode'></pump-users>
-    <!-- <button class="btn btn-primary" type="submit" (click)='matgroup.selectedIndex = 5'>Next</button> -->
-  </mat-tab>
-  <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Payment == 1)'>
-    <ng-template mat-tab-label>
-      Step 6<br>Tanks
-      <div>
-        <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Tank == 1">
-          <img src="../../assets/smalltickumber.png"  class="imgTab">
-        </div>
-        <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Tank == 0">
-          <img src="../../assets/small-red-cross.png"  class="imgTab">
-        </div>
-      </div>
-    </ng-template>
-    <div class="col-md-12">
-      <button class="btn btn-primary top-btn" style="float:right;" (click)="openAddTankDialog()">Add Tank</button>
-    </div>
-    <pump-tank *ngIf="pumpTanks" [pumpTanks]='pumpTanks' [pumpCode]='petrolPumpCode'></pump-tank>
-    <!-- <button class="btn btn-primary" type="submit" (click)='matgroup.selectedIndex = 6'>Next</button> -->
-  </mat-tab>
-  <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Tank == 1)'>
-    <ng-template mat-tab-label>
-      Step 7<br>Nozzles
-      <div>
-        <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Nozzle == 1">
-          <img src="../../assets/smalltickumber.png"  class="imgTab">
-        </div>
-        <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Nozzle == 0">
-          <img src="../../assets/small-red-cross.png"  class="imgTab">
-        </div>
-      </div>
-    </ng-template>
-    <div class="col-md-12">
-      <button class="btn btn-primary top-btn" style="float:right;" (click)="openAddNozzleDialog()">Add Nozzle</button>
-    </div>
-    <pump-nozzle *ngIf="pumpNozzles" [pumpNozzle]='pumpNozzles' [pumpCode]='petrolPumpCode'></pump-nozzle>
-    <!-- <button class="btn btn-primary" type="submit" (click)='matgroup.selectedIndex = 7'>Next</button> -->
-  </mat-tab>
-  <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Nozzle == 1)'>
+<div class="info-tab-group">
+  <mat-tab-group (selectedTabChange)="onLinkClick($event)" [selectedIndex]="selectedTab" #matgroup>
+      <div class="pointer">
+    <mat-tab>
       <ng-template mat-tab-label>
-        Step 8<br>Pump Configuration Status
+        <!-- Step 1<br> -->
+        <div>
+          <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].BasicInfo == 1">
+            <img src="../../assets/tab-logo/layer-2/layer-2.png" class="imgTab">
+          </div>
+          <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].BasicInfo == 0">
+            <img src="../../assets/small-red-cross.png"  class="imgTab">
+          </div>
+          <div>Basic Info</div>
+        </div>
+      </ng-template>
+    
+      <pump-info *ngIf="petrolPumpInfo" [petrolPump]='petrolPumpInfo'></pump-info>
+      <!-- <button class="btn btn-primary" type="submit" (click)='matgroup.selectedIndex = 1'>Next</button> -->
+    </mat-tab>
+  </div>
+    <mat-tab>
+      <ng-template mat-tab-label>
+     <!--    Step 2<br> -->
+        <div>
+          <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].AdditionalInfo == 1">
+            <img src="../../assets/tab-logo/layer-3/layer-3.png"  class="imgTab">
+          </div>
+          <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].AdditionalInfo == 0">
+            <img src="../../assets/small-red-cross.png"  class="imgTab">
+          </div>
+          <div>Additional Info</div>
+        </div>
+      </ng-template>
+      <pump-Additionalinfo *ngIf="petrolPumpInfo" [petrolPump]='petrolPumpInfo'></pump-Additionalinfo>
+      <!-- <button class="btn btn-primary" type="submit" (click)='matgroup.selectedIndex = 2'>Next</button> -->
+    </mat-tab>
+    <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].AdditionalInfo == 1)'>
+      <ng-template mat-tab-label>
+       <!--  Step 3<br> -->
+        <div>
+          <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Product == 1">
+            <img src="../../assets/tab-logo/layer-4/layer-4.png"  class="imgTab">
+          </div>
+          <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Product == 0">
+            <img src="../../assets/small-red-cross.png"  class="imgTab">
+          </div>
+          <div>Add Products</div>
+        </div>
+      </ng-template>
+      <div class="col-md-12">
+        <button class="btn btn-primary top-btn" style="float:right;" (click)="openAddProductDialog()">Add Product</button>
+      </div>
+      <pump-product *ngIf="pumpProduct" [pumpProduct]='pumpProduct' [pumpCode]='petrolPumpCode'></pump-product>
+      <!-- <button class="btn btn-primary" type="submit" (click)='matgroup.selectedIndex = 3'>Next</button> -->
+    </mat-tab>
+    <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Product == 1)'>
+      <ng-template mat-tab-label>
+       <!--  Step 4<br> -->
+        <div>
+          <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Payment == 1">
+            <img src="../../assets/tab-logo/layer-5/layer-5.png"  class="imgTab">
+          </div>
+          <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Payment == 0">
+            <img src="../../assets/small-red-cross.png"  class="imgTab">
+          </div>
+          <div>Payment Modes</div>
+        </div>
+      </ng-template>
+      <div class="col-md-12">
+        <button class="btn btn-primary top-btn" style="float:right;" (click)="openAddPaymentTypeDialog()">Add Payment Type</button>
+      </div>
+      <pump-payment *ngIf="pumpPayment" [pumpPayment]='pumpPayment' [pumpCode]='petrolPumpCode'></pump-payment>
+      <!-- <button class="btn btn-primary" type="submit" (click)='matgroup.selectedIndex = 4'>Next</button> -->
+    </mat-tab>
+    <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Payment == 1)'>
+      <ng-template mat-tab-label>
+       <!--  Step 5<br> -->
+        <div>
+          <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].User == 1">
+            <img src="../../assets/tab-logo/layer-6/layer-6.png"  class="imgTab">
+          </div>
+          <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].User == 0">
+            <img src="../../assets/small-red-cross.png"  class="imgTab">
+          </div>
+          <div>Users</div>
+        </div>
+      </ng-template>
+      <div class="col-md-12">
+        <button class="btn btn-primary top-btn" style="float:right;" (click)="openAddUserDialog()">Add User</button>
+      </div>
+      <pump-users *ngIf="pumpUsers" [pumpUsers]='pumpUsers' [pumpCode]='petrolPumpCode'></pump-users>
+      <!-- <button class="btn btn-primary" type="submit" (click)='matgroup.selectedIndex = 5'>Next</button> -->
+    </mat-tab>
+    <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Payment == 1)'>
+      <ng-template mat-tab-label>
+       <!--  Step 6<br> -->
+        <div>
+          <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Tank == 1">
+            <img src="../../assets/tab-logo/layer-8/layer-8.png"  class="imgTab">
+          </div>
+          <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Tank == 0">
+            <img src="../../assets/small-red-cross.png"  class="imgTab">
+          </div>
+          <div>Tanks</div>
+        </div>
+      </ng-template>
+      <div class="col-md-12">
+        <button class="btn btn-primary top-btn" style="float:right;" (click)="openAddTankDialog()">Add Tank</button>
+      </div>
+      <pump-tank *ngIf="pumpTanks" [pumpTanks]='pumpTanks' [pumpCode]='petrolPumpCode'></pump-tank>
+      <!-- <button class="btn btn-primary" type="submit" (click)='matgroup.selectedIndex = 6'>Next</button> -->
+    </mat-tab>
+    <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Tank == 1)'>
+      <ng-template mat-tab-label>
+       <!--  Step 7<br> -->
         <div>
           <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Nozzle == 1">
-            <img src="../../assets/smalltickumber.png"  class="imgTab">
+            <img src="../../assets/tab-logo/layer-9/layer-9.png"  class="imgTab">
           </div>
           <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Nozzle == 0">
             <img src="../../assets/small-red-cross.png"  class="imgTab">
           </div>
+          <div>Nozzles</div>
         </div>
       </ng-template>
-      <pump-CompleteStatus *ngIf="pumpStatus" [pumpStatus]='pumpStatus' [pumpCode]='petrolPumpCode'></pump-CompleteStatus>
+      <div class="col-md-12">
+        <button class="btn btn-primary top-btn" style="float:right;" (click)="openAddNozzleDialog()">Add Nozzle</button>
+      </div>
+      <pump-nozzle *ngIf="pumpNozzles" [pumpNozzle]='pumpNozzles' [pumpCode]='petrolPumpCode'></pump-nozzle>
+      <!-- <button class="btn btn-primary" type="submit" (click)='matgroup.selectedIndex = 7'>Next</button> -->
     </mat-tab>
-</mat-tab-group>
-<div class="loadercheckout" style="display: block;" *ngIf="petrolPumpService.globalLoader"></div>
+    <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Nozzle == 1)'>
+        <ng-template mat-tab-label>
+         <!--  Step 8<br> -->
+          <div>
+            <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Nozzle == 1">
+              <img src="../../assets/tab-logo/layer-7/layer-7.png"  class="imgTab">
+            </div>
+            <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Nozzle == 0">
+              <img src="../../assets/small-red-cross.png"  class="imgTab">
+            </div>
+            <div>Pump Configuration</div>
+          </div>
+          
+        </ng-template>
+        <pump-CompleteStatus *ngIf="pumpStatus" [pumpStatus]='pumpStatus' [pumpCode]='petrolPumpCode'></pump-CompleteStatus>
+      </mat-tab>
+  </mat-tab-group>
+  </div>

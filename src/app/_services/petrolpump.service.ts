@@ -232,8 +232,8 @@ export class PetrolPumpService {
     GetLicenseStartDate(petrolPumpCode:string,isOld:number){
         return this.http.get<any>(`${environment.apiUrl}/Pump/LicenseStartDate?petrolPumpCode=`+petrolPumpCode + '&isOld=' + 1);
     }
-    getAllProductSale(petrolPumpCode:string){
-        return this.http.get<ProductSale[]>(`${environment.apiUrl}/Pump/GetAllProductSale?petrolPumpCode=`+petrolPumpCode,);
+    getAllProductSale(petrolPumpCode:string,dateFilterID:number,fromDate:string,toDate:string){
+        return this.http.get<ProductSale[]>(`${environment.apiUrl}/Pump/GetAllProductSale?petrolPumpCode=`+petrolPumpCode + '&dateFilterID=' + dateFilterID+ '&fromDate=' + fromDate+ '&toDate=' + toDate);
     }    
     GetFuelSaleComparision(petrolPumpCode:string, date:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/GetFuelSaleComparision?petrolPumpCode=`+petrolPumpCode  + '&date=' + date);

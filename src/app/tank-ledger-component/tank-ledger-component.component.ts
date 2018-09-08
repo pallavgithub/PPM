@@ -34,6 +34,7 @@ export class TankLedgerComponentComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.petrolPumpService.globalLoader=true;
     this.pumpTanksLedger=this.pumpTanksLedger;
     this.GetTankWithCapacity(this.pumpCode);
    
@@ -46,6 +47,7 @@ export class TankLedgerComponentComponent implements OnInit {
   GetTankWithCapacity(petrolPumpCode: string)
   {
     this.userService.GetTankWithCapacity(petrolPumpCode).subscribe(data => {
+      this.petrolPumpService.globalLoader=false;
       this.tank = data;
     });
   }

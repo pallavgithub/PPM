@@ -1,7 +1,8 @@
 .imgTab
 {
-    height: 20px;
-    margin-left: 10px;
+    width: 50px;
+    margin-bottom:10px;
+
 }
 .top-btn{
     margin-top: 1rem;
@@ -11,3 +12,11 @@
     overflow-y: scroll!important;
     overflow-x: hidden!important;
 }
+.info-tab-group .mat-tab-labels .mat-tab-label{
+background-color: #cd6a42;
+width: 100px;
+height: 130px;
+opacity: 1;
+}
+
+

@@ -31,7 +31,11 @@ export class CreditorFuelRequestReceivedComponent implements OnInit {
   public userData:UserInfo;
   navigationSubscription;
   public ApprovalCode:string;
-
+  pageNumber: number = 1;
+  indexValue: number = 1;
+  key: string = 'name'; //set default
+  reverse: boolean = false;
+  
   roles: Role[];
   constructor(private router:Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService,private activatedRoute: ActivatedRoute,private petrolPumpService: PetrolPumpService) {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -124,4 +128,13 @@ export class CreditorFuelRequestReceivedComponent implements OnInit {
 
     }
   }
+  paginate(event) {
+    this.pageNumber = event;
+    this.indexValue = event > 0 ? 10 * (event - 1) + 1 : 1;
+  }
+  sort(key){
+    this.key = key;
+    this.reverse = !this.reverse;
+  }
+
 }

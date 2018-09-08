@@ -2,21 +2,22 @@
 <!-- <div class="jumbotron">
     <div class="container">
         <div class="row"> -->
-<div *ngIf="isLoggedIn()">
-    <app-header></app-header>
-</div>
-<div *ngIf="!isLoggedIn()">
-    <app-login-header></app-login-header>
-</div>
-<div *ngIf="isLoggedIn()" class="container" style="width:100%">
-    <toaster-container [toasterconfig]="config"></toaster-container>
-    <router-outlet></router-outlet>
-</div>
-<div *ngIf="!isLoggedIn()" class="container" style="width:100%;background-image:linear-gradient(145deg, #484962 30%, #d06b41 100%);">
-        <toaster-container [toasterconfig]="config"></toaster-container>
-        <app-loginPump></app-loginPump>
-        
-    </div>
-<div class="footer">
-    <app-footer></app-footer>
-</div>
+            <div *ngIf="isLoggedIn()">
+                <app-header></app-header>
+            </div>
+            <div *ngIf="!isLoggedIn()">
+                <app-login-header></app-login-header>
+            </div>
+            <div *ngIf="isLoggedIn()" class="container" style="width:100%">
+                <toaster-container [toasterconfig]="config"></toaster-container>
+                <router-outlet></router-outlet>
+            </div>
+            <div *ngIf="!isLoggedIn()" class="container" style="width:100%;background-image:linear-gradient(145deg, #484962 30%, #d06b41 100%);">
+                    <toaster-container [toasterconfig]="config"></toaster-container>
+                    <app-loginPump></app-loginPump>
+                    
+                </div>
+            <div class="footer">
+                <app-footer></app-footer>
+            </div>
+            

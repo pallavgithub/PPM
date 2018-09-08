@@ -41,16 +41,16 @@
         <table style="border: 1px solid black" class="table table-striped">
           <thead class="thead-dark">
             <tr>
-              <th (click)="sort('Name')">Name
+              <th (click)="sort('Name')" class="cursorpointer">Name
                 <span class="glyphicon sort-icon" *ngIf="key =='Name'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
               </th>
-              <th (click)="sort('PurchaseQuantity')">Purchase Quantity
+              <th (click)="sort('PurchaseQuantity')" class="cursorpointer">Purchase Quantity
                   <span class="glyphicon sort-icon" *ngIf="key =='PurchaseQuantity'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
               </th>
-              <th (click)="sort('PurchasePrice')">Purchase Price
+              <th (click)="sort('PurchasePrice')" class="cursorpointer">Purchase Price
                   <span class="glyphicon sort-icon" *ngIf="key =='PurchasePrice'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
               </th>
-              <th (click)="sort('DateMeasured')">Date
+              <th (click)="sort('DateMeasured')" class="cursorpointer">Date
                   <span class="glyphicon sort-icon" *ngIf="key =='DateMeasured'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
               </th>
               

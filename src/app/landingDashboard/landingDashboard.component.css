@@ -10,6 +10,9 @@
   transition: 0.5s;
   padding-top: 60px;
 }
+body{
+  background-color: #eeecec;
+}
 
 .sidenav a {
   padding: 8px 8px 8px 32px;

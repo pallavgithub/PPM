@@ -1,6 +1,9 @@
 <br/>
 
+
 <form [formGroup]="pumpInfoForm" (ngSubmit)="savePumpInfo()" style="width: 98%;">
+        <div class="row">
+                <div class="col-sm-offset-2 col-sm-8 col-xs-12">
     <!-- <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -11,37 +14,39 @@
                 </div>
             </div> -->
     <div class="row">
-        <div class="col-md-6 setupHeader">
+        <div class="col-xs-12 setupHeader">
             <div class="form-group">
-                <h3>Basic
+                <h3  class="tab-content-table-heading">Basic
                 </h3>
             </div>
         </div>
     </div>
+    <div class="center-form-wrapper">
     <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
+        <div class="col-xs-12">
+            <div class="form-group basic-info-block">
                 <label for="PetrolPumpName">Pump Name
                     <span class="required">*</span>
                 </label>
-                <input placeholder="Petrol Pump Name" class="form-control" formControlName="PetrolPumpName" [readonly]="RoleID != -2">
+                <input placeholder="Petrol Pump Name" class="form-control primary-input" formControlName="PetrolPumpName" [readonly]="RoleID != -2">
                 <div *ngFor="let validation of validation_messages.PetrolPumpName">
                     <span class="error-message" *ngIf="pumpInfoForm.get('PetrolPumpName').hasError(validation.type) && (pumpInfoForm.get('PetrolPumpName').dirty || pumpInfoForm.get('PetrolPumpName').touched)">{{validation.message}}</span>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
+        <div class="col-xs-12">
+            <div class="form-group basic-info-block">
                 <label for="OwnerName">Owner Name
                     <span class="required">*</span>
                 </label>
-                <input placeholder="Owner Name" class="form-control" formControlName="OwnerName" [readonly]="RoleID != -2">
+                <input placeholder="Owner Name" class="form-control primary-input" formControlName="OwnerName" [readonly]="RoleID != -2">
                 <div *ngFor="let validation of validation_messages.OwnerName">
                     <span class="error-message" *ngIf="pumpInfoForm.get('OwnerName').hasError(validation.type) && (pumpInfoForm.get('OwnerName').dirty || pumpInfoForm.get('OwnerName').touched)">{{validation.message}}</span>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- <div class="col-md-6">
                     <div class="form-group">
                         <label for="Pincode">Pincode <span class="required">*</span></label>
@@ -52,23 +57,23 @@
                     </div>
             </div> -->
     <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
+        <div class="col-xs-12">
+            <div class="form-group basic-info-block">
                 <label for="email">Email
                     <span class="required">*</span>
                 </label>
-                <input placeholder="Email" class="form-control" formControlName="Email" [readonly]="RoleID != -2">
+                <input placeholder="Email" class="form-control primary-input" formControlName="Email" [readonly]="RoleID != -2">
                 <div *ngFor="let validation of validation_messages.Email">
                     <span class="error-message" *ngIf="pumpInfoForm.get('Email').hasError(validation.type) && (pumpInfoForm.get('Email').dirty || pumpInfoForm.get('Email').touched)">{{validation.message}}</span>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
+        <div class="col-xs-12">
+            <div class="form-group basic-info-block">
                 <label for="Pincode">Mobile
                     <span class="required">*</span>
                 </label>
-                <input placeholder="Mobile" class="form-control" formControlName="Mobile" [readonly]="RoleID != -2">
+                <input placeholder="Mobile" class="form-control primary-input" formControlName="Mobile" [readonly]="RoleID != -2">
                 <div *ngFor="let validation of validation_messages.Mobile">
                     <span class="error-message" *ngIf="pumpInfoForm.get('Mobile').hasError(validation.type) && (pumpInfoForm.get('Mobile').dirty || pumpInfoForm.get('Mobile').touched)">{{validation.message}}</span>
                 </div>
@@ -143,10 +148,10 @@
         </div>
       </div> -->
     <div class="row">
-        <div class="col-md-3">
-            <div class="form-group">
+        <div class="col-xs-12">
+            <div class="form-group basic-info-block">
                 <label for="StartDate">License Start Date <span class="required">*</span></label>
-                <input type="date" placeholder="License Start Date" class="form-control" formControlName="LicenseStartDate">
+                <input type="date" placeholder="License Start Date" class="form-control primary-input" formControlName="LicenseStartDate">
                 <div *ngFor="let validation of validation_messages.LicenseStartDate">
                         <span class="error-message" *ngIf="pumpInfoForm.get('LicenseStartDate').hasError(validation.type) && (pumpInfoForm.get('LicenseStartDate').dirty || pumpInfoForm.get('LicenseStartDate').touched)">{{validation.message}}</span>
                 </div>
@@ -163,9 +168,12 @@
             </div>
         </div> -->
       </div>
-    <div style="float:right;">
+    <div style="text-align:right;">
         <!-- <button class="btn btn-default" (click)="reset()">Reset</button> &nbsp;&nbsp;&nbsp; -->
-        <input type="button" class="btn btn-primary" value="Reset" (click)="reset()">&nbsp;&nbsp;&nbsp;
-        <button class="btn btn-primary" type="submit" [disabled]="!pumpInfoForm.valid">Save & Next</button>
+        <input type="button" class="btn prime-btn" value="Reset" (click)="reset()">&nbsp;&nbsp;&nbsp;
+        <button class="btn  prime-btn" type="submit" [disabled]="!pumpInfoForm.valid">Save & Next</button>
     </div>
+</div>
+</div>
+</div>
 </form>
