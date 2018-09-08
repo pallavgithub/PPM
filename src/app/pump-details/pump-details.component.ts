@@ -53,6 +53,7 @@ export class PumpDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.petrolPumpService.globalLoader=true;
     if (this.petrolPumpCode && this.petrolPumpCode != '') {
       //this.getUserInfo();
       this.getPumpInfo(this.petrolPumpCode);
@@ -63,7 +64,7 @@ export class PumpDetailsComponent implements OnInit {
   }
   getLicenseStartDate(isOld:number) {
     this.petrolPumpService.GetLicenseStartDate(this.petrolPumpCode,isOld).subscribe(data => {
-      
+      this.petrolPumpService.globalLoader=false;
       this.licenseStartDate = this.datepipe.transform(new Date(data).toString(), 'yyyy-MM-dd');
      // this.licenseStartDate = data;
     });

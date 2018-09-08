@@ -354,6 +354,7 @@ public tankChartoptions: any = {
   }
 
   ngOnInit() {
+    this.petrolPumpService.globalLoader=true;
     if (this.pumpCode && this.pumpCode != '') {
       this.getPumpStatus(this.pumpCode);
       this.getUserDate();
@@ -406,6 +407,7 @@ debugger
       }      
     });
     this.petrolPumpService.GetWorkingCapital(petrolPumpCode,false).subscribe((res:any) => {
+     this.petrolPumpService.globalLoader=false;
       this.WorkingcapitalList=res;
     });
   }

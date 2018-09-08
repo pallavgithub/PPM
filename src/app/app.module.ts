@@ -92,6 +92,9 @@ import { NozzleLedgerComponent } from './nozzle-ledger/nozzle-ledger.component';
 import { NozzleLedgerformComponent } from './nozzle-ledger-form/nozzle-ledger-form.component';
 import { PumpVsNozzleComponent } from './pumpvsnozzle/pumpvsnozzle.component';
 import { PumpVsNozzleDialougeComponent } from './pumpvsnozzleDialouge/pumpvsnozzleDialouge.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { SearchPipe } from './Pipe/Search/search.pipe';
+import { OrderModule } from 'ngx-order-pipe';
 
 @NgModule({
     imports: [
@@ -107,6 +110,8 @@ import { PumpVsNozzleDialougeComponent } from './pumpvsnozzleDialouge/pumpvsnozz
         MatSidenavModule,MatButtonModule, MatNativeDateModule, MatIconModule, MatToolbarModule,MatCheckboxModule,
         MatSidenavMenuModule,
         ChartsModule,
+        NgxPaginationModule,
+        OrderModule,
         BrowserAnimationsModule, ToasterModule.forRoot(), NgbModule.forRoot()
         //HttpService
     ],
@@ -115,6 +120,7 @@ import { PumpVsNozzleDialougeComponent } from './pumpvsnozzleDialouge/pumpvsnozz
     declarations: [
         AppComponent,
         AlertComponent,
+        SearchPipe,
         HomeComponent,
         LoginComponent,
         RegisterComponent,

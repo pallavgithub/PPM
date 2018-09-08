@@ -20,6 +20,7 @@ import { PaymentLedger } from '../_models/PaymentLedger';
 
 @Injectable()
 export class PetrolPumpService {
+    globalLoader: boolean = false;
     constructor(private http: HttpClient) {
 
     }
@@ -242,6 +243,9 @@ export class PetrolPumpService {
     }
     GetWorkingCapital(petrolPumpCode:string, isChartData:boolean){
         return this.http.get<any[]>(`${environment.apiUrl}/Pump/GetWorkingCapital?petrolPumpCode=`+petrolPumpCode+ '&isChartData='+ isChartData);
+    } 
+    GetFuelInventory(petrolPumpCode:string){
+        return this.http.get<any[]>(`${environment.apiUrl}/Pump/GetFuelInventory?petrolPumpCode=`+petrolPumpCode);
     } 
     
     

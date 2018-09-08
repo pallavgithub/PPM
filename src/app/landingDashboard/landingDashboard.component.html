@@ -176,7 +176,7 @@
                         <div class="col-lg-6 col-md-6 col-xs-6"><span class="block-heading"> Top Creditors</span></div>
                         <div class="col-lg-6 col-md-6 col-xs-6">
                              <div class="form-group">
-                                     <input type="text" class="form-control top-creditor-search-input" id="search-top-creditor" placeholder="Search">
+                                     <input type="text" class="form-control top-creditor-search-input" id="search-top-creditor" placeholder="Search" [(ngModel)]="query">
                                      <i class="fa fa-search top-creditor-search-icon" aria-hidden="true"></i>
                             </div>
                         </div>
@@ -190,7 +190,7 @@
                                                 <th>Credit Limit</th>
                                             </tr>
                                         </thead>
-                                        <tr *ngFor="let pumpUsersItem of pumpUsers let i=index">
+                                        <tr *ngFor="let pumpUsersItem of pumpUsers | SearchFilter: query let i=index">
                                             <td>{{pumpUsersItem.FullName}}</td>
                                             <td><span class="table-error-text">{{pumpUsersItem.Consumed}}</span></td>
                                             <td>{{pumpUsersItem.CreditLimit}}</td>
@@ -573,3 +573,5 @@
         </div>
     </div>
 </div>
+
+<div class="loadercheckout" style="display: block;" *ngIf="petrolPumpService.globalLoader"></div>

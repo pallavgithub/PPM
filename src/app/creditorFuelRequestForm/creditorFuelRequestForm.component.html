@@ -17,7 +17,7 @@
                 <label for="Unit">Unit
                     <span class="required">*</span>
                 </label>
-                <select class="form-control" formControlName="Unit" disabled>
+                <select class="form-control" formControlName="Unit" >
                     <option [ngValue]="0" disabled>--Select Unit--</option>
                     <option *ngFor="let itemUnit of units;let i=index" [ngValue]="itemUnit.ID">{{itemUnit.Name}}</option>
                 </select>

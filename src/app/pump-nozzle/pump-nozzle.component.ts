@@ -32,6 +32,11 @@ export class PumpNozzleComponent implements OnInit {
   licenseStartDate:string;
   @Input() pumpCode: string;
   public userData: UserInfo;
+  pageNumber: number = 1;
+  indexValue: number = 1;
+  key: string = 'name'; //set default
+  reverse: boolean = false;
+
   constructor(
     public dialog: MatDialog, private userService: UserService, private router: Router, private toasterService: ToasterService,private viewContainerRef: ViewContainerRef,private petrolPumpService: PetrolPumpService
   ) { }
@@ -41,6 +46,7 @@ export class PumpNozzleComponent implements OnInit {
     //this.getAllProducts();
     //this.getTanksByID(this.pumpCode);
     //this.getIdAndNameForAllUser(this.pumpCode);
+    this.petrolPumpService.globalLoader=true;
     this.getUserDate();
     this.getLicenseStartDate(1);
   }
@@ -73,6 +79,7 @@ export class PumpNozzleComponent implements OnInit {
   getLicenseStartDate(isOld:number) {
     let url = 
     this.petrolPumpService.GetLicenseStartDate(this.pumpCode,isOld).subscribe(data => {
+      this.petrolPumpService.globalLoader=false;
       this.licenseStartDate = data;
     });
   }
@@ -135,5 +142,14 @@ export class PumpNozzleComponent implements OnInit {
     //    return { ID: item.ID, Name: item.UserId };
     //  });
     //  return this.newUserIdName;
+  }
+  paginate(event) {
+    this.pageNumber = event;
+    this.indexValue = event > 0 ? 10 * (event - 1) + 1 : 1;
+  }
+  
+  sort(key){
+    this.key = key;
+    this.reverse = !this.reverse;
   }
 }

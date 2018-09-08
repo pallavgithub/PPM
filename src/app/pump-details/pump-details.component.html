@@ -1,6 +1,7 @@
 <mat-tab-group (selectedTabChange)="onLinkClick($event)" [selectedIndex]="selectedTab" #matgroup>
   <mat-tab>
-    <ng-template mat-tab-label>
+    
+    <ng-template mat-tab-label >
       Step 1<br>Basic Info
       <div>
         <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].BasicInfo == 1">
@@ -11,6 +12,7 @@
         </div>
       </div>
     </ng-template>
+  
     <pump-info *ngIf="petrolPumpInfo" [petrolPump]='petrolPumpInfo'></pump-info>
     <!-- <button class="btn btn-primary" type="submit" (click)='matgroup.selectedIndex = 1'>Next</button> -->
   </mat-tab>
@@ -134,3 +136,4 @@
       <pump-CompleteStatus *ngIf="pumpStatus" [pumpStatus]='pumpStatus' [pumpCode]='petrolPumpCode'></pump-CompleteStatus>
     </mat-tab>
 </mat-tab-group>
+<div class="loadercheckout" style="display: block;" *ngIf="petrolPumpService.globalLoader"></div>

@@ -163,13 +163,13 @@
             <div class="row saperatorDiv"><span class="saperatorSpan">Add Stock in Tank</span></div>
             <div *ngFor="let itemPumpProduct of pumpTanks; let in=index">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="ProductName">{{itemPumpProduct.TankName}}
                             </label>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <!-- <input placeholder="Opening Reading" class="form-control" [(ngModel)]="itemPumpProduct.OpeningReading" #OpeningReading="ngModel" name="OpeningReading-{{in}}"> -->
                             <div *ngIf="IsTwelve">
@@ -194,23 +194,23 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">             
-                    <div class="col-md-6">
+                
+                           
+                    <div class="col-md-3">
                             <div class="form-group">
                                 <label for="PurchaseRate">PurchaseRate
                                     <span class="required">*</span>
                                 </label>
                             </div>
                         </div>                    
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                             <div class="form-group">
                         <input type="number" placeholder="Purchase Rate" class="form-control" [(ngModel)]="itemPumpProduct.PurchaseRate" [ngModelOptions]="{standalone: true}" required>                       
                     </div></div>
                     <!-- <div *ngFor="let validation of validation_messages.PurchaseRate">
                             <span class="error-message" *ngIf="productDialogform.get('PurchaseRate').hasError(validation.type) && (productDialogform.get('PurchaseRate').dirty || productDialogform.get('PurchaseRate').touched)">{{validation.message}}</span>
                         </div> -->
-                </div>
+                    </div>
                 
             </div>
         </div>

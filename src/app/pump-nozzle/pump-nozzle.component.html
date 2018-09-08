@@ -8,21 +8,29 @@
       </div>
     </div>
   </div>
+  <input type="text" class="col-md-2 searchbox" placeholder=" Search" [(ngModel)]="query" id="listSearch">
 
   <table style="border: 1px solid black" class="table table-striped">
     <thead class="thead-dark">
     <tr>
-      <th>Name</th>
-      <th>Tank</th>
-      <th>Opening Reading</th>
-      <th>Reading Date</th>
-      <th>Assigned To</th>
+      <th (click)="sort('NozzleName')">Name
+      <span class="glyphicon sort-icon" *ngIf="key =='NozzleName'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+      <th (click)="sort('Tank')">Tank
+        <span class="glyphicon sort-icon" *ngIf="key =='Tank'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+      </th>
+      <th (click)="sort('OpeningReading')">Opening Reading
+        <span class="glyphicon sort-icon" *ngIf="key =='OpeningReading'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+      </th>
+      <th (click)="sort('ReadingDate')">Reading Date
+        <span class="glyphicon sort-icon" *ngIf="key =='ReadingDate'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+      </th>
+      <th (click)="sort('AssignedUserName')">Assigned To</th>
       <th>Action</th>
       
     </tr>
   </thead>
     
-    <tr *ngFor ="let nozzle of pumpNozzle let i=index">
+    <tr *ngFor ="let nozzle of pumpNozzle | orderBy: key : reverse | SearchFilter: query | paginate: { itemsPerPage: 10, currentPage: pageNumber }; let i=index">
       <td>{{nozzle.NozzleName}}</td>
       <td>{{nozzle.TankName}}</td>
       <td>{{nozzle.OpeningReading}}</td>
@@ -34,7 +42,7 @@
       </td>
     </tr>
   </table>
-
+  <pagination-controls (pageChange)="paginate($event)"></pagination-controls>
 
 </div>
 <div style="float:right;">

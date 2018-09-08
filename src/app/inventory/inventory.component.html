@@ -14,7 +14,7 @@
       </div>
     </div> -->
       <!-- <userform (userCreated)="addUser($event)"></userform> -->
-      <div class="col-md-12 table-responsive" *ngIf="pumpProductWithLubesPrise != null && pumpProductWithLubesPrise.length>0">
+      <!-- <div class="col-md-12 table-responsive" *ngIf="pumpProductWithLubesPrise != null && pumpProductWithLubesPrise.length>0">
         <table style="border: 1px solid black" class="table table-striped">
           <thead class="thead-dark">
             <tr>
@@ -23,29 +23,56 @@
               <th>Purchase Price</th>
               <th>Sale Price</th>
               <th>Date Measured on</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tr *ngFor="let product of pumpProductWithLubesPrise let i=index">
-            <!-- <td>{{product.ProductID}}</td> -->
             <th>{{product.ProductName}}</th>
             <td>{{product.UnitName}}</td>
             <td>{{product.PurchaseRate}}</td>
             <td>{{product.SaleRate}}</td>
             <td>{{product.DateStockMeasuredOn | date}}</td>
-            <!-- <td>{{product.CreatedOn}}</td>
-      <td>{{product.CreatedBy}}</td> -->
-            <!-- <td>{{getUserRole(product.RoleID)}}</td> -->
-            <td>
-              <a (click)="editProduct(product)" style="cursor: pointer;">Purchase Stock</a>&nbsp;
-              <a (click)="editProductPrice(product)" style="cursor: pointer;" *ngIf="getVisibleAdjustPrice(product.CategoryID,product.DateStockMeasuredOn)">Adjust Price</a>&nbsp;
-              <!-- <a (click)="DeleteProduct(product)" style="cursor: pointer;">Delete</a>-->
-            </td>
+           
           </tr>
         </table>
+      </div> -->
+      <div class="col-md-12 table-responsive" *ngIf="fuelInventory != null && fuelInventory.length>0">
+          <input type="text" class="col-md-2 top-creditor-search-input" id="search-top-creditor" placeholder="Search" [(ngModel)]="query">
+         
+        <table style="border: 1px solid black" class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th (click)="sort('Name')">Name
+                <span class="glyphicon sort-icon" *ngIf="key =='Name'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+              </th>
+              <th (click)="sort('PurchaseQuantity')">Purchase Quantity
+                  <span class="glyphicon sort-icon" *ngIf="key =='PurchaseQuantity'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+              </th>
+              <th (click)="sort('PurchasePrice')">Purchase Price
+                  <span class="glyphicon sort-icon" *ngIf="key =='PurchasePrice'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+              </th>
+              <th (click)="sort('DateMeasured')">Date
+                  <span class="glyphicon sort-icon" *ngIf="key =='DateMeasured'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+              </th>
+              
+            </tr>
+          </thead>
+          <tr *ngFor="let inventory of fuelInventory  | orderBy: key : reverse | SearchFilter: query | paginate: { itemsPerPage: 10, currentPage: pageNumber }; let i=index">
+            <!-- <td>{{product.ProductID}}</td> -->
+            <th>{{inventory.Name}}</th>
+            <td>{{inventory.PurchaseQuantity}}</td>
+            <td>{{inventory.PurchasePrice}}</td>
+            <td>{{inventory.DateMeasured | date}}</td>           
+          </tr>
+        </table>
+        <pagination-controls (pageChange)="paginate($event)"></pagination-controls>
+      </div>
+      <div class="col-md-12">
+        <button class="btn btn-primary" style="float:right;" (click)="editProduct()">Purchase Stock</button>
       </div>
     </div>
   </div>
+
+  <div class="loadercheckout" style="display: block;" *ngIf="petrolPumpService.globalLoader"></div>
 <!-- <div>
   <a [routerLink]="['/dashboard',this.pumpCode]">Manage Inventory</a>
 </div> -->

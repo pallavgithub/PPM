@@ -16,6 +16,7 @@ import { PetrolPumpService } from '../_services/petrolpump.service';
 import { UserDetail } from '../_models/userDetail';
 import { UserInfo } from '../_models/UserInfo';
 import { DatePipe } from '@angular/common';
+import { FuelInventory } from '../_models/FuelInventory';
 
 @Component({
   selector: 'pump-inventory',
@@ -31,9 +32,15 @@ export class InventoryComponent implements OnInit {
   public pumpProduct: pp_PumpProduct[];
   public pumpProductWithLubesPrise: pp_PumpProduct[];
   public pumpTanks: pp_Tank[];
+  public fuelInventory: FuelInventory[];
   public pumpCode: string;
   public userData: UserInfo;
   navigationSubscription;
+
+  pageNumber: number = 1;
+  indexValue: number = 1;
+  key: string = 'name'; //set default
+  reverse: boolean = false;
 
   //allProducts: AllProduct[];
   //listPumpProduct: pp_PumpProduct[];
@@ -69,6 +76,7 @@ export class InventoryComponent implements OnInit {
 
 
   ngOnInit() {
+    this.petrolPumpService.globalLoader=true;
     if (this.pumpCode && this.pumpCode != '') {
       this.getPumpInfo(this.pumpCode);
       this.getUserDate();
@@ -78,6 +86,7 @@ export class InventoryComponent implements OnInit {
     //this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID != 3);
   }
   getPumpInfo(pumpCode) {
+    debugger
     let date: string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
     this.petrolPumpService.getPetrolPumpDashboardWithDate(pumpCode, date).subscribe(res => {
       this.pumpTanks = res.pp_Tanks;
@@ -85,6 +94,10 @@ export class InventoryComponent implements OnInit {
       this.pumpProductWithLubesPrise = res.pp_PumpProductWithLubesPrise;
       this.pumpProductWithLubesPrise = this.pumpProductWithLubesPrise.filter(c => c.CategoryID != 3)
     });
+    this.petrolPumpService.GetFuelInventory(pumpCode).subscribe(res => {
+    this.fuelInventory=res;
+    });
+
   }
   // ngOnChanges(changes: SimpleChange) {
   //   // changes['pumpProduct']
@@ -104,26 +117,34 @@ export class InventoryComponent implements OnInit {
   // }
   getUserDate() {
     this.userService.getUserDetailInfo().subscribe((res) => {
+      this.petrolPumpService.globalLoader=false;
       this.userData = res;
     });
   }
-  editProduct(pumpProductNew: pp_PumpProduct) {
+  editProduct() {
+    let pumpProductNew=new pp_PumpProduct();
     pumpProductNew.IsEditModal = true;
     pumpProductNew.InitialQuantity = '';
+    pumpProductNew.CategoryID = 1;
     // pumpProductNew.DateStockMeasuredOn = new Date().toString();
-    if (pumpProductNew.CategoryID == 2) {
-      const dialogRef1 = this.dialog.open(InventoryDialogFormComponent, {
-        data: { pumpProductNew: pumpProductNew }
-      });
-    }
-    else {
-      const dialogRef2 = this.dialog2.open(InventoryFuelTankDialogFormComponent, {
-        data: { pumpProductNew: pumpProductNew, pumpTanks: this.pumpTanks, pumpCode: this.pumpCode }
-      });
+
+    const dialogRef2 = this.dialog2.open(InventoryFuelTankDialogFormComponent, {
+      data: { pumpProductNew: pumpProductNew, pumpTanks: this.pumpTanks, pumpCode: this.pumpCode }
+
+    // if (pumpProductNew.CategoryID == 2) {
+    //   const dialogRef1 = this.dialog.open(InventoryDialogFormComponent, {
+    //     data: { pumpProductNew: pumpProductNew }
+    //   });
+    // }
+    // else {
+    //   const dialogRef2 = this.dialog2.open(InventoryFuelTankDialogFormComponent, {
+    //     data: { pumpProductNew: pumpProductNew, pumpTanks: this.pumpTanks, pumpCode: this.pumpCode }
+    //   });
     }
     // dialogRef.afterClosed().subscribe(result => {
     //   this.ngOnInit();
-    // });
+    // }
+    );
   }
 
   getVisibleAdjustPrice(categoryID,dateStockMeasuredOnPara) {
@@ -192,4 +213,13 @@ export class InventoryComponent implements OnInit {
 
   //   }
   // }
+
+  paginate(event) {
+    this.pageNumber = event;
+    this.indexValue = event > 0 ? 10 * (event - 1) + 1 : 1;
+  }
+  sort(key){
+    this.key = key;
+    this.reverse = !this.reverse;
+  }
 }

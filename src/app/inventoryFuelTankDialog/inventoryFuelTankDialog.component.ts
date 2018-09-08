@@ -87,7 +87,7 @@ export class InventoryFuelTankDialogFormComponent implements OnInit {
   }
 
   ngOnInit() {
-
+debugger
     this.formInitialization();
     this.pumpProduct = this.data.pumpProductNew;
     this.pumpTanks = this.data.pumpTanks;
@@ -239,7 +239,7 @@ export class InventoryFuelTankDialogFormComponent implements OnInit {
   createProduct() {
     // this.inventoryDialogform.controls["PurchaseRate"].setValue(Number(this.inventoryDialogform.controls["PurchaseRate"].value));
     // this.inventoryDialogform.controls["SaleRate"].setValue(Number(this.inventoryDialogform.controls["SaleRate"].value));
-    
+    debugger
     this.tankWithProduct.pumpProduct = this.pumpProduct;
     this.tankWithProduct.tank = this.pumpTanks;
     this.tankWithProduct.dateOfEntry = this.inventoryFuelTankDialogform.value.DateOfEntry;
