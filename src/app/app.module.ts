@@ -89,6 +89,7 @@ import { PaymentLedgerDialogComponent } from './paymentLedgerDialog/paymentLedge
 import { TankLedgerComponentComponent } from './tank-ledger-component/tank-ledger-component.component'
 import { DailyPumpBreakUpFormComponent } from './dailyPumpBreakUp/dailyPumpBreakUp.component';
 import { NozzleLedgerComponent } from './nozzle-ledger/nozzle-ledger.component';
+import { NozzleLedgerformComponent } from './nozzle-ledger-form/nozzle-ledger-form.component';
 
 @NgModule({
     imports: [
@@ -108,7 +109,7 @@ import { NozzleLedgerComponent } from './nozzle-ledger/nozzle-ledger.component';
         //HttpService
     ],
     entryComponents: [PumpUsersComponent,
-         UserformComponent, PumpTankComponent,PumpAdditionalInfoComponent,TankformComponent, NozzleformComponent, ChangePasswordComponent, ProductDialogFormComponent, PumpNozzleComponent, PaymentDialogFormComponent, InventoryDialogFormComponent, ReadingTypeDialogFormComponent,CreditorformComponent,InventoryLubesPriceDialogFormComponent,InventoryFuelTankDialogFormComponent,CreditorFuelRequestFormComponent,CreditorFuelRequestReceivedFormComponent,CreditorAddFundformComponent,DailyNozzleBreakUpFormComponent, DailyTankReadingDialogComponent ,DailyNozzleReadingDialogComponent,TankLedgerformComponent,PriceAdjustmentFormComponent,PaymentLedgerDialogComponent],
+         UserformComponent, PumpTankComponent,PumpAdditionalInfoComponent,TankformComponent, NozzleformComponent, ChangePasswordComponent, ProductDialogFormComponent, PumpNozzleComponent, PaymentDialogFormComponent, InventoryDialogFormComponent, ReadingTypeDialogFormComponent,CreditorformComponent,InventoryLubesPriceDialogFormComponent,InventoryFuelTankDialogFormComponent,CreditorFuelRequestFormComponent,CreditorFuelRequestReceivedFormComponent,CreditorAddFundformComponent,DailyNozzleBreakUpFormComponent, DailyTankReadingDialogComponent ,DailyNozzleReadingDialogComponent,TankLedgerformComponent,NozzleLedgerformComponent,PriceAdjustmentFormComponent,PaymentLedgerDialogComponent],
     declarations: [
         AppComponent,
         AlertComponent,
@@ -154,6 +155,7 @@ import { NozzleLedgerComponent } from './nozzle-ledger/nozzle-ledger.component';
         DailyNozzleReadingComponent,
         PaymentDialogFormComponent,
         TankLedgerformComponent,
+        NozzleLedgerformComponent,
         NozzleLedgerComponent,
         CreditorFuelRequestComponent,
         CreditorFuelRequestFormComponent,

@@ -71,6 +71,7 @@ export class PumpNozzleComponent implements OnInit {
     });
   }
   getLicenseStartDate(isOld:number) {
+    let url = 
     this.petrolPumpService.GetLicenseStartDate(this.pumpCode,isOld).subscribe(data => {
       this.licenseStartDate = data;
     });

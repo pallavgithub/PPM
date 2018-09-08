@@ -9,6 +9,8 @@ import { Tank } from '../_models/Tank';
 import { TankLedgerformComponent } from '../tankLedger/tankLedger.component';
 import { DatePipe } from '@angular/common';
 import { pp_Tank } from 'src/app/_models/pp_Tank';
+import { pp_Nozzle } from '../_models/pp_Nozzle';
+import { NozzleLedgerformComponent } from '../nozzle-ledger-form/nozzle-ledger-form.component';
 
 @Component({
   selector: 'app-nozzle-ledger.component',
@@ -18,8 +20,8 @@ import { pp_Tank } from 'src/app/_models/pp_Tank';
 export class NozzleLedgerComponent implements OnInit {
 
   public pumpCode: string;
-  tank: pp_Tank[];  
-  public pumpTanksLedger: pp_Tank[];
+  public pumpNozzles: pp_Nozzle[];
+  public pumpNozzlesLedger: pp_Nozzle[];
   navigationSubscription;
 
   constructor(private router:Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService,private activatedRoute: ActivatedRoute,private petrolPumpService: PetrolPumpService,private _formBuilder: FormBuilder, public datepipe: DatePipe) {
@@ -34,38 +36,31 @@ export class NozzleLedgerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pumpTanksLedger=this.pumpTanksLedger;
-    this.GetTankWithCapacity(this.pumpCode);
+    this.pumpNozzlesLedger=this.pumpNozzlesLedger;
+    this.GetNozzleInfo(this.pumpCode,new Date().toString());
    
   }
-  // getTanksByID(petrolPumpCode: string) {
-  //   this.userService.getTanksByID(petrolPumpCode).subscribe(data => {
-  //     this.tank = data;
-  //   });
-  // }
-  GetTankWithCapacity(petrolPumpCode: string)
+  
+  GetNozzleInfo(petrolPumpCode, date)
   {
-    this.userService.GetTankWithCapacity(petrolPumpCode).subscribe(data => {
-      this.tank = data;
+    let readingdate: string = this.datepipe.transform(date.toString(), 'yyyy-MM-dd');
+    this.petrolPumpService.getPetrolPumpNozzleInfoWithDailyEntry(petrolPumpCode,readingdate).subscribe(data => {
+      this.pumpNozzles = data;
+      debugger
     });
   }
-  getPetrolPumpTankWithLowCapacity2(petrolPumpCode: string) {
-    let date: string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
-    this.petrolPumpService.getPetrolPumpTankWithLowCapacity2(petrolPumpCode,date).subscribe(data => {
-      this.tank = data;
-    });
-  }
-  OpenTankLedgerDialog(tankID: number) {
-    this.getPetrolPumpTankLedger(this.pumpCode, new Date().toString(), tankID);
+ 
+  OpenNozzleLedgerDialog(nozzleID: number) {
+    this.getPetrolPumpNozzleLedger(this.pumpCode, new Date().toString(), nozzleID);
   }
   
-  getPetrolPumpTankLedger(pumpCode, readingDate, tankID) {
+  getPetrolPumpNozzleLedger(pumpCode, readingDate, nozzleID) {
     let date: string = this.datepipe.transform(readingDate.toString(), 'yyyy-MM-dd');
-    this.petrolPumpService.getPetrolPumpTankLedger(pumpCode, date, tankID).subscribe(res => {
-      this.pumpTanksLedger = res;
+    this.petrolPumpService.getPetrolPumpNozzleLedger(pumpCode, date, nozzleID).subscribe(res => {
+      this.pumpNozzlesLedger = res;
 
-      const dialogRef = this.dialog.open(TankLedgerformComponent, {
-        data: { user: this.pumpTanksLedger },
+      const dialogRef = this.dialog.open(NozzleLedgerformComponent, {
+        data: { nozzle: this.pumpNozzlesLedger },
         disableClose: true
       });
     });

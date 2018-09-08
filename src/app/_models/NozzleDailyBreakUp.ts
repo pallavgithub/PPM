@@ -8,7 +8,7 @@ export class NozzleDailyBreakUp {
     PaymentTypeName:string;    
     Amount:number;
     DateEntered:string;
-    Description:string;
+    Description:string;    
     constructor() {
         this.PetrolPumpCode=null;
         this.DailyNozzleReadingID=0;

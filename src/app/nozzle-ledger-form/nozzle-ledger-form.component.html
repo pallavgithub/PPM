@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>Nozzle Ledger</h2>
+<div class="row">
+        <div class="form-group">
+            <div class="col-md-12">
+<div  class="table-responsive" >
+        <table style="border: 1px solid black" class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                            <th>Nozzle Name</th>                                   
+                            <th>Opening Reading</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                            <td>{{nozzleName}}</td>
+                            <td>{{nozzleOpeningReading}}</td>
+                        </tr>
+                    </table>
+</div>
+</div>
+</div>
+<div class="row">
+    <div class="form-group">
+        <div class="col-md-12">
+            <div class="table-responsive" *ngIf="pumpNozzleLedger && pumpNozzleLedger.length>0">
+                <table style="border: 1px solid black" class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                                <th>Date</th>
+                                <th>Description</th>                                
+                                <th>Sale Fluel</th>
+                                <th>Balance</th>                            
+                        </tr>
+                    </thead>
+                    <tr *ngFor="let pumpNozzleLedgerTemp of pumpNozzleLedger let i=index">
+                            <td>{{pumpNozzleLedgerTemp.ReadingDate}}</td>
+                            <td></td>
+                        <td>{{pumpNozzleLedgerTemp.SaledFuelVolume==0 ? '': pumpNozzleLedgerTemp.SaledFuelVolume}}</td>                               
+                                <td>{{pumpNozzleLedgerTemp.ClosingReading}}</td>  
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<mat-dialog-actions style="float: right;">
+    <button class="btn btn-default" [mat-dialog-close]="true">Cancel</button>&nbsp;&nbsp;&nbsp;
+</mat-dialog-actions>

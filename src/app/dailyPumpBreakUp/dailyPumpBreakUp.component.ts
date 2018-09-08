@@ -61,6 +61,7 @@ export class DailyPumpBreakUpFormComponent implements OnInit {
   units: Unit[];
   nozzleID: number;
   pumpDate:string;
+  TotalSale:number;
   constructor(private toasterService: ToasterService, public dialog: MatDialog, private router: Router, private userService: UserService, private _formBuilder: FormBuilder, private petrolPumpService: PetrolPumpService,
     public datepipe: DatePipe, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -207,6 +208,16 @@ export class DailyPumpBreakUpFormComponent implements OnInit {
     });
   }
   getPumpInfo(pumpCode, date:string) {
+
+    this.petrolPumpService.getPetrolPumpNozzleInfoForBreakup(pumpCode,0, date).subscribe(res => {
+      this.pumpNozzles = res;
+      this.TotalSale=0;
+      res.forEach(element => {
+        this.TotalSale+=element.TotalPrice;
+      });
+      this.TotalSale=parseInt(this.TotalSale.toString());
+    });
+
     this.petrolPumpService.getPetrolPumpDailyBreakUpInfo(pumpCode, date).subscribe(res => {
       // this.pumpProduct = res.pp_PumpProduct;
       // this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);

@@ -15,7 +15,108 @@
                             </div>
                 </div>
 </div></div>
-
+<div class="row">
+        <div class="form-group">        
+            <div class="col-md-12">
+                    <div class="row"  *ngIf="pumpNozzles && pumpNozzles.length>0">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="NozzleName" style="font-size: 20px;">Nozzle Name
+                                </label>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="ReadingDate" style="font-size: 20px;">Reading Date
+                                    <span class="required">*</span>
+                                </label>
+                            </div>
+                        </div> -->
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="FuelRate" style="font-size: 20px;">Fuel Rate (Rs.)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="SaledFuelVolume" style="font-size: 20px;">Fuel Volume (Ltr)
+                                </label>
+                            </div>
+                        </div>
+                       
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="FuelPrice" style="font-size: 20px;">Fuel Price (Rs.)                                 
+                                </label>
+                            </div>
+                        </div>                   
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div *ngFor="let itempumpNozzles of pumpNozzles; let in=index">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="ProductName">{{itempumpNozzles.NozzleName}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                      <!-- <div class="col-md-2">
+                                        <div class="form-group">
+                                            <input type="text" placeholder="Reading Date" class="form-control" [(ngModel)]="itempumpNozzles.ReadingDate"
+                                                #ReadingDate="ngModel" name="ReadingDate-{{in}}"  [disabled]="true" />
+                                        </div>
+                                    </div> -->
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <input type="number" placeholder="Fuel Rate" class="form-control"
+                                                [(ngModel)]="itempumpNozzles.SalePrice"  name="SalePrice"
+                                                 [disabled]="true" />
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <input type="number" placeholder="Fuel Rate" class="form-control"
+                                                [(ngModel)]="itempumpNozzles.SaledFuelVolume"  name="SaledFuelVolume"
+                                                 [disabled]="true" />
+                                            
+                                        </div>
+                                    </div>
+                                  
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <input type="number" placeholder="Fuel Price" class="form-control"
+                                                [(ngModel)]="itempumpNozzles.TotalPrice" name="TotalPrice"
+                                                 [disabled]="true" />
+                                            
+                                        </div>
+                                    </div>                               
+                                </div>
+                            </div>                       
+                        </div>
+                    </div>
+               
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-12"  *ngIf="pumpNozzles && pumpNozzles.length>0">
+                    <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="TotalSale" style="font-size: 20px;">TotalSale                                    
+                                </label>
+                            </div>
+                        </div>  
+                    <div class="col-md-2">
+                            <div class="form-group">
+                                <input type="number"  [(ngModel)]="TotalSale" placeholder="Total Sale" class="form-control" [disabled]="true" />
+                                
+                            </div>
+                        </div>   
+                </div></div></div>
 <div class="row">
         <div class="form-group">
             <div class="col-md-12">

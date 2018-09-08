@@ -13,6 +13,9 @@ export class pp_Nozzle {
   AssignedTo:number;
   AssignedUserName:string;
   TankName:string;
+  SaledFuelVolume:number;
+  SalePrice:number;
+  TotalPrice:number;
   /**
    *
    */
@@ -31,5 +34,8 @@ export class pp_Nozzle {
     this.AssignedTo = 0;
     this.AssignedUserName = '';
     this.TankName = '';
+    this.SaledFuelVolume=0;
+    this.SalePrice=0;
+    this.TotalPrice=0;
   }
 }

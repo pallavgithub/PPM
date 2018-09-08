@@ -80,9 +80,15 @@ export class PetrolPumpService {
     getPetrolPumpTankLedger(petrolPumpCode:string,date:string,tankID:number){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpTankLedger?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date + '&tankID=' + tankID);
     }
+    getPetrolPumpNozzleLedger(petrolPumpCode:string,date:string,nozzleID:number){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/GetPetrolPumpNozzleLedger?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date + '&nozzleID=' + nozzleID);
+    }
 
     getPetrolPumpNozzleInfoWithDailyEntry(petrolPumpCode:string,date:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpNozzleInfoWithDailyEntry?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date);
+    }
+    getPetrolPumpNozzleInfoForBreakup(petrolPumpCode:string,nozzleID:number,date:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/GetPetrolPumpNozzleInfoForBreakup?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&nozzleID=' + nozzleID + '&date=' + date);
     }
     getPetrolPumpPaymentTypeWithDailyBreakUp(petrolPumpCode:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpPaymentTypeWithDailyBreakUp?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
