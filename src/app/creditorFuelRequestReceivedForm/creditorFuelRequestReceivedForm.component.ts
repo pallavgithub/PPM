@@ -163,7 +163,8 @@ export class CreditorFuelRequestReceivedFormComponent implements OnInit {
   }
 
   createUser() {
-    let nozzzleID: number = this.creditorFuelRequestReceivedForm.controls["AssignedNozzleID"].value;
+    // let nozzzleID: number = this.creditorFuelRequestReceivedForm.controls["AssignedNozzleID"].value;
+    let nozzzleID: number = 0;
     if (this.creditorFuelRequestReceivedForm.controls["SMSCode"].value != this.ApprovalCode) {
       this.toasterService.pop('error', '', 'Wrong Approval Code');
     }

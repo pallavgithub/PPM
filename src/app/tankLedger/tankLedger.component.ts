@@ -28,6 +28,9 @@ export class TankLedgerformComponent implements OnInit {
   btnDisabled: boolean = false;
   userform: FormGroup;
   validationRoleMessage: string;
+  tankName:String;
+  tankOpeningStock:number;
+  tankClosingStock:number;
   validation_messages = {
     'Email': [
       { type: 'required', message: 'Email is required' },
@@ -67,6 +70,10 @@ export class TankLedgerformComponent implements OnInit {
   }
   ngOnInit() {
     this.pumpTanksLedger = this.data.user;
+    debugger
+    this.tankName=this.data.user[0].TankName;
+    this.tankOpeningStock=this.data.user[0].OpeningStock;
+    this.tankClosingStock=this.data.user[this.data.user.length-1].ClosingStock;
     this.pumpTanksLedger.forEach(element => {
       element.ReadingDate = this.datepipe.transform((new Date(element.ReadingDate).toString()), 'yyyy-MM-dd');
     });

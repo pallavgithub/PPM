@@ -87,8 +87,14 @@ export class PetrolPumpService {
     getPetrolPumpPaymentTypeWithDailyBreakUp(petrolPumpCode:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpPaymentTypeWithDailyBreakUp?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
     }
+    getPetrolPumpDailyBreakUpInfo(petrolPumpCode:string, date:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/GetPetrolPumpPaymentBreakUpInfo?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date);
+    }
     getPetrolPumpPaymentTypeWithBreakUp(petrolPumpCode:string, date:string,nozzleID:number){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpPaymentTypeWithBreakUp?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date + '&nozzleID=' + nozzleID);
+    }
+    getPetrolPumpDailyBreakUp(petrolPumpCode:string, date:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpDailyBreakUp?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date);
     }
     getPetrolPumpCreditorInventory(petrolPumpCode:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpCreditorInventory?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
@@ -102,6 +108,9 @@ export class PetrolPumpService {
     getPetrolPumpTodaySpecificCreditorInventory(petrolPumpCode:string,nozzleID:number,dateEntered:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpTodaySpecificCreditorInventory?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&nozzleID=' + nozzleID + '&dateEntered=' + dateEntered);
     }
+    getPetrolPumpTodayDailyCreditorInventory(petrolPumpCode:string,dateEntered:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/GetPetrolPumpDailyCreditorInventory?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&dateEntered=' + dateEntered);
+    }
 
     GetCreditorLedger(petrolPumpCode:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/GetCreditorLedger?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
@@ -112,6 +121,9 @@ export class PetrolPumpService {
 
     GetNozzleBreakUp(petrolPumpCode:string,nozzleID:string,date:string){
         return this.http.get<NozzleDailyBreakUp[]>(`${environment.apiUrl}/Pump/GetNozzleBreakUp?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&nozzleID=' + nozzleID + '&date=' + date);
+    }
+    GetPumpBreakUp(petrolPumpCode:string,date:string){
+        return this.http.get<NozzleDailyBreakUp[]>(`${environment.apiUrl}/Pump/GetPumpBreakUp?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date);
     }
 
     GetPetrolPumpCreditorNetCreditLimit(petrolPumpCode:string){

@@ -29,20 +29,23 @@
               <table style="border: 1px solid black" class="table table-striped">
                 <thead class="thead-dark">
                   <tr>
-                    <th>Amount</th>
-                    <th>Date</th>
-                    <th>Description</th>
+                      <th>Date</th>
+                      <th>Description</th>
+                     <th>Amount</th>
                     <th>Action</th>
+                    <th>Balance</th>
                   </tr>
                 </thead>
                 <tr *ngFor="let creditorLedgerTemp of creditorLedger let i=index">
-                  <td>{{creditorLedgerTemp.Amount}}</td>
-                  <td>{{creditorLedgerTemp.Date | date}}</td>
-                  <td><div [innerHtml]="creditorLedgerTemp.Description"></div></td>
+                    <td>{{creditorLedgerTemp.Date | date}}</td>
+                    <td><div [innerHtml]="creditorLedgerTemp.Description"></div></td>
+                  <td>{{creditorLedgerTemp.Amount}}</td> 
                   <td>{{creditorLedgerTemp.IsCredit == 1 ? 'Debit' : 'Credit'}}</td>
+                  <td>{{creditorLedgerTemp.Balance}}</td>
                 </tr>
                 <tr>
                   <th>Balance = {{creditLimit}}</th>
+                  <th></th>
                   <th></th>
                   <th></th>
                   <th></th>

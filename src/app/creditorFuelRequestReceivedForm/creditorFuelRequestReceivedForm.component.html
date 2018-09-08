@@ -12,7 +12,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="AssignedNozzle">Assigned Nozzle
@@ -25,9 +25,10 @@
                     <span class="error-message">{{validationNozzleMessage}}</span>
                 </div>
             </div>
-        </div>
+        </div> -->
     <mat-dialog-actions style="float: right;">
         <button class="btn btn-default" [mat-dialog-close]="true">Cancel</button>&nbsp;&nbsp;&nbsp;
-        <button type="submit" class="btn btn-primary" [disabled]="!creditorFuelRequestReceivedForm.valid" (click)='checkFormValid()'>Submit</button>
+        <!-- <button type="submit" class="btn btn-primary" [disabled]="!creditorFuelRequestReceivedForm.valid" (click)='checkFormValid()'>Submit</button> -->
+        <button type="submit" class="btn btn-primary" [disabled]="!creditorFuelRequestReceivedForm.valid">Submit</button>
     </mat-dialog-actions>
 </form>

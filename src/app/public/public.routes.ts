@@ -27,6 +27,9 @@ import { MasterComponent } from '../master/master.component';
 import { UserProfileComponent } from '../userProfile/userProfile.component';
 import { PaymentLedgerComponent } from '../paymentLedger/paymentLedger.component';
 import { TankLedgerComponentComponent } from '../tank-ledger-component/tank-ledger-component.component';
+import { DailyNozzleBreakUpFormComponent } from '../dailyNozzleBreakUp/dailyNozzleBreakUp.component';
+import { DailyPumpBreakUpFormComponent } from '../dailyPumpBreakUp/dailyPumpBreakUp.component';
+import { NozzleLedgerComponent } from '../nozzle-ledger/nozzle-ledger.component';
 
 
 export const PUBLIC_ROUTES: Routes = [
@@ -43,5 +46,9 @@ export const PUBLIC_ROUTES: Routes = [
     { path: 'DailyTankReading/:pumpCode', component: DailyTankReadingComponent },
     { path: 'DailyNozzleReading/:pumpCode', component: DailyNozzleReadingComponent },
     { path: 'Profile/:pumpCode', component: UserProfileComponent },
-    { path: 'TankLedgerComponentComponent/:pumpCode', component: TankLedgerComponentComponent }
+    { path: 'TankLedgerComponentComponent/:pumpCode', component: TankLedgerComponentComponent },
+    { path: 'DailyPumpBreakUpFormComponent/:pumpCode', component: DailyPumpBreakUpFormComponent },
+    { path: 'NozzleLedgerComponent/:pumpCode', component: NozzleLedgerComponent }
+    
+    
 ];

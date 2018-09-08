@@ -1,5 +1,25 @@
 <h2 mat-dialog-title>Tank Ledger</h2>
-
+<div class="row">
+        <div class="form-group">
+            <div class="col-md-12">
+<div  class="table-responsive" >
+        <table style="border: 1px solid black" class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                            <th>Tank Name</th>                                   
+                            <th>Opening Stock</th>
+                            <th>Closing Stock</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                            <td>{{tankName}}</td>
+                            <td>{{tankOpeningStock}}</td>
+                            <td>{{tankClosingStock}}</td>
+                        </tr>
+                    </table>
+</div>
+</div>
+</div>
 <div class="row">
     <div class="form-group">
         <div class="col-md-12">
@@ -7,21 +27,23 @@
                 <table style="border: 1px solid black" class="table table-striped">
                     <thead class="thead-dark">
                         <tr>
-                            <th>TankName</th>
-                            <th>Opening Stock</th>
-                            <th>Debit</th>
-                                    <th>Credit</th>
-                                    <th>Balance</th>
-                            <th>Date</th>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <!-- <th>Opening Stock</th> -->
+                                <th>Debit</th>
+                                <th>Credit</th>
+                                <th>Balance</th>
+                            
                         </tr>
                     </thead>
                     <tr *ngFor="let pumpTanksLedgerTemp of pumpTanksLedger let i=index">
-                        <td>{{pumpTanksLedgerTemp.TankName}}</td>
-                        <td>{{pumpTanksLedgerTemp.OpeningStock}}</td>
-                        <td>{{pumpTanksLedgerTemp.Debit}}</td>                               
-                                <td>{{pumpTanksLedgerTemp.Credit}}</td>                               
+                            <td>{{pumpTanksLedgerTemp.ReadingDate}}</td>
+                            <td></td>
+                        <!-- <td>{{pumpTanksLedgerTemp.OpeningStock}}</td> -->
+                        <td>{{pumpTanksLedgerTemp.Debit== 0 ? '' : pumpTanksLedgerTemp.Debit}}</td>                               
+                                <td>{{pumpTanksLedgerTemp.Credit == 0 ? '' : pumpTanksLedgerTemp.Credit}}</td>                               
                                 <td>{{pumpTanksLedgerTemp.ClosingStock}}</td>  
-                        <td>{{pumpTanksLedgerTemp.ReadingDate}}</td>
+                       
                         <!-- <td>{{pumpTanksLedgerTemp.Status == 0 ? 'Debit' : 'Credit'}}</td> -->
                     </tr>
                 </table>

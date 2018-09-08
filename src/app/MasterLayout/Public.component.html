@@ -22,6 +22,9 @@
                     </a>
                     <a [routerLink]="['/PaymentLedger',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit">Payment Ledger</a>
                     <a [routerLink]="['/TankLedgerComponentComponent',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit">Tank Ledger</a>
+                    <a [routerLink]="['/NozzleLedgerComponent',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit">Nozzle Ledger</a>
+                    
+                    <a [routerLink]="['/DailyPumpBreakUpFormComponent',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit">Pump Breakup</a>
                     <a [routerLink]="['/Profile',pumpCode]" *ngIf="isPermit">Profile
                     </a>
                 </div>

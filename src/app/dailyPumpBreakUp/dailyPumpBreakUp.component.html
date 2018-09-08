@@ -1,0 +1,356 @@
+<div class="row">
+        <div class="form-group">
+                <div class="col-md-12">
+                        <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="ReadingDate" style="font-size: 20px;">Pump Breakup Measured on
+                                            <span class="required">*</span>
+                                    </label>
+                                </div>
+                            </div>
+                        <div class="col-md-2">
+                                <div class="form-group">
+                                    <input type="date" placeholder="Reading Date" class="form-control" [(ngModel)]="pumpDate" #ReadingDate="ngModel" name="ReadingDate-{{in}}" (change)="onBlurDate($event)">
+                                </div>
+                            </div>
+                </div>
+</div></div>
+
+<div class="row">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="table-responsive" *ngIf="nozzleDailyBreakUpGet && nozzleDailyBreakUpGet.length>0">
+                    <table style="border: 1px solid black" class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Payment Type Name</th>
+                                <th>Amount</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tr *ngFor="let pumpUser of nozzleDailyBreakUpGet let i=index">
+                            <td>{{pumpUser.PaymentTypeName}}</td>
+                            <td>{{pumpUser.Amount}}</td>
+                            <td>{{pumpUser.Description}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="margin-20">
+                    <a (click)="AddIncomeHead()" style="cursor: pointer" *ngIf="!btnSaveDisabled">
+                        Add Income Head +
+                    </a>
+                </div>
+                <form [formGroup]="productDialogform" (ngSubmit)="savePumpInfo()" style="width: 98%;">
+                    <div *ngIf="addPaymentTypeVisible">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="PaymentTypeID" style="font-size: 20px;">Payment TypeID
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="Amount" style="font-size: 20px;">Amount
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <select class="form-control" formControlName="PaymentTypeID" (change)="onChange()">
+                                        <option [ngValue]="0" disabled>--Select--</option>
+                                        <option *ngFor="let itemPaymentTypes of paymentTypes;let i=index" [ngValue]="itemPaymentTypes.ID">{{itemPaymentTypes.Name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="number" placeholder="Amount" class="form-control" formControlName="Amount" name="Amount">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div style="float:right;">
+                                    <button type="button" class="btn btn-default" (click)="RemoveIncomeHead()">Remove</button>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <button class="btn btn-primary" type="submit">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="form-group">
+                                <div style="float:right;">
+                                    <a (click)="RemoveIncomeHead()" style="cursor: pointer">
+                                        Remove Income Head
+                                    </a>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="table-responsive" *ngIf="nozzleDailyBreakUpGetForLubes && nozzleDailyBreakUpGetForLubes.length>0">
+                    <table style="border: 1px solid black" class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Lubricant Type</th>
+                                <th>Quantity</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tr *ngFor="let pumpUser of nozzleDailyBreakUpGetForLubes let i=index">
+                            <td>{{pumpUser.PaymentTypeName}}</td>
+                            <td>{{pumpUser.Amount}}</td>
+                            <td>{{pumpUser.Description}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="margin-20">
+                    <a (click)="addLubeSale()" style="cursor: pointer" *ngIf="!btnSaveDisabled">
+                        Add Lubricant Sales +
+                    </a>
+                </div>
+                <form [formGroup]="LubesDialogform" (ngSubmit)="savePumpInfoForLubes()" style="width: 98%;">
+                    <div *ngIf="addLubeSaleVisible">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="FuelTypeID" style="font-size: 20px;">Lubricant
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="Quantity" style="font-size: 20px;">Quantity
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <select name="FuelTypeID" class="form-control" formControlName="FuelTypeID" (change)="onchange()">
+                                        <option [ngValue]="0" disabled>--Select--</option>
+                                        <option *ngFor="let fuelType of fuelTypes;let i=index" [ngValue]="fuelType.ID">{{fuelType.Name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="number" placeholder="Quantity" class="form-control" formControlName="Quantity" name="Quantity">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div style="float:right;">
+                                    <button type="button" class="btn btn-default" (click)="RemoveLubeSale()">Remove</button>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <button class="btn btn-primary" type="submit">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="form-group">
+                                <div style="float:right;">
+                                    <a (click)="RemoveLubeSale()" style="cursor: pointer">
+                                        Remove Lubricant Sales
+                                    </a>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="table-responsive" *ngIf="nozzleDailyBreakUpGetForExpense && nozzleDailyBreakUpGetForExpense.length>0">
+                    <table style="border: 1px solid black" class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Description</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tr *ngFor="let pumpUser of nozzleDailyBreakUpGetForExpense let i=index">
+                            <td>{{pumpUser.Description}}</td>
+                            <td>{{pumpUser.Amount}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="margin-20">
+                    <a (click)="addExpenseSale()" style="cursor: pointer" *ngIf="!btnSaveDisabled">
+                        Add Expenses +
+                    </a>
+                </div>
+                <form [formGroup]="ExpensesDialogform" (ngSubmit)="savePumpInfoForExpense()" style="width: 98%;">
+                    <div *ngIf="addExpenseSaleVisible">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="Description" style="font-size: 20px;">Description
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="Amount" style="font-size: 20px;">Amount
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input placeholder="Description" class="form-control" formControlName="Description" name="Description">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="number" placeholder="Amount" class="form-control" formControlName="Amount" name="Amount">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <div style="float:right;">
+                                    <button type="button" class="btn btn-default" (click)="RemoveExpenseSale()">Remove</button>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <button class="btn btn-primary" type="submit">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="form-group">
+                                <div style="float:right;">
+                                    <a (click)="RemoveExpenseSale()" style="cursor: pointer">
+                                        Remove Expense
+                                    </a>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-12">
+                Total Creditor Sale Today -&nbsp;
+                <label for="FuelTypeID" style="font-size: 20px;">{{totalCreditorSaleToday}}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-12">
+                Total Fuel Sale Today -&nbsp;
+                <label for="FuelTypeID" style="font-size: 20px;">{{totalFuelSaleToday}}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-12">
+                Total Lubricant Sale Today -&nbsp;
+                <label for="FuelTypeID" style="font-size: 20px;">{{totalLubriantSaleToday}}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-12">
+                Total Expense Today -&nbsp;
+                <label for="FuelTypeID" style="font-size: 20px;">{{totalExpenseToday}}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-12">
+                Balance =&nbsp;
+                <label for="FuelTypeID" style="font-size: 20px;">{{totalBalance}}
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <!-- <div class="row">
+        <div class="form-group">
+            <div style="float:right;">
+                <button class="btn btn-default" [mat-dialog-close]="true">Cancel</button>
+            </div>
+        </div>
+    </div> -->
+    
+    
+    
+    <!-- <div class="row">
+        <div class="form-group">
+            <div class="col-md-12">
+                <form (ngSubmit)="savePumpInfo(nozzleDailyBreakUp)" style="width: 98%;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="PaymentTypeID" style="font-size: 20px;">Payment TypeID
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="OpeningReading" style="font-size: 20px;">Amount
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div *ngFor="let itemNozzleDailyBreakUp of nozzleDailyBreakUp; let in=index">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">{{itemNozzleDailyBreakUp.PaymentTypeName}}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="number" placeholder="Amount" class="form-control" [(ngModel)]="itemNozzleDailyBreakUp.Amount" #Amount="ngModel"
+                                                name="Amount-{{in}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="float:right;">
+                                <button class="btn btn-default" [mat-dialog-close]="true">Cancel</button> &nbsp;&nbsp;&nbsp;
+                                <button class="btn btn-primary" type="submit">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> -->
