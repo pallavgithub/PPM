@@ -53,6 +53,10 @@ export class PetrolPumpService {
     getPetrolPumpTankWithLowCapacity(petrolPumpCode:string,date:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpTankWithLowCapacity?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date);
     }
+
+    getPetrolPumpTankWithLowCapacity2(petrolPumpCode:string,date:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpTankWithLowCapacity2?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date);
+    }
     
     getPetrolPumpDailyFuelPriceChart(petrolPumpCode:string,date:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpDailyFuelPriceChart?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date);

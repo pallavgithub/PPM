@@ -1,0 +1,59 @@
+<div class="row">
+        <div class="form-group">
+            <!-- <div class="col-md-3">
+            <div id="mySidenav" class="sidenav">
+              <a [routerLink]="['/Landing',pumpCode]" *ngIf="userData && userData.RoleID!=2">DashBoard</a>
+              <a [routerLink]="['/Inventory',pumpCode]" *ngIf="userData && userData.RoleID!=2">Inventory and Price Management</a>
+              <a [routerLink]="['/Creditor',pumpCode]" *ngIf="userData && userData.RoleID!=2">Creditor</a>
+              <a [routerLink]="['/DailyPrice',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Price</a>
+              <a [routerLink]="['/FuelRequest',pumpCode]" *ngIf="userData && userData.RoleID==2">Fuel Request</a>
+              <a [routerLink]="['/FuelRequestReceived',pumpCode]" *ngIf="userData && userData.RoleID!=2">Fuel Request Received</a>
+              <a [routerLink]="['/CreditorLedger',pumpCode]" *ngIf="userData && userData.RoleID==2">Ledger</a>
+              <a [routerLink]="['/DailyTankReading',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Tank Reading</a>
+              <a [routerLink]="['/DailyNozzleReading',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Nozzle Reading</a>
+            </div>
+          </div> -->
+            <!-- <userform (userCreated)="addUser($event)"></userform> -->
+            <div class="col-md-12">
+                <!-- <div>
+              <div>
+                <button class="btn btn-primary" style="float:right;" (click)="openAddFuelRequestDialog()">Add Fuel Request</button>
+              </div>
+            </div>
+            <div>
+              <div>
+                  <label for="NetCreditLimit">Net Credit Limit: {{creditLimit}}</label>          
+              </div>
+            </div> -->
+                <div class="table-responsive" *ngIf="paymentLedger && paymentLedger.length>0">
+                    <table style="border: 1px solid black" class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tr *ngFor="let paymentLedgerTemp of paymentLedger let i=index">
+                            <td>{{paymentLedgerTemp.Amount}}</td>
+                            <td>{{paymentLedgerTemp.Date | date}}</td>
+                            <td>
+                                <div [innerHtml]="paymentLedgerTemp.Description"></div>
+                            </td>
+                            <td>{{paymentLedgerTemp.IsCredit == 1 ? 'Debit' : 'Credit'}}</td>
+                        </tr>
+                        <!-- <tr>
+                  <th>Balance = {{creditLimit}}</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr> -->
+                    </table>
+                </div>
+            </div>
+        </div>
+        <mat-dialog-actions style="float: right;">
+                <button class="btn btn-default" [mat-dialog-close]="true">Cancel</button>&nbsp;&nbsp;&nbsp;
+            </mat-dialog-actions>
+    </div>

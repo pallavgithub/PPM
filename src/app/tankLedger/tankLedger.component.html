@@ -8,16 +8,21 @@
                     <thead class="thead-dark">
                         <tr>
                             <th>TankName</th>
-                            <th>Stock</th>
+                            <th>Opening Stock</th>
+                            <th>Debit</th>
+                                    <th>Credit</th>
+                                    <th>Balance</th>
                             <th>Date</th>
-                            <th>Status</th>
                         </tr>
                     </thead>
                     <tr *ngFor="let pumpTanksLedgerTemp of pumpTanksLedger let i=index">
                         <td>{{pumpTanksLedgerTemp.TankName}}</td>
                         <td>{{pumpTanksLedgerTemp.OpeningStock}}</td>
+                        <td>{{pumpTanksLedgerTemp.Debit}}</td>                               
+                                <td>{{pumpTanksLedgerTemp.Credit}}</td>                               
+                                <td>{{pumpTanksLedgerTemp.ClosingStock}}</td>  
                         <td>{{pumpTanksLedgerTemp.ReadingDate}}</td>
-                        <td>{{pumpTanksLedgerTemp.Status == 0 ? 'Debit' : 'Credit'}}</td>
+                        <!-- <td>{{pumpTanksLedgerTemp.Status == 0 ? 'Debit' : 'Credit'}}</td> -->
                     </tr>
                 </table>
             </div>

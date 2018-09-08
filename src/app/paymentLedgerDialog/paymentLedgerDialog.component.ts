@@ -1,6 +1,6 @@
 
-import { Component, OnInit, Input } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { Component, OnInit, Input, Inject } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { pp_User } from '../_models/pp_User';
 import { UserService } from '../_services';
 import { Role } from '../_models/Role';
@@ -18,14 +18,14 @@ import { UserInfo } from '../_models/UserInfo';
 import {CreditorLedger} from '../_models/CreditorLedger';
 import { PaymentLedger } from '../_models/PaymentLedger';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { PaymentLedgerDialogComponent } from '../paymentLedgerDialog/paymentLedgerDialog.component';
+import { PaymentDialogFormComponent } from '../paymentDialog/paymentDialog.component';
 
 @Component({
-  selector: 'pump-paymentLedger',
-  templateUrl: './paymentLedger.component.html',
-  styleUrls: ['./paymentLedger.component.css']
+  selector: 'pump-paymentLedgerDialog',
+  templateUrl: './paymentLedgerDialog.component.html',
+  styleUrls: ['./paymentLedgerDialog.component.css']
 })
-export class PaymentLedgerComponent implements OnInit {
+export class PaymentLedgerDialogComponent implements OnInit {
   // @Input() pumpUsers: pp_User[];
   // @Input() pumpCode: string;
 
@@ -33,12 +33,14 @@ export class PaymentLedgerComponent implements OnInit {
   public paymentLedger: PaymentLedger[];
   public pumpCode: string;
   public userData:UserInfo;
+  paymentTypeID:number;
   paymentLedgerForm:FormGroup;
   public creditLimit:string;
   navigationSubscription;
 
   paymentType: Role[];
-  constructor(private router:Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService,private activatedRoute: ActivatedRoute,private petrolPumpService: PetrolPumpService,private _formBuilder: FormBuilder) {
+  constructor(private router:Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService,private activatedRoute: ActivatedRoute,private petrolPumpService: PetrolPumpService,private _formBuilder: FormBuilder,@Inject(MAT_DIALOG_DATA) public data,
+  private dialogRef: MatDialogRef<PaymentDialogFormComponent>) {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.pumpCode = params['pumpCode'];
     });
@@ -64,23 +66,19 @@ export class PaymentLedgerComponent implements OnInit {
 
 
   ngOnInit() {
+      this.pumpCode = this.data.pumpCode;
+      this.paymentTypeID = this.data.paymentTypeID;
     if (this.pumpCode && this.pumpCode != '') {
       //this.getUserInfo();
-      this.getPumpInfo(this.pumpCode,0);
-      this.getAllRegisterdPaymentType(this.pumpCode);
-      // this.getUserDate();
-      this.paymentLedgerForm = this._formBuilder.group({
-        PetrolPumpCode: [this.pumpCode],
-        PaymentTypeID:0
-      });
+      this.getPumpInfo(this.pumpCode,this.paymentTypeID);
+    //   this.getAllRegisterdPaymentType(this.pumpCode);
+    //   // this.getUserDate();
+    //   this.paymentLedgerForm = this._formBuilder.group({
+    //     PetrolPumpCode: [this.pumpCode],
+    //     PaymentTypeID:0
+    //   });
     }
     //this.getAllRoles();
-  }
-  ViewLedger(paymentTypeID:number) {
-    const dialogRef = this.dialog.open(PaymentLedgerDialogComponent, {
-      data: { paymentTypeID: paymentTypeID, pumpCode: this.pumpCode }
-    });
-
   }
   getPumpInfo(pumpCode:string,paymentTypeID:number) {
     // this.petrolPumpService.getPetrolPumpSpecificCreditorInventory(pumpCode).subscribe(res => {

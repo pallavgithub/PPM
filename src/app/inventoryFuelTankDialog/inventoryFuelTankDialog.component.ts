@@ -88,7 +88,8 @@ export class InventoryFuelTankDialogFormComponent implements OnInit {
   ngOnInit() {
     this.pumpProduct = this.data.pumpProductNew;
     this.pumpTanks = this.data.pumpTanks;
-    this.pumpTanks = this.pumpTanks.filter(p=>p.ProductName == this.pumpProduct.ProductName);
+    // this.pumpTanks = this.pumpTanks.filter(p=>p.ProductName == this.pumpProduct.ProductName);
+    this.pumpTanks = this.pumpTanks.filter(p=>p.ProductName != "CNG");
     this.pumpCode = this.data.pumpCode;
     this.divCategory = 0;
     this.isInitials = true;

@@ -36,27 +36,3 @@
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 14px;}
 }
-.no-click-backdrop {
-    pointer-events: none;
-  }
-
-  .border-div
-  {
-    border:gray;
-    border-width: 1px;
-    border-style: solid;
-    padding:15px;
-    margin-bottom:15px;
-  }
-  .height-scroll1
-  {
-    min-height:100px;
-    max-height: 250px; 
-    overflow:scroll;
-  }
-  .height-scroll2
-  {
-    min-height:100px;
-    max-height: 400px; 
-    overflow:scroll;
-  }

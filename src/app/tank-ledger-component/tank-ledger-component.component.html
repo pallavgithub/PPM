@@ -1,25 +1,20 @@
-<form [formGroup]="paymentLedgerForm" style="width: 98%;">
+<form [formGroup]="tanktLedgerForm" style="width: 98%;">
     <div class="row">
         <div class="col-md-12">
 
-                <div class="table-responsive" *ngIf="paymentType && paymentType.length>0">
+                <div class="table-responsive" *ngIf="tank && tank.length>0">
                         <table style="border: 1px solid black" class="table table-striped">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th>Payment Type</th>
-                                    <th>Name</th>
-                                    <th>Balance</th>
-                                    <th>View Ledger</th>
+                                    <th>Tank Name</th>
+                                    <th>Current Stock</th>                                   
+                                    <th>Action</th>
                                 </tr>
                             </thead>
-                            <tr *ngFor="let paymentTypeTemp of paymentType let i=index">
-                                <td>{{paymentTypeTemp.ID}}</td>
-                                <td>{{paymentTypeTemp.Name}}</td>
-                                <!-- <td>
-                                    <div [innerHtml]="paymentLedgerTemp.Description"></div>
-                                </td> -->
-                                <td>0</td>
-                                <td><a (click)="ViewLedger(paymentTypeTemp.ID)" style="cursor: pointer;">View Ledger</a></td>
+                            <tr *ngFor="let tankItem of tank let i=index">
+                                <td> {{tankItem.TankName}}</td>
+                                <td>{{tankItem.Stock}}</td>  
+                                <td><a  (click)="OpenTankLedgerDialog(tankItem.ID)" style="cursor: pointer;">View Ledger</a></td>
                             </tr>
                             <!-- <tr>
                       <th>Balance = {{creditLimit}}</th>

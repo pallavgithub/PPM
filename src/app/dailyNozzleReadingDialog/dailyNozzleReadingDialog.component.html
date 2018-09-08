@@ -24,6 +24,12 @@
                         </div>
                     </div>
                     <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="TankName" style="font-size: 20px;">Tank/Dispenser
+                                </label>
+                            </div>
+                        </div>
+                    <div class="col-md-2">
                         <div class="form-group">
                             <label for="OpeningReading" style="font-size: 20px;">Opening Reading
                                     <span class="required">*</span>
@@ -44,12 +50,12 @@
                             </label>
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <!-- <div class="col-md-2">
                         <div class="form-group">
                             <label for="BreakUpPrice" style="font-size: 20px;">Break Up Price
                             </label>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="row">
                     <div class="form-group">
@@ -63,6 +69,13 @@
                                         </label>
                                     </div>
                                 </div>
+                                <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="TankName">{{itempumpNozzles.TankName}}
+                                                <!-- <span class="required">*</span> -->
+                                            </label>
+                                        </div>
+                                    </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <input type="number" placeholder="Opening Reading" class="form-control" [(ngModel)]="itempumpNozzles.OpeningReading" #OpeningReading="ngModel"
@@ -81,11 +94,11 @@
                                             name="ReadingDate-{{in}}" (change)="onBlurDate(itempumpNozzles)">
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <!-- <div class="col-md-2">
                                     <div class="form-group">
                                             <a (click)="editProduct(itempumpNozzles)" *ngIf = "!btnSaveDisabled && !btnSaveDisabledClosing">Break up</a>&nbsp;
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div style="float:right;">

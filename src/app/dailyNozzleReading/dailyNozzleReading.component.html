@@ -17,6 +17,7 @@
         <div class="col-md-12">
             <form (ngSubmit)="savePumpInfo(pumpNozzles)" style="width: 98%;">
                 <div class="row">
+
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="NozzleName" style="font-size: 20px;">Nozzle Name
@@ -25,31 +26,37 @@
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
+                            <label for="TankName" style="font-size: 20px;">Tank/Dispenser
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
                             <label for="OpeningReading" style="font-size: 20px;">Opening Reading
-                                    <span class="required">*</span>
+                                <span class="required">*</span>
                             </label>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="ClosingReading" style="font-size: 20px;">Closing Reading
-                                    <span class="required">*</span>
+                                <span class="required">*</span>
                             </label>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="ReadingDate" style="font-size: 20px;">Reading Date
-                                    <span class="required">*</span>
+                                <span class="required">*</span>
                             </label>
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <!-- <div class="col-md-2">
                         <div class="form-group">
                             <label for="BreakUpPrice" style="font-size: 20px;">Break Up Price
                             </label>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="row">
                     <div class="form-group">
@@ -65,32 +72,41 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <input type="number" placeholder="Opening Reading" class="form-control" [(ngModel)]="itempumpNozzles.OpeningReading" #OpeningReading="ngModel"
-                                            name="OpeningReading-{{in}}" (blur)="onBlurOpeningReading(itempumpNozzles)" [disabled] = "!btnSaveDisabled">
+                                        <label for="TankName">{{itempumpNozzles.TankName}}
+                                            <!-- <span class="required">*</span> -->
+                                        </label>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <input type="number" placeholder="Closing Reading" class="form-control" [(ngModel)]="itempumpNozzles.ClosingReading" #OpeningReading="ngModel"
-                                            name="ClosingReading-{{in}}" (blur)="onBlurClosingReading(itempumpNozzles)" [disabled] = "!btnSaveDisabledClosing">
+                                        <input type="number" placeholder="Opening Reading" class="form-control"
+                                            [(ngModel)]="itempumpNozzles.OpeningReading" #OpeningReading="ngModel" name="OpeningReading-{{in}}"
+                                            (blur)="onBlurOpeningReading(itempumpNozzles)" [disabled]="!btnSaveDisabled">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <input type="date" placeholder="Reading Date" class="form-control" [(ngModel)]="itempumpNozzles.ReadingDate" #ReadingDate="ngModel"
-                                            name="ReadingDate-{{in}}" (change)="onBlurDate(itempumpNozzles)">
+                                        <input type="number" placeholder="Closing Reading" class="form-control"
+                                            [(ngModel)]="itempumpNozzles.ClosingReading" #OpeningReading="ngModel" name="ClosingReading-{{in}}"
+                                            (blur)="onBlurClosingReading(itempumpNozzles)" [disabled]="!btnSaveDisabledClosing">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
+                                    <div class="form-group">
+                                        <input type="date" placeholder="Reading Date" class="form-control" [(ngModel)]="itempumpNozzles.ReadingDate"
+                                            #ReadingDate="ngModel" name="ReadingDate-{{in}}" (change)="onBlurDate(itempumpNozzles)">
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-2">
                                     <div class="form-group">
                                             <a (click)="editProduct(itempumpNozzles)" *ngIf = "!btnSaveDisabled">Break up</a>&nbsp;
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div style="float:right;">
                             <!-- <button class="btn btn-default" (click)="cancel()">Cancel</button> &nbsp;&nbsp;&nbsp; -->
-                            <button class="btn btn-primary" type="submit" [disabled] = "!btnSaveDisabled && !btnSaveDisabledClosing">Save</button>
+                            <button class="btn btn-primary" type="submit" [disabled]="!btnSaveDisabled && !btnSaveDisabledClosing">Save</button>
                         </div>
                     </div>
                 </div>

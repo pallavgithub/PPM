@@ -85,6 +85,8 @@ import { UserProfileComponent } from './userProfile/userProfile.component';
 import { PaymentLedgerComponent } from './paymentLedger/paymentLedger.component';
 import { DailyTankReadingDialogComponent } from './dailyTankReadingDialog/dailyTankReadingDialog.component';
 import { DailyNozzleReadingDialogComponent } from './dailyNozzleReadingDialog/dailyNozzleReadingDialog.component';
+import { PaymentLedgerDialogComponent } from './paymentLedgerDialog/paymentLedgerDialog.component';;
+import { TankLedgerComponentComponent } from './tank-ledger-component/tank-ledger-component.component'
 
 @NgModule({
     imports: [
@@ -103,7 +105,7 @@ import { DailyNozzleReadingDialogComponent } from './dailyNozzleReadingDialog/da
         BrowserAnimationsModule, ToasterModule.forRoot(), NgbModule.forRoot()
         //HttpService
     ],
-    entryComponents: [PumpUsersComponent, UserformComponent, PumpTankComponent, TankformComponent, NozzleformComponent, ChangePasswordComponent, ProductDialogFormComponent, PumpNozzleComponent, PaymentDialogFormComponent, InventoryDialogFormComponent, ReadingTypeDialogFormComponent,CreditorformComponent,InventoryLubesPriceDialogFormComponent,InventoryFuelTankDialogFormComponent,CreditorFuelRequestFormComponent,CreditorFuelRequestReceivedFormComponent,CreditorAddFundformComponent,DailyNozzleBreakUpFormComponent, DailyTankReadingDialogComponent ,DailyNozzleReadingDialogComponent,TankLedgerformComponent,PriceAdjustmentFormComponent],
+    entryComponents: [PumpUsersComponent, UserformComponent, PumpTankComponent, TankformComponent, NozzleformComponent, ChangePasswordComponent, ProductDialogFormComponent, PumpNozzleComponent, PaymentDialogFormComponent, InventoryDialogFormComponent, ReadingTypeDialogFormComponent,CreditorformComponent,InventoryLubesPriceDialogFormComponent,InventoryFuelTankDialogFormComponent,CreditorFuelRequestFormComponent,CreditorFuelRequestReceivedFormComponent,CreditorAddFundformComponent,DailyNozzleBreakUpFormComponent, DailyTankReadingDialogComponent ,DailyNozzleReadingDialogComponent,TankLedgerformComponent,PriceAdjustmentFormComponent,PaymentLedgerDialogComponent],
     declarations: [
         AppComponent,
         AlertComponent,
@@ -141,6 +143,7 @@ import { DailyNozzleReadingDialogComponent } from './dailyNozzleReadingDialog/da
         InventoryLubesPriceDialogFormComponent,
         InventoryFuelTankDialogFormComponent,
         PaymentComponent,
+        PaymentLedgerDialogComponent,
         DailyTankReadingComponent,
         DailyTankReadingDialogComponent,
         DailyNozzleReadingDialogComponent,       
@@ -156,7 +159,7 @@ import { DailyNozzleReadingDialogComponent } from './dailyNozzleReadingDialog/da
         ReadingTypeDialogFormComponent,
         InventoryLubesPriceDialogFormComponent,
         TestPage1Component, TestPage2Component, TestPage3Component, TestPageComponent, MenuStateComponent,
-        TankformComponent, NozzleformComponent, ResultComponent, MasterComponent, HeaderComponent, PumpDetailsComponent, FooterComponent, HeaderLoginComponent],
+        TankformComponent, NozzleformComponent, ResultComponent, MasterComponent, HeaderComponent, PumpDetailsComponent, FooterComponent, HeaderLoginComponent, TankLedgerComponentComponent],
     providers: [
         // HttpService,111
         AuthGuard,
