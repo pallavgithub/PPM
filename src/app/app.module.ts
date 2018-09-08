@@ -90,6 +90,8 @@ import { TankLedgerComponentComponent } from './tank-ledger-component/tank-ledge
 import { DailyPumpBreakUpFormComponent } from './dailyPumpBreakUp/dailyPumpBreakUp.component';
 import { NozzleLedgerComponent } from './nozzle-ledger/nozzle-ledger.component';
 import { NozzleLedgerformComponent } from './nozzle-ledger-form/nozzle-ledger-form.component';
+import { PumpVsNozzleComponent } from './pumpvsnozzle/pumpvsnozzle.component';
+import { PumpVsNozzleDialougeComponent } from './pumpvsnozzleDialouge/pumpvsnozzleDialouge.component';
 
 @NgModule({
     imports: [
@@ -109,7 +111,7 @@ import { NozzleLedgerformComponent } from './nozzle-ledger-form/nozzle-ledger-fo
         //HttpService
     ],
     entryComponents: [PumpUsersComponent,
-         UserformComponent, PumpTankComponent,PumpAdditionalInfoComponent,TankformComponent, NozzleformComponent, ChangePasswordComponent, ProductDialogFormComponent, PumpNozzleComponent, PaymentDialogFormComponent, InventoryDialogFormComponent, ReadingTypeDialogFormComponent,CreditorformComponent,InventoryLubesPriceDialogFormComponent,InventoryFuelTankDialogFormComponent,CreditorFuelRequestFormComponent,CreditorFuelRequestReceivedFormComponent,CreditorAddFundformComponent,DailyNozzleBreakUpFormComponent, DailyTankReadingDialogComponent ,DailyNozzleReadingDialogComponent,TankLedgerformComponent,NozzleLedgerformComponent,PriceAdjustmentFormComponent,PaymentLedgerDialogComponent],
+         UserformComponent, PumpTankComponent,PumpVsNozzleDialougeComponent,PumpAdditionalInfoComponent,PumpVsNozzleComponent,TankformComponent, NozzleformComponent, ChangePasswordComponent, ProductDialogFormComponent, PumpNozzleComponent, PaymentDialogFormComponent, InventoryDialogFormComponent, ReadingTypeDialogFormComponent,CreditorformComponent,InventoryLubesPriceDialogFormComponent,InventoryFuelTankDialogFormComponent,CreditorFuelRequestFormComponent,CreditorFuelRequestReceivedFormComponent,CreditorAddFundformComponent,DailyNozzleBreakUpFormComponent, DailyTankReadingDialogComponent ,DailyNozzleReadingDialogComponent,TankLedgerformComponent,NozzleLedgerformComponent,PriceAdjustmentFormComponent,PaymentLedgerDialogComponent],
     declarations: [
         AppComponent,
         AlertComponent,
@@ -157,6 +159,8 @@ import { NozzleLedgerformComponent } from './nozzle-ledger-form/nozzle-ledger-fo
         TankLedgerformComponent,
         NozzleLedgerformComponent,
         NozzleLedgerComponent,
+        PumpVsNozzleComponent,
+        PumpVsNozzleDialougeComponent,
         CreditorFuelRequestComponent,
         CreditorFuelRequestFormComponent,
         DashBoardComponent,

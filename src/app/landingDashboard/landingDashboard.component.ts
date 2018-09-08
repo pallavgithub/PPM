@@ -24,6 +24,7 @@ import { Tank } from '../_models/Tank';
 import { TankLedgerformComponent } from '../tankLedger/tankLedger.component';
 import { DailyTankReadingDialogComponent } from '../dailyTankReadingDialog/dailyTankReadingDialog.component';
 import { DailyNozzleReadingDialogComponent } from '../dailyNozzleReadingDialog/dailyNozzleReadingDialog.component';
+import { ProductSale } from '../_models/ProductSale';
 
 
 @Component({
@@ -41,6 +42,7 @@ export class LandingDashboardComponent implements OnInit {
   public incompleteTanks: IncompleteTanks[];
   public incompleteNozzles: IncompleteNozzles[];
   public pumpProduct: pp_PumpProduct[];
+  public allProductSale : ProductSale[];
   public msgProduct: string;
   public ApprovedCreditorInventory: CreditorInventory[];
   public PendingCreditorInventory: CreditorInventory[];
@@ -365,6 +367,8 @@ export class LandingDashboardComponent implements OnInit {
       this.getPetrolPumpNozzleFuelSaleChart(this.pumpCode, new Date().toString(),0);
       this.getPetrolPumpNozzleSaleForStaffChart(this.pumpCode, new Date().toString());
       this.getTanksByID(this.pumpCode);
+     // this.allProductSale=this.allProductSale;
+      this.GetAllProductSale(this.pumpCode);
 
 
       //this.SetFuelPrice();
@@ -377,6 +381,11 @@ export class LandingDashboardComponent implements OnInit {
   }
   OpenTankLedgerDialog(tankID: number) {
     this.getPetrolPumpTankLedger(this.pumpCode, new Date().toString(), tankID);
+  }
+  GetAllProductSale(petrolPumpCode: string) {
+    this.petrolPumpService.getAllProductSale(petrolPumpCode).subscribe(res => {
+      this.allProductSale = res;     
+    });
   }
   getTanksByID(petrolPumpCode: string) {
     this.userService.getTanksByID(petrolPumpCode).subscribe(data => {

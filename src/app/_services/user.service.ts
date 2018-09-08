@@ -147,5 +147,6 @@ export class UserService {
     getAssignedToListByID(petrolPumpCode: string) {
         return this.http.get<UserIdName[]>(`${environment.apiUrl}/Pump/AssignedToList/?petrolPumpCode=` + petrolPumpCode);
     }
+    
 
 }

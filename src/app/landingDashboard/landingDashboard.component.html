@@ -66,6 +66,36 @@
         </div>
     </div>
 </div>
+<div class="row">
+        <div class="form-group">
+                <div class="col-md-12 ">
+                        <div class=" border-div height-scroll1">
+                                <h4>Product Sale</h4>
+                                <div>
+                                    <div>
+                                        <div class="table-responsive" *ngIf="allProductSale && allProductSale.length>0">
+                                            <table style="border: 1px solid black" class="table table-striped">
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th>Fuel Name</th>
+                                                        <th>Saled Volume</th>
+                                                        <th>Saled Price</th>
+                                                    </tr>
+                                                </thead>
+                                                <tr *ngFor="let itemProductSale of allProductSale; let in=index">
+                                                    <td>{{itemProductSale.ProductName}}</td>
+                                                    <td>{{itemProductSale.SaledFuelVolume}}</td>
+                                                    <td>{{itemProductSale.TotalPrice}}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                            </div>
+                    </div>
+            </div>
+        </div>      
 
 <div class="row" *ngIf="userData && (userData.RoleID == 1 || userData.RoleID == -2)">
     <div class="form-group">

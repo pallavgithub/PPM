@@ -245,7 +245,7 @@ export class DailyPumpBreakUpFormComponent implements OnInit {
     //this.tankform.controls["OpeningReading"].setValue(Number(this.tankform.controls["OpeningStock"].value - 5));
   }
     onBlurDate(event) {
-      console.log(event.target.value);
+      
       this.editProduct(this.pumpCode, event.target.value);
       this.getPumpInfo(this.pumpCode,event.target.value);
       this.getPumpBreakUp(this.pumpCode,  event.target.value);

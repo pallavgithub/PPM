@@ -15,6 +15,7 @@ import { TankWithProduct } from '../_models/TankWithProduct';
 import { CreditorInventory } from '../_models/CreditorInventory';
 import { NozzleDailyBreakUp } from '../_models/NozzleDailyBreakUp';
 import { IncompleteDailyData } from '../_models/IncompleteDailyData';
+import { ProductSale } from '../_models/ProductSale';
 
 @Injectable()
 export class PetrolPumpService {
@@ -229,4 +230,14 @@ export class PetrolPumpService {
     GetLicenseStartDate(petrolPumpCode:string,isOld:number){
         return this.http.get<any>(`${environment.apiUrl}/Pump/LicenseStartDate?petrolPumpCode=`+petrolPumpCode + '&isOld=' + 1);
     }
+    getAllProductSale(petrolPumpCode:string){
+        return this.http.get<ProductSale[]>(`${environment.apiUrl}/Pump/GetAllProductSale?petrolPumpCode=`+petrolPumpCode,);
+    }    
+    GetFuelSaleComparision(petrolPumpCode:string, date:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/GetFuelSaleComparision?petrolPumpCode=`+petrolPumpCode  + '&date=' + date);
+    }
+    GetFuelSaleComparisionDetails(petrolPumpCode:string,date:string,tankID:number){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/GetFuelSaleComparisionDetails?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date + '&tankID=' + tankID);
+    }
+    
 }
