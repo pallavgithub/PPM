@@ -38,7 +38,6 @@ export class PumpVsNozzleDialougeComponent implements OnInit {
           });
   }
   ngOnInit() {
-      debugger;
     // this.petrolPumpService.GetFuelSaleComparisionDetails(this.data.pumpcode, this.data.saleDate,this.data.tankid).subscribe(res => {
     //     this.tanksale = res;
     // });    

@@ -10,6 +10,7 @@ export class pp_User {
   Phone: string;
   Address: string;
   CreditLimit: string;
+  Consumed: string;
   Description: string;
   IsEditModal:boolean;
   RoleName:string;

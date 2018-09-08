@@ -9,36 +9,60 @@
     transition: 0.5s;
     padding-top: 60px;
 } */
+
 .sidenav{
+    padding-top:0px;
     min-height: 100%;
     position: fixed;
-    z-index: 1;
+    z-index: 20;
     top: 0;
     left: 0;
     background-color: #111;
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
     background-image: linear-gradient(145deg, #484962 30%, #d06b41 100%);
     color: white!important;
+    width:300px;
 }
 
-.sidenav a {
-    padding: 8px 8px 8px 32px;
+.sidenav .ppm-list-elem li.list-group-item a  {
+    padding: 8px 15px 8px 10px;
     text-decoration: none;
-    font-size: 14px;
+    font-size:16px;
     color: #ffffff;
     display: block;
     transition: 0.3s;
+
+}
+.sidenav .ppm-list-elem li.list-group-item  {
+    border:none;
+    background: transparent;
+    cursor: pointer;
+    padding:0px;
+}
+.sidenav .ppm-list-elem li.list-group-item i{
+    padding-right:5px;
 }
 
-.sidenav a:hover {
+/* .sidenav .ppm-list-elem a:hover {
     color:#000000;
     background-color:white;
 }
-.sidenav a:active {
+.sidenav .ppm-list-elem a:active {
     color:#000000;
     background-color:white;
+} */
+.sidenav .ppm-list-elem li a:hover {
+    color: #ffb347;
+    background-color:rgba(0,0,0,0.2);
+}
+.sidenav .ppm-list-elem li:hover {
+    color: #ffb347;
+    background-color:rgba(0,0,0,0.2);
+}
+.sidenav .ppm-list-elem li.active a {
+    color: #ffb347;
+    background-color:rgba(0,0,0,0.2);
 }
 
 .sidenav .closebtn {
@@ -48,8 +72,18 @@
     font-size: 36px;
     margin-left: 50px;
 }
+.visible-bar{
+    padding-left:300px;
+}
+.logo-wrapper{
+    width:100%;
+    text-align: center;
+}
+.ppm-logo{
+    width:150px;
+}
 
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 14px;}
+  .sidenav li {font-size: 14px;}
 }

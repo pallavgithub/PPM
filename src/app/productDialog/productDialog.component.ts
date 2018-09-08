@@ -100,7 +100,7 @@ export class ProductDialogFormComponent implements OnInit {
       InitialQuantity: [this.pumpProduct.InitialQuantity],
       PurchaseQuantity: [this.pumpProduct.PurchaseQuantity],
       Unit: [this.pumpProduct.Unit],
-      PurchaseRate: [this.pumpProduct.PurchaseRate, Validators.compose([Validators.required])],
+      PurchaseRate: [this.pumpProduct.PurchaseRate],
       SaleRate: [this.pumpProduct.SaleRate, Validators.compose([Validators.required])],
       Description: [this.pumpProduct.Description],
       CreatedBy: [this.pumpProduct.CreatedBy],
@@ -165,7 +165,8 @@ export class ProductDialogFormComponent implements OnInit {
   // }
 
   createProduct() {
-    this.productDialogform.controls["PurchaseRate"].setValue(Number(this.productDialogform.controls["PurchaseRate"].value));
+    // this.productDialogform.controls["PurchaseRate"].setValue(Number(this.productDialogform.controls["PurchaseRate"].value));
+    this.productDialogform.controls["PurchaseRate"].setValue(0);
     this.productDialogform.controls["SaleRate"].setValue(Number(this.productDialogform.controls["SaleRate"].value));
     if (this.productDialogform.controls["InitialQuantity"].value == "") {
       this.productDialogform.controls["InitialQuantity"].setValue(0);
@@ -177,7 +178,7 @@ export class ProductDialogFormComponent implements OnInit {
       this.productDialogform.controls["PurchaseRate"].setValue(0);
     }
     else {
-      this.productDialogform.controls["PurchaseRate"].setValue(Number(this.productDialogform.controls["PurchaseRate"].value));
+      this.productDialogform.controls["PurchaseRate"].setValue(0);
     }
     if (this.productDialogform.controls["SaleRate"].value == "") {
       this.productDialogform.controls["SaleRate"].setValue(0);
@@ -224,7 +225,8 @@ export class ProductDialogFormComponent implements OnInit {
         DateStockMeasuredOn: [this.pumpProduct.DateStockMeasuredOn],
         CategoryID: categoryID
       });
-      this.productDialogform.controls["PurchaseRate"].setValue(Number(this.productDialogform.controls["PurchaseRate"].value));
+      // this.productDialogform.controls["PurchaseRate"].setValue(Number(this.productDialogform.controls["PurchaseRate"].value));
+      this.productDialogform.controls["PurchaseRate"].setValue(0);
       this.productDialogform.controls["SaleRate"].setValue(Number(this.productDialogform.controls["SaleRate"].value));
       if (this.productDialogform.controls["InitialQuantity"].value == "") {
         this.productDialogform.controls["InitialQuantity"].setValue(0);
@@ -236,7 +238,7 @@ export class ProductDialogFormComponent implements OnInit {
         this.productDialogform.controls["PurchaseRate"].setValue(0);
       }
       else {
-        this.productDialogform.controls["PurchaseRate"].setValue(Number(this.productDialogform.controls["PurchaseRate"].value));
+        this.productDialogform.controls["PurchaseRate"].setValue(0);
       }
       if (this.productDialogform.controls["SaleRate"].value == "") {
         this.productDialogform.controls["SaleRate"].setValue(0);

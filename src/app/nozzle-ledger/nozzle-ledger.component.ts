@@ -46,7 +46,6 @@ export class NozzleLedgerComponent implements OnInit {
     let readingdate: string = this.datepipe.transform(date.toString(), 'yyyy-MM-dd');
     this.petrolPumpService.getPetrolPumpNozzleInfoWithDailyEntry(petrolPumpCode,readingdate).subscribe(data => {
       this.pumpNozzles = data;
-      debugger
     });
   }
  

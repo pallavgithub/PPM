@@ -60,7 +60,6 @@ export class PumpVsNozzleComponent implements OnInit {
   }
 
   OpenDifferenceDetailDialog(tankID: number) {
-    debugger
     let date: string = this.datepipe.transform( this.pumpDate, 'yyyy-MM-dd');
     this.getPetrolPumpTankLedger(this.pumpCode, date, tankID);
   }

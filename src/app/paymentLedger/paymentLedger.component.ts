@@ -37,7 +37,8 @@ export class PaymentLedgerComponent implements OnInit {
   public creditLimit:string;
   navigationSubscription;
 
-  paymentType: Role[];
+  // paymentType: Role[];
+  paymentType: PaymentLedger[];
   constructor(private router:Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService,private activatedRoute: ActivatedRoute,private petrolPumpService: PetrolPumpService,private _formBuilder: FormBuilder) {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.pumpCode = params['pumpCode'];
@@ -117,9 +118,14 @@ export class PaymentLedgerComponent implements OnInit {
 //   }
 
   getAllRegisterdPaymentType(petrolpumpCode2:string) {
-    this.userService.getAllRegisteredPaymentType(petrolpumpCode2).subscribe(data => {
-      this.paymentType = data;
+
+    this.petrolPumpService.GetWorkingCapital(petrolpumpCode2, false).subscribe(res => {
+      this.paymentType = res;
+       
     });
+    // this.userService.getAllRegisteredPaymentType(petrolpumpCode2).subscribe(data => {
+    //   this.paymentType = data;
+    // });
   }
   onChange(paymentType) {
       let paymetTypeID = this.paymentLedgerForm.controls['PaymentTypeID'].value;

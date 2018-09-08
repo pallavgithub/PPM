@@ -25,6 +25,7 @@ import { TankLedgerformComponent } from '../tankLedger/tankLedger.component';
 import { DailyTankReadingDialogComponent } from '../dailyTankReadingDialog/dailyTankReadingDialog.component';
 import { DailyNozzleReadingDialogComponent } from '../dailyNozzleReadingDialog/dailyNozzleReadingDialog.component';
 import { ProductSale } from '../_models/ProductSale';
+import { PaymentLedger } from '../_models/PaymentLedger';
 
 
 @Component({
@@ -43,6 +44,7 @@ export class LandingDashboardComponent implements OnInit {
   public incompleteNozzles: IncompleteNozzles[];
   public pumpProduct: pp_PumpProduct[];
   public allProductSale : ProductSale[];
+  public workingCapital : PaymentLedger[];
   public msgProduct: string;
   public ApprovedCreditorInventory: CreditorInventory[];
   public PendingCreditorInventory: CreditorInventory[];
@@ -68,7 +70,7 @@ export class LandingDashboardComponent implements OnInit {
   public State: string = null;
   public PetrolPumpPincode: string = null;
   public PetrolPumpCode: string = null;
-
+  public WorkingcapitalList: any;
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true
@@ -270,10 +272,25 @@ export class LandingDashboardComponent implements OnInit {
 
   public lineChartDataForNozzleForCreditorSale: Array<any> = [
   ];
+  public capitalchartdata : Array<any> = [{
+           data: []
+       } ];
+  public capitalchartlabel: Array<any> = [ ];
+  public tankchartdata : Array<any> = [{
+    label:'Tank',
+    data: []
+} ];
+public tankchartlabel: Array<any> = [ ];
   public lineChartLabelsForNozzleForCreditorSale: Array<any> = [];
   public lineChartOptionsForNozzleForCreditorSale: any = {
-    responsive: false
+    responsive: true
   };
+  public capitalChartoptions: any = {
+    responsive: true
+};
+public tankChartoptions: any = {
+  responsive: true
+};
   public lineChartColorsForNozzleForCreditorSale: Array<any> = [
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
@@ -300,45 +317,31 @@ export class LandingDashboardComponent implements OnInit {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
   ];
+  public capitalchartcolor: Array<any> = [
+    { // grey
+      backgroundColor: [
+        "#fc4f1e",
+        "#f4ba2b",
+        "#77b937",
+        "#FF45bb"
+    ],
+    hoverBackgroundColor: ['#d2370b', '#c89108', '#60a021',"#FF45bb"]
+    }];
+    public tankchartcolors = [
+      { 
+        backgroundColor: []
+      }
+    ]
   public lineChartLegendForNozzleForCreditorSale: boolean = true;
   public lineChartTypeForNozzleForCreditorSale: string = 'line';
 
   navigationSubscription;
-
   status: string;
   public userData: UserInfo;
   public basicInfo: BasicInfo;
   countStatus: number;
-  //public userData: UserDetail;
-  //pumpLandingForm: FormGroup;
-  //RoleID:number;
-  // validation_messages = {
-  //   'Email': [
-  //     { type: 'required', message: 'Email is required' },
-  //     { type: 'email', message: 'Enter a valid email' }
-  //   ],
-  //   'Password': [
-  //     { type: 'required', message: 'Password is required' },
-  //     { type: 'minlength', message: 'Password must be at least 8 characters long' },
-  //     { type: 'pattern', message: 'Only Alphabets, Numbers, @, &, !, -, _ and . are allowed.' }
-  //   ],
-  //   'PetrolPumpName': [
-  //     { type: 'required', message: 'Petrol Pump Name is required' },
-  //     { type: 'minlength', message: 'Petrol Pump Name must be at least 3 characters long' },
-  //     { type: 'pattern', message: 'Only Alphabets, Numbers, @ and & are allowed.' }
-  //   ],
-  //   'OwnerName': [
-  //     { type: 'required', message: 'Owner Name is required' },
-  //     { type: 'minlength', message: 'Owner Name must be at least 3 characters long' },
-  //     { type: 'pattern', message: 'Only Alphabets, Numbers and spaces are allowed.' }
-  //   ],
-  //   'Mobile': [
-  //     { type: 'required', message: 'Mobile is required' },
-  //     { type: 'minlength', message: 'Mobile must be at least 10 characters long' },
-  //     { type: 'maxlength', message: 'Mobile can be 12 characters long' },
-  //     { type: 'pattern', message: 'Only Numbers are allowed.' }
-  //   ]
-  // }
+ public TotalSale:number;
+
   constructor(private toasterService: ToasterService, private _formBuilder: FormBuilder, private router: Router, private petrolPumpService: PetrolPumpService, private activatedRoute: ActivatedRoute, private userService: UserService, public dialog: MatDialog, public datepipe: DatePipe) {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.pumpCode = params['pumpCode'];
@@ -369,9 +372,9 @@ export class LandingDashboardComponent implements OnInit {
       this.getTanksByID(this.pumpCode);
      // this.allProductSale=this.allProductSale;
       this.GetAllProductSale(this.pumpCode);
-
-
-      //this.SetFuelPrice();
+      this.GetworkingCapital(this.pumpCode);   
+      
+     
     }
 
     // this.pumpLandingForm = this._formBuilder.group({
@@ -383,8 +386,27 @@ export class LandingDashboardComponent implements OnInit {
     this.getPetrolPumpTankLedger(this.pumpCode, new Date().toString(), tankID);
   }
   GetAllProductSale(petrolPumpCode: string) {
-    this.petrolPumpService.getAllProductSale(petrolPumpCode).subscribe(res => {
-      this.allProductSale = res;     
+    this.TotalSale=0;
+    debugger
+    this.petrolPumpService.getAllProductSale(petrolPumpCode).subscribe((res:any) => {
+      this.allProductSale = res;   
+      res.forEach(element=>{
+        this.TotalSale+=<number>element.TotalPrice;
+      });
+    });
+   
+  }
+  GetworkingCapital(petrolPumpCode: string) {
+debugger
+    this.petrolPumpService.GetWorkingCapital(petrolPumpCode,true).subscribe((res:any) => {
+      this.capitalchartdata = []
+      if(res != null) {
+        this.capitalchartlabel.push(...res.lstLabel);        
+        this.capitalchartdata.push({'data':res.lstCapitalLabelAndAmount.data})
+      }      
+    });
+    this.petrolPumpService.GetWorkingCapital(petrolPumpCode,false).subscribe((res:any) => {
+      this.WorkingcapitalList=res;
     });
   }
   getTanksByID(petrolPumpCode: string) {
@@ -402,8 +424,27 @@ export class LandingDashboardComponent implements OnInit {
     //   this.pumpTanks = res;
     //   this.pumpTanks = this.pumpTanks.filter(p=>Number(p.OpeningStock) < 1000);
     // });
+
+
     this.userService.GetTankWithCapacity(pumpCode).subscribe(data => {
+      
       this.pumpTanks = data.filter(p=>p.Stock < 10000);
+     // this.tankchartlabel = [];
+      this.tankchartdata = [{
+        label:'Tank',
+        data:[]
+      }
+      ];
+      if(data != null) {
+        data.forEach(element=>{
+          /*work is done now  check css of header and nabar of whole app */
+         this.tankchartcolors[0].backgroundColor.push(element.Stock < 10000 ? 'red' : 'green')
+         this.tankchartlabel.push(element.TankName);
+         this.tankchartdata[0].data.push(element.Stock);
+        });        
+        //this.capitalchartdata.push({'data':data.lstCapitalLabelAndAmount.data})
+      }
+
     });
 
   }
@@ -414,9 +455,12 @@ export class LandingDashboardComponent implements OnInit {
       this.lineChartDataForFuelDailyPrice = new Array<any>();
       res.lstDates.forEach(element => {
         this.lineChartLabelsForFuelDailyPrice.push(this.datepipe.transform(element.toString(), 'yyyy-MM-dd'));
+        
+        //this.doughnutchartlabel.push(this.datepipe.transform(element.toString(), 'yyyy-MM-dd'));
       });
       res.lstFuelLabelAndPriceArray.forEach(element => {
         this.lineChartDataForFuelDailyPrice.push(element);
+        //this.doughnutchartdata.push(element);
       });
     });
   }
@@ -516,7 +560,7 @@ export class LandingDashboardComponent implements OnInit {
     this.petrolPumpService.getPetrolPumpDashboardWithDate(pumpCode, date).subscribe(res => {
       this.pumpProduct = res.pp_PumpProduct;
       this.pumpProduct = this.pumpProduct.filter(c => c.CategoryID == 1);
-      this.pumpUsers = res.pp_Users.filter(p => p.CreditLimit < 10000);
+      this.pumpUsers = res.pp_Users;
     });
   }
   getUserDate() {

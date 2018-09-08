@@ -41,7 +41,7 @@
                             <td>
                                 <div [innerHtml]="paymentLedgerTemp.Description"></div>
                             </td>
-                            <td>{{paymentLedgerTemp.IsCredit == 1 ? 'Debit' : 'Credit'}}</td>
+                            <td>{{paymentLedgerTemp.IsCredit == 0 ? 'Debit' : 'Credit'}}</td>
                         </tr>
                         <!-- <tr>
                   <th>Balance = {{creditLimit}}</th>

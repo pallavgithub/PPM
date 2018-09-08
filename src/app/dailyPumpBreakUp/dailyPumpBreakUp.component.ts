@@ -62,6 +62,7 @@ export class DailyPumpBreakUpFormComponent implements OnInit {
   nozzleID: number;
   pumpDate:string;
   TotalSale:number;
+  tempamount:any;
   constructor(private toasterService: ToasterService, public dialog: MatDialog, private router: Router, private userService: UserService, private _formBuilder: FormBuilder, private petrolPumpService: PetrolPumpService,
     public datepipe: DatePipe, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -96,9 +97,6 @@ export class DailyPumpBreakUpFormComponent implements OnInit {
     this.pumpDate = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
     let date: string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
     this.editProduct(this.pumpCode, date);
-    debugger;
-
-
     //this.getAllPaymentType();
     // if (this.pumpCode && this.pumpCode != '') {
     //   //this.getUserInfo();
@@ -410,19 +408,25 @@ export class DailyPumpBreakUpFormComponent implements OnInit {
     this.petrolPumpService.GetPumpBreakUp(pumpCode, date).subscribe(res => {
       this.nozzleDailyBreakUpGet = res.filter(p => p.BreakUpTypeID == 1);
       this.nozzleDailyBreakUpGet.forEach(element => {
-        this.totalFuelSaleToday =  element.Amount;
+        this.totalFuelSaleToday +=  element.Amount;
       });
       this.nozzleDailyBreakUpGetForLubes = res.filter(p => p.BreakUpTypeID == 2);
       this.nozzleDailyBreakUpGetForLubes.forEach(element => {
-        this.totalLubriantSaleToday =  element.Amount;
-        element.Amount = Number(element.Description);
+        this.totalLubriantSaleToday +=  element.Amount;
+       // element.Amount = Number(element.Description);
         //element.Description = Number((element.Amount / Number(element.Description))).toString() + " price";
       });
       this.nozzleDailyBreakUpGetForExpense = res.filter(p => p.BreakUpTypeID == 3);
       this.nozzleDailyBreakUpGetForExpense.forEach(element => {
-        this.totalExpenseToday =  element.Amount;
-      });
+        this.totalExpenseToday +=  element.Amount;
+      });  
+      
       this.totalBalance = this.totalFuelSaleToday + this.totalLubriantSaleToday - this.totalExpenseToday;
+      // this.tempamount=this.totalBalance.toFixed(2);
+      // this.totalBalance= this.tempamount;
+
+      // this.tempamount=this.totalFuelSaleToday.toFixed(2);
+      // this.totalFuelSaleToday=this.tempamount;
       if (this.totalBalance == 0) {
         this.btnSaveDisabled = false;
       }

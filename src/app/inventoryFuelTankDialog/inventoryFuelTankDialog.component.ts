@@ -39,6 +39,7 @@ export class InventoryFuelTankDialogFormComponent implements OnInit {
   validationTankerMessage: string;
   validationTankStockMessage: string;
   validationUnitMessage: string;
+  validationTankPurchaseRateMessage:string;
   isInitials: boolean;
   validation_messages = {
     'Email': [
@@ -86,8 +87,11 @@ export class InventoryFuelTankDialogFormComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.formInitialization();
     this.pumpProduct = this.data.pumpProductNew;
     this.pumpTanks = this.data.pumpTanks;
+    this.setTankValues();
     // this.pumpTanks = this.pumpTanks.filter(p=>p.ProductName == this.pumpProduct.ProductName);
     this.pumpTanks = this.pumpTanks.filter(p=>p.ProductName != "CNG");
     this.pumpCode = this.data.pumpCode;
@@ -97,14 +101,14 @@ export class InventoryFuelTankDialogFormComponent implements OnInit {
     this.IsTwelve = false;
     this.IsEIghteen = false;
     this.IsTankerSelected = false;
-    this.TankerID = 0;
+   // this.TankerID = 0;
     if (this.pumpProduct.IsEditModal == true) {
       this.IsEditDialog = true;
     }
     else {
       this.IsEditDialog = false;
     }
-    this.DateOfEntry = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
+    this.inventoryFuelTankDialogform.controls['DateOfEntry'].setValue(this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd'));
     // this.getAllProducts();
     // this.getAllUnits();
     this.DisableControlsByRole(this.pumpProduct.CategoryID, this.pumpProduct.ProductID);
@@ -113,27 +117,6 @@ export class InventoryFuelTankDialogFormComponent implements OnInit {
       element.Stock = 0
     });
 
-    // this.inventoryFuelTankDialogform = this._formBuilder.group({
-    //   ID: [this.pumpProduct.ID],
-    //   PetrolPumpCode: [this.pumpProduct.PetrolPumpCode],
-    //   ProductID: [this.pumpProduct.ProductID],
-    //   InitialQuantity: [this.pumpProduct.InitialQuantity],
-    //   PurchaseQuantity: [this.pumpProduct.PurchaseQuantity],
-    //   Unit: [this.pumpProduct.Unit],
-    //   PurchaseRate: [this.pumpProduct.PurchaseRate],
-    //   SaleRate: [this.pumpProduct.SaleRate],
-    //   Description: [this.pumpProduct.Description],
-    //   CreatedBy: [this.pumpProduct.CreatedBy],
-    //   CreatedOn: [this.pumpProduct.CreatedOn],
-    //   ModifiedBy: [this.pumpProduct.ModifiedBy],
-    //   ModifiedOn: [this.pumpProduct.ModifiedOn],
-    //   isEditModal: [this.pumpProduct.IsEditModal],
-    //   ProductCode: [this.pumpProduct.ProductCode],
-    //   PurchaseDate: [this.pumpProduct.PurchaseDate],
-    //   SaleDate: [this.pumpProduct.SaleDate],
-    //   DateStockMeasuredOn: [this.pumpProduct.DateStockMeasuredOn],
-    //   CategoryID: [this.pumpProduct.CategoryID]
-    // });
     // let latest_PurchaseDate = this.datepipe.transform(((this.pumpProduct.PurchaseDate == "" || this.pumpProduct.PurchaseDate == null ) ? new Date().toString() : this.pumpProduct.PurchaseDate), 'yyyy-MM-dd');
     // this.inventoryDialogform.get('PurchaseDate').setValue(latest_PurchaseDate);
 
@@ -144,6 +127,43 @@ export class InventoryFuelTankDialogFormComponent implements OnInit {
     // this.inventoryFuelTankDialogform.get('DateStockMeasuredOn').setValue(latest_DateStockMeasuredOn);
     // this.DisableControlsByRole();
   }
+
+  formInitialization() {
+    
+    this.inventoryFuelTankDialogform = this._formBuilder.group({
+      TankerID:[0],
+      DateOfEntry:[],
+      Stock:[],
+      PurchaseRate:[],
+
+
+      // ID: [this.pumpProduct.ID],
+      // PetrolPumpCode: [this.pumpProduct.PetrolPumpCode],
+      // ProductID: [this.pumpProduct.ProductID],
+      // InitialQuantity: [this.pumpProduct.InitialQuantity],
+      // PurchaseQuantity: [this.pumpProduct.PurchaseQuantity],
+      // Unit: [this.pumpProduct.Unit],
+      // PurchaseRate: [this.pumpProduct.PurchaseRate],
+      // SaleRate: [this.pumpProduct.SaleRate],
+      // Description: [this.pumpProduct.Description],
+      // CreatedBy: [this.pumpProduct.CreatedBy],
+      // CreatedOn: [this.pumpProduct.CreatedOn],
+      // ModifiedBy: [this.pumpProduct.ModifiedBy],
+      // ModifiedOn: [this.pumpProduct.ModifiedOn],
+      // isEditModal: [this.pumpProduct.IsEditModal],
+      // ProductCode: [this.pumpProduct.ProductCode],
+      // PurchaseDate: [this.pumpProduct.PurchaseDate],
+      // SaleDate: [this.pumpProduct.SaleDate],
+      // DateStockMeasuredOn: [this.pumpProduct.DateStockMeasuredOn],
+      // CategoryID: [this.pumpProduct.CategoryID]
+    });
+  }
+
+
+  setTankValues() {
+
+  }
+
   checkFormValidByTanker() {
     if (this.TankerID == 0) {
       this.validationTankerMessage = "Please select Tanker";
@@ -154,22 +174,33 @@ export class InventoryFuelTankDialogFormComponent implements OnInit {
     }
   }
   checkFormValid() {
-    if (this.TankerID == 0) {
+    debugger
+
+    if (this.inventoryFuelTankDialogform.value.TankerID == 0) {
       this.validationTankerMessage = "Please select Tanker";
       return false;
     }
-    else if (this.TankerID == 12000 || this.TankerID == 18000) {
+    
+    else if (this.inventoryFuelTankDialogform.value.TankerID == 12000 || this.inventoryFuelTankDialogform.value.TankerID == 18000) {
       let sumStock: number = 0
       this.pumpTanks.forEach(element => {
+        if(element.PurchaseRate == 0 ||element.PurchaseRate == null ) {
+          this.validationTankStockMessage = "Please enter purchase rate";
+          return false;
+        }
         sumStock += element.Stock;
       });
-      if (sumStock < this.TankerID) {
+      if (sumStock < this.inventoryFuelTankDialogform.value.TankerID) {
         this.validationTankStockMessage = "Please add stock in Tank";
         return false;
       }
-      if (sumStock > this.TankerID) {
+      else if (sumStock > this.inventoryFuelTankDialogform.value.TankerID) {
         this.validationTankStockMessage = "Please remove stock in Tank";
         return false;
+      } 
+      else {
+        this.validationTankerMessage = "";
+         this.validationTankStockMessage = "";
       }
     }
     else {
@@ -211,8 +242,8 @@ export class InventoryFuelTankDialogFormComponent implements OnInit {
     
     this.tankWithProduct.pumpProduct = this.pumpProduct;
     this.tankWithProduct.tank = this.pumpTanks;
-    this.tankWithProduct.dateOfEntry = this.DateOfEntry;
-    this.tankWithProduct.tankerID = this.TankerID; 
+    this.tankWithProduct.dateOfEntry = this.inventoryFuelTankDialogform.value.DateOfEntry;
+    this.tankWithProduct.tankerID = this.inventoryFuelTankDialogform.value.TankerID; 
 
     if (this.tankWithProduct.pumpProduct.InitialQuantity == "") {
       this.tankWithProduct.pumpProduct.InitialQuantity = "0";
@@ -238,7 +269,7 @@ export class InventoryFuelTankDialogFormComponent implements OnInit {
   }
 
   onChange() {
-    let tankerValue = this.TankerID;
+    let tankerValue = this.inventoryFuelTankDialogform.value.TankerID;
     if (tankerValue == 12000) {
       this.IsTankerSelected = true;
       this.IsTwelve = true;

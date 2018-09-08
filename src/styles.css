@@ -1,6 +1,17 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import '../node_modules/angular2-toaster/toaster.css';
 /* You can add global styles to this file, and also import other style files */
+body{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+  
+   
+}
 .error-message{
     color: red;
 }
@@ -17,3 +28,48 @@
 .required{
     color:red;
 }
+.border-box-shadow{
+    box-shadow: 0 0 9px 0 rgba(64, 64, 64, 0.44);
+    background-color: #ffffff;
+}
+
+.sales-heading {
+    font-size: 22px;
+    padding:20px;
+  }
+  .price-bold{
+        font-family:Arial;
+        font-size:26px;
+        padding-left: 10px;
+   
+  }
+  .currency-brand{
+    font-size: 20px;
+    
+  }
+  .text-bold{
+      font-weight:bold;
+  }
+  .prime-color{
+    color: #6c6274;
+  }
+  .oil-info-list li{
+      list-style: none;
+      width:25%;
+      padding:40px 15px;
+      text-align: center;
+      
+  }
+  .list-group.list-inline.oil-info-list{
+      width:100%;
+      margin-left:0px;
+
+  }
+  .sidebar-list-scroll{
+      overflow-y: scroll;
+      max-height:500px;
+  }
+  .sidebar-list-scroll::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+    /* make scrollbar transparent */ }

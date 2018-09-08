@@ -1,5 +1,5 @@
 <h2 mat-dialog-title>Purchase Stock</h2>
-<form (ngSubmit)="createProduct()">
+<form [formGroup]="inventoryFuelTankDialogform" (ngSubmit)="createProduct()">
     <!-- <div class="row" *ngIf="IsEditDialog == true">
         <div class="col-md-6">
             <div class="form-group">
@@ -7,8 +7,8 @@
                 <input class="form-control" formControlName="ProductCode" disabled>
             </div>
         </div>
-    </div> -->
-    <!-- <div class="row">
+    </div> 
+     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
                 <label for="ProductID">Product
@@ -53,9 +53,9 @@
                     <span class="error-message">{{validationUnitMessage}}</span>
                 </div>
             </div>
-        </div> -->
-        <!-- <div class="row saperatorDiv"><span class="saperatorSpan">Initials</span></div> -->
-        <!-- <div class="row">
+        </div> 
+        <div class="row saperatorDiv"><span class="saperatorSpan">Initials</span></div>
+         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="InitialQuantity">
@@ -80,8 +80,8 @@
                     </div>
                 </div>
             </div>
-        </div> -->
-        <!-- <div class="row saperatorDiv"><span class="saperatorSpan">Purchase</span></div>
+        </div> 
+        <div class="row saperatorDiv"><span class="saperatorSpan">Purchase</span></div>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -139,7 +139,7 @@
                     <label for="TankerID">Tanker
                         <span class="required">*</span>
                     </label>
-                    <select class="form-control" name="TankerID" [(ngModel)]="TankerID" (change)="onChange()">
+                    <select class="form-control" name="TankerID" formControlName="TankerID" (change)="onChange()">
                         <option [ngValue]="0" disabled>--Select Tanker--</option>
                         <option [ngValue]="12000">12000</option>
                         <option [ngValue]="18000">18000</option>
@@ -155,7 +155,7 @@
                     <label for="Date">Date Of Entry
                         <span class="required">*</span>
                     </label>
-                    <input type="date" placeholder="Date Of Entry" class="form-control" name="DateOfEntry" [(ngModel)]="DateOfEntry">
+                    <input type="date" placeholder="Date Of Entry" class="form-control" name="DateOfEntry" formControlName="DateOfEntry">
                 </div>
             </div>
         </div>
@@ -173,7 +173,7 @@
                         <div class="form-group">
                             <!-- <input placeholder="Opening Reading" class="form-control" [(ngModel)]="itemPumpProduct.OpeningReading" #OpeningReading="ngModel" name="OpeningReading-{{in}}"> -->
                             <div *ngIf="IsTwelve">
-                                <select class="form-control" name="Stock" [(ngModel)]="itemPumpProduct.Stock" #Stock="ngModel" name="Stock-{{in}}" (change)="onChange()">
+                                <select class="form-control" name="Stock" [(ngModel)]="itemPumpProduct.Stock" [ngModelOptions]="{standalone: true}"   name="Stock-{{in}}" (change)="onChange()">
                                     <option [ngValue]="0" disabled>--Select Stock--</option>
                                     <option [ngValue]="3000">3000</option>
                                     <option [ngValue]="6000">6000</option>
@@ -183,7 +183,7 @@
                                 </select>
                             </div>
                             <div *ngIf="IsEIghteen">
-                                <select class="form-control" name="Stock" [(ngModel)]="itemPumpProduct.Stock" #Stock="ngModel" name="Stock-{{in}}" *ngIf="IsEIghteen"
+                                <select class="form-control" name="Stock" [(ngModel)]="itemPumpProduct.Stock" [ngModelOptions]="{standalone: true}"  name="Stock-{{in}}" *ngIf="IsEIghteen"
                                     (change)="onChange()">
                                     <option [ngValue]="0" disabled>--Select Stock--</option>
                                     <option [ngValue]="4500">4500</option>
@@ -195,6 +195,23 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">             
+                    <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="PurchaseRate">PurchaseRate
+                                    <span class="required">*</span>
+                                </label>
+                            </div>
+                        </div>                    
+                    <div class="col-md-6">
+                            <div class="form-group">
+                        <input type="number" placeholder="Purchase Rate" class="form-control" [(ngModel)]="itemPumpProduct.PurchaseRate" [ngModelOptions]="{standalone: true}" required>                       
+                    </div></div>
+                    <!-- <div *ngFor="let validation of validation_messages.PurchaseRate">
+                            <span class="error-message" *ngIf="productDialogform.get('PurchaseRate').hasError(validation.type) && (productDialogform.get('PurchaseRate').dirty || productDialogform.get('PurchaseRate').touched)">{{validation.message}}</span>
+                        </div> -->
+                </div>
+                
             </div>
         </div>
         <span class="error-message">{{validationTankStockMessage}}</span>

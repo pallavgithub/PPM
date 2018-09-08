@@ -1,4 +1,234 @@
-<div class="row">
+<div class="border-box-shadow">
+        <div class="sales-heading text-bold prime-color">Daily Fuel Price</div>
+        <div class="" *ngIf="pumpProduct && pumpProduct.length>0">
+            <ul class="list-group list-inline oil-info-list" >
+                    <li class="list-group-item" *ngFor="let itemPumpProduct of pumpProduct; let in=index">  <div><span class="currency-brand  prime-color">INR</span><span class="price-bold text-bold prime-color">{{itemPumpProduct.SaleRate}}</span></div>
+                        <div class="currency-brand  prime-color">{{itemPumpProduct.ProductName}}</div></li>                   
+            </ul>
+        </div>
+    </div>
+    <div class="border-box-shadow">
+            <div class="row">
+                    <div class="col-lg-6 col-md-6 col-xs-12">
+                          <div class="sales-heading text-bold prime-color">Sales Performance</div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-xs-12">
+                          <form class="pull-right">
+                                  <div class="form-group date-select-bar-wrapper">
+                                    <select class="form-control date-select-bar" id="datedd">
+                                      <option>Today</option>
+                                      <option>Yesterday</option>
+                                      <option>27/10/2018</option>
+                                      <option>27/10/2018</option>
+                                    </select>
+                                    <i class="fa fa-calendar calender-header-icon" aria-hidden="true"></i>
+                                   <span class="ok-button-wrapper"> <button type="button" class="btn btn-prime">OK</button></span>
+                                  </div>
+                                  
+                              </form>
+                    </div>
+                </div>
+            
+            <div  *ngIf="allProductSale && allProductSale.length>0">    
+                <ul class="list-group list-inline oil-info-list">
+                        <li class="list-group-item" > <div><span class="currency-brand  prime-color">INR</span><span class="price-bold text-bold prime-color">{{TotalSale}}</span></div>
+                            <div class="currency-brand  prime-color">Total Sale</div></li> 
+                        <li class="list-group-item" *ngFor="let itemProductSale of allProductSale; let in=index"> <div><span class="currency-brand  prime-color">INR</span><span class="price-bold text-bold prime-color">{{itemProductSale.TotalPrice}}</span></div>
+                            <div class="currency-brand  prime-color">{{itemProductSale.ProductName}}</div></li>                   
+                </ul>
+            </div>
+        </div>
+<!-- <div class="row">
+    <div class="form-group">
+        <div class="col-md-12">
+            <div class=" border-div height-scroll1">
+                <h4>Daily Fuel Price</h4>
+                <div>
+                    <div>
+                        <div class="table-responsive" *ngIf="pumpProduct && pumpProduct.length>0">
+                            <table style="border: 1px solid black" class="table table-striped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Fuel Name</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tr *ngFor="let itemPumpProduct of pumpProduct; let in=index">
+                                    <td>{{itemPumpProduct.ProductName}}</td>
+                                    <td>{{itemPumpProduct.SaleRate}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+</div> -->
+<!-- <div class="row">
+    <div class="form-group">
+            <div class="col-md-12">
+                    <div class=" border-div height-scroll1">
+                            <h4>Product Sale</h4>
+                            <div>
+                                <div>
+                                    <div class="table-responsive" *ngIf="allProductSale && allProductSale.length>0">
+                                            <h3>Total Sale {{TotalSale}}</h3> 
+                                        <table style="border: 1px solid black" class="table table-striped">
+                                            <thead class="thead-dark">
+                                                
+                                               
+                                                <tr>
+                                                    <th>Fuel Name</th>
+                                                    <th>Saled Volume</th>
+                                                    <th>Saled Price</th>
+                                                </tr>
+                                            </thead>                                            
+                                            <tr *ngFor="let itemProductSale of allProductSale; let in=index">
+                                                <td>{{itemProductSale.ProductName}}</td>
+                                                <td>{{itemProductSale.SaledFuelVolume}}</td>
+                                                <td>{{itemProductSale.TotalPrice}}</td>
+                                            </tr>
+                                                                                        
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+            
+                        </div>
+                </div>
+        </div>
+    </div>     -->
+<div class="row border-box-shadow working-capital-wrapper" >
+ <div class="sales-heading text-bold prime-color">Working Capital</div>
+    <div class="form-group">
+        <div class="col-lg-6 col-md-6 col-xs-12">
+            <div class="">                
+                   
+                    <div style="display: block;height:300px;width:500px;">                        
+                       <canvas baseChart id="radar"  [chartType]="'doughnut'" 
+                        [datasets]="capitalchartdata" [labels]="capitalchartlabel"
+                        [colors]="capitalchartcolor" 
+                        [options]="capitalChartoptions" ></canvas>                          
+                    </div> 
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-xs-12 ">
+            <div class="working-capital-table" *ngIf="WorkingcapitalList && WorkingcapitalList.length>0">
+                    <!-- <div>
+                        <div>
+                            <div class="table-responsive" *ngIf="WorkingcapitalList && WorkingcapitalList.length>0">
+                                <table style="border: 1px solid black" class="table table-striped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tr *ngFor="let itemworkingCapital of WorkingcapitalList; let in=index">
+                                        <td>{{itemworkingCapital.PaymentTypeName}}</td>
+                                        <td>{{itemworkingCapital.Amount}}</td>                                                        
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <table class="table table-bordered table-striped">
+                            <thead>
+                              <tr>
+                                <th>Type</th>                                
+                                <th>Balance</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let itemworkingCapital of WorkingcapitalList; let in=index">
+                                <td>{{itemworkingCapital.PaymentTypeName}}</td>
+                                <td>{{itemworkingCapital.Amount}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+    
+                </div>
+        </div>
+       
+    </div>
+</div>
+<div class="row ">
+    
+        <div class="col-lg-6 col-md-6 col-xs-12 ">
+                <div class=" border-box-shadow  top-creditor-wrapper space-lr-normal">               
+                        <div class="sales-heading text-bold prime-color">Tank</div>
+                    <div style="display: block" style="height:300px;width:450px;">                        
+                       <canvas baseChart id="radar"  [chartType]="'horizontalBar'" 
+                        [datasets]="tankchartdata" [labels]="tankchartlabel"
+                        [colors]="tankchartcolors" 
+                        [options]="tankChartoptions" ></canvas>                          
+                    </div> 
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-xs-12">   
+        <div class=" border-box-shadow  top-creditor-wrapper space-lr-normal">
+                         
+                <div class="row padd-normal">
+                        <div class="col-lg-6 col-md-6 col-xs-6"><span class="block-heading"> Top Creditors</span></div>
+                        <div class="col-lg-6 col-md-6 col-xs-6">
+                             <div class="form-group">
+                                     <input type="text" class="form-control top-creditor-search-input" id="search-top-creditor" placeholder="Search">
+                                     <i class="fa fa-search top-creditor-search-icon" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                     </div> 
+                                <div class="top-creditor-table" *ngIf="pumpUsers && pumpUsers.length>0" style="height:300px;">
+                                    <table class="table table-bordered ">
+                                        <thead>
+                                            <tr>
+                                                <th>Full Name</th>
+                                                <th>Consumed</th>
+                                                <th>Credit Limit</th>
+                                            </tr>
+                                        </thead>
+                                        <tr *ngFor="let pumpUsersItem of pumpUsers let i=index">
+                                            <td>{{pumpUsersItem.FullName}}</td>
+                                            <td><span class="table-error-text">{{pumpUsersItem.Consumed}}</span></td>
+                                            <td>{{pumpUsersItem.CreditLimit}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+         </div>
+        
+           
+        <!-- <div class="col-md-6">
+                <div class=" ">
+                    <div>
+                        <h4>Tank Low Limit</h4>
+                        <div>
+                            <div class="table-responsive" *ngIf="pumpTanks && pumpTanks.length>0">
+                                <table style="border: 1px solid black" class="table table-striped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Tank Name</th>
+                                            <th>Current Stock</th>
+                                        </tr>
+                                    </thead>
+                                    <tr *ngFor="let pumpTanksItem of pumpTanks let i=index">
+                                        <td> {{pumpTanksItem.TankName}}</td>
+                                        <td>{{pumpTanksItem.Stock}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+           
+    
+</div>
+
+<div class="row ">
     <div class="form-group">
         <div class="col-md-6 ">
             <div class="border-div height-scroll1">
@@ -39,64 +269,12 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class=" border-div height-scroll1">
-                <h4>Daily Fuel Price</h4>
-                <div>
-                    <div>
-                        <div class="table-responsive" *ngIf="pumpProduct && pumpProduct.length>0">
-                            <table style="border: 1px solid black" class="table table-striped">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>Fuel Name</th>
-                                        <th>Price</th>
-                                    </tr>
-                                </thead>
-                                <tr *ngFor="let itemPumpProduct of pumpProduct; let in=index">
-                                    <td>{{itemPumpProduct.ProductName}}</td>
-                                    <td>{{itemPumpProduct.SaleRate}}</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+        </div>       
     </div>
+    
 </div>
-<div class="row">
-        <div class="form-group">
-                <div class="col-md-12 ">
-                        <div class=" border-div height-scroll1">
-                                <h4>Product Sale</h4>
-                                <div>
-                                    <div>
-                                        <div class="table-responsive" *ngIf="allProductSale && allProductSale.length>0">
-                                            <table style="border: 1px solid black" class="table table-striped">
-                                                <thead class="thead-dark">
-                                                    <tr>
-                                                        <th>Fuel Name</th>
-                                                        <th>Saled Volume</th>
-                                                        <th>Saled Price</th>
-                                                    </tr>
-                                                </thead>
-                                                <tr *ngFor="let itemProductSale of allProductSale; let in=index">
-                                                    <td>{{itemProductSale.ProductName}}</td>
-                                                    <td>{{itemProductSale.SaledFuelVolume}}</td>
-                                                    <td>{{itemProductSale.TotalPrice}}</td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                
-                            </div>
-                    </div>
-            </div>
-        </div>      
-
+  
+        
 <div class="row" *ngIf="userData && (userData.RoleID == 1 || userData.RoleID == -2)">
     <div class="form-group">
         <div class="col-md-6  ">
@@ -196,27 +374,29 @@
         </div>      
     </div>
 </div>
+
 <div class="row" *ngIf="userData && userData.RoleID == 4">
-    <div class="form-group">
-        <div class="col-md-12 ">
-            <div class=" border-div height-scroll1">
-                <div>
-                    <h2>Nozzle Sale Chart</h2>
-                    <div style="display: block">
-                        <!-- <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
-                        [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas> -->
-                        <canvas baseChart width="850" height="300" [datasets]="lineChartDataForNozzleForCreditorSale"
-                            [labels]="lineChartLabelsForNozzleForCreditorSale" [options]="lineChartOptionsForNozzleForCreditorSale"
-                            [colors]="lineChartColorsForNozzleForCreditorSale" [legend]="lineChartLegendForNozzleForCreditorSale"
-                            [chartType]="lineChartTypeForNozzleForCreditorSale" (chartHover)="chartHovered($event)"
-                            (chartClick)="chartClicked($event)"></canvas>
+        <div class="form-group">
+            <div class="col-md-12 ">
+                <div class=" border-div height-scroll1">
+                    <div>
+                        <h2>Nozzle Sale Chart</h2>
+                        <div style="display: block">
+                            <!-- <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+                            [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas> -->
+                            <canvas baseChart width="850" height="300" [datasets]="lineChartDataForNozzleForCreditorSale"
+                                [labels]="lineChartLabelsForNozzleForCreditorSale" [options]="lineChartOptionsForNozzleForCreditorSale"
+                                [colors]="lineChartColorsForNozzleForCreditorSale" [legend]="lineChartLegendForNozzleForCreditorSale"
+                                [chartType]="lineChartTypeForNozzleForCreditorSale" (chartHover)="chartHovered($event)"
+                                (chartClick)="chartClicked($event)"></canvas>
+                                
+                        </div>
+                        <!-- <button (click)="randomize()">Update</button> -->
                     </div>
-                    <!-- <button (click)="randomize()">Update</button> -->
                 </div>
             </div>
         </div>
     </div>
-</div>
 <div class="row" *ngIf="userData && userData.RoleID == 2">
     <div class="form-group">
         <div class="col-md-6">
@@ -296,72 +476,8 @@
 
 <div class="row" *ngIf="userData && (userData.RoleID == 1 || userData.RoleID == 3)">
     <div class="form-group">
-        <div class="col-md-6">
-            <div class=" border-div height-scroll1">
-                <div>
-                    <h4>Tank Low Limit</h4>
-                    <div>
-                        <!-- <div>
-                        <div class="table-responsive" *ngIf="pumpTanks && pumpTanks.length>0">
-                            <table style="border: 1px solid black" class="table table-striped">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>Tank Name</th>
-                                        <th>Stock</th>
-                                    </tr>
-                                </thead>
-                                <tr *ngFor="let pumpTanksItem of pumpTanks let i=index">
-                                    <td>{{pumpTanksItem.TankName}}</td>
-                                    <td>{{pumpTanksItem.OpeningStock}}</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div> -->
-                        <div class="table-responsive" *ngIf="pumpTanks && pumpTanks.length>0">
-                            <table style="border: 1px solid black" class="table table-striped">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>Tank Name</th>
-                                        <th>Current Stock</th>
-                                        <!-- <th>Action</th> -->
-                                    </tr>
-                                </thead>
-                                <tr *ngFor="let pumpTanksItem of pumpTanks let i=index">
-                                    <td> {{pumpTanksItem.TankName}}</td>
-                                    <td>{{pumpTanksItem.Stock}}</td>
-                                    <!-- <td><a  (click)="OpenTankLedgerDialog(tankItem.ID)" style="cursor: pointer;">View Ledger</a></td> -->
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 ">
-            <div class=" border-div height-scroll1">
-                <div>
-                    <h4>Creditors Low Limit</h4>
-                    <div>
-                        <div>
-                            <div class="table-responsive" *ngIf="pumpUsers && pumpUsers.length>0">
-                                <table style="border: 1px solid black" class="table table-striped">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th>Full Name</th>
-                                            <th>Credit Limit</th>
-                                        </tr>
-                                    </thead>
-                                    <tr *ngFor="let pumpUsersItem of pumpUsers let i=index">
-                                        <td>{{pumpUsersItem.FullName}}</td>
-                                        <td>{{pumpUsersItem.CreditLimit}}</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
+        
     </div>
 </div>
 
@@ -447,9 +563,9 @@
                     <div style="display: block">
                         <!-- <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
                         [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas> -->
-                        <canvas baseChart width="850" height="300" [datasets]="lineChartDataForNozzleSale" [labels]="lineChartLabelsForNozzleSale"
+                        <!-- <canvas baseChart width="850" height="300" [datasets]="lineChartDataForNozzleSale" [labels]="lineChartLabelsForNozzleSale"
                             [options]="lineChartOptionsForNozzleSale" [colors]="lineChartColorsForNozzleSale" [legend]="lineChartLegendForNozzleSale"
-                            [chartType]="lineChartTypeForNozzleSale" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                            [chartType]="lineChartTypeForNozzleSale" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas> -->
                     </div>
                     <!-- <button (click)="randomize()">Update</button> -->
                 </div>

@@ -70,7 +70,6 @@ export class TankLedgerformComponent implements OnInit {
   }
   ngOnInit() {
     this.pumpTanksLedger = this.data.user;
-    debugger
     this.tankName=this.data.user[0].TankName;
     this.tankOpeningStock=this.data.user[0].OpeningStock;
     this.tankClosingStock=this.data.user[this.data.user.length-1].ClosingStock;

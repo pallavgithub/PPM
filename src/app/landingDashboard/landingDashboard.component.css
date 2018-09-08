@@ -1,62 +1,185 @@
 .sidenav {
-    height: 100%;
-    /* width: 250px; */
-    position: relative;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
+  height: 100%;
+  /* width: 250px; */
+  position: relative;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
 }
 
 .sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 14px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 14px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
 }
 
 .sidenav a:hover {
-    color: #f1f1f1;
+  color: #f1f1f1;
 }
 
 .sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
 }
 
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 14px;}
+.sidenav {padding-top: 15px;}
+.sidenav a {font-size: 14px;}
 }
 .no-click-backdrop {
-    pointer-events: none;
-  }
+  pointer-events: none;
+}
 
-  .border-div
-  {
-    border:gray;
-    border-width: 1px;
-    border-style: solid;
-    padding:15px;
-    margin-bottom:15px;
-  }
-  .height-scroll1
-  {
-    min-height:100px;
-    max-height: 250px; 
-    overflow:scroll;
-  }
-  .height-scroll2
-  {
-    min-height:100px;
-    max-height: 400px; 
-    overflow:scroll;
-  }
+.border-div
+{
+  border:gray;
+  border-width: 1px;
+  border-style: solid;
+  padding:15px;
+  margin-bottom:15px;
+}
+.height-scroll1
+{
+  min-height:100px;
+  max-height: 250px; 
+  overflow:scroll;
+}
+.height-scroll2
+{
+  min-height:100px;
+  max-height: 400px; 
+  overflow:scroll;
+}
+.working-capital-table tr td{
+  font-size: 13px;
+  text-align: center;
+  color: #6c6274;
+  font-weight:bold;
+
+}
+.working-capital-table tr th{
+font-size: 14px;
+font-weight: 600;
+text-align: center;
+color: #ffffff;
+
+}
+.working-capital-wrapper{
+  padding:15px;
+  margin:15px 0px;
+}
+.working-capital-table thead{
+  background-color: #2b2b2b;
+}
+.working-capital-table .table-striped>tbody>tr:nth-of-type(odd){
+  background-color:rgba(151, 147, 147,0.07);
+}
+.working-capital-table .table-striped>tbody>tr:nth-of-type(even){
+  background-color: rgba(151, 147, 147, 0.19);
+}
+.top-creditor-table{
+padding-top:15px;
+}
+.top-creditor-table tr th{
+font-size: 14px;
+font-weight: 600;
+color: #6c6274;
+border:none;
+text-align:left;
+
+}
+.top-creditor-table tr{
+  box-shadow: 0 0 5px 0 rgba(64, 64, 64, 0.28);
+}
+.top-creditor-table tr td{
+  font-size: 13px;
+  color: #6c6274;
+  border:none;
+  text-align:left;
+
+}
+/* .top-creditor-table tr th:nth-child(1){
+text-align: left;
+}
+.top-creditor-table tr th:nth-child(2){
+text-align: right;
+}
+.top-creditor-table tr td:nth-child(1){
+text-align: left;
+}
+.top-creditor-table tr td:nth-child(2){
+text-align: right;
+} */
+.table-error-text{  
+border-radius: 5px;
+background-color: #ff3131;
+color:#ffffff;
+padding:0px 5px 0px 5px;
+}
+
+.block-heading{
+font-size: 22px;
+font-weight: bold;
+text-align: center;
+color: #6c6274;
+}
+.top-creditor-wrapper{
+margin:15px 0px;
+}
+.date-select-bar{
+border-radius: 5px;
+border: solid 1px #6c6274;
+color: #6c6274;
+width: 200px;
+padding-left:5px;
+display: inline-block;
+}
+.date-select-bar-wrapper{
+padding: 20px;
+margin: 0px;
+}
+.calender-header-icon{
+color: #6c6274;
+padding-left:10px;
+}
+.btn.btn-prime{
+border-radius: 5px;
+background-color: #6c6274;
+color:#ffffff;
+border:1px solid #6c6274;
+}
+.ok-button-wrapper{
+margin-left:15px;
+}
+.top-creditor-search-input{
+border-radius: 5px;
+border: solid 1px #6c6274;
+color: #6c6274;
+position: relative;
+padding-left: 25px;
+}
+.top-creditor-search-icon{
+position:absolute;
+top:10px;
+left:22px;
+color: #6c6274;
+}
+.padd-normal{
+padding-top:15px;
+}
+.space-lr-normal{
+  padding:0px 15px ;
+}
+.margin-zero{
+  margin:0px;
+}

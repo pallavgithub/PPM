@@ -7,6 +7,7 @@ export class pp_Tank {
   FuelTypeID: number;
   ChartTypeID: number;
   TankCapacity: number;
+  PurchaseRate: number;
   pp_Nozzles:pp_Nozzle[];
   TankName:string;
   ReadingDate:string;

@@ -16,6 +16,7 @@ import { CreditorInventory } from '../_models/CreditorInventory';
 import { NozzleDailyBreakUp } from '../_models/NozzleDailyBreakUp';
 import { IncompleteDailyData } from '../_models/IncompleteDailyData';
 import { ProductSale } from '../_models/ProductSale';
+import { PaymentLedger } from '../_models/PaymentLedger';
 
 @Injectable()
 export class PetrolPumpService {
@@ -239,5 +240,9 @@ export class PetrolPumpService {
     GetFuelSaleComparisionDetails(petrolPumpCode:string,date:string,tankID:number){
         return this.http.get<any>(`${environment.apiUrl}/Pump/GetFuelSaleComparisionDetails?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date + '&tankID=' + tankID);
     }
+    GetWorkingCapital(petrolPumpCode:string, isChartData:boolean){
+        return this.http.get<any[]>(`${environment.apiUrl}/Pump/GetWorkingCapital?petrolPumpCode=`+petrolPumpCode+ '&isChartData='+ isChartData);
+    } 
+    
     
 }

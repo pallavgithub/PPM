@@ -38,7 +38,6 @@ export class NozzleLedgerformComponent implements OnInit {
   }
   ngOnInit() {
     this.pumpNozzleLedger = this.data.nozzle;
-    debugger
     this.nozzleName=this.data.nozzle[0].NozzleName;
     this.nozzleOpeningReading=this.data.nozzle[0].OpeningReading;
     this.pumpNozzleLedger.forEach(element => {
