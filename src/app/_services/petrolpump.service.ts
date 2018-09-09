@@ -39,11 +39,14 @@ export class PetrolPumpService {
     getPetrolPumpDashboard(petrolPumpCode:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpDashboard?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
     }
-    getPetrolPumpTankInfoWithDailyEntry(petrolPumpCode:string){
-        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpTankInfoWithDailyEntry?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
+    getPetrolPumpDashboardWithDate(petrolPumpCode:string,date:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpDashboardWithDate?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date);
     }
-    getPetrolPumpNozzleInfoWithDailyEntry(petrolPumpCode:string){
-        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpNozzleInfoWithDailyEntry?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
+    getPetrolPumpTankInfoWithDailyEntry(petrolPumpCode:string,date:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpTankInfoWithDailyEntry?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date);
+    }
+    getPetrolPumpNozzleInfoWithDailyEntry(petrolPumpCode:string,date:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpNozzleInfoWithDailyEntry?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date);
     }
     getPetrolPumpPaymentTypeWithDailyBreakUp(petrolPumpCode:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpPaymentTypeWithDailyBreakUp?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);

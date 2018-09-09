@@ -104,7 +104,9 @@ export class DailyTankReadingComponent implements OnInit {
     //this.getAllUnits();
   }
   getPumpInfo(pumpCode) {
-    this.petrolPumpService.getPetrolPumpTankInfoWithDailyEntry(pumpCode).subscribe(res => {
+    // let date:string = new Date().toString();
+    let date:string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
+    this.petrolPumpService.getPetrolPumpTankInfoWithDailyEntry(pumpCode,date).subscribe(res => {
       // this.pumpProduct = res.pp_PumpProduct;
       // this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);
       this.pumpTanks = res;
@@ -146,7 +148,7 @@ export class DailyTankReadingComponent implements OnInit {
     // var date = this.DateOfEntry;
     // pumpProduct.forEach(element => {
     //   element.DateStockMeasuredOn = date
-    // });
+    // });    
     this.petrolPumpService.updateDailyTankReading(pumpProduct).subscribe(res => {
       this.toasterService.pop('success', '', 'Tank Readings updated successfully.');
       this.router.navigate(['/DailyTankReading', this.pumpCode]);

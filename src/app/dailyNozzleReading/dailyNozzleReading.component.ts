@@ -109,7 +109,8 @@ export class DailyNozzleReadingComponent implements OnInit {
     //this.getAllUnits();
   }
   getPumpInfo(pumpCode) {
-    this.petrolPumpService.getPetrolPumpNozzleInfoWithDailyEntry(pumpCode).subscribe(res => {
+    let date:string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
+    this.petrolPumpService.getPetrolPumpNozzleInfoWithDailyEntry(pumpCode,date).subscribe(res => {
       // this.pumpProduct = res.pp_PumpProduct;
       // this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);
       this.pumpNozzles = res;

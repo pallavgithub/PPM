@@ -102,7 +102,8 @@ export class PriceAdjustmentComponent implements OnInit {
     //this.getAllUnits();
   }
   getPumpInfo(pumpCode) {
-    this.petrolPumpService.getPetrolPumpDashboard(pumpCode).subscribe(res => {
+    let date:string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
+    this.petrolPumpService.getPetrolPumpDashboardWithDate(pumpCode,date).subscribe(res => {
       this.pumpProduct = res.pp_PumpProduct;
       this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);
       let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');

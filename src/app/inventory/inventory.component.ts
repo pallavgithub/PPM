@@ -15,6 +15,7 @@ import { InventoryFuelTankDialogFormComponent } from '../inventoryFuelTankDialog
 import { PetrolPumpService } from '../_services/petrolpump.service';
 import { UserDetail } from '../_models/userDetail';
 import { UserInfo } from '../_models/UserInfo';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'pump-inventory',
@@ -37,7 +38,7 @@ export class InventoryComponent implements OnInit {
   //allProducts: AllProduct[];
   //listPumpProduct: pp_PumpProduct[];
   //units: Unit[];
-  constructor(private router: Router, private toasterService: ToasterService, public dialog: MatDialog, public dialog2: MatDialog, private userService: UserService,private activatedRoute: ActivatedRoute, private petrolPumpService: PetrolPumpService) {
+  constructor(private router: Router, private toasterService: ToasterService, public dialog: MatDialog, public dialog2: MatDialog, private userService: UserService,private activatedRoute: ActivatedRoute, private petrolPumpService: PetrolPumpService,public datepipe: DatePipe) {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.pumpCode = params['pumpCode'];
     });
@@ -77,7 +78,8 @@ export class InventoryComponent implements OnInit {
     //this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID != 3);
   }
   getPumpInfo(pumpCode) {
-    this.petrolPumpService.getPetrolPumpDashboard(pumpCode).subscribe(res => {
+    let date:string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
+    this.petrolPumpService.getPetrolPumpDashboardWithDate(pumpCode,date).subscribe(res => {
       this.pumpTanks = res.pp_Tanks;
       this.pumpProduct = res.pp_PumpProduct;
       this.pumpProductWithLubesPrise = res.pp_PumpProductWithLubesPrise; 
@@ -108,7 +110,7 @@ export class InventoryComponent implements OnInit {
   editProduct(pumpProductNew: pp_PumpProduct) {
     pumpProductNew.IsEditModal = true;
     pumpProductNew.InitialQuantity = '';
-    pumpProductNew.DateStockMeasuredOn = new Date().toString();
+    // pumpProductNew.DateStockMeasuredOn = new Date().toString();
     if (pumpProductNew.CategoryID == 2) {
       const dialogRef1 = this.dialog.open(InventoryDialogFormComponent, {
         data: { pumpProductNew: pumpProductNew }
@@ -125,10 +127,10 @@ export class InventoryComponent implements OnInit {
   }
 
   editProductPrice(pumpProductNew: pp_PumpProduct) {
-    pumpProductNew.IsEditModal = true;
+    pumpProductNew.IsEditModal = true;    
     // pumpProductNew.PurchaseRate = '';
     // pumpProductNew.SaleRate = '';
-    pumpProductNew.DateStockMeasuredOn = new Date().toString();
+    //pumpProductNew.DateStockMeasuredOn = new Date().toString();
     const dialogRef = this.dialog.open(InventoryLubesPriceDialogFormComponent, {
       data: { pumpProductNew }
     });
