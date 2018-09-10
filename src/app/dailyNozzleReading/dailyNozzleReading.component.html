@@ -27,12 +27,14 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="OpeningReading" style="font-size: 20px;">Opening Reading
+                                    <span class="required">*</span>
                             </label>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="ReadingDate" style="font-size: 20px;">Reading Date
+                                    <span class="required">*</span>
                             </label>
                         </div>
                     </div>
@@ -57,7 +59,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <input placeholder="Opening Reading" class="form-control" [(ngModel)]="itempumpNozzles.OpeningReading" #OpeningReading="ngModel"
+                                        <input type="number" placeholder="Opening Reading" class="form-control" [(ngModel)]="itempumpNozzles.OpeningReading" #OpeningReading="ngModel"
                                             name="OpeningReading-{{in}}" (blur)="onBlurOpeningReading(itempumpNozzles)">
                                     </div>
                                 </div>

@@ -26,18 +26,21 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="OpeningReading" style="font-size: 20px;">Opening Reading
+                                    <span class="required">*</span>
                             </label>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="OpeningStock" style="font-size: 20px;">Opening Stock
+                                    <span class="required">*</span>
                             </label>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="ReadingDate" style="font-size: 20px;">Stock Measured on
+                                    <span class="required">*</span>
                             </label>
                         </div>
                     </div>
@@ -56,13 +59,13 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">                                        
-                                        <input placeholder="Opening Reading" class="form-control" [(ngModel)]="itemPumpTanks.OpeningReading" #OpeningReading="ngModel"
+                                        <input type="number" placeholder="Opening Reading" class="form-control" [(ngModel)]="itemPumpTanks.OpeningReading" #OpeningReading="ngModel"
                                             name="OpeningReading-{{in}}" (blur)="onBlurOpeningReading(itemPumpTanks)">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <input placeholder="Opening Stock" class="form-control" [(ngModel)]="itemPumpTanks.OpeningStock" #OpeningStock="ngModel"
+                                        <input type="number" placeholder="Opening Stock" class="form-control" [(ngModel)]="itemPumpTanks.OpeningStock" #OpeningStock="ngModel"
                                             name="OpeningStock-{{in}}" (blur)="onBlurOpeningStock(itemPumpTanks)">
                                     </div>
                                 </div>
