@@ -29,7 +29,8 @@ export class CreditorFuelRequestFormComponent implements OnInit {
   validationPaymentTypeMessage: string;
   btnDisabled: boolean = false;
   creditorFuelRequestForm: FormGroup;
-  validationRoleMessage: string;
+  validationFuelTypeMessage: string;
+  validationUnitMessage:string;
   public creditLimit: string;
   public PurchasePrice: number;
   public TotalPrice: number;
@@ -56,11 +57,8 @@ export class CreditorFuelRequestFormComponent implements OnInit {
     'FullName': [
       { type: 'required', message: 'Name is required' }
     ],
-    'Phone': [
-      { type: 'required', message: 'Phone is required' },
-      { type: 'minlength', message: 'Phone must be at least 10 characters long' },
-      { type: 'maxlength', message: 'Phone can be 12 characters long' },
-      { type: 'pattern', message: 'Only Numbers are allowed.' }
+    'PurchaseQuantity': [
+      { type: 'required', message: 'Purchase Quantity is required' },
     ],
     'CreditLimit': [
       { type: 'pattern', message: 'Only Numbers are allowed.' }
@@ -81,7 +79,7 @@ export class CreditorFuelRequestFormComponent implements OnInit {
       PetrolPumpCode: [this.creditorInventory.PetrolPumpCode],
       ProductID: [this.creditorInventory.ProductID],
       ProductName: [this.creditorInventory.ProductName],
-      PurchaseQuantity: [this.creditorInventory.PurchaseQuantity],
+      PurchaseQuantity: [this.creditorInventory.PurchaseQuantity,Validators.compose([Validators.required])],
       SMSCode: [this.creditorInventory.SMSCode],
       Unit: [this.creditorInventory.Unit],
       UnitName: [this.creditorInventory.UnitName],
@@ -138,20 +136,20 @@ export class CreditorFuelRequestFormComponent implements OnInit {
   //   }
   // }
   checkFormValid() {
-    // if (this.userform.controls['RoleID'].value == 0) {
-    //   this.validationRoleMessage = "Please select Role";
-    //   return false;
-    // }
-    // else{
-    //   this.validationRoleMessage = "";
-    // }
-    // if (this.userform.controls['PaymentTypeID'].value == 0) {
-    //   this.validationPaymentTypeMessage = "Please select Payment Type";
-    //   return false;
-    // }
-    // else {
-    //   this.validationPaymentTypeMessage = "";
-    // }
+    if (this.creditorFuelRequestForm.controls['ProductID'].value == 0) {
+      this.validationFuelTypeMessage = "Please select Fuel Type";
+      return false;
+    }
+    else{
+      this.validationFuelTypeMessage = "";
+    }
+    if (this.creditorFuelRequestForm.controls['Unit'].value == 0) {
+      this.validationUnitMessage = "Please select Unit";
+      return false;
+    }
+    else {
+      this.validationUnitMessage = "";
+    }
 
   }
   // getAllRoles() {
@@ -198,6 +196,7 @@ export class CreditorFuelRequestFormComponent implements OnInit {
   }
 
   createUser() {
+    this.onBlurGetPrice();
     // this.petrolPumpService.GetPetrolPumpCreditorPurchaseLimit(this.creditorFuelRequestForm.value).subscribe((res: any) => {
     //   if (Number(res.Result) > Number(this.creditLimit)) {
     //     this.toasterService.pop('error', '', "Your credit limit is low. please add funds or low your purchase limit.");
@@ -216,6 +215,16 @@ export class CreditorFuelRequestFormComponent implements OnInit {
       else {
         this.creditorFuelRequestForm.controls["PurchasePrice"].setValue(this.PurchasePrice);
         this.creditorFuelRequestForm.controls["TotalPrice"].setValue(this.TotalPrice);
+        if(this.creditorFuelRequestForm.controls["PurchaseQuantity"] != null && this.creditorFuelRequestForm.controls["PurchaseQuantity"].value != "")
+        {
+          this.creditorFuelRequestForm.controls["PurchaseQuantity"].setValue(Number(this.creditorFuelRequestForm.controls["PurchaseQuantity"].value));
+        }
+        else
+        {
+          this.creditorFuelRequestForm.controls["PurchaseQuantity"].setValue(0);
+        }
+        this.creditorFuelRequestForm.controls["PurchaseQuantity"].setValue(this.TotalPrice);
+        
         this.petrolPumpService.AddUpdatePetrolPumpCreditorInventory(this.creditorFuelRequestForm.value).subscribe((res: any) => {
           this.toasterService.pop('success', '', res.Result.toString());
           this.dialogRef.close();

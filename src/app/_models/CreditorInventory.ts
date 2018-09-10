@@ -4,7 +4,7 @@ export class CreditorInventory {
     ProductID: number;
     Unit: number;
     CreditorID: number;
-    PurchaseQuantity: number;
+    PurchaseQuantity: string;
     DateMeasured: string;
     Description: string;
     CreatedBy: number;
@@ -25,7 +25,7 @@ export class CreditorInventory {
         this.ProductID = 0;
         this.Unit = 0;
         this.CreditorID = 0;
-        this.PurchaseQuantity = 0;
+        this.PurchaseQuantity = '';
         this.PurchasePrice = 0;
         this.TotalPrice = 0;
         this.DateMeasured = '';
