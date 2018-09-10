@@ -4,14 +4,15 @@
             <div id="mySidenav" class="sidenav">
                 <!-- <a href="javascript:void(0)" class="closebtn">&times;</a> -->
                 <a [routerLink]="['/Landing',pumpCode]" *ngIf="userData && userData.RoleID!=2">DashBoard</a>
-              <a [routerLink]="['/Inventory',pumpCode]" *ngIf="userData && userData.RoleID!=2">Inventory and Price Management</a>
-              <a [routerLink]="['/Creditor',pumpCode]" *ngIf="userData && userData.RoleID!=2">Creditor</a>
-              <a [routerLink]="['/DailyPrice',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Price</a>
-              <a [routerLink]="['/FuelRequest',pumpCode]" *ngIf="userData && userData.RoleID==2">Fuel Request</a>
-              <a [routerLink]="['/FuelRequestReceived',pumpCode]" *ngIf="userData && userData.RoleID!=2">Fuel Request Received</a>
-              <a [routerLink]="['/CreditorLedger',pumpCode]" *ngIf="userData && userData.RoleID==2">Ledger</a>
-              <a [routerLink]="['/DailyTankReading',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Tank Reading</a>
-              <a [routerLink]="['/DailyNozzleReading',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Nozzle Reading</a>
+                <a [routerLink]="['/Inventory',pumpCode]" *ngIf="userData && userData.RoleID!=2">Inventory and Price Management</a>
+                <a [routerLink]="['/Creditor',pumpCode]" *ngIf="userData && userData.RoleID!=2">Creditor</a>
+                <a [routerLink]="['/DailyPrice',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Price</a>
+                <a [routerLink]="['/FuelRequest',pumpCode]" *ngIf="userData && userData.RoleID==2">Fuel Request</a>
+                <a [routerLink]="['/FuelRequestReceived',pumpCode]" *ngIf="userData && userData.RoleID!=2">Fuel Request Received</a>
+                <a [routerLink]="['/CreditorLedger',pumpCode]" *ngIf="userData && userData.RoleID==2">Ledger</a>
+                <a [routerLink]="['/DailyTankReading',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Tank Reading</a>
+                <a [routerLink]="['/DailyNozzleReading',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Nozzle
+                    Reading</a>
             </div>
         </div>
         <div class="col-md-9">
@@ -32,6 +33,42 @@
                             </div>
                             <div *ngIf="countStatus == 0">
                                 <img src="../../assets/small-red-cross.png" class="imgTab" height="50px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div *ngIf="incompleteProducts && incompleteProducts.length > 1">
+                                Please set Fuel Rates for below Dates:
+                            </div>
+                            <div *ngFor="let incompleteProductsTemp of incompleteProducts let i=index">
+                                {{incompleteProductsTemp.Date}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div *ngIf="incompleteTanks && incompleteTanks.length > 1">
+                                Please set Tank Readings for below Dates:
+                            </div>
+                            <div *ngFor="let incompleteTanksTemp of incompleteTanks let i=index">
+                                {{incompleteTanksTemp.Date}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div *ngIf="incompleteNozzles && incompleteNozzles.length > 1">
+                                Please set Nozzle Readings for below Dates:
+                            </div>
+                            <div *ngFor="let incompleteNozzlesTemp of incompleteNozzles let i=index">
+                                {{incompleteNozzlesTemp.Date}}
                             </div>
                         </div>
                     </div>

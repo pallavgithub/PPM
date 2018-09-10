@@ -14,6 +14,7 @@ import { UserDetail } from '../_models/userDetail';
 import { TankWithProduct } from '../_models/TankWithProduct';
 import { CreditorInventory } from '../_models/CreditorInventory';
 import { NozzleDailyBreakUp } from '../_models/NozzleDailyBreakUp';
+import { IncompleteDailyData } from '../_models/IncompleteDailyData';
 
 @Injectable()
 export class PetrolPumpService {
@@ -74,6 +75,9 @@ export class PetrolPumpService {
 
     getPumpStatus(petrolPumpCode:string){
         return this.http.get<PumpStatus>(`${environment.apiUrl}/Pump/CheckFormCompletenes?petrolPumpCode=`+petrolPumpCode,);
+    }
+    getPumpIncompleteDailyData(petrolPumpCode:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/RemainingDailyProductsTankAndNozzle?petrolPumpCode=`+petrolPumpCode,);
     }
     getUserDetail(){
         return this.http.get<UserDetail>(`${environment.apiUrl}/Pump/UserInfo`);

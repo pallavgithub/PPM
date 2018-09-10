@@ -3,11 +3,15 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, Params, NavigationEnd } from '@angular/router';
 import { pp_PetrolPump } from '../_models/pp_PetrolPump';
 import { PetrolPumpService } from '../_services/petrolpump.service';
-import {UserService} from '../_services/user.service';
+import { UserService } from '../_services/user.service';
 import { ToasterService } from 'angular2-toaster';
 import { UserDetail } from '../_models/userDetail';
 import { PumpStatus } from '../_models/PumpStatus';
 import { UserInfo } from '../_models/UserInfo';
+import { IncompleteDailyData } from '../_models/IncompleteDailyData';
+import { IncompleteProducts } from '../_models/IncompleteProducts';
+import { IncompleteTanks } from '../_models/IncompleteTanks';
+import { IncompleteNozzles } from '../_models/IncompleteNozzles';
 
 
 @Component({
@@ -20,10 +24,17 @@ export class LandingDashboardComponent implements OnInit {
   // @Input() pumpCode: string;
   public pumpStatus: PumpStatus;
   public pumpCode: string;
+  public incompleteDailyData: IncompleteDailyData;
+  public incompleteProducts: IncompleteProducts;
+  public incompleteTanks: IncompleteTanks;
+  public incompleteNozzles: IncompleteNozzles;
+  public msgProduct: string;
+  public msgTank: string;
+  public msgNozzle: string;
   navigationSubscription;
 
   status: string;
-  public userData:UserInfo;
+  public userData: UserInfo;
   countStatus: number;
   //public userData: UserDetail;
   //pumpLandingForm: FormGroup;
@@ -55,7 +66,7 @@ export class LandingDashboardComponent implements OnInit {
       { type: 'pattern', message: 'Only Numbers are allowed.' }
     ]
   }
-  constructor(private toasterService: ToasterService, private _formBuilder: FormBuilder, private router: Router, private petrolPumpService: PetrolPumpService,private activatedRoute: ActivatedRoute,private userService: UserService) {
+  constructor(private toasterService: ToasterService, private _formBuilder: FormBuilder, private router: Router, private petrolPumpService: PetrolPumpService, private activatedRoute: ActivatedRoute, private userService: UserService) {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.pumpCode = params['pumpCode'];
     });
@@ -68,20 +79,46 @@ export class LandingDashboardComponent implements OnInit {
 
   ngOnInit() {
     if (this.pumpCode && this.pumpCode != '') {
-      this.getPumpStatus(this.pumpCode);  
-      this.getUserDate();    
+      this.getPumpStatus(this.pumpCode);
+      this.getUserDate();
+      this.getPumpIncompleteDailyData(this.pumpCode);
     }
-    
+
     // this.pumpLandingForm = this._formBuilder.group({
     //   PetrolPumpCode: [this.pumpStatus.PetrolPumpCode]      
     // });
     //this.getUserInfo();
   }
   getUserDate() {
-    this.userService.getUserDetailInfo().subscribe((res)=>{
-      this.userData=res;
+    this.userService.getUserDetailInfo().subscribe((res) => {
+      this.userData = res;
     });
-}
+  }
+
+  getPumpIncompleteDailyData(pumpCode) {
+
+
+    this.petrolPumpService.getPumpIncompleteDailyData(pumpCode).subscribe(res => {
+      this.incompleteDailyData = new IncompleteDailyData();
+         this.incompleteProducts = res.IncompleteProducts;
+         this.incompleteTanks = res.IncompleteTanks;
+         this.incompleteNozzles = res.IncompleteNozzles;
+      // if (this.incompleteDailyData != null && this.incompleteDailyData.IncompleteProducts != null
+      //   && this.incompleteDailyData.IncompleteProducts.length > 0) {
+      //   {
+      //     this.msgProduct = "Incomplete Products";
+      //   }
+      //   if (this.incompleteDailyData != null && this.incompleteDailyData.IncompleteTanks != null
+      //     && this.incompleteDailyData.IncompleteTanks.length > 0) {
+      //     this.msgProduct = "Incomplete Tanks";
+      //   }
+      //   if (this.incompleteDailyData != null && this.incompleteDailyData.IncompleteNozzles != null
+      //     && this.incompleteDailyData.IncompleteNozzles.length > 0) {
+      //     this.msgProduct = "Incomplete Nozzle";
+      //   }
+      // }
+    });
+  }
   getPumpStatus(pumpCode) {
     this.petrolPumpService.getPumpStatus(pumpCode).subscribe(res => {
       this.pumpStatus = res;
