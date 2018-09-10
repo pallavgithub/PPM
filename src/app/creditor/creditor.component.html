@@ -27,6 +27,7 @@
             <tr>
               <th>User Id</th>
               <th>Name</th>
+              <th>Capacity</th>
               <th>Email</th>
               <th>Role</th>
               <th>Phone</th>
@@ -37,6 +38,7 @@
           <tr *ngFor="let pumpUser of pumpUsers let i=index">
             <td>{{pumpUser.UserId}}</td>
             <td>{{pumpUser.FullName}}</td>
+            <td>{{pumpUser.CreditLimit}}</td>
             <td>{{pumpUser.Email}}</td>
             <td>{{pumpUser.RoleName}}</td>
             <td>{{pumpUser.Phone}}</td>

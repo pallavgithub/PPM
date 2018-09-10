@@ -37,7 +37,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=-2">
                     <div class="col-md-12">
                         <div class="form-group">
                             <div *ngIf="isPermit == false">
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=-2">
                     <div class="col-md-12">
                         <div class="form-group">
                             <div *ngIf="incompleteTanks && incompleteTanks.length > 1">
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=-2">
                     <div class="col-md-12">
                         <div class="form-group">
                             <div *ngIf="incompleteNozzles && incompleteNozzles.length > 1">

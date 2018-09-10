@@ -29,6 +29,7 @@
                     <th>Product Name</th>
                     <th>Unit Name</th>                   
                     <th>Request Stock</th>                   
+                    <th>Request Amount</th>                   
                     <th>Request Date</th> 
                     <th>Status</th> 
                     <th>Action</th>
@@ -39,6 +40,7 @@
                   <td>{{pumpUser.ProductName}}</td>
                   <td>{{pumpUser.UnitName}}</td>    
                   <td>{{pumpUser.PurchaseQuantity}}</td>    
+                  <td>{{pumpUser.TotalPrice}}</td>    
                   <td>{{pumpUser.DateMeasured | date}}</td>    
                   <td>{{pumpUser.IsApproved == 1 ? 'Approved' : 'Pending'}}</td>                  
                   <td>

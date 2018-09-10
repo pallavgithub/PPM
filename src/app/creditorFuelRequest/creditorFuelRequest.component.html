@@ -34,6 +34,7 @@
               <th>Unit Name</th>
               <th>Purchase Stock</th>
               <th>Request Date</th>
+              <th>Request Amount</th>
               <th>Status</th>
               <th>Approval Code</th>
               <th>Action</th>
@@ -44,6 +45,7 @@
             <td>{{pumpUser.UnitName}}</td>
             <td>{{pumpUser.PurchaseQuantity}}</td>
             <td>{{pumpUser.DateMeasured | date}}</td>
+            <td>{{pumpUser.TotalPrice}}</td>  
             <td>{{pumpUser.IsApproved == 1 ? 'Approved' : 'Pending'}}</td>
             <td>{{pumpUser.SMSCode}}</td>
             <td>

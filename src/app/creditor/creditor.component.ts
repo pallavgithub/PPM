@@ -76,6 +76,11 @@ export class CreditorComponent implements OnInit {
       this.ngOnInit();
     });
   }
+  getCreditLimit(pumpCode, creditorID) {
+    this.petrolPumpService.GetPetrolPumpCreditorSpecificNetCreditLimit(pumpCode,creditorID).subscribe(res => {
+      return res;
+    });
+  }
 
   addFund(user: pp_User) {
     user.IsEditModal = true;
