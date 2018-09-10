@@ -1,5 +1,5 @@
 export class IncompleteTanks {
-    public Date: string;
+    public Date: Date;
     constructor() {
         this.Date = null;
     }

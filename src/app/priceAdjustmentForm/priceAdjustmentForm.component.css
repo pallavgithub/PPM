@@ -36,6 +36,3 @@
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 14px;}
 }
-.no-click-backdrop {
-    pointer-events: none;
-  }

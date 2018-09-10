@@ -76,6 +76,7 @@ import { CreditorLedgerComponent } from './creditorLedger/creditorLedger.compone
 import { DailyTankReadingComponent } from './dailyTankReading/dailyTankReading.component';
 import { DailyNozzleReadingComponent } from './dailyNozzleReading/dailyNozzleReading.component';
 import { DailyNozzleBreakUpFormComponent } from './dailyNozzleBreakUp/dailyNozzleBreakUp.component';
+import { PriceAdjustmentFormComponent } from './priceAdjustmentForm/priceAdjustmentForm.component';
 
 @NgModule({
     imports: [
@@ -93,7 +94,7 @@ import { DailyNozzleBreakUpFormComponent } from './dailyNozzleBreakUp/dailyNozzl
         BrowserAnimationsModule, ToasterModule.forRoot(), NgbModule.forRoot()
         //HttpService
     ],
-    entryComponents: [PumpUsersComponent, UserformComponent, PumpTankComponent, TankformComponent, NozzleformComponent, ChangePasswordComponent, ProductDialogFormComponent, PumpNozzleComponent, PaymentDialogFormComponent, InventoryDialogFormComponent, ReadingTypeDialogFormComponent,CreditorformComponent,InventoryLubesPriceDialogFormComponent,InventoryFuelTankDialogFormComponent,CreditorFuelRequestFormComponent,CreditorFuelRequestReceivedFormComponent,CreditorAddFundformComponent,DailyNozzleBreakUpFormComponent],
+    entryComponents: [PumpUsersComponent, UserformComponent, PumpTankComponent, TankformComponent, NozzleformComponent, ChangePasswordComponent, ProductDialogFormComponent, PumpNozzleComponent, PaymentDialogFormComponent, InventoryDialogFormComponent, ReadingTypeDialogFormComponent,CreditorformComponent,InventoryLubesPriceDialogFormComponent,InventoryFuelTankDialogFormComponent,CreditorFuelRequestFormComponent,CreditorFuelRequestReceivedFormComponent,CreditorAddFundformComponent,DailyNozzleBreakUpFormComponent,PriceAdjustmentFormComponent],
     declarations: [
         AppComponent,
         AlertComponent,
@@ -113,6 +114,7 @@ import { DailyNozzleBreakUpFormComponent } from './dailyNozzleBreakUp/dailyNozzl
         PumpTankComponent,
         PumpNozzleComponent,
         NozzleComponent,
+        PriceAdjustmentFormComponent,
         UserformComponent,
         CreditorformComponent,
         PumpUsersComponent,

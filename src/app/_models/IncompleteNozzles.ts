@@ -1,5 +1,5 @@
 export class IncompleteNozzles {
-    public Date: string;
+    public Date: Date;
     constructor() {
         this.Date = null;
     }

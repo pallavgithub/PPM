@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="form-group">
+        <div class="col-md-12">
+            <form (ngSubmit)="savePumpInfo(pumpProduct)" style="width: 98%;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="Date">Date Of Entry
+                                <span class="required">*</span>
+                            </label>
+                            <input type="date" placeholder="Date Of Entry" class="form-control" name="DateOfEntry" [(ngModel)]="DateOfEntry" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="ProductName" style="font-size: 20px;">Purchase Price
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="ProductName" style="font-size: 20px;">Sales Price
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngFor="let itemPumpProduct of pumpProduct; let in=index">
+                                <!-- <span class="error-message" *ngIf="productDialogform.get('SaleRate').hasError(validation.type) && (productDialogform.get('SaleRate').dirty || productDialogform.get('SaleRate').touched)">{{validation.message}}</span> -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="ProductName">{{itemPumpProduct.ProductName}}
+                                                <!-- <span class="required">*</span> -->
+                                            </label>
+                                            <input placeholder="Purchase Rate" class="form-control" [(ngModel)]="itemPumpProduct.PurchaseRate" #PurchaseRate="ngModel"
+                                                name="PurchaseRate-{{in}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="ProductName">{{itemPumpProduct.ProductName}}
+                                            </label>
+                                            <input placeholder="Sale Rate" class="form-control" [(ngModel)]="itemPumpProduct.SaleRate" #SaleRate="ngModel" name="SaleRate-{{in}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="float:right;">
+                                <button class="btn btn-default" (click)="cancel()">Cancel</button> &nbsp;&nbsp;&nbsp;
+                                <button class="btn btn-primary" type="submit">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

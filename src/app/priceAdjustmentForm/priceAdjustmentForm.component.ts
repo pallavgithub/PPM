@@ -15,11 +15,11 @@ import { UserDetail } from '../_models/userDetail';
 import { UserInfo } from '../_models/UserInfo';
 
 @Component({
-  selector: 'pump-priceAdjustment',
-  templateUrl: './priceAdjustment.component.html',
-  styleUrls: ['./priceAdjustment.component.css']
+  selector: 'pump-priceAdjustmentForm',
+  templateUrl: './priceAdjustmentForm.component.html',
+  styleUrls: ['./priceAdjustmentForm.component.css']
 })
-export class PriceAdjustmentComponent implements OnInit {
+export class PriceAdjustmentFormComponent implements OnInit {
   // @Input() pumpProduct: pp_PumpProduct[];
   // @Input() pumpCode: string;
   public pumpProduct: pp_PumpProduct[];
@@ -27,14 +27,17 @@ export class PriceAdjustmentComponent implements OnInit {
   allProducts: AllProduct[];
   pumpProductWithDate: PumpProductWithDate;
   DateOfEntry: string;
-  public userData:UserInfo;
+  productDate:Date;
+  public userData: UserInfo;
   productDialogform: FormGroup;
   navigationSubscription;
   units: Unit[];
-  constructor(private router: Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService, private _formBuilder: FormBuilder, private petrolPumpService: PetrolPumpService, public datepipe: DatePipe, private activatedRoute: ActivatedRoute) {
+  constructor(private router: Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService, private _formBuilder: FormBuilder, private petrolPumpService: PetrolPumpService, public datepipe: DatePipe, private activatedRoute: ActivatedRoute, @Inject(MAT_DIALOG_DATA) public data,
+    private dialogRef: MatDialogRef<PriceAdjustmentFormComponent>) {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.pumpCode = params['pumpCode'];
     });
+    dialogRef.disableClose = true;
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       if (e instanceof NavigationEnd) {
         this.ngOnInit();
@@ -61,6 +64,8 @@ export class PriceAdjustmentComponent implements OnInit {
 
 
   ngOnInit() {
+    this.productDate = this.data.incompleteProductDate;
+    this.pumpCode = this.data.pumpCode;
     if (this.pumpCode && this.pumpCode != '') {
       //this.getUserInfo();
       this.getPumpInfo(this.pumpCode);
@@ -73,14 +78,9 @@ export class PriceAdjustmentComponent implements OnInit {
       ProductID: 0,
       PurchaseRate: 0,
       SaleRate: 0
-    });
-    //this.DateOfEntry = new Date().toJSON().slice(0,10).replace(/-/g,'/');
-
-    if (this.pumpProduct != null && this.pumpProduct != undefined && this.pumpProduct.length) {
-      //this.pumpProductWithDate.pp_PumpProduct = this.pumpProduct;
-      let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
-      this.DateOfEntry = latest_ReadingDate;
-    }
+    });    
+    let latest_ReadingDate = this.datepipe.transform(new Date(this.productDate), 'yyyy-MM-dd');
+    this.DateOfEntry = latest_ReadingDate;
 
     // const controls = this.pumpProduct.map(c => new FormArray(false));
     // controls[0].setValue(true); // Set the first checkbox to true (checked)
@@ -102,12 +102,12 @@ export class PriceAdjustmentComponent implements OnInit {
     //this.getAllUnits();
   }
   getPumpInfo(pumpCode) {
-    let date:string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
-    this.petrolPumpService.getPetrolPumpDashboardWithDate(pumpCode,date).subscribe(res => {
+    let date: string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
+    this.petrolPumpService.getPetrolPumpDashboardWithDate(pumpCode, date).subscribe(res => {
       this.pumpProduct = res.pp_PumpProduct;
-      this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);
-      let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
-      this.DateOfEntry = latest_ReadingDate;
+      this.pumpProduct = this.pumpProduct.filter(c => c.CategoryID == 1);
+      // let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
+      // this.DateOfEntry = latest_ReadingDate;
     });
   }
 
@@ -130,14 +130,15 @@ export class PriceAdjustmentComponent implements OnInit {
     });
     this.petrolPumpService.updatePetrolPumpPriceAdjustmentInfo(pumpProduct).subscribe(res => {
       this.toasterService.pop('success', '', 'Price details updated successfully.');
-      this.router.navigate(['/DailyPrice', this.pumpCode]);
+      //this.router.navigate(['/DailyPrice', this.pumpCode]);
+      this.dialogRef.close();
     });
   }
   getUserDate() {
-    this.userService.getUserDetailInfo().subscribe((res)=>{
-      this.userData=res;
+    this.userService.getUserDetailInfo().subscribe((res) => {
+      this.userData = res;
     });
-}
+  }
 
   // editProduct(pumpProductNew: pp_PumpProduct) {
   //   pumpProductNew.IsEditModal = true;
