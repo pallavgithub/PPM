@@ -11,7 +11,7 @@ export class NozzleDailyBreakUp {
         this.DailyNozzleReadingID=0;
         this.NozzleID=0;
         this.PaymentTypeID=0;
-        this.Amount=0;
+        this.Amount = 0;
         this.DateEntered=null;
         this.Description=null;
     }

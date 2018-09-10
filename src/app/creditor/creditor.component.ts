@@ -125,7 +125,7 @@ export class CreditorComponent implements OnInit {
     if (confirm("Do you want to delete this user?")) {
       this.userService.deleteUser(user).subscribe((res: any) => {
         this.toasterService.pop('success', '', res.Result.toString());
-        this.router.navigate(['/pumpDetails',this.pumpCode]);
+        this.ngOnInit();
       },
         (err) => {
 

@@ -41,9 +41,9 @@ export class ChangePasswordComponent implements OnInit {
       FullName: [this.user.FullName,Validators.compose([ Validators.required])],      
       Address: [this.user.Address],
       RoleID: [this.user.RoleID,Validators.compose([ Validators.required])],
-      Phone: [this.user.Phone, Validators.compose([ Validators.required,Validators.minLength(10),Validators.maxLength(12),Validators.pattern('^[0-9]*$')])],
-      Email: [this.user.Email,Validators.compose([Validators.required,Validators.email])],
-      CreditLimit: [this.user.CreditLimit, Validators.compose([Validators.pattern('^[0-9]*$')])],
+      Phone: [this.user.Phone],
+      Email: [this.user.Email],
+      CreditLimit: [this.user.CreditLimit],
       Description: [this.user.Description]
 });
   }
