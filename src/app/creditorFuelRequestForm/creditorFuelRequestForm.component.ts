@@ -223,7 +223,6 @@ export class CreditorFuelRequestFormComponent implements OnInit {
         {
           this.creditorFuelRequestForm.controls["PurchaseQuantity"].setValue(0);
         }
-        this.creditorFuelRequestForm.controls["PurchaseQuantity"].setValue(this.TotalPrice);
         
         this.petrolPumpService.AddUpdatePetrolPumpCreditorInventory(this.creditorFuelRequestForm.value).subscribe((res: any) => {
           this.toasterService.pop('success', '', res.Result.toString());
