@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
                         localStorage.setItem('currentUser', data.token);
                         if (data.roleID == 2) {
                             this.router.navigate(['/FuelRequest',data.petrolPumpCode]);
-                        }
+                        }                        
                         else if (data.roleID != -2) {
                             this.router.navigate(['/pumpDetails',data.petrolPumpCode]);
                         }

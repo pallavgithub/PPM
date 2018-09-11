@@ -1,21 +1,24 @@
 <div class="row">
     <div class="form-group">
-        <div class="col-md-3">
+        <!-- <div class="col-md-3">
             <div id="mySidenav" class="sidenav">
-                <!-- <a href="javascript:void(0)" class="closebtn">&times;</a> -->
                 <a [routerLink]="['/Landing',pumpCode]" *ngIf="userData && userData.RoleID!=2">DashBoard</a>
-                <a [routerLink]="['/Inventory',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Inventory and Price Management</a>
+                <a [routerLink]="['/Inventory',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Inventory and
+                    Price Management</a>
                 <a [routerLink]="['/Creditor',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Creditor</a>
                 <a [routerLink]="['/DailyPrice',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Set Daily Price</a>
                 <a [routerLink]="['/FuelRequest',pumpCode]" *ngIf="userData && userData.RoleID==2 && isPermit">Fuel Request</a>
-                <a [routerLink]="['/FuelRequestReceived',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Fuel Request Received</a>
+                <a [routerLink]="['/FuelRequestReceived',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Fuel
+                    Request Received</a>
                 <a [routerLink]="['/CreditorLedger',pumpCode]" *ngIf="userData && userData.RoleID==2 && isPermit">Ledger</a>
-                <a [routerLink]="['/DailyTankReading',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Set Daily Tank Reading</a>
-                <a [routerLink]="['/DailyNozzleReading',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Set Daily Nozzle
-                    Reading</a>
+                <a [routerLink]="['/DailyTankReading',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Set Daily
+                    Tank Reading</a>
+                <a [routerLink]="['/DailyNozzleReading',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Set
+                    Daily Nozzle Reading
+                </a>
             </div>
-        </div>
-        <div class="col-md-9">
+        </div> -->
+        <div class="col-md-12">
             <form style="width: 98%;">
                 <div class="row">
                     <div class="col-md-12">
@@ -42,7 +45,7 @@
                         <div class="form-group">
                             <div *ngIf="isPermit == false">
                                 Please set Fuel Rates for below Dates: Without it you can not use System.
-                            </div>                            
+                            </div>
                             <div *ngFor="let incompleteProductsTemp of incompleteProducts let i=index">
                                 {{incompleteProductsTemp.Date}}
                             </div>

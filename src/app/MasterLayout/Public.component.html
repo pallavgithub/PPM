@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-3">
+                <div id="mySidenav" class="sidenav">
+                    <a [routerLink]="['/Landing',pumpCode]" *ngIf="userData && userData.RoleID!=2">DashBoard</a>
+                    <a [routerLink]="['/Inventory',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Inventory and Price
+                        Management
+                    </a>
+                    <a [routerLink]="['/Creditor',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Creditor</a>
+                    <a [routerLink]="['/DailyPrice',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Set Daily Price</a>
+                    <a [routerLink]="['/FuelRequest',pumpCode]" *ngIf="userData && userData.RoleID==2">Fuel Request</a>
+                    <a [routerLink]="['/FuelRequestReceived',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Fuel Request
+                        Received
+                    </a>
+                    <a [routerLink]="['/CreditorLedger',pumpCode]" *ngIf="userData && userData.RoleID==2">Ledger</a>
+                    <a [routerLink]="['/DailyTankReading',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Set Daily Tank
+                        Reading
+                    </a>
+                    <a [routerLink]="['/DailyNozzleReading',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Set Daily Nozzle
+                        Reading
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 
+<div class="container">
+        <toaster-container [toasterconfig]="config"></toaster-container>
+        <router-outlet></router-outlet>
+    </div> -->

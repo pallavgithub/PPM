@@ -33,7 +33,7 @@ export class LandingDashboardComponent implements OnInit {
   public msgProduct: string;
   public msgTank: string;
   public msgNozzle: string;
-  public isPermit:boolean;
+  public isPermit: boolean;
   navigationSubscription;
 
   status: string;
@@ -104,16 +104,15 @@ export class LandingDashboardComponent implements OnInit {
 
     this.petrolPumpService.getPumpIncompleteDailyData(pumpCode).subscribe(res => {
       this.incompleteDailyData = new IncompleteDailyData();
-         this.incompleteProducts = res.IncompleteProducts;
-         this.incompleteTanks = res.IncompleteTanks;
-         this.incompleteNozzles = res.IncompleteNozzles;
-         if (this.incompleteProducts && this.incompleteProducts.length > 0) {
-           this.isPermit = false;
-         }
-         else
-         {
-           this.isPermit = true;
-         }
+      this.incompleteProducts = res.IncompleteProducts;
+      this.incompleteTanks = res.IncompleteTanks;
+      this.incompleteNozzles = res.IncompleteNozzles;
+      if (this.incompleteProducts && this.incompleteProducts.length > 0) {
+        this.isPermit = false;
+      }
+      else {
+        this.isPermit = true;
+      }
       // if (this.incompleteDailyData != null && this.incompleteDailyData.IncompleteProducts != null
       //   && this.incompleteDailyData.IncompleteProducts.length > 0) {
       //   {
@@ -130,26 +129,26 @@ export class LandingDashboardComponent implements OnInit {
       // }
     });
   }
-  SetFuelPrice(){
+  SetFuelPrice() {
     this.petrolPumpService.getPumpIncompleteDailyData(this.pumpCode).subscribe(res => {
       //this.incompleteDailyData = new IncompleteDailyData();
-         this.incompleteProducts = res.IncompleteProducts;
-         this.incompleteTanks = res.IncompleteTanks;
-         this.incompleteNozzles = res.IncompleteNozzles;
-         if (this.incompleteProducts && this.incompleteProducts.length > 0) {
-          const dialogRef = this.dialog.open(PriceAdjustmentFormComponent, {
-            data: { incompleteProductDate: this.incompleteProducts[0].Date,pumpCode: this.pumpCode }
-          });
-          dialogRef.afterClosed().subscribe(result => {
+      this.incompleteProducts = res.IncompleteProducts;
+      this.incompleteTanks = res.IncompleteTanks;
+      this.incompleteNozzles = res.IncompleteNozzles;
+      if (this.incompleteProducts && this.incompleteProducts.length > 0) {
+        const dialogRef = this.dialog.open(PriceAdjustmentFormComponent, {
+          data: { incompleteProductDate: this.incompleteProducts[0].Date, pumpCode: this.pumpCode }
+        });
+        dialogRef.afterClosed().subscribe(result => {
           this.SetFuelPrice();
         });
-        }
-        else
-        {
-          this.ngOnInit();
-        }        
+      }
+      else {
+        window.location.reload();
+        //this.router.navigate(['/Landing', this.pumpCode]);
+      }
     });
-    
+
   }
   getPumpStatus(pumpCode) {
     this.petrolPumpService.getPumpStatus(pumpCode).subscribe(res => {

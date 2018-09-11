@@ -8,7 +8,8 @@ export class AppComponent {
   public config: ToasterConfig = 
     new ToasterConfig({positionClass: 'toast-top-center',tapToDismiss: true},
   );
-  constructor() {}
+  constructor() {    
+  }
   isLoggedIn() {
     if (localStorage.getItem("currentUser")) return true;
     else return false;

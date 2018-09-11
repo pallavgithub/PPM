@@ -77,6 +77,8 @@ import { DailyTankReadingComponent } from './dailyTankReading/dailyTankReading.c
 import { DailyNozzleReadingComponent } from './dailyNozzleReading/dailyNozzleReading.component';
 import { DailyNozzleBreakUpFormComponent } from './dailyNozzleBreakUp/dailyNozzleBreakUp.component';
 import { PriceAdjustmentFormComponent } from './priceAdjustmentForm/priceAdjustmentForm.component';
+import { PublicComponent } from './MasterLayout/Public.component';
+import { SecureComponent } from './MasterLayout/Secure.component';
 
 @NgModule({
     imports: [
@@ -104,6 +106,8 @@ import { PriceAdjustmentFormComponent } from './priceAdjustmentForm/priceAdjustm
         PumpRegisterComponent,
         PumpUserMapComponent,
         CreditorComponent,
+        PublicComponent,
+        SecureComponent,
         CreditorformComponent,
         PumpInfoComponent,
         LandingDashboardComponent,
@@ -152,7 +156,7 @@ import { PriceAdjustmentFormComponent } from './priceAdjustmentForm/priceAdjustm
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
         { provide: WorkflowService, useClass: WorkflowService },
-        {provide: LocationStrategy, useClass: HashLocationStrategy},
+        //{provide: LocationStrategy, useClass: HashLocationStrategy},
         WorkflowGuard, FormDataService, PetrolPumpService,
         // provider used to create fake backend
         fakeBackendProvider, DatePipe

@@ -1,8 +1,7 @@
 <div class="row">
   <div class="form-group">
-    <div class="col-md-3">
+    <!-- <div class="col-md-3">
       <div id="mySidenav" class="sidenav">
-        <!-- <a href="javascript:void(0)" class="closebtn">&times;</a> -->
         <a [routerLink]="['/Landing',pumpCode]" *ngIf="userData && userData.RoleID!=2">DashBoard</a>
               <a [routerLink]="['/Inventory',pumpCode]" *ngIf="userData && userData.RoleID!=2">Inventory and Price Management</a>
               <a [routerLink]="['/Creditor',pumpCode]" *ngIf="userData && userData.RoleID!=2">Creditor</a>
@@ -13,9 +12,9 @@
               <a [routerLink]="['/DailyTankReading',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Tank Reading</a>
               <a [routerLink]="['/DailyNozzleReading',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Nozzle Reading</a>
       </div>
-    </div>
+    </div> -->
       <!-- <userform (userCreated)="addUser($event)"></userform> -->
-      <div class="col-md-9 table-responsive" *ngIf="pumpProductWithLubesPrise != null && pumpProductWithLubesPrise.length>0">
+      <div class="col-md-12 table-responsive" *ngIf="pumpProductWithLubesPrise != null && pumpProductWithLubesPrise.length>0">
         <table style="border: 1px solid black" class="table table-striped">
           <thead class="thead-dark">
             <tr>
