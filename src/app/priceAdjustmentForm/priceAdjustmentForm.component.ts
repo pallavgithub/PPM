@@ -139,6 +139,10 @@ export class PriceAdjustmentFormComponent implements OnInit {
       this.userData = res;
     });
   }
+  cancel()
+  {
+    window.location.reload();
+  }
 
   // editProduct(pumpProductNew: pp_PumpProduct) {
   //   pumpProductNew.IsEditModal = true;
