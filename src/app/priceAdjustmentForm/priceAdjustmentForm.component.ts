@@ -27,7 +27,7 @@ export class PriceAdjustmentFormComponent implements OnInit {
   allProducts: AllProduct[];
   pumpProductWithDate: PumpProductWithDate;
   DateOfEntry: string;
-  productDate:Date;
+  productDate: Date;
   public userData: UserInfo;
   productDialogform: FormGroup;
   navigationSubscription;
@@ -68,7 +68,7 @@ export class PriceAdjustmentFormComponent implements OnInit {
     this.pumpCode = this.data.pumpCode;
     if (this.pumpCode && this.pumpCode != '') {
       //this.getUserInfo();
-      this.getPumpInfo(this.pumpCode);
+      this.getPumpInfo(this.pumpCode,this.productDate);
       this.getUserDate();
     }
     this.productDialogform = this._formBuilder.group({
@@ -78,9 +78,9 @@ export class PriceAdjustmentFormComponent implements OnInit {
       ProductID: 0,
       PurchaseRate: 0,
       SaleRate: 0
-    });    
-    let latest_ReadingDate = this.datepipe.transform(new Date(this.productDate), 'yyyy-MM-dd');
-    this.DateOfEntry = latest_ReadingDate;
+    });
+    // let latest_ReadingDate = this.datepipe.transform(new Date(this.productDate), 'yyyy-MM-dd');
+    // this.DateOfEntry = latest_ReadingDate;
 
     // const controls = this.pumpProduct.map(c => new FormArray(false));
     // controls[0].setValue(true); // Set the first checkbox to true (checked)
@@ -101,13 +101,21 @@ export class PriceAdjustmentFormComponent implements OnInit {
     //this.getAllProducts();
     //this.getAllUnits();
   }
-  getPumpInfo(pumpCode) {
-    let date: string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
+  getPumpInfo(pumpCode,productDate) {
+    let date: string = this.datepipe.transform(productDate.toString(), 'yyyy-MM-dd');
     this.petrolPumpService.getPetrolPumpDashboardWithDate(pumpCode, date).subscribe(res => {
       this.pumpProduct = res.pp_PumpProduct;
       this.pumpProduct = this.pumpProduct.filter(c => c.CategoryID == 1);
-      // let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
-      // this.DateOfEntry = latest_ReadingDate;
+      let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
+      this.DateOfEntry = latest_ReadingDate;
+      this.pumpProduct.forEach(element => {
+        if (element.PurchaseRate == "0") {
+          element.PurchaseRate = "";
+        }
+        if (element.SaleRate == "0") {
+          element.SaleRate = "";
+        }
+      });
     });
   }
 
@@ -123,24 +131,52 @@ export class PriceAdjustmentFormComponent implements OnInit {
   // }
 
   savePumpInfo(pumpProduct: pp_PumpProduct[]) {
-    var daatr = this.productDialogform.value;
-    var date = this.DateOfEntry;
+    let flag: number = 0;
+    let purchaseprice: string = "";
+    let saleprice: string = "";
     pumpProduct.forEach(element => {
-      element.DateStockMeasuredOn = date
+      if (element.PurchaseRate.toString().indexOf(".") != -1 && element.PurchaseRate.toString().length > 4) {
+        purchaseprice = element.PurchaseRate.toString().substring(0, element.PurchaseRate.toString().indexOf(".") + 3);
+      }
+      else {
+        purchaseprice = element.PurchaseRate.toString();
+      }
+      if (element.SaleRate.toString().indexOf(".") != -1 && element.SaleRate.toString().length > 4) {
+        saleprice = element.SaleRate.toString().substring(0, element.SaleRate.toString().indexOf(".") + 3);
+      }
+      else {
+        saleprice = element.SaleRate.toString();
+      }
+      if (purchaseprice == "0" || purchaseprice == "0.0" || purchaseprice == "0.00" || purchaseprice == "") {
+        flag = 1;
+      }
+      if (saleprice == "0" || saleprice == "0.0" || saleprice == "0.00" || saleprice == "") {
+        flag = 1;
+      }
     });
-    this.petrolPumpService.updatePetrolPumpPriceAdjustmentInfo(pumpProduct).subscribe(res => {
-      this.toasterService.pop('success', '', 'Price details updated successfully.');
-      //this.router.navigate(['/DailyPrice', this.pumpCode]);
-      this.dialogRef.close();
-    });
+    if (flag == 1) {
+      this.toasterService.pop('error', '', 'Please provide details.');
+      return false;
+    }
+    else {
+      // var daatr = this.productDialogform.value;
+      // var date = this.DateOfEntry;
+      // pumpProduct.forEach(element => {
+      //   element.DateStockMeasure dOn = date
+      // });
+      this.petrolPumpService.updatePetrolPumpPriceAdjustmentInfo(pumpProduct).subscribe(res => {
+        this.toasterService.pop('success', '', 'Price details updated successfully.');
+        //this.router.navigate(['/DailyPrice', this.pumpCode]);
+        this.dialogRef.close();
+      });
+    }
   }
   getUserDate() {
     this.userService.getUserDetailInfo().subscribe((res) => {
       this.userData = res;
     });
   }
-  cancel()
-  {
+  cancel() {
     window.location.reload();
   }
 

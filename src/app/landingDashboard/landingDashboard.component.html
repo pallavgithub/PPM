@@ -47,7 +47,7 @@
                                 Please set Fuel Rates for below Dates: Without it you can not use System.
                             </div>
                             <div *ngFor="let incompleteProductsTemp of incompleteProducts let i=index">
-                                {{incompleteProductsTemp.Date}}
+                                {{incompleteProductsTemp.Date | date}}
                             </div>
                             <div *ngIf="isPermit == false">
                                 <a (click)="SetFuelPrice()" style="cursor: pointer;">Set Fuel Price</a>&nbsp;
@@ -62,7 +62,7 @@
                                 Please set Tank Readings for below Dates:
                             </div>
                             <div *ngFor="let incompleteTanksTemp of incompleteTanks let i=index">
-                                {{incompleteTanksTemp.Date}}
+                                {{incompleteTanksTemp.Date | date}}
                             </div>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                                 Please set Nozzle Readings for below Dates:
                             </div>
                             <div *ngFor="let incompleteNozzlesTemp of incompleteNozzles let i=index">
-                                {{incompleteNozzlesTemp.Date}}
+                                {{incompleteNozzlesTemp.Date | date}}
                             </div>
                         </div>
                     </div>

@@ -119,7 +119,6 @@ export class PriceAdjustmentComponent implements OnInit {
           element.SaleRate = "";
         }
       });
-      debugger;
     });
   }
 
