@@ -48,8 +48,8 @@
                                             <label for="ProductName">{{itemPumpProduct.ProductName}}
                                                 <span class="required">*</span>
                                             </label>
-                                            <input type="number" placeholder="Purchase Rate" class="form-control" [(ngModel)]="itemPumpProduct.PurchaseRate" #PurchaseRate="ngModel"
-                                                name="PurchaseRate-{{in}}" required>
+                                            <input type="number" placeholder="Purchase Price" class="form-control" [(ngModel)]="itemPumpProduct.PurchaseRate" #PurchaseRate="ngModel"
+                                                name="PurchaseRate-{{in}}" required [disabled]="!btnSaveDisabled">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -57,14 +57,14 @@
                                             <label for="ProductName">{{itemPumpProduct.ProductName}}
                                                     <span class="required">*</span>
                                             </label>
-                                            <input type="number" placeholder="Sale Rate" class="form-control" [(ngModel)]="itemPumpProduct.SaleRate" #SaleRate="ngModel" name="SaleRate-{{in}}" required>
+                                            <input type="number" placeholder="Sale Rate" class="form-control" [(ngModel)]="itemPumpProduct.SaleRate" #SaleRate="ngModel" name="SaleRate-{{in}}" required [disabled]="!btnSaveDisabled">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div style="float:right;">
-                                <button class="btn btn-default" (click)="cancel()">Cancel</button> &nbsp;&nbsp;&nbsp;
-                                <button class="btn btn-primary" type="submit">Save</button>
+                                <!-- <button class="btn btn-default" (click)="cancel()">Cancel</button> &nbsp;&nbsp;&nbsp; -->
+                                <button class="btn btn-primary" type="submit" [disabled]="!btnSaveDisabled">Save</button>
                             </div>
                         </div>
                     </div>

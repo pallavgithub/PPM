@@ -24,10 +24,11 @@ export class PriceAdjustmentComponent implements OnInit {
   // @Input() pumpCode: string;
   public pumpProduct: pp_PumpProduct[];
   public pumpCode: string;
+  public btnSaveDisabled:boolean = false;
   allProducts: AllProduct[];
   pumpProductWithDate: PumpProductWithDate;
   DateOfEntry: string;
-  public userData:UserInfo;
+  public userData: UserInfo;
   productDialogform: FormGroup;
   navigationSubscription;
   units: Unit[];
@@ -102,12 +103,23 @@ export class PriceAdjustmentComponent implements OnInit {
     //this.getAllUnits();
   }
   getPumpInfo(pumpCode) {
-    let date:string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
-    this.petrolPumpService.getPetrolPumpDashboardWithDate(pumpCode,date).subscribe(res => {
+    let date: string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
+    this.petrolPumpService.getPetrolPumpDashboardWithDate(pumpCode, date).subscribe(res => {
       this.pumpProduct = res.pp_PumpProduct;
-      this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);
+      this.pumpProduct = this.pumpProduct.filter(c => c.CategoryID == 1);
       let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
       this.DateOfEntry = latest_ReadingDate;
+      this.pumpProduct.forEach(element => {
+        if (element.PurchaseRate == "0") {
+          this.btnSaveDisabled = true;
+          element.PurchaseRate = "";
+        }
+        if (element.SaleRate == "0") {
+          this.btnSaveDisabled = true;
+          element.SaleRate = "";
+        }
+      });
+      debugger;
     });
   }
 
@@ -123,21 +135,50 @@ export class PriceAdjustmentComponent implements OnInit {
   // }
 
   savePumpInfo(pumpProduct: pp_PumpProduct[]) {
-    var daatr = this.productDialogform.value;
-    var date = this.DateOfEntry;
+    let flag: number = 0;
+    let purchaseprice: string = "";
+    let saleprice: string = "";
     pumpProduct.forEach(element => {
-      element.DateStockMeasuredOn = date
+      if (element.PurchaseRate.toString().indexOf(".") != -1 && element.PurchaseRate.toString().length > 4) {
+        purchaseprice = element.PurchaseRate.toString().substring(0, element.PurchaseRate.toString().indexOf(".") + 3);
+      }
+      else {
+        purchaseprice = element.PurchaseRate.toString();
+      }
+      if (element.SaleRate.toString().indexOf(".") != -1 && element.SaleRate.toString().length > 4) {
+        saleprice = element.SaleRate.toString().substring(0, element.SaleRate.toString().indexOf(".") + 3);
+      }
+      else {
+        saleprice = element.SaleRate.toString();
+      }
+      if (purchaseprice == "0" || purchaseprice == "0.0" || purchaseprice == "0.00" || purchaseprice == "") {
+        flag = 1;
+      }
+      if (saleprice == "0" || saleprice == "0.0" || saleprice == "0.00" || saleprice == "") {
+        flag = 1;
+      }
     });
-    this.petrolPumpService.updatePetrolPumpPriceAdjustmentInfo(pumpProduct).subscribe(res => {
-      this.toasterService.pop('success', '', 'Price details updated successfully.');
-      this.router.navigate(['/DailyPrice', this.pumpCode]);
-    });
+    if (flag == 1) {
+      this.toasterService.pop('error', '', 'Please provide details.');
+      return false;
+    }
+    else {
+      var daatr = this.productDialogform.value;
+      var date = this.DateOfEntry;
+      pumpProduct.forEach(element => {
+        element.DateStockMeasuredOn = date
+      });
+      this.petrolPumpService.updatePetrolPumpPriceAdjustmentInfo(pumpProduct).subscribe(res => {
+        this.toasterService.pop('success', '', 'Price details updated successfully.');
+        this.router.navigate(['/DailyPrice', this.pumpCode]);
+      });
+    }
   }
   getUserDate() {
-    this.userService.getUserDetailInfo().subscribe((res)=>{
-      this.userData=res;
+    this.userService.getUserDetailInfo().subscribe((res) => {
+      this.userData = res;
     });
-}
+  }
 
   // editProduct(pumpProductNew: pp_PumpProduct) {
   //   pumpProductNew.IsEditModal = true;
