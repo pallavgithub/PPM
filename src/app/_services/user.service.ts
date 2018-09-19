@@ -24,11 +24,12 @@ import { UserDetail } from '../_models/userDetail';
 import { ReadingTypeDetail } from '../_models/readingTypeDetail';
 import { ChartType } from '../_models/ChartType';
 import { CreditorInventory } from '../_models/CreditorInventory';
+import { BasicInfo } from '../_models/BasicInfo';
 
 @Injectable()
 export class UserService {
-    constructor(private http: HttpClient) {       
-     }
+    constructor(private http: HttpClient) {
+    }
 
     getAll() {
         return this.http.get<User[]>(`${environment.apiUrl}/users`);
@@ -50,32 +51,35 @@ export class UserService {
         return this.http.delete(`${environment.apiUrl}/users/` + id);
     }
 
-    getAllRole(){
+    getAllRole() {
         return this.http.get<Role[]>(`${environment.apiUrl}/Pump/Role`);
-    }    
-    getAllFuelType(){
+    }
+    getAllFuelType() {
         return this.http.get<FuelType[]>(`${environment.apiUrl}/Pump/FuelType`);
     }
-    getAllChartType(){
+    getAllChartType() {
         return this.http.get<ChartType[]>(`${environment.apiUrl}/Pump/ChartType`);
     }
-    getReadingType(){
+    getReadingType() {
         return this.http.get<ReadingType[]>(`${environment.apiUrl}/Pump/GetReadingType`);
     }
-    getFuelTypeByID(petrolPumpCode:string){
-        return this.http.get<FuelType[]>(`${environment.apiUrl}/Pump/PumpProductsByID/?petrolPumpCode=`+petrolPumpCode);
+    getFuelTypeByID(petrolPumpCode: string) {
+        return this.http.get<FuelType[]>(`${environment.apiUrl}/Pump/PumpProductsByID/?petrolPumpCode=` + petrolPumpCode);
     }
-    getTankReadingByTankID(tankID:number,petrolPumpCode:string){
-        return this.http.get<ReadingTypeDetail[]>(`${environment.apiUrl}/Pump/TankReadingInfo/?petrolPumpCode=`+petrolPumpCode +'&tankID=' + tankID);
+    getTankReadingByTankID(tankID: number, petrolPumpCode: string) {
+        return this.http.get<ReadingTypeDetail[]>(`${environment.apiUrl}/Pump/TankReadingInfo/?petrolPumpCode=` + petrolPumpCode + '&tankID=' + tankID);
     }
-    submitPumpData(pumpData){
-        return this.http.post(`${environment.apiUrl}/Pump/RegisterPump`,JSON.stringify(pumpData));
+    submitPumpData(pumpData) {
+        return this.http.post(`${environment.apiUrl}/Pump/RegisterPump`, JSON.stringify(pumpData));
     }
-    getUserInfo(){
+    getUserInfo() {
         return this.http.get(`${environment.apiUrl}/Pump/UserInfo`);
     }
-    
-    getUserDetailInfo(){
+    getBasicInfo() {
+        return this.http.get<BasicInfo>(`${environment.apiUrl}/Pump/BasicInfo`);
+    }
+
+    getUserDetailInfo() {
         return this.http.get<UserInfo>(`${environment.apiUrl}/Pump/UserInfo`);
     }
     deleteUser(user: pp_User) {
@@ -99,34 +103,34 @@ export class UserService {
     deletePayment(payment: pp_Payment) {
         return this.http.post(`${environment.apiUrl}/Pump/DeletePayment`, JSON.stringify(payment));
     }
-    getAllProducts(){
+    getAllProducts() {
         return this.http.get<AllProduct[]>(`${environment.apiUrl}/Pump/AllPumpProducts`);
     }
-    getAllProductsWithCategory(){
+    getAllProductsWithCategory() {
         return this.http.get<ProductWithCategory[]>(`${environment.apiUrl}/Pump/PumpProducts`);
     }
-    getAllUnits(){
+    getAllUnits() {
         return this.http.get<Unit[]>(`${environment.apiUrl}/Pump/Unit`);
     }
-    getAllRegisteredProducts(petrolPumpCode:string){
+    getAllRegisteredProducts(petrolPumpCode: string) {
         return this.http.get<AllProduct[]>(`${environment.apiUrl}/Pump/RegisteredProducts/?petrolPumpCode=` + petrolPumpCode);
     }
-    getAllPaymentType(){
+    getAllPaymentType() {
         return this.http.get<PaymentType[]>(`${environment.apiUrl}/Pump/PaymentType`);
     }
-    getTanksByID(petrolPumpCode:string){
+    getTanksByID(petrolPumpCode: string) {
         return this.http.get<Tank[]>(`${environment.apiUrl}/Pump/GetTankByID/?petrolPumpCode=` + petrolPumpCode);
     }
 
-    getTanksByIDAndFuelType(petrolPumpCode:string, fuelTypeID:number){
-        return this.http.get<Tank[]>(`${environment.apiUrl}/Pump/GetTankByIDAndFuelType/?petrolPumpCode=` + petrolPumpCode + `&fuelTypeID=`+ fuelTypeID);
+    getTanksByIDAndFuelType(petrolPumpCode: string, fuelTypeID: number) {
+        return this.http.get<Tank[]>(`${environment.apiUrl}/Pump/GetTankByIDAndFuelType/?petrolPumpCode=` + petrolPumpCode + `&fuelTypeID=` + fuelTypeID);
     }
 
-    getUserListByID(petrolPumpCode:string){
-        return this.http.get<UserIdName[]>(`${environment.apiUrl}/Pump/UserList/?petrolPumpCode=`+petrolPumpCode);
+    getUserListByID(petrolPumpCode: string) {
+        return this.http.get<UserIdName[]>(`${environment.apiUrl}/Pump/UserList/?petrolPumpCode=` + petrolPumpCode);
     }
-    getAssignedToListByID(petrolPumpCode:string){
-        return this.http.get<UserIdName[]>(`${environment.apiUrl}/Pump/AssignedToList/?petrolPumpCode=`+petrolPumpCode);
+    getAssignedToListByID(petrolPumpCode: string) {
+        return this.http.get<UserIdName[]>(`${environment.apiUrl}/Pump/AssignedToList/?petrolPumpCode=` + petrolPumpCode);
     }
-    
+
 }

@@ -14,6 +14,9 @@ import { IncompleteTanks } from '../_models/IncompleteTanks';
 import { IncompleteNozzles } from '../_models/IncompleteNozzles';
 import { MatDialog } from '@angular/material';
 import { PriceAdjustmentFormComponent } from '../priceAdjustmentForm/priceAdjustmentForm.component';
+import { BasicInfo } from '../_models/BasicInfo';
+import { DatePipe } from '@angular/common';
+import { pp_PumpProduct } from '../_models/pp_PumpProduct';
 
 
 @Component({
@@ -30,14 +33,17 @@ export class LandingDashboardComponent implements OnInit {
   public incompleteProducts: IncompleteProducts[];
   public incompleteTanks: IncompleteTanks[];
   public incompleteNozzles: IncompleteNozzles[];
+  public pumpProduct: pp_PumpProduct[];
   public msgProduct: string;
   public msgTank: string;
+  public creditLimit:string;
   public msgNozzle: string;
   public isPermit: boolean;
   navigationSubscription;
 
   status: string;
   public userData: UserInfo;
+  public basicInfo: BasicInfo;
   countStatus: number;
   //public userData: UserDetail;
   //pumpLandingForm: FormGroup;
@@ -69,7 +75,7 @@ export class LandingDashboardComponent implements OnInit {
       { type: 'pattern', message: 'Only Numbers are allowed.' }
     ]
   }
-  constructor(private toasterService: ToasterService, private _formBuilder: FormBuilder, private router: Router, private petrolPumpService: PetrolPumpService, private activatedRoute: ActivatedRoute, private userService: UserService, public dialog: MatDialog) {
+  constructor(private toasterService: ToasterService, private _formBuilder: FormBuilder, private router: Router, private petrolPumpService: PetrolPumpService, private activatedRoute: ActivatedRoute, private userService: UserService, public dialog: MatDialog,public datepipe: DatePipe) {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.pumpCode = params['pumpCode'];
     });
@@ -84,7 +90,9 @@ export class LandingDashboardComponent implements OnInit {
     if (this.pumpCode && this.pumpCode != '') {
       this.getPumpStatus(this.pumpCode);
       this.getUserDate();
+      this.getCreditLimit(this.pumpCode);
       this.getPumpIncompleteDailyData(this.pumpCode);
+      this.getPumpInfo(this.pumpCode);
       //this.SetFuelPrice();
     }
 
@@ -93,9 +101,24 @@ export class LandingDashboardComponent implements OnInit {
     // });
     //this.getUserInfo();
   }
+  getPumpInfo(pumpCode) {
+    let date: string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
+    this.petrolPumpService.getPetrolPumpDashboardWithDate(pumpCode, date).subscribe(res => {
+      this.pumpProduct = res.pp_PumpProduct;
+      this.pumpProduct = this.pumpProduct.filter(c => c.CategoryID == 1);
+    });
+  }
   getUserDate() {
     this.userService.getUserDetailInfo().subscribe((res) => {
       this.userData = res;
+    });
+    this.userService.getBasicInfo().subscribe((res)=>{
+      this.basicInfo=res;
+    });
+  }
+  getCreditLimit(pumpCode) {
+    this.petrolPumpService.GetPetrolPumpCreditorNetCreditLimit(pumpCode).subscribe(res => {
+      this.creditLimit = res;
     });
   }
 

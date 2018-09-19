@@ -39,3 +39,16 @@
 .no-click-backdrop {
     pointer-events: none;
   }
+
+  .border-div
+  {
+    border:gray;
+    border-width: 1px;
+    border-style: solid;
+  }
+  .height-scroll1
+  {
+    min-height:100px;
+    max-height: 200px; 
+    overflow:scroll;
+  }

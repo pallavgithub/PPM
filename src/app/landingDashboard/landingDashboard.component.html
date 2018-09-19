@@ -1,87 +1,143 @@
 <div class="row">
     <div class="form-group">
-        <!-- <div class="col-md-3">
-            <div id="mySidenav" class="sidenav">
-                <a [routerLink]="['/Landing',pumpCode]" *ngIf="userData && userData.RoleID!=2">DashBoard</a>
-                <a [routerLink]="['/Inventory',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Inventory and
-                    Price Management</a>
-                <a [routerLink]="['/Creditor',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Creditor</a>
-                <a [routerLink]="['/DailyPrice',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Set Daily Price</a>
-                <a [routerLink]="['/FuelRequest',pumpCode]" *ngIf="userData && userData.RoleID==2 && isPermit">Fuel Request</a>
-                <a [routerLink]="['/FuelRequestReceived',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Fuel
-                    Request Received</a>
-                <a [routerLink]="['/CreditorLedger',pumpCode]" *ngIf="userData && userData.RoleID==2 && isPermit">Ledger</a>
-                <a [routerLink]="['/DailyTankReading',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Set Daily
-                    Tank Reading</a>
-                <a [routerLink]="['/DailyNozzleReading',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Set
-                    Daily Nozzle Reading
-                </a>
+        <div class="col-md-6 border-div height-scroll1">
+            <label for="AccountDetail">Account Detail</label>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="UserID">User ID -</label>&nbsp;&nbsp;
+                        <label for="UserID">{{basicInfo.UserId}}</label>
+                    </div>
+                </div>
             </div>
-        </div> -->
-        <div class="col-md-12">
-            <form style="width: 98%;">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="PetrolPumpCode">{{status}}
-                            </label>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="PetrolPumpName">Petrol Pump Name -</label>&nbsp;&nbsp;
+                        <label for="PetrolPumpName">{{basicInfo.PetrolPumpName}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="Address">Address -</label>&nbsp;&nbsp;
+                        <label for="Address">{{basicInfo.Address}}</label>,&nbsp;
+                        <label for="City">{{basicInfo.City}}</label>,&nbsp;
+                        <label for="State">{{basicInfo.State}}</label>,&nbsp;
+                        <label for="PetrolPumpPinCode">{{basicInfo.PetrolPumpPinCode}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="creditLimit">creditLimit -</label>&nbsp;&nbsp;
+                        <label for="creditLimit">{{creditLimit}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6  border-div height-scroll1">
+                <label for="AccountDetail">Petrol Pump Set Up Status</label>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="PetrolPumpCode">{{status}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div *ngIf="countStatus == 1">
+                            <img src="../../assets/smalltickumber.png" class="imgTab" height="50px;">
+                        </div>
+                        <div *ngIf="countStatus == 0">
+                            <img src="../../assets/small-red-cross.png" class="imgTab" height="50px;">
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div *ngIf="countStatus == 1">
-                                <img src="../../assets/smalltickumber.png" class="imgTab" height="50px;">
-                            </div>
-                            <div *ngIf="countStatus == 0">
-                                <img src="../../assets/small-red-cross.png" class="imgTab" height="50px;">
-                            </div>
+            </div>
+            <div class="row" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=-2">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div *ngIf="isPermit == false">
+                            Please set Fuel Rates for below Dates: Without it you can not use System.
+                        </div>
+                        <div *ngFor="let incompleteProductsTemp of incompleteProducts let i=index">
+                            {{incompleteProductsTemp.Date | date}}
+                        </div>
+                        <div *ngIf="isPermit == false">
+                            <a (click)="SetFuelPrice()" style="cursor: pointer;">Set Fuel Price</a>&nbsp;
                         </div>
                     </div>
                 </div>
-                <div class="row" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=-2">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div *ngIf="isPermit == false">
-                                Please set Fuel Rates for below Dates: Without it you can not use System.
-                            </div>
-                            <div *ngFor="let incompleteProductsTemp of incompleteProducts let i=index">
-                                {{incompleteProductsTemp.Date | date}}
-                            </div>
-                            <div *ngIf="isPermit == false">
-                                <a (click)="SetFuelPrice()" style="cursor: pointer;">Set Fuel Price</a>&nbsp;
-                            </div>
+            </div>
+            <div class="row" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=-2">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div *ngIf="incompleteTanks && incompleteTanks.length > 1">
+                            Please set Tank Readings for below Dates:
+                        </div>
+                        <div *ngFor="let incompleteTanksTemp of incompleteTanks let i=index">
+                            {{incompleteTanksTemp.Date | date}}
                         </div>
                     </div>
                 </div>
-                <div class="row" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=-2">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div *ngIf="incompleteTanks && incompleteTanks.length > 1">
-                                Please set Tank Readings for below Dates:
-                            </div>
-                            <div *ngFor="let incompleteTanksTemp of incompleteTanks let i=index">
-                                {{incompleteTanksTemp.Date | date}}
-                            </div>
+            </div>
+            <div class="row" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=-2">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div *ngIf="incompleteNozzles && incompleteNozzles.length > 1">
+                            Please set Nozzle Readings for below Dates:
+                        </div>
+                        <div *ngFor="let incompleteNozzlesTemp of incompleteNozzles let i=index">
+                            {{incompleteNozzlesTemp.Date | date}}
                         </div>
                     </div>
                 </div>
-                <div class="row" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=-2">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div *ngIf="incompleteNozzles && incompleteNozzles.length > 1">
-                                Please set Nozzle Readings for below Dates:
-                            </div>
-                            <div *ngFor="let incompleteNozzlesTemp of incompleteNozzles let i=index">
-                                {{incompleteNozzlesTemp.Date | date}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- <form [formGroup]="pump-landingDashboard" (ngSubmit)="savePumpInfo()" style="width: 98%;"> -->
+<div class="row">
+    <div class="form-group">
+        <div class="col-md-6 border-div height-scroll1">
+                <label for="AccountDetail">Fuel Price</label>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div *ngFor="let itemPumpProduct of pumpProduct; let in=index">
+                            <!-- <span class="error-message" *ngIf="productDialogform.get('SaleRate').hasError(validation.type) && (productDialogform.get('SaleRate').dirty || productDialogform.get('SaleRate').touched)">{{validation.message}}</span> -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="ProductName">{{itemPumpProduct.ProductName}} -&nbsp;
+                                        </label>
+                                        <label for="SaleRate">{{itemPumpProduct.SaleRate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6" style="min-height:100px;max-height: 200px; overflow:scroll;">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group">
+        <div class="col-md-6" style="min-height:100px;max-height: 200px; overflow:scroll;">
+
+        </div>
+        <div class="col-md-6" style="min-height:100px;max-height: 200px; overflow:scroll;">
+        </div>
+    </div>
+</div>

@@ -3,7 +3,7 @@
         <div class="form-group">
             <div class="col-md-3">
                 <div id="mySidenav" class="sidenav">
-                    <a [routerLink]="['/Landing',pumpCode]" *ngIf="userData && userData.RoleID!=2">DashBoard</a>
+                    <a [routerLink]="['/Landing',pumpCode]">DashBoard</a>
                     <a [routerLink]="['/Inventory',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Inventory and Price
                         Management
                     </a>
