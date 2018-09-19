@@ -29,12 +29,13 @@ export class DailyNozzleReadingComponent implements OnInit {
   public pumpProduct: pp_PumpProduct[];
   public pumpTanks: pp_Tank[];
   public pumpNozzles: pp_Nozzle[];
+  public btnSaveDisabled: boolean = false;
   public nozzleDailyBreakUp: NozzleDailyBreakUp[];
   public pumpCode: string;
   allProducts: AllProduct[];
   pumpProductWithDate: PumpProductWithDate;
   DateOfEntry: string;
-  public userData:UserInfo;
+  public userData: UserInfo;
   productDialogform: FormGroup;
   navigationSubscription;
   units: Unit[];
@@ -109,41 +110,42 @@ export class DailyNozzleReadingComponent implements OnInit {
     //this.getAllUnits();
   }
   getPumpInfo(pumpCode) {
-    let date:string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
-    this.petrolPumpService.getPetrolPumpNozzleInfoWithDailyEntry(pumpCode,date).subscribe(res => {
+    let date: string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
+    this.petrolPumpService.getPetrolPumpNozzleInfoWithDailyEntry(pumpCode, date).subscribe(res => {
       // this.pumpProduct = res.pp_PumpProduct;
       // this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);
       this.pumpNozzles = res;
       this.pumpNozzles.forEach(element => {
         element.ReadingDate = this.datepipe.transform(((element.ReadingDate == "" || element.ReadingDate == null) ? new Date().toString() : element.ReadingDate), 'yyyy-MM-dd');
+        if (element.OpeningReading == "0") {
+          this.btnSaveDisabled = true;
+          element.OpeningReading = "";
+        }
       });
       // let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
       // this.DateOfEntry = latest_ReadingDate;
     });
 
     //this.petrolPumpService.getPetrolPumpPaymentTypeWithDailyBreakUp(pumpCode).subscribe(res => {
-      // this.pumpProduct = res.pp_PumpProduct;
-      // this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);
-      //this.nozzleDailyBreakUp = res;
-      // let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
-      // this.DateOfEntry = latest_ReadingDate;
+    // this.pumpProduct = res.pp_PumpProduct;
+    // this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);
+    //this.nozzleDailyBreakUp = res;
+    // let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
+    // this.DateOfEntry = latest_ReadingDate;
     //});
   }
 
-  editTank(nozzle)
-  {
-  
+  editTank(nozzle) {
+
   }
-  onBlurOpeningReading(tank:pp_Tank)
-  {
+  onBlurOpeningReading(tank: pp_Tank) {
     tank.OpeningStock = (Number(tank.OpeningReading) + 5).toString();
 
     //this.tankform.controls["OpeningStock"].setValue(Number(this.tankform.controls["OpeningReading"].value + 5));
   }
 
-  onBlurOpeningStock(tank:pp_Tank)
-  {
-    
+  onBlurOpeningStock(tank: pp_Tank) {
+
     tank.OpeningReading = (Number(tank.OpeningStock) - 5).toString();
     //this.tankform.controls["OpeningReading"].setValue(Number(this.tankform.controls["OpeningStock"].value - 5));
   }
@@ -160,29 +162,48 @@ export class DailyNozzleReadingComponent implements OnInit {
   // }
 
   savePumpInfo(pumpProduct: pp_Nozzle[]) {
-    // var daatr = this.productDialogform.value;
-    // var date = this.DateOfEntry;
-    // pumpProduct.forEach(element => {
-    //   element.DateStockMeasuredOn = date
-    // });
-    this.petrolPumpService.UpdateDailyNozzleReading(pumpProduct).subscribe(res => {
-      this.toasterService.pop('success', '', 'Tank Readings updated successfully.');
-      this.router.navigate(['/DailyNozzleReading', this.pumpCode]);
+    let flag: number = 0;
+    let purchaseprice: string = "";
+    pumpProduct.forEach(element => {
+      if (element.OpeningReading.toString().indexOf(".") != -1 && element.OpeningReading.toString().length > 4) {
+        purchaseprice = element.OpeningReading.toString().substring(0, element.OpeningReading.toString().indexOf(".") + 3);
+      }
+      else {
+        purchaseprice = element.OpeningReading.toString();
+      }      
+      if (purchaseprice == "0" || purchaseprice == "0.0" || purchaseprice == "0.00" || purchaseprice == "") {
+        flag = 1;
+      }
     });
+    if (flag == 1) {
+      this.toasterService.pop('error', '', 'Please provide details.');
+      return false;
+    }
+    else {
+      // var daatr = this.productDialogform.value;
+      // var date = this.DateOfEntry;
+      // pumpProduct.forEach(element => {
+      //   element.DateStockMeasuredOn = date
+      // });
+      this.petrolPumpService.UpdateDailyNozzleReading(pumpProduct).subscribe(res => {
+        this.toasterService.pop('success', '', 'Nozzle Readings updated successfully.');
+        this.router.navigate(['/DailyNozzleReading', this.pumpCode]);
+      });
+    }
   }
   getUserDate() {
-    this.userService.getUserDetailInfo().subscribe((res)=>{
-      this.userData=res;
+    this.userService.getUserDetailInfo().subscribe((res) => {
+      this.userData = res;
     });
-}
+  }
 
-  editProduct(pumpProductNew: pp_Nozzle,nozzleID:number) {
+  editProduct(pumpProductNew: pp_Nozzle, nozzleID: number) {
     pumpProductNew.IsEditModal = true;
-    this.petrolPumpService.getPetrolPumpPaymentTypeWithBreakUp(pumpProductNew.PetrolPumpCode,pumpProductNew.ReadingDate,pumpProductNew.ID).subscribe(res => {     
-      this.nozzleDailyBreakUp = res;   
+    this.petrolPumpService.getPetrolPumpPaymentTypeWithBreakUp(pumpProductNew.PetrolPumpCode, pumpProductNew.ReadingDate, pumpProductNew.ID).subscribe(res => {
+      this.nozzleDailyBreakUp = res;
       const dialogRef = this.dialog.open(DailyNozzleBreakUpFormComponent, {
-        data: { pumpProductNew:this.nozzleDailyBreakUp}
-      });   
+        data: { pumpProductNew: this.nozzleDailyBreakUp }
+      });
     });
 
     // this.nozzleDailyBreakUp.forEach(element => {
@@ -192,7 +213,7 @@ export class DailyNozzleReadingComponent implements OnInit {
     //   element.PetrolPumpCode = pumpProductNew.PetrolPumpCode,
     //   element.Description = ""
     // });
-    
+
     // dialogRef.afterClosed().subscribe(result => {
     //   this.ngOnInit();
     // });

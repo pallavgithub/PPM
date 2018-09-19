@@ -27,9 +27,10 @@ export class DailyTankReadingComponent implements OnInit {
   public pumpTanks: pp_Tank[];
   public pumpCode: string;
   allProducts: AllProduct[];
+  public btnSaveDisabled:boolean = false;
   pumpProductWithDate: PumpProductWithDate;
   DateOfEntry: string;
-  public userData:UserInfo;
+  public userData: UserInfo;
   productDialogform: FormGroup;
   navigationSubscription;
   units: Unit[];
@@ -105,29 +106,35 @@ export class DailyTankReadingComponent implements OnInit {
   }
   getPumpInfo(pumpCode) {
     // let date:string = new Date().toString();
-    let date:string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
-    this.petrolPumpService.getPetrolPumpTankInfoWithDailyEntry(pumpCode,date).subscribe(res => {
+    let date: string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
+    this.petrolPumpService.getPetrolPumpTankInfoWithDailyEntry(pumpCode, date).subscribe(res => {
       // this.pumpProduct = res.pp_PumpProduct;
       // this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);
       this.pumpTanks = res;
       this.pumpTanks.forEach(element => {
         element.ReadingDate = this.datepipe.transform(((element.ReadingDate == "" || element.ReadingDate == null) ? new Date().toString() : element.ReadingDate), 'yyyy-MM-dd');
+        if (element.OpeningReading == "0") {
+          this.btnSaveDisabled = true;
+          element.OpeningReading = "";
+        } 
+        if (element.OpeningStock == "0") {
+          this.btnSaveDisabled = true;
+          element.OpeningStock = "";
+        }
       });
       // let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
       // this.DateOfEntry = latest_ReadingDate;
     });
   }
 
-  onBlurOpeningReading(tank:pp_Tank)
-  {
+  onBlurOpeningReading(tank: pp_Tank) {
     tank.OpeningStock = (Number(tank.OpeningReading) + 5).toString();
 
     //this.tankform.controls["OpeningStock"].setValue(Number(this.tankform.controls["OpeningReading"].value + 5));
   }
 
-  onBlurOpeningStock(tank:pp_Tank)
-  {
-    
+  onBlurOpeningStock(tank: pp_Tank) {
+
     tank.OpeningReading = (Number(tank.OpeningStock) - 5).toString();
     //this.tankform.controls["OpeningReading"].setValue(Number(this.tankform.controls["OpeningStock"].value - 5));
   }
@@ -144,21 +151,50 @@ export class DailyTankReadingComponent implements OnInit {
   // }
 
   savePumpInfo(pumpProduct: pp_Tank[]) {
-    // var daatr = this.productDialogform.value;
-    // var date = this.DateOfEntry;
-    // pumpProduct.forEach(element => {
-    //   element.DateStockMeasuredOn = date
-    // });    
-    this.petrolPumpService.updateDailyTankReading(pumpProduct).subscribe(res => {
-      this.toasterService.pop('success', '', 'Tank Readings updated successfully.');
-      this.router.navigate(['/DailyTankReading', this.pumpCode]);
+    let flag: number = 0;
+    let purchaseprice: string = "";
+    let saleprice: string = "";
+    pumpProduct.forEach(element => {
+      if (element.OpeningReading.toString().indexOf(".") != -1 && element.OpeningReading.toString().length > 4) {
+        purchaseprice = element.OpeningReading.toString().substring(0, element.OpeningReading.toString().indexOf(".") + 3);
+      }
+      else {
+        purchaseprice = element.OpeningReading.toString();
+      }
+      if (element.OpeningStock.toString().indexOf(".") != -1 && element.OpeningStock.toString().length > 4) {
+        saleprice = element.OpeningStock.toString().substring(0, element.OpeningStock.toString().indexOf(".") + 3);
+      }
+      else {
+        saleprice = element.OpeningStock.toString();
+      }
+      if (purchaseprice == "0" || purchaseprice == "0.0" || purchaseprice == "0.00" || purchaseprice == "") {
+        flag = 1;
+      }
+      if (saleprice == "0" || saleprice == "0.0" || saleprice == "0.00" || saleprice == "") {
+        flag = 1;
+      }
     });
+    if (flag == 1) {
+      this.toasterService.pop('error', '', 'Please provide details.');
+      return false;
+    }
+    else {
+      // var daatr = this.productDialogform.value;
+      // var date = this.DateOfEntry;
+      // pumpProduct.forEach(element => {
+      //   element.DateStockMeasuredOn = date
+      // });    
+      this.petrolPumpService.updateDailyTankReading(pumpProduct).subscribe(res => {
+        this.toasterService.pop('success', '', 'Tank Readings updated successfully.');
+        this.router.navigate(['/DailyTankReading', this.pumpCode]);
+      });
+    }
   }
   getUserDate() {
-    this.userService.getUserDetailInfo().subscribe((res)=>{
-      this.userData=res;
+    this.userService.getUserDetailInfo().subscribe((res) => {
+      this.userData = res;
     });
-}
+  }
 
   // editProduct(pumpProductNew: pp_PumpProduct) {
   //   pumpProductNew.IsEditModal = true;
