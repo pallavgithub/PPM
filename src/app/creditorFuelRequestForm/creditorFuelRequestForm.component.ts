@@ -30,7 +30,7 @@ export class CreditorFuelRequestFormComponent implements OnInit {
   btnDisabled: boolean = false;
   creditorFuelRequestForm: FormGroup;
   validationFuelTypeMessage: string;
-  validationUnitMessage:string;
+  validationUnitMessage: string;
   public creditLimit: string;
   public PurchasePrice: number;
   public TotalPrice: number;
@@ -79,7 +79,7 @@ export class CreditorFuelRequestFormComponent implements OnInit {
       PetrolPumpCode: [this.creditorInventory.PetrolPumpCode],
       ProductID: [this.creditorInventory.ProductID],
       ProductName: [this.creditorInventory.ProductName],
-      PurchaseQuantity: [this.creditorInventory.PurchaseQuantity,Validators.compose([Validators.required])],
+      PurchaseQuantity: [this.creditorInventory.PurchaseQuantity, Validators.compose([Validators.required])],
       SMSCode: [this.creditorInventory.SMSCode],
       Unit: [this.creditorInventory.Unit],
       UnitName: [this.creditorInventory.UnitName],
@@ -140,7 +140,7 @@ export class CreditorFuelRequestFormComponent implements OnInit {
       this.validationFuelTypeMessage = "Please select Fuel Type";
       return false;
     }
-    else{
+    else {
       this.validationFuelTypeMessage = "";
     }
     if (this.creditorFuelRequestForm.controls['Unit'].value == 0) {
@@ -160,11 +160,30 @@ export class CreditorFuelRequestFormComponent implements OnInit {
   //     });
   //   });
   // }
+  onChange() {
+    let productID: number = this.creditorFuelRequestForm.controls['ProductID'].value
+    this.pumpProduct.forEach(element => {
+      if (element.ProductID == productID) {
+        this.creditorFuelRequestForm.controls['Unit'].setValue(element.Unit);
+        this.creditorFuelRequestForm.controls['Unit'].disable();
+      }
+    });
+  }
+
+  getUnit(productID) {
+    let unitID: number = 0;
+    this.pumpProduct.forEach(element => {
+      if (element.ProductID == productID) {
+        unitID = element.Unit;
+      }
+    });
+    return unitID;
+  }
 
   getPumpInfo(pumpCode) {
     this.petrolPumpService.getPetrolPumpDashboard(pumpCode).subscribe(res => {
       this.pumpProduct = res.pp_PumpProduct;
-      this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);
+      this.pumpProduct = this.pumpProduct.filter(c => c.CategoryID == 1);
     });
   }
   getPurchaseLimit(pumpCode) {
@@ -173,13 +192,12 @@ export class CreditorFuelRequestFormComponent implements OnInit {
     // });
     let productID = this.creditorFuelRequestForm.controls["ProductID"].value;
     let quantity = this.creditorFuelRequestForm.controls["PurchaseQuantity"].value;
-    let pumpProductTemp:pp_PumpProduct = null;
-    pumpProductTemp = this.pumpProduct.filter(p=>p.ProductID == this.creditorFuelRequestForm.controls["ProductID"].value)[0];
+    let pumpProductTemp: pp_PumpProduct = null;
+    pumpProductTemp = this.pumpProduct.filter(p => p.ProductID == this.creditorFuelRequestForm.controls["ProductID"].value)[0];
     this.PurchasePrice = (Number(pumpProductTemp.SaleRate));
     this.TotalPrice = (Number(pumpProductTemp.SaleRate) * Number(quantity));
   }
-  onBlurGetPrice()
-  {
+  onBlurGetPrice() {
     this.getPurchaseLimit(this.creditorInventory.PetrolPumpCode);
   }
 
@@ -209,27 +227,25 @@ export class CreditorFuelRequestFormComponent implements OnInit {
     //     });
     //   }
     // });
-      if (Number(this.TotalPrice) > Number(this.creditLimit)) {
-        this.toasterService.pop('error', '', "Your credit limit is low. please add funds or low your purchase limit.");
+    if (Number(this.TotalPrice) > Number(this.creditLimit)) {
+      this.toasterService.pop('error', '', "Your credit limit is low. please add funds or low your purchase limit.");
+    }
+    else {
+      this.creditorFuelRequestForm.controls["PurchasePrice"].setValue(this.PurchasePrice);
+      this.creditorFuelRequestForm.controls["TotalPrice"].setValue(this.TotalPrice);
+      if (this.creditorFuelRequestForm.controls["PurchaseQuantity"] != null && this.creditorFuelRequestForm.controls["PurchaseQuantity"].value != "") {
+        this.creditorFuelRequestForm.controls["PurchaseQuantity"].setValue(Number(this.creditorFuelRequestForm.controls["PurchaseQuantity"].value));
       }
       else {
-        this.creditorFuelRequestForm.controls["PurchasePrice"].setValue(this.PurchasePrice);
-        this.creditorFuelRequestForm.controls["TotalPrice"].setValue(this.TotalPrice);
-        if(this.creditorFuelRequestForm.controls["PurchaseQuantity"] != null && this.creditorFuelRequestForm.controls["PurchaseQuantity"].value != "")
-        {
-          this.creditorFuelRequestForm.controls["PurchaseQuantity"].setValue(Number(this.creditorFuelRequestForm.controls["PurchaseQuantity"].value));
-        }
-        else
-        {
-          this.creditorFuelRequestForm.controls["PurchaseQuantity"].setValue(0);
-        }
-        
-        this.petrolPumpService.AddUpdatePetrolPumpCreditorInventory(this.creditorFuelRequestForm.value).subscribe((res: any) => {
-          this.toasterService.pop('success', '', res.Result.toString());
-          this.dialogRef.close();
-          this.router.navigate(['/FuelRequest', this.creditorInventory.PetrolPumpCode]);
-        });
+        this.creditorFuelRequestForm.controls["PurchaseQuantity"].setValue(0);
       }
+      let unitID:number = this.getUnit(this.creditorFuelRequestForm.controls['ProductID'].value);
+      this.petrolPumpService.AddUpdatePetrolPumpCreditorInventory(this.creditorFuelRequestForm.value,unitID).subscribe((res: any) => {
+        this.toasterService.pop('success', '', res.Result.toString());
+        this.dialogRef.close();
+        this.router.navigate(['/FuelRequest', this.creditorInventory.PetrolPumpCode]);
+      });
+    }
   }
 
   // onChange() {

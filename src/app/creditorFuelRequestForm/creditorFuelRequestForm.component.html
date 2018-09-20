@@ -5,7 +5,7 @@
             <div class="form-group">
                 <label for="FuelType">Fuel Type</label>
                 <span class="required">*</span>
-                <select name="ProductID" class="form-control" formControlName="ProductID">
+                <select name="ProductID" class="form-control" formControlName="ProductID" (change)="onChange()">
                     <option [ngValue]="0" disabled>--Select--</option>
                     <option *ngFor="let fuelType of allProduct;let i=index" [ngValue]="fuelType.ID">{{fuelType.Name}}</option>
                 </select>
@@ -17,7 +17,7 @@
                 <label for="Unit">Unit
                     <span class="required">*</span>
                 </label>
-                <select class="form-control" formControlName="Unit">
+                <select class="form-control" formControlName="Unit" disabled>
                     <option [ngValue]="0" disabled>--Select Unit--</option>
                     <option *ngFor="let itemUnit of units;let i=index" [ngValue]="itemUnit.ID">{{itemUnit.Name}}</option>
                 </select>

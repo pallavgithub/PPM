@@ -96,7 +96,8 @@ export class PetrolPumpService {
         return this.http.post(`${environment.apiUrl}/Pump/AddCreditorFund`,JSON.stringify(pumpUser))
     }
 
-    AddUpdatePetrolPumpCreditorInventory(pumpUser:CreditorInventory){
+    AddUpdatePetrolPumpCreditorInventory(pumpUser:CreditorInventory, unitID:number){
+        pumpUser.Unit = unitID;
         return this.http.post(`${environment.apiUrl}/Pump/UpdatePetrolPumpCreditorInventory`,JSON.stringify(pumpUser))
     }
 

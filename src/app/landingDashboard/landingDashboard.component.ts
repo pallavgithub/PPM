@@ -122,7 +122,6 @@ export class LandingDashboardComponent implements OnInit {
     this.petrolPumpService.getPetrolPumpSpecificCreditorInventory(pumpCode).subscribe(res => {
       this.ApprovedCreditorInventory = res.filter(p=>p.IsApproved == true);
       this.PendingCreditorInventory = res.filter(p=>p.IsApproved == false);
-      debugger;
     });
   }
   getPumpInfo(pumpCode) {
