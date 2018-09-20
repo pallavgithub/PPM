@@ -17,6 +17,7 @@ import { PriceAdjustmentFormComponent } from '../priceAdjustmentForm/priceAdjust
 import { BasicInfo } from '../_models/BasicInfo';
 import { DatePipe } from '@angular/common';
 import { pp_PumpProduct } from '../_models/pp_PumpProduct';
+import { CreditorInventory } from '../_models/CreditorInventory';
 
 
 @Component({
@@ -35,6 +36,8 @@ export class LandingDashboardComponent implements OnInit {
   public incompleteNozzles: IncompleteNozzles[];
   public pumpProduct: pp_PumpProduct[];
   public msgProduct: string;
+  public ApprovedCreditorInventory: CreditorInventory[];
+  public PendingCreditorInventory: CreditorInventory[];
   public msgTank: string;
   public creditLimit:string;
   public msgNozzle: string;
@@ -48,33 +51,33 @@ export class LandingDashboardComponent implements OnInit {
   //public userData: UserDetail;
   //pumpLandingForm: FormGroup;
   //RoleID:number;
-  validation_messages = {
-    'Email': [
-      { type: 'required', message: 'Email is required' },
-      { type: 'email', message: 'Enter a valid email' }
-    ],
-    'Password': [
-      { type: 'required', message: 'Password is required' },
-      { type: 'minlength', message: 'Password must be at least 8 characters long' },
-      { type: 'pattern', message: 'Only Alphabets, Numbers, @, &, !, -, _ and . are allowed.' }
-    ],
-    'PetrolPumpName': [
-      { type: 'required', message: 'Petrol Pump Name is required' },
-      { type: 'minlength', message: 'Petrol Pump Name must be at least 3 characters long' },
-      { type: 'pattern', message: 'Only Alphabets, Numbers, @ and & are allowed.' }
-    ],
-    'OwnerName': [
-      { type: 'required', message: 'Owner Name is required' },
-      { type: 'minlength', message: 'Owner Name must be at least 3 characters long' },
-      { type: 'pattern', message: 'Only Alphabets, Numbers and spaces are allowed.' }
-    ],
-    'Mobile': [
-      { type: 'required', message: 'Mobile is required' },
-      { type: 'minlength', message: 'Mobile must be at least 10 characters long' },
-      { type: 'maxlength', message: 'Mobile can be 12 characters long' },
-      { type: 'pattern', message: 'Only Numbers are allowed.' }
-    ]
-  }
+  // validation_messages = {
+  //   'Email': [
+  //     { type: 'required', message: 'Email is required' },
+  //     { type: 'email', message: 'Enter a valid email' }
+  //   ],
+  //   'Password': [
+  //     { type: 'required', message: 'Password is required' },
+  //     { type: 'minlength', message: 'Password must be at least 8 characters long' },
+  //     { type: 'pattern', message: 'Only Alphabets, Numbers, @, &, !, -, _ and . are allowed.' }
+  //   ],
+  //   'PetrolPumpName': [
+  //     { type: 'required', message: 'Petrol Pump Name is required' },
+  //     { type: 'minlength', message: 'Petrol Pump Name must be at least 3 characters long' },
+  //     { type: 'pattern', message: 'Only Alphabets, Numbers, @ and & are allowed.' }
+  //   ],
+  //   'OwnerName': [
+  //     { type: 'required', message: 'Owner Name is required' },
+  //     { type: 'minlength', message: 'Owner Name must be at least 3 characters long' },
+  //     { type: 'pattern', message: 'Only Alphabets, Numbers and spaces are allowed.' }
+  //   ],
+  //   'Mobile': [
+  //     { type: 'required', message: 'Mobile is required' },
+  //     { type: 'minlength', message: 'Mobile must be at least 10 characters long' },
+  //     { type: 'maxlength', message: 'Mobile can be 12 characters long' },
+  //     { type: 'pattern', message: 'Only Numbers are allowed.' }
+  //   ]
+  // }
   constructor(private toasterService: ToasterService, private _formBuilder: FormBuilder, private router: Router, private petrolPumpService: PetrolPumpService, private activatedRoute: ActivatedRoute, private userService: UserService, public dialog: MatDialog,public datepipe: DatePipe) {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.pumpCode = params['pumpCode'];
@@ -90,9 +93,11 @@ export class LandingDashboardComponent implements OnInit {
     if (this.pumpCode && this.pumpCode != '') {
       this.getPumpStatus(this.pumpCode);
       this.getUserDate();
+      this.getBasicInfo();
       this.getCreditLimit(this.pumpCode);
       this.getPumpIncompleteDailyData(this.pumpCode);
       this.getPumpInfo(this.pumpCode);
+      this.getCreditorInventory(this.pumpCode);
       //this.SetFuelPrice();
     }
 
@@ -100,6 +105,13 @@ export class LandingDashboardComponent implements OnInit {
     //   PetrolPumpCode: [this.pumpStatus.PetrolPumpCode]      
     // });
     //this.getUserInfo();
+  }
+  getCreditorInventory(pumpCode) {
+    this.petrolPumpService.getPetrolPumpSpecificCreditorInventory(pumpCode).subscribe(res => {
+      this.ApprovedCreditorInventory = res.filter(p=>p.IsApproved == true);
+      this.PendingCreditorInventory = res.filter(p=>p.IsApproved == false);
+      debugger;
+    });
   }
   getPumpInfo(pumpCode) {
     let date: string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
@@ -111,7 +123,10 @@ export class LandingDashboardComponent implements OnInit {
   getUserDate() {
     this.userService.getUserDetailInfo().subscribe((res) => {
       this.userData = res;
-    });
+    });    
+  }
+  getBasicInfo()
+  {
     this.userService.getBasicInfo().subscribe((res)=>{
       this.basicInfo=res;
     });
@@ -123,8 +138,6 @@ export class LandingDashboardComponent implements OnInit {
   }
 
   getPumpIncompleteDailyData(pumpCode) {
-
-
     this.petrolPumpService.getPumpIncompleteDailyData(pumpCode).subscribe(res => {
       this.incompleteDailyData = new IncompleteDailyData();
       this.incompleteProducts = res.IncompleteProducts;
@@ -136,25 +149,10 @@ export class LandingDashboardComponent implements OnInit {
       else {
         this.isPermit = true;
       }
-      // if (this.incompleteDailyData != null && this.incompleteDailyData.IncompleteProducts != null
-      //   && this.incompleteDailyData.IncompleteProducts.length > 0) {
-      //   {
-      //     this.msgProduct = "Incomplete Products";
-      //   }
-      //   if (this.incompleteDailyData != null && this.incompleteDailyData.IncompleteTanks != null
-      //     && this.incompleteDailyData.IncompleteTanks.length > 0) {
-      //     this.msgProduct = "Incomplete Tanks";
-      //   }
-      //   if (this.incompleteDailyData != null && this.incompleteDailyData.IncompleteNozzles != null
-      //     && this.incompleteDailyData.IncompleteNozzles.length > 0) {
-      //     this.msgProduct = "Incomplete Nozzle";
-      //   }
-      // }
     });
   }
   SetFuelPrice() {
     this.petrolPumpService.getPumpIncompleteDailyData(this.pumpCode).subscribe(res => {
-      //this.incompleteDailyData = new IncompleteDailyData();
       this.incompleteProducts = res.IncompleteProducts;
       this.incompleteTanks = res.IncompleteTanks;
       this.incompleteNozzles = res.IncompleteNozzles;
@@ -168,7 +166,6 @@ export class LandingDashboardComponent implements OnInit {
       }
       else {
         window.location.reload();
-        //this.router.navigate(['/Landing', this.pumpCode]);
       }
     });
 

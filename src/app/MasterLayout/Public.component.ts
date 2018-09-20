@@ -78,10 +78,12 @@ export class PublicComponent implements AfterViewInit {
 
     }
 
-    ngAfterViewInit() {
-        // test();
-        this.getUserDate();        
+    ngAfterViewInit() {  
+        this.getUserDate();       
     }
+    // ngOnInit() {        
+    //     this.getUserDate();        
+    // }
     getPumpIncompleteDailyData(pumpCode) {
         if (this.userData && this.userData.RoleID != -2 && this.userData.RoleID != 2) {
             this.petrolPumpService.getPumpIncompleteDailyData(pumpCode).subscribe(res => {
@@ -101,7 +103,6 @@ export class PublicComponent implements AfterViewInit {
         {
             this.isPermit = true;
         }
-
     }
     getUserDate() {
         this.userService.getUserDetailInfo().subscribe((res) => {
