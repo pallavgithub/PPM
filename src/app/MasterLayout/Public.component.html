@@ -4,17 +4,17 @@
             <div class="col-md-3">
                 <div id="mySidenav" class="sidenav">
                     <a [routerLink]="['/Landing',pumpCode]">DashBoard</a>
-                    <a [routerLink]="['/Inventory',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Inventory and Price
+                    <a [routerLink]="['/Inventory',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit">Inventory and Price
                         Management
                     </a>
-                    <a [routerLink]="['/Creditor',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Creditor</a>
-                    <a [routerLink]="['/DailyPrice',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Set Daily Price</a>
+                    <a [routerLink]="['/Creditor',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit">Creditor</a>
+                    <a [routerLink]="['/DailyPrice',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit">Set Daily Price</a>
                     <a [routerLink]="['/FuelRequest',pumpCode]" *ngIf="userData && userData.RoleID==2">Fuel Request</a>
-                    <a [routerLink]="['/FuelRequestReceived',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Fuel Request
+                    <a [routerLink]="['/FuelRequestReceived',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit">Fuel Request
                         Received
                     </a>
                     <a [routerLink]="['/CreditorLedger',pumpCode]" *ngIf="userData && userData.RoleID==2">Ledger</a>
-                    <a [routerLink]="['/DailyTankReading',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Set Daily Tank
+                    <a [routerLink]="['/DailyTankReading',pumpCode]" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=4 && isPermit">Set Daily Tank
                         Reading
                     </a>
                     <a [routerLink]="['/DailyNozzleReading',pumpCode]" *ngIf="userData && userData.RoleID!=2 && isPermit">Set Daily Nozzle

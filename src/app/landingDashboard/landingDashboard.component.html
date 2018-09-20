@@ -62,7 +62,7 @@
     </div>
 </div>
 
-<div class="row" *ngIf="userData && userData.RoleID != 2">
+<div class="row" *ngIf="userData && (userData.RoleID == 1 || userData.RoleID == -2)">
     <div class="form-group">
         <div class="col-md-6  border-div height-scroll1">
             <label for="AccountDetail">Petrol Pump Set Up Status</label>
@@ -127,6 +127,19 @@
             </div>
         </div>
         <div class="col-md-6 border-div height-scroll1">
+            <div>
+                <div style="display: block">
+                    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+                        [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                </div>
+                <!-- <button (click)="randomize()">Update</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="userData && userData.RoleID == 4">
+    <div class="form-group">        
+        <div class="col-md-12 border-div height-scroll1">
             <div>
                 <div style="display: block">
                     <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
