@@ -12,6 +12,7 @@ import { ToasterService } from 'angular2-toaster';
 })
 export class PumpRegisterComponent implements OnInit {
   registerForm: FormGroup;
+  errorMessagePassword:string;
   public petrolPumpRegister: PetrolPumpRegister=new PetrolPumpRegister();
   validation_messages = {    
     'Email': [
@@ -47,7 +48,7 @@ export class PumpRegisterComponent implements OnInit {
 
   ngOnInit() {  
       this.registerForm = this._formBuilder.group({
-        PetrolPumpName: [this.petrolPumpRegister.PetrolPumpName,Validators.compose([ Validators.required,Validators.minLength(3),Validators.pattern('^[a-zA-Z0-9@&]*$')])],
+        PetrolPumpName: [this.petrolPumpRegister.PetrolPumpName,Validators.compose([ Validators.required,Validators.minLength(3),Validators.pattern('^[a-zA-Z0-9@&\\s]*$')])],
         PetrolPumpPincode:[this.petrolPumpRegister.PetrolPumpPincode,Validators.compose([ Validators.pattern('^(\\s*|\\d{6,6})$')])],
         OwnerName: [this.petrolPumpRegister.OwnerName,Validators.compose([ Validators.required,Validators.minLength(3),Validators.pattern('^[a-zA-Z0-9\\s]*$')])],
         Logo: [this.petrolPumpRegister.Logo],
@@ -68,12 +69,25 @@ matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
     let password = group.controls[passwordKey];
     let confirmPassword = group.controls[confirmPasswordKey];
 
-    if (password.value !== confirmPassword.value) {
+    if (password.value !== confirmPassword.value) {      
+      this.errorMessagePassword = "Password Mismatch";
       return {
         mismatchedPasswords: true
       };
     }
+    else
+    {
+      this.errorMessagePassword = "";
+    }
   }
+  // return (group: FormGroup) => {
+  //   let password = group.controls[passwordKey];
+  //   let confirmPassword = group.controls[confirmPasswordKey];
+
+  //   if (password.value !== confirmPassword.value) {      
+  //     return confirmPassword.setErrors({mismatchedPasswords: true})
+  //   }
+  // }
 }
   
   submitRegister() {    

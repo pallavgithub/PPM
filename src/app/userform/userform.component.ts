@@ -18,8 +18,9 @@ export class UserformComponent implements OnInit {
   roles: Role[];
   IsEditDialog: boolean;
   btnDisabled: boolean = false;
+  errorMessagePassword: string;
   userform: FormGroup;
-  validationRoleMessage:string;
+  validationRoleMessage: string;
   validation_messages = {
     'Email': [
       { type: 'required', message: 'Email is required' },
@@ -67,7 +68,7 @@ export class UserformComponent implements OnInit {
       UserId: [this.user.UserId, Validators.compose([Validators.required, Validators.minLength(5), Validators.pattern('^[a-zA-Z0-9@&!-_.]*$')])],
       Password: [this.user.Password, Validators.compose([Validators.required, Validators.minLength(8), Validators.pattern('^[a-zA-Z0-9@&!-_.]*$')])],
       ConfirmPassword: [this.user.ConfirmPassword, Validators.compose([Validators.required, Validators.minLength(8), Validators.pattern('^[a-zA-Z0-9@&!-_.]*$')])],
-      FullName: [this.user.FullName, Validators.compose([Validators.required,Validators.minLength(3)])],
+      FullName: [this.user.FullName, Validators.compose([Validators.required, Validators.minLength(3)])],
       Address: [this.user.Address],
       RoleID: [this.user.RoleID, Validators.compose([Validators.required])],
       Phone: [this.user.Phone, Validators.compose([Validators.pattern('^(\\s*|\\d{10,10})$')])],
@@ -93,9 +94,13 @@ export class UserformComponent implements OnInit {
       let confirmPassword = group.controls[confirmPasswordKey];
 
       if (password.value !== confirmPassword.value) {
+        this.errorMessagePassword = "Password Mismatch";
         return {
           mismatchedPasswords: true
         };
+      }
+      else {
+        this.errorMessagePassword = "";
       }
     }
   }
@@ -104,7 +109,7 @@ export class UserformComponent implements OnInit {
       this.validationRoleMessage = "Please select Role";
       return false;
     }
-    else{
+    else {
       this.validationRoleMessage = "";
     }
   }
@@ -118,15 +123,13 @@ export class UserformComponent implements OnInit {
   }
 
   createUser() {
-    if(this.userform.controls["CreditLimit"].value == "")
-    {
+    if (this.userform.controls["CreditLimit"].value == "") {
       this.userform.controls["CreditLimit"].setValue(0);
     }
-    else
-    {
+    else {
       this.userform.controls["CreditLimit"].setValue(Number(this.userform.controls["CreditLimit"].value));
     }
-    
+
     this.petrolPumpService.addUpdatePumpUser(this.userform.value).subscribe((res: any) => {
       this.toasterService.pop('success', '', res.Result.toString());
       this.dialogRef.close();

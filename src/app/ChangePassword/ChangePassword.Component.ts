@@ -18,6 +18,7 @@ export class ChangePasswordComponent implements OnInit {
   roles:Role[];
   btnDisabled:boolean = false;
   changePasswordForm:FormGroup;
+  errorMessagePassword: string;
   validation_messages = {
     'Password': [
       { type: 'required', message: 'Password is required' },
@@ -38,6 +39,7 @@ export class ChangePasswordComponent implements OnInit {
       PetrolPumpCode:[this.user.PetrolPumpCode],
       UserId: [this.user.UserId,Validators.compose([ Validators.required,Validators.minLength(5)])],
       Password:[this.user.Password,Validators.compose([ Validators.required,Validators.minLength(8),Validators.pattern('^[a-zA-Z0-9@&!-_.]*$')])],
+      ConfirmPassword: [this.user.ConfirmPassword, Validators.compose([Validators.required, Validators.minLength(8), Validators.pattern('^[a-zA-Z0-9@&!-_.]*$')])],
       FullName: [this.user.FullName,Validators.compose([ Validators.required])],      
       Address: [this.user.Address],
       RoleID: [this.user.RoleID,Validators.compose([ Validators.required])],
@@ -45,7 +47,7 @@ export class ChangePasswordComponent implements OnInit {
       Email: [this.user.Email],
       CreditLimit: [this.user.CreditLimit],
       Description: [this.user.Description]
-});
+}, { validator: this.matchingPasswords('Password', 'ConfirmPassword') });
   }
 
   ChangePassword(){
@@ -55,5 +57,21 @@ export class ChangePasswordComponent implements OnInit {
       this.router.navigate(['/pumpDetails',this.user.PetrolPumpCode]);
     });
     
+  }
+  matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
+    return (group: FormGroup): { [key: string]: any } => {
+      let password = group.controls[passwordKey];
+      let confirmPassword = group.controls[confirmPasswordKey];
+
+      if (password.value !== confirmPassword.value) {
+        this.errorMessagePassword = "Password Mismatch";
+        return {
+          mismatchedPasswords: true
+        };
+      }
+      else {
+        this.errorMessagePassword = "";
+      }
+    }
   }
 }

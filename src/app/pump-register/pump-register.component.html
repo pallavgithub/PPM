@@ -77,11 +77,14 @@
                 <label for="ConfirmPassword">Confirm Password
                     <span class="required">*</span>
                 </label>
-                <input type="password" placeholder="Confirm Password" class="form-control" formControlName="ConfirmPassword">
+                <input type="password" placeholder="Confirm Password" class="form-control" formControlName="ConfirmPassword" validateEqual="Password">
                 <div *ngFor="let validation of validation_messages.ConfirmPassword">
                     <span class="error-message" *ngIf="registerForm.get('ConfirmPassword').hasError(validation.type) && (registerForm.get('ConfirmPassword').dirty || registerForm.get('ConfirmPassword').touched)">{{validation.message}}</span>
-                    <!-- <span>Passwords do not match</span> -->
                 </div>
+                <span class="error-message">{{errorMessagePassword}}</span>
+                <!-- <small [hidden]="ConfirmPassword.valid ||  (ConfirmPassword.pristine && !f.submitted)">
+                    Password mismatch
+                </small> -->
             </div>
         </div>
     </div>

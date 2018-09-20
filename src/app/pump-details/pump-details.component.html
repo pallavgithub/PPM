@@ -119,7 +119,7 @@
     <pump-nozzle *ngIf="pumpNozzles" [pumpNozzle]='pumpNozzles' [pumpCode]='petrolPumpCode'></pump-nozzle>
     <!-- <button class="btn btn-primary" type="submit" (click)='matgroup.selectedIndex = 7'>Next</button> -->
   </mat-tab>
-  <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Tank == 1)'>
+  <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Nozzle == 1)'>
       <ng-template mat-tab-label>
         Step 8 - Pump Configuration Status
         <div>

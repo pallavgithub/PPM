@@ -51,24 +51,21 @@ export class PumpCompleteStatusComponent implements OnInit {
   constructor(private toasterService: ToasterService, private _formBuilder: FormBuilder, private router: Router, private petrolPumpService: PetrolPumpService) {
 
   }
-
   ngOnInit() {
-    if (this.pumpStatus && this.pumpStatus.length > 0) {
-      if (this.pumpStatus[0].Payment == 1 && this.pumpStatus[0].Tank == 1 && this.pumpStatus[0].Nozzle == 1
-        && this.pumpStatus[0].Product == 1 && this.pumpStatus[0].User == 1 && this.pumpStatus[0].AdditionalInfo == 1
-        && this.pumpStatus[0].BasicInfo == 1) {
-        this.status = "Congratulation! Your Petrol pump set up is Complete."
-        this.countStatus = 1;
-      }
-      else {
-        this.status = "Petrol pump set up is In Progress."
-        this.countStatus = 0;
-      }
-    }
-    // this.pumpLandingForm = this._formBuilder.group({
-    //   PetrolPumpCode: [this.pumpStatus.PetrolPumpCode]      
-    // });
-    //this.getUserInfo();
+    this.status = "Congratulation! Your Petrol pump set up is Complete."
+    this.countStatus = 1;
+    // if (this.pumpStatus && this.pumpStatus.length > 0) {
+    //   if (this.pumpStatus[0].Payment == 1 && this.pumpStatus[0].Tank == 1 && this.pumpStatus[0].Nozzle == 1
+    //     && this.pumpStatus[0].Product == 1 && this.pumpStatus[0].User == 1 && this.pumpStatus[0].AdditionalInfo == 1
+    //     && this.pumpStatus[0].BasicInfo == 1) {
+    //     this.status = "Congratulation! Your Petrol pump set up is Complete."
+    //     this.countStatus = 1;
+    //   }
+    //   else {
+    //     this.status = "Petrol pump set up is In Progress."
+    //     this.countStatus = 0;
+    //   }
+    // }
   }
 
   //   savePumpInfo() {
