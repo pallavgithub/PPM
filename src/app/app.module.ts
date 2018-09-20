@@ -79,6 +79,7 @@ import { DailyNozzleBreakUpFormComponent } from './dailyNozzleBreakUp/dailyNozzl
 import { PriceAdjustmentFormComponent } from './priceAdjustmentForm/priceAdjustmentForm.component';
 import { PublicComponent } from './MasterLayout/Public.component';
 import { SecureComponent } from './MasterLayout/Secure.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
     imports: [
@@ -93,6 +94,7 @@ import { SecureComponent } from './MasterLayout/Secure.component';
         routing,
         MatSidenavModule,MatButtonModule, MatNativeDateModule, MatIconModule, MatToolbarModule,MatCheckboxModule,
         MatSidenavMenuModule,
+        ChartsModule,
         BrowserAnimationsModule, ToasterModule.forRoot(), NgbModule.forRoot()
         //HttpService
     ],

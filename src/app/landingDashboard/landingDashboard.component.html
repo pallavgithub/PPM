@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="userData && userData.RoleID == 2">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="creditLimit">creditLimit -</label>&nbsp;&nbsp;
@@ -38,6 +38,32 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-6 border-div height-scroll1">
+            <label for="AccountDetail">Fuel Price</label>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div *ngFor="let itemPumpProduct of pumpProduct; let in=index">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="ProductName">{{itemPumpProduct.ProductName}} -&nbsp;
+                                        </label>
+                                        <label for="SaleRate">{{itemPumpProduct.SaleRate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="userData && userData.RoleID != 2">
+    <div class="form-group">
         <div class="col-md-6  border-div height-scroll1">
             <label for="AccountDetail">Petrol Pump Set Up Status</label>
             <div class="row">
@@ -100,39 +126,20 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="form-group">
         <div class="col-md-6 border-div height-scroll1">
-            <label for="AccountDetail">Fuel Price</label>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <div *ngFor="let itemPumpProduct of pumpProduct; let in=index">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="ProductName">{{itemPumpProduct.ProductName}} -&nbsp;
-                                        </label>
-                                        <label for="SaleRate">{{itemPumpProduct.SaleRate}}
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div>
+                <div style="display: block">
+                    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+                        [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
                 </div>
+                <!-- <button (click)="randomize()">Update</button> -->
             </div>
         </div>
-        <div class="col-md-6" style="min-height:100px;max-height: 200px; overflow:scroll;">
-        </div>
     </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="userData && userData.RoleID == 2">
     <div class="form-group">
-        <div class="col-md-6" style="min-height:100px;max-height: 200px; overflow:scroll;">
+        <div class="col-md-6 border-div height-scroll1">
             <div class="container">
                 <h2>Fuel Request Summary</h2>
                 <ul class="nav nav-pills">
@@ -187,7 +194,14 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6" style="min-height:100px;max-height: 200px; overflow:scroll;">
+        <div class="col-md-6 border-div height-scroll1">
+            <div>
+                <div style="display: block">
+                    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+                        [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                </div>
+                <!-- <button (click)="randomize()">Update</button> -->
+            </div>
         </div>
     </div>
 </div>

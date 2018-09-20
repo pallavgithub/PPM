@@ -69,8 +69,8 @@ export class LoginComponent implements OnInit {
                     if (data && data.token) {
                         // store user details and jwt token in local storage to keep user logged in between page refreshes
                         localStorage.setItem('currentUser', data.token);
-                        if (data.roleID == 2) {
-                            this.router.navigate(['/FuelRequest',data.petrolPumpCode]);
+                        if (data.roleID == 2 || data.roleID == 4) {
+                            this.router.navigate(['/Landing',data.petrolPumpCode]);
                         }                        
                         else if (data.roleID != -2) {
                             this.router.navigate(['/pumpDetails',data.petrolPumpCode]);
