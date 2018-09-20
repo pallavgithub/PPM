@@ -63,7 +63,7 @@ export class CreditorLedgerComponent implements OnInit {
     if (this.pumpCode && this.pumpCode != '') {
       //this.getUserInfo();
       this.getPumpInfo(this.pumpCode);
-      // this.getCreditLimit(this.pumpCode);
+      this.getCreditLimit(this.pumpCode);
        this.getUserDate();
     }
     //this.getAllRoles();
