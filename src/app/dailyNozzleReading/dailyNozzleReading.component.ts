@@ -71,7 +71,7 @@ export class DailyNozzleReadingComponent implements OnInit {
   ngOnInit() {
     if (this.pumpCode && this.pumpCode != '') {
       //this.getUserInfo();
-      this.getPumpInfo(this.pumpCode);
+      this.getPumpInfo(this.pumpCode,new Date().toString());
       this.getUserDate();
     }
     this.productDialogform = this._formBuilder.group({
@@ -109,21 +109,27 @@ export class DailyNozzleReadingComponent implements OnInit {
     //this.getAllProducts();
     //this.getAllUnits();
   }
-  getPumpInfo(pumpCode) {
-    let date: string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');    
+  getPumpInfo(pumpCode,readingDate) {
+    let date: string = this.datepipe.transform(readingDate.toString(), 'yyyy-MM-dd');
+    let flag: boolean = false;
     this.petrolPumpService.getPetrolPumpNozzleInfoWithDailyEntry(pumpCode, date).subscribe(res => {
       // this.pumpProduct = res.pp_PumpProduct;
       // this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);
       this.pumpNozzles = res;
-           
-      debugger;
       this.pumpNozzles.forEach(element => {
         element.ReadingDate = this.datepipe.transform(((element.ReadingDate == "" || element.ReadingDate == null) ? new Date().toString() : element.ReadingDate), 'yyyy-MM-dd');
         if (element.OpeningReading == "0") {
-          this.btnSaveDisabled = true;
+          flag = true;
+          //this.btnSaveDisabled = true;
           element.OpeningReading = "";
         }
       });
+      if (flag == true) {
+        this.btnSaveDisabled = true;
+      }
+      else {
+        this.btnSaveDisabled = false;
+      }
       // let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
       // this.DateOfEntry = latest_ReadingDate;
     });
@@ -144,6 +150,9 @@ export class DailyNozzleReadingComponent implements OnInit {
     tank.OpeningStock = (Number(tank.OpeningReading) + 5).toString();
 
     //this.tankform.controls["OpeningStock"].setValue(Number(this.tankform.controls["OpeningReading"].value + 5));
+  }
+  onBlurDate(tank: pp_Tank) {
+    this.getPumpInfo(tank.PetrolPumpCode,tank.ReadingDate);
   }
 
   onBlurOpeningStock(tank: pp_Tank) {

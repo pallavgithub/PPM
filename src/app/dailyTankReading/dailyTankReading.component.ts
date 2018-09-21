@@ -27,7 +27,7 @@ export class DailyTankReadingComponent implements OnInit {
   public pumpTanks: pp_Tank[];
   public pumpCode: string;
   allProducts: AllProduct[];
-  public btnSaveDisabled:boolean = false;
+  public btnSaveDisabled: boolean = false;
   pumpProductWithDate: PumpProductWithDate;
   DateOfEntry: string;
   public userData: UserInfo;
@@ -66,7 +66,7 @@ export class DailyTankReadingComponent implements OnInit {
   ngOnInit() {
     if (this.pumpCode && this.pumpCode != '') {
       //this.getUserInfo();
-      this.getPumpInfo(this.pumpCode);
+      this.getPumpInfo(this.pumpCode,new Date().toString());
       this.getUserDate();
     }
     this.productDialogform = this._formBuilder.group({
@@ -104,9 +104,9 @@ export class DailyTankReadingComponent implements OnInit {
     //this.getAllProducts();
     //this.getAllUnits();
   }
-  getPumpInfo(pumpCode) {
-    // let date:string = new Date().toString();
-    let date: string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
+  getPumpInfo(pumpCode,readingDate) {
+    let date: string = this.datepipe.transform(readingDate.toString(), 'yyyy-MM-dd');
+    let flag:boolean = false;
     this.petrolPumpService.getPetrolPumpTankInfoWithDailyEntry(pumpCode, date).subscribe(res => {
       // this.pumpProduct = res.pp_PumpProduct;
       // this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);
@@ -114,14 +114,24 @@ export class DailyTankReadingComponent implements OnInit {
       this.pumpTanks.forEach(element => {
         element.ReadingDate = this.datepipe.transform(((element.ReadingDate == "" || element.ReadingDate == null) ? new Date().toString() : element.ReadingDate), 'yyyy-MM-dd');
         if (element.OpeningReading == "0") {
-          this.btnSaveDisabled = true;
+          flag = true;
+          // this.btnSaveDisabled = true;
           element.OpeningReading = "";
-        } 
+        }
         if (element.OpeningStock == "0") {
-          this.btnSaveDisabled = true;
+          flag = true;   
+          // this.btnSaveDisabled = true;       
           element.OpeningStock = "";
         }
       });
+      if(flag == true)
+      {
+        this.btnSaveDisabled = true;
+      }
+      else
+      {
+        this.btnSaveDisabled = false;
+      }
       // let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
       // this.DateOfEntry = latest_ReadingDate;
     });
@@ -137,6 +147,9 @@ export class DailyTankReadingComponent implements OnInit {
 
     tank.OpeningReading = (Number(tank.OpeningStock) - 5).toString();
     //this.tankform.controls["OpeningReading"].setValue(Number(this.tankform.controls["OpeningStock"].value - 5));
+  }
+  onBlurDate(tank: pp_Tank) {
+    this.getPumpInfo(tank.PetrolPumpCode,tank.ReadingDate);
   }
 
   // ngOnChanges(changes: SimpleChange) {

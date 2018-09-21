@@ -59,25 +59,25 @@
                                 <div class="col-md-3">
                                     <div class="form-group">                                        
                                         <input type="number" placeholder="Opening Reading" class="form-control" [(ngModel)]="itemPumpTanks.OpeningReading" #OpeningReading="ngModel"
-                                            name="OpeningReading-{{in}}" (blur)="onBlurOpeningReading(itemPumpTanks)">
+                                            name="OpeningReading-{{in}}" (blur)="onBlurOpeningReading(itemPumpTanks)" [disabled] = "!btnSaveDisabled">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <input type="number" placeholder="Opening Stock" class="form-control" [(ngModel)]="itemPumpTanks.OpeningStock" #OpeningStock="ngModel"
-                                            name="OpeningStock-{{in}}" (blur)="onBlurOpeningStock(itemPumpTanks)">
+                                            name="OpeningStock-{{in}}" (blur)="onBlurOpeningStock(itemPumpTanks)" [disabled] = "!btnSaveDisabled">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <input type="date" placeholder="Reading Date" class="form-control" [(ngModel)]="itemPumpTanks.ReadingDate" #ReadingDate="ngModel" name="ReadingDate-{{in}}">
+                                        <input type="date" placeholder="Reading Date" class="form-control" [(ngModel)]="itemPumpTanks.ReadingDate" #ReadingDate="ngModel" name="ReadingDate-{{in}}" (change)="onBlurDate(itemPumpTanks)">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div style="float:right;">
                             <!-- <button class="btn btn-default" (click)="cancel()">Cancel</button> &nbsp;&nbsp;&nbsp; -->
-                            <button class="btn btn-primary" type="submit">Save</button>
+                            <button class="btn btn-primary" type="submit" [disabled] = "!btnSaveDisabled">Save</button>
                         </div>
                     </div>
                 </div>
