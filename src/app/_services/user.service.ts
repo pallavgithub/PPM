@@ -75,8 +75,8 @@ export class UserService {
     getUserInfo() {
         return this.http.get(`${environment.apiUrl}/Pump/UserInfo`);
     }
-    getBasicInfo() {
-        return this.http.get<BasicInfo>(`${environment.apiUrl}/Pump/BasicInfo`);
+    getBasicInfo(petrolPumpCode:string) {
+        return this.http.get<BasicInfo>(`${environment.apiUrl}/Pump/BasicInfo?petrolPumpCode=`+petrolPumpCode);
     }
 
     getUserDetailInfo() {

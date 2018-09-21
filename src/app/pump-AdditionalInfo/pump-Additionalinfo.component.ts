@@ -88,20 +88,20 @@ export class PumpAdditionalInfoComponent implements OnInit {
   ngOnInit() {
     this.pumpAdditionalInfoForm = this._formBuilder.group({
       PetrolPumpCode: [this.petrolPump.PetrolPumpCode],
-      PetrolPumpName: [this.petrolPump.PetrolPumpName, Validators.compose([Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z0-9@&]*$')])],
+      PetrolPumpName: [this.petrolPump.PetrolPumpName],
       PetrolPumpPincode: [this.petrolPump.PetrolPumpPincode, Validators.compose([Validators.required,Validators.minLength(6), Validators.maxLength(6), Validators.pattern('^(\\s*|\\d{6,6})$')])],
-      OwnerName: [this.petrolPump.OwnerName, Validators.compose([Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z0-9\\s]*$')])],
+      OwnerName: [this.petrolPump.OwnerName],
       Logo: [this.petrolPump.Logo],
       Address: [this.petrolPump.Address, Validators.compose([Validators.required, Validators.maxLength(255)])],
       Address2: [this.petrolPump.Address2, Validators.compose([Validators.required, Validators.maxLength(255)])],
       City: [this.petrolPump.City, Validators.compose([Validators.required, Validators.maxLength(20)])],
       State: [this.petrolPump.State, Validators.compose([Validators.required])],
-      Mobile: [this.petrolPump.Mobile, Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(12), Validators.pattern('^[0-9]*$')])],
-      Email: [this.petrolPump.Email, Validators.compose([Validators.required, Validators.email])],
+      Mobile: [this.petrolPump.Mobile],
+      Email: [this.petrolPump.Email],
       TIN: [this.petrolPump.TIN, Validators.compose([Validators.pattern('^(\\s*|\\d{11,11})$')])],
       CST: [this.petrolPump.CST, Validators.compose([Validators.pattern('^(\\s*|\\d{11,11})$')])],
-      LicenseStartDate: [this.petrolPump.LicenseStartDate, Validators.required],
-      LicenseEndDate: [this.petrolPump.LicenseEndDate, Validators.required],
+      LicenseStartDate: [this.petrolPump.LicenseStartDate],
+      LicenseEndDate: [this.petrolPump.LicenseEndDate],
       Country: [this.petrolPump.Country]
     });
     this.getAllStates();

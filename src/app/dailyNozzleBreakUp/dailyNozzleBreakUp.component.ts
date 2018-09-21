@@ -15,8 +15,9 @@ import { UserDetail } from '../_models/userDetail';
 import { UserInfo } from '../_models/UserInfo';
 import { pp_Tank } from '../_models/pp_Tank';
 import { pp_Nozzle } from '../_models/pp_Nozzle';
-import {NozzleDailyBreakUp} from '../_models/NozzleDailyBreakUp';
+import { NozzleDailyBreakUp } from '../_models/NozzleDailyBreakUp';
 import { PaymentType } from '../_models/PaymentType';
+import { FuelType } from '../_models/FuelType';
 
 @Component({
   selector: 'pump-dailyNozzleBreakUp',
@@ -29,19 +30,28 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
   public pumpProduct: pp_PumpProduct[];
   public pumpTanks: pp_Tank[];
   public nozzleDailyBreakUp: NozzleDailyBreakUp[];
+  public nozzleDailyBreakUpGet: NozzleDailyBreakUp[];
+  public nozzleDailyBreakUpGetForLubes: NozzleDailyBreakUp[];
+  public nozzleDailyBreakUpGetForExpense: NozzleDailyBreakUp[];
   public pumpNozzles: pp_Nozzle[];
-  paymentTypes: PaymentType[];
+  paymentTypes: PaymentType[] = new Array();
   public pumpCode: string;
+  fuelTypes: FuelType[];
   allProducts: AllProduct[];
   pumpProductWithDate: PumpProductWithDate;
   DateOfEntry: string;
-  public userData:UserInfo;
+  public addPaymentTypeVisible: boolean = false;
+  public addLubeSaleVisible: boolean = false;
+  public addExpenseSaleVisible: boolean = false;
+  public userData: UserInfo;
   productDialogform: FormGroup;
+  LubesDialogform: FormGroup;
+  ExpensesDialogform: FormGroup;
   navigationSubscription;
   units: Unit[];
-  nozzleID:number;
+  nozzleID: number;
   constructor(private toasterService: ToasterService, public dialog: MatDialog, private router: Router, private userService: UserService, private _formBuilder: FormBuilder, private petrolPumpService: PetrolPumpService, @Inject(MAT_DIALOG_DATA) public data,
-  private dialogRef: MatDialogRef<DailyNozzleBreakUpFormComponent>, public datepipe: DatePipe) {   
+    private dialogRef: MatDialogRef<DailyNozzleBreakUpFormComponent>, public datepipe: DatePipe) {
   }
   // getProductName(ID) { 
   //   if(ID == 0)
@@ -64,20 +74,25 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
 
   ngOnInit() {
     this.nozzleDailyBreakUp = this.data.pumpProductNew;
+    this.SetPaymentType(this.nozzleDailyBreakUp);
     //this.getAllPaymentType();
     // if (this.pumpCode && this.pumpCode != '') {
     //   //this.getUserInfo();
     //   this.getPumpInfo(this.pumpCode);
     //   this.getUserDate();
     // }
-    // this.productDialogform = this._formBuilder.group({
-    //   ID: 0,
-    //   PetrolPumpCode: '',
-    //   ProductName: '',
-    //   ProductID: 0,
-    //   PurchaseRate: 0,
-    //   SaleRate: 0
-    // });
+    this.productDialogform = this._formBuilder.group({
+      PaymentTypeID: 0,
+      Amount: ''
+    });
+    this.LubesDialogform = this._formBuilder.group({
+      FuelTypeID: 0,
+      Quantity: ''
+    });
+    this.ExpensesDialogform = this._formBuilder.group({
+      Description: '',
+      Amount: ''
+    });
     //this.DateOfEntry = new Date().toJSON().slice(0,10).replace(/-/g,'/');
 
     // if (this.pumpProduct != null && this.pumpProduct != undefined && this.pumpProduct.length) {
@@ -105,6 +120,42 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
     //this.getAllProducts();
     //this.getAllUnits();
   }
+  AddIncomeHead() {
+    this.addPaymentTypeVisible = true;
+  }
+  RemoveIncomeHead() {
+    this.addPaymentTypeVisible = false;
+  }
+
+  addLubeSale() {
+    this.addLubeSaleVisible = true;
+  }
+  RemoveLubeSale() {
+    this.addLubeSaleVisible = false;
+  }
+
+  addExpenseSale() {
+    this.addExpenseSaleVisible = true;
+  }
+  RemoveExpenseSale() {
+    this.addExpenseSaleVisible = false;
+  }
+  getAllFuelType() {
+    this.userService.getAllProducts().subscribe(data => {
+      this.fuelTypes = data.filter(p => p.CategoryID == 2);
+    });
+  }
+  SetPaymentType(nozzleDailyBreakUp: NozzleDailyBreakUp[]) {
+    let paymentTypeItem: PaymentType = new PaymentType();
+    nozzleDailyBreakUp.forEach(element => {
+      paymentTypeItem = new PaymentType();
+      paymentTypeItem.ID = element.PaymentTypeID;
+      paymentTypeItem.Name = element.PaymentTypeName;
+      this.paymentTypes.push(paymentTypeItem);
+    });
+    this.getAllFuelType()
+    this.getNozzleBreakUp(nozzleDailyBreakUp[0].PetrolPumpCode, nozzleDailyBreakUp[0].NozzleID, nozzleDailyBreakUp[0].DateEntered);
+  }
   getAllPaymentType() {
     this.userService.getAllPaymentType().subscribe(data => {
       this.paymentTypes = data;
@@ -123,20 +174,17 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
     });
   }
 
-  editTank(nozzle)
-  {
-  
+  editTank(nozzle) {
+
   }
-  onBlurOpeningReading(tank:pp_Tank)
-  {
+  onBlurOpeningReading(tank: pp_Tank) {
     tank.OpeningStock = (Number(tank.OpeningReading) + 5).toString();
 
     //this.tankform.controls["OpeningStock"].setValue(Number(this.tankform.controls["OpeningReading"].value + 5));
   }
 
-  onBlurOpeningStock(tank:pp_Tank)
-  {
-    
+  onBlurOpeningStock(tank: pp_Tank) {
+
     tank.OpeningReading = (Number(tank.OpeningStock) - 5).toString();
     //this.tankform.controls["OpeningReading"].setValue(Number(this.tankform.controls["OpeningStock"].value - 5));
   }
@@ -152,24 +200,148 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
   //   }    
   // }
 
-  savePumpInfo(pumpProduct: NozzleDailyBreakUp[]) {
-    // var daatr = this.productDialogform.value;
+  savePumpInfo() {
+    var daatr = this.productDialogform.value;
     // var date = this.DateOfEntry;
-    pumpProduct.forEach(element => {
-      element.Amount = Number(element.Amount)
-      element.DateEntered = this.datepipe.transform(((element.DateEntered == "" || element.DateEntered == null) ? new Date().toString() : element.DateEntered), 'yyyy-MM-dd');
-    });
-    this.petrolPumpService.UpdateDailyNozzleReadingBreakUp(pumpProduct).subscribe(res => {
-      this.toasterService.pop('success', '', 'Tank Readings updated successfully.');
-      this.dialogRef.close();
-      this.router.navigate(['/DailyNozzleReading', this.pumpCode]);
+    // pumpProduct.forEach(element => {
+    //   element.Amount = Number(element.Amount)
+    //   element.DateEntered = this.datepipe.transform(((element.DateEntered == "" || element.DateEntered == null) ? new Date().toString() : element.DateEntered), 'yyyy-MM-dd');
+    // });
+    let paymentTypeID = this.productDialogform.controls["PaymentTypeID"].value;
+    let amount = this.productDialogform.controls["Amount"].value;
+    if (paymentTypeID == 0 || amount == 0 || amount == '') {
+      this.toasterService.pop('error', '', 'Please add item');
+    }
+    else {
+      if (this.nozzleDailyBreakUpGet.filter(p => p.PaymentTypeID == paymentTypeID).length > 0) {
+        this.toasterService.pop('error', '', 'This is already added');
+      }
+      else {
+        let nozzleDailyBreakUpItem: NozzleDailyBreakUp[] = new Array();
+        nozzleDailyBreakUpItem = this.nozzleDailyBreakUp.filter(p => p.PaymentTypeID == paymentTypeID);
+        nozzleDailyBreakUpItem.forEach(element => {
+          element.Amount = amount,
+            element.BreakUpTypeID = 1 // 1 for payment type
+        });
+        this.petrolPumpService.UpdateDailyNozzleReadingBreakUp(nozzleDailyBreakUpItem).subscribe(res => {
+          this.toasterService.pop('success', '', 'Tank Readings updated successfully.');
+          this.addPaymentTypeVisible = false;
+          this.getNozzleBreakUp(nozzleDailyBreakUpItem[0].PetrolPumpCode, nozzleDailyBreakUpItem[0].NozzleID, nozzleDailyBreakUpItem[0].DateEntered);
+          //this.dialogRef.close();
+          //this.router.navigate(['/DailyNozzleReading', this.pumpCode]);
+        });
+      }
+    }
+
+  }
+
+  savePumpInfoForLubes() {
+    var daatr = this.LubesDialogform.value;
+    // var date = this.DateOfEntry;
+    // pumpProduct.forEach(element => {
+    //   element.Amount = Number(element.Amount)
+    //   element.DateEntered = this.datepipe.transform(((element.DateEntered == "" || element.DateEntered == null) ? new Date().toString() : element.DateEntered), 'yyyy-MM-dd');
+    // });
+    let paymentTypeID = this.LubesDialogform.controls["FuelTypeID"].value;
+    let amount = this.LubesDialogform.controls["Quantity"].value;
+    if (paymentTypeID == 0 || amount == 0 || amount == '') {
+      this.toasterService.pop('error', '', 'Please add item');
+    }
+    else {
+      if (this.nozzleDailyBreakUpGetForLubes.filter(p => p.PaymentTypeID == paymentTypeID).length > 0) {
+        this.toasterService.pop('error', '', 'This is already added');
+      }
+      else {
+        let nozzleDailyBreakUpItemArray: NozzleDailyBreakUp[] = new Array();
+        let nozzleDailyBreakUpItem: NozzleDailyBreakUp = new NozzleDailyBreakUp();
+        //nozzleDailyBreakUpItem = this.nozzleDailyBreakUp.filter(p=>p.PaymentTypeID == paymentTypeID);
+        nozzleDailyBreakUpItem.Amount = amount,
+          nozzleDailyBreakUpItem.BreakUpTypeID = 2, // 1 for payment type
+          nozzleDailyBreakUpItem.PetrolPumpCode = this.nozzleDailyBreakUp[0].PetrolPumpCode,
+          nozzleDailyBreakUpItem.NozzleID = this.nozzleDailyBreakUp[0].NozzleID,
+          nozzleDailyBreakUpItem.DateEntered = this.nozzleDailyBreakUp[0].DateEntered,
+          nozzleDailyBreakUpItem.Description = this.nozzleDailyBreakUp[0].Description,
+          nozzleDailyBreakUpItem.DailyNozzleReadingID = this.nozzleDailyBreakUp[0].DailyNozzleReadingID
+        nozzleDailyBreakUpItem.PaymentTypeID = paymentTypeID;
+        nozzleDailyBreakUpItem.PaymentTypeName = this.getFuelTypeName(paymentTypeID);
+        nozzleDailyBreakUpItemArray.push(nozzleDailyBreakUpItem);
+        this.petrolPumpService.UpdateDailyNozzleReadingBreakUp(nozzleDailyBreakUpItemArray).subscribe(res => {
+          this.toasterService.pop('success', '', 'Tank Readings updated successfully.');
+          this.addLubeSaleVisible = false;
+          this.getNozzleBreakUp(nozzleDailyBreakUpItem.PetrolPumpCode, nozzleDailyBreakUpItem.NozzleID, nozzleDailyBreakUpItem.DateEntered);
+          //this.dialogRef.close();
+          //this.router.navigate(['/DailyNozzleReading', this.pumpCode]);
+        });
+      }
+    }
+  }
+
+  savePumpInfoForExpense() {
+    var daatr = this.ExpensesDialogform.value;
+    // var date = this.DateOfEntry;
+    // pumpProduct.forEach(element => {
+    //   element.Amount = Number(element.Amount)
+    //   element.DateEntered = this.datepipe.transform(((element.DateEntered == "" || element.DateEntered == null) ? new Date().toString() : element.DateEntered), 'yyyy-MM-dd');
+    // });
+    let description = this.ExpensesDialogform.controls["Description"].value;
+    let amount = this.ExpensesDialogform.controls["Amount"].value;
+    if (description == '' || amount == 0 || amount == '') {
+      this.toasterService.pop('error', '', 'Please add item');
+    }
+    else {
+      let nozzleDailyBreakUpItemArray: NozzleDailyBreakUp[] = new Array();
+      let nozzleDailyBreakUpItem: NozzleDailyBreakUp = new NozzleDailyBreakUp();
+      //nozzleDailyBreakUpItem = this.nozzleDailyBreakUp.filter(p=>p.PaymentTypeID == paymentTypeID);
+      nozzleDailyBreakUpItem.Amount = amount,
+        nozzleDailyBreakUpItem.BreakUpTypeID = 3, // 1 for payment type
+        nozzleDailyBreakUpItem.PetrolPumpCode = this.nozzleDailyBreakUp[0].PetrolPumpCode,
+        nozzleDailyBreakUpItem.NozzleID = this.nozzleDailyBreakUp[0].NozzleID,
+        nozzleDailyBreakUpItem.DateEntered = this.nozzleDailyBreakUp[0].DateEntered,
+        nozzleDailyBreakUpItem.Description = description,
+        nozzleDailyBreakUpItem.DailyNozzleReadingID = this.nozzleDailyBreakUp[0].DailyNozzleReadingID
+      nozzleDailyBreakUpItem.PaymentTypeID = 0;
+      nozzleDailyBreakUpItem.PaymentTypeName = null;
+      nozzleDailyBreakUpItemArray.push(nozzleDailyBreakUpItem);
+      this.petrolPumpService.UpdateDailyNozzleReadingBreakUp(nozzleDailyBreakUpItemArray).subscribe(res => {
+        this.toasterService.pop('success', '', 'Tank Readings updated successfully.');
+        this.addExpenseSaleVisible = false;
+        this.getNozzleBreakUp(nozzleDailyBreakUpItem.PetrolPumpCode, nozzleDailyBreakUpItem.NozzleID, nozzleDailyBreakUpItem.DateEntered);
+        //this.dialogRef.close();
+        //this.router.navigate(['/DailyNozzleReading', this.pumpCode]);
+      });
+    }
+  }
+
+  getFuelTypeName(paymentTypeID: number) {
+    let res = this.fuelTypes.filter(p => p.ID == paymentTypeID);
+    return res[0].Name;
+  }
+  getNozzleBreakUp(pumpCode, nozzleID, date) {
+    this.petrolPumpService.GetNozzleBreakUp(pumpCode, nozzleID, date).subscribe(res => {
+      this.nozzleDailyBreakUpGet = res.filter(p => p.BreakUpTypeID == 1);
+      this.nozzleDailyBreakUpGetForLubes = res.filter(p => p.BreakUpTypeID == 2);
+      this.nozzleDailyBreakUpGetForExpense = res.filter(p => p.BreakUpTypeID == 3);
     });
   }
+
+  // savePumpInfo(pumpProduct: NozzleDailyBreakUp[]) {
+  //   // var daatr = this.productDialogform.value;
+  //   // var date = this.DateOfEntry;
+  //   pumpProduct.forEach(element => {
+  //     element.Amount = Number(element.Amount)
+  //     element.DateEntered = this.datepipe.transform(((element.DateEntered == "" || element.DateEntered == null) ? new Date().toString() : element.DateEntered), 'yyyy-MM-dd');
+  //   });
+  //   this.petrolPumpService.UpdateDailyNozzleReadingBreakUp(pumpProduct).subscribe(res => {
+  //     this.toasterService.pop('success', '', 'Tank Readings updated successfully.');
+  //     this.dialogRef.close();
+  //     this.router.navigate(['/DailyNozzleReading', this.pumpCode]);
+  //   });
+  // }
   getUserDate() {
-    this.userService.getUserDetailInfo().subscribe((res)=>{
-      this.userData=res;
+    this.userService.getUserDetailInfo().subscribe((res) => {
+      this.userData = res;
     });
-}
+  }
 
   // editProduct(pumpProductNew: pp_PumpProduct) {
   //   pumpProductNew.IsEditModal = true;

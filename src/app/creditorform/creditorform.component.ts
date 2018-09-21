@@ -21,6 +21,7 @@ export class CreditorformComponent implements OnInit {
   IsEditDialog: boolean;
   paymentTypes: PaymentType[];
   validationPaymentTypeMessage: string;
+  errorMessagePassword: string;
   btnDisabled: boolean = false;
   userform: FormGroup;
   validationRoleMessage: string;
@@ -117,9 +118,13 @@ export class CreditorformComponent implements OnInit {
       let confirmPassword = group.controls[confirmPasswordKey];
 
       if (password.value !== confirmPassword.value) {
+        this.errorMessagePassword = "Password Mismatch";
         return {
           mismatchedPasswords: true
         };
+      }
+      else {
+        this.errorMessagePassword = "";
       }
     }
   }

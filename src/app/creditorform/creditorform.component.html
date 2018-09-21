@@ -47,6 +47,7 @@
                     <span class="error-message" *ngIf="userform.get('ConfirmPassword').hasError(validation.type) && (userform.get('ConfirmPassword').dirty || userform.get('ConfirmPassword').touched)">{{validation.message}}</span>
                     <!-- <span>Passwords do not match</span> -->
                 </div>
+                <span class="error-message">{{errorMessagePassword}}</span>
             </div>
         </div>
     </div>

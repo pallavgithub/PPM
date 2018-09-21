@@ -69,6 +69,10 @@ export class PetrolPumpService {
         return this.http.get<any>(`${environment.apiUrl}/Pump/GetCreditorLedger?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
     }
 
+    GetNozzleBreakUp(petrolPumpCode:string,nozzleID:string,date:string){
+        return this.http.get<NozzleDailyBreakUp[]>(`${environment.apiUrl}/Pump/GetNozzleBreakUp?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&nozzleID=' + nozzleID + '&date=' + date);
+    }
+
     GetPetrolPumpCreditorNetCreditLimit(petrolPumpCode:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/CreditorNetCreditLimit?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
     }
@@ -128,6 +132,9 @@ export class PetrolPumpService {
     }
     UpdateDailyNozzleReadingBreakUp(pumpInfo:NozzleDailyBreakUp[]){
         return this.http.post(`${environment.apiUrl}/Pump/UpdateDailyNozzleReadingBreakUp`,JSON.stringify(pumpInfo));
+    }
+    UpdateDailySingleNozzleReadingBreakUp(pumpInfo:NozzleDailyBreakUp){
+        return this.http.post(`${environment.apiUrl}/Pump/UpdateDailySingleNozzleReadingBreakUp`,JSON.stringify(pumpInfo));
     }
     updatePetrolPumpLubesPriceAdjustmentInfo(pumpProduct:pp_PumpProduct){
         return this.http.post(`${environment.apiUrl}/Pump/UpdateLubesPriceAdjustmentInfo`,JSON.stringify(pumpProduct));

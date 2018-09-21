@@ -105,7 +105,7 @@ export class LandingDashboardComponent implements OnInit {
     if (this.pumpCode && this.pumpCode != '') {
       this.getPumpStatus(this.pumpCode);
       this.getUserDate();
-      this.getBasicInfo();
+      this.getBasicInfo(this.pumpCode);
       this.getCreditLimit(this.pumpCode);
       this.getPumpIncompleteDailyData(this.pumpCode);
       this.getPumpInfo(this.pumpCode);
@@ -136,9 +136,9 @@ export class LandingDashboardComponent implements OnInit {
       this.userData = res;
     });    
   }
-  getBasicInfo()
+  getBasicInfo(pumpCode)
   {
-    this.userService.getBasicInfo().subscribe((res)=>{
+    this.userService.getBasicInfo(pumpCode).subscribe((res)=>{
       this.basicInfo=res;
     });
   }
