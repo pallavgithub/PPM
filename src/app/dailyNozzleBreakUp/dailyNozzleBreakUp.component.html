@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-12">
             <div class="margin-20">
-                <a (click)="AddIncomeHead()" style="cursor: pointer">
+                <a (click)="AddIncomeHead()" style="cursor: pointer" *ngIf = "!btnSaveDisabled">
                     Add Income Head +
                 </a>
             </div>
@@ -101,7 +101,7 @@
         </div>
         <div class="col-md-12">
             <div class="margin-20">
-                <a (click)="addLubeSale()" style="cursor: pointer">
+                <a (click)="addLubeSale()" style="cursor: pointer" *ngIf = "!btnSaveDisabled">
                     Add Lubricant Sales +
                 </a>
             </div>
@@ -180,7 +180,7 @@
         </div>
         <div class="col-md-12">
             <div class="margin-20">
-                <a (click)="addExpenseSale()" style="cursor: pointer">
+                <a (click)="addExpenseSale()" style="cursor: pointer" *ngIf = "!btnSaveDisabled">
                     Add Expenses +
                 </a>
             </div>

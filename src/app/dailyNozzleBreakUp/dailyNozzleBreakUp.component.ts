@@ -40,10 +40,11 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
   public totalFuelSaleToday: number = 0;
   public totalLubriantSaleToday: number = 0;
   public totalExpenseToday: number = 0;
-  public totalBalance:number;
+  public totalBalance: number;
   paymentTypes: PaymentType[] = new Array();
   public pumpCode: string;
   fuelTypes: FuelType[];
+  public btnSaveDisabled: boolean = false;
   allProducts: AllProduct[];
   pumpProductWithDate: PumpProductWithDate;
   DateOfEntry: string;
@@ -82,11 +83,10 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
   ngOnInit() {
     this.nozzleDailyBreakUp = this.data.pumpProductNew;
     this.SetPaymentType(this.nozzleDailyBreakUp);
-    if(this.nozzleDailyBreakUp != null && this.nozzleDailyBreakUp != undefined && this.nozzleDailyBreakUp.length > 0)
-    {
-      this.getCreditorInventory(this.nozzleDailyBreakUp[0].PetrolPumpCode,this.nozzleDailyBreakUp[0].NozzleID,this.nozzleDailyBreakUp[0].DateEntered);
+    if (this.nozzleDailyBreakUp != null && this.nozzleDailyBreakUp != undefined && this.nozzleDailyBreakUp.length > 0) {
+      this.getCreditorInventory(this.nozzleDailyBreakUp[0].PetrolPumpCode, this.nozzleDailyBreakUp[0].NozzleID, this.nozzleDailyBreakUp[0].DateEntered);
     }
-    
+
     //this.getAllPaymentType();
     // if (this.pumpCode && this.pumpCode != '') {
     //   //this.getUserInfo();
@@ -133,8 +133,8 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
     //this.getAllUnits();
   }
   getCreditorInventory(pumpCode, nozzleID, dateEntered) {
-    let date:Date = new Date();
-    this.petrolPumpService.getPetrolPumpTodaySpecificCreditorInventory(pumpCode,nozzleID,dateEntered).subscribe(res => {
+    let date: Date = new Date();
+    this.petrolPumpService.getPetrolPumpTodaySpecificCreditorInventory(pumpCode, nozzleID, dateEntered).subscribe(res => {
       this.totalCreditorSaleToday = res;
     });
   }
@@ -158,7 +158,7 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
   RemoveExpenseSale() {
     this.addExpenseSaleVisible = false;
   }
-  getAllFuelType(PetrolPumpCode:string) {
+  getAllFuelType(PetrolPumpCode: string) {
     this.userService.getAllRegisteredLubes(PetrolPumpCode).subscribe(data => {
       this.fuelTypes = data;
     });
@@ -348,7 +348,13 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
       this.nozzleDailyBreakUpGetForExpense.forEach(element => {
         this.totalExpenseToday = this.totalExpenseToday + element.Amount;
       });
-      this.totalBalance = this.totalFuelSaleToday + this.totalLubriantSaleToday - this.totalExpenseToday
+      this.totalBalance = this.totalFuelSaleToday + this.totalLubriantSaleToday - this.totalExpenseToday;
+      if (this.totalBalance == 0) {
+        this.btnSaveDisabled = false;
+      }
+      else {
+        this.btnSaveDisabled = true;
+      }
     });
   }
 
