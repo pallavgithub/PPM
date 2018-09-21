@@ -110,11 +110,13 @@ export class DailyNozzleReadingComponent implements OnInit {
     //this.getAllUnits();
   }
   getPumpInfo(pumpCode) {
-    let date: string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
+    let date: string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');    
     this.petrolPumpService.getPetrolPumpNozzleInfoWithDailyEntry(pumpCode, date).subscribe(res => {
       // this.pumpProduct = res.pp_PumpProduct;
       // this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);
       this.pumpNozzles = res;
+           
+      debugger;
       this.pumpNozzles.forEach(element => {
         element.ReadingDate = this.datepipe.transform(((element.ReadingDate == "" || element.ReadingDate == null) ? new Date().toString() : element.ReadingDate), 'yyyy-MM-dd');
         if (element.OpeningReading == "0") {
@@ -170,7 +172,7 @@ export class DailyNozzleReadingComponent implements OnInit {
       }
       else {
         purchaseprice = element.OpeningReading.toString();
-      }      
+      }
       if (purchaseprice == "0" || purchaseprice == "0.0" || purchaseprice == "0.00" || purchaseprice == "") {
         flag = 1;
       }
