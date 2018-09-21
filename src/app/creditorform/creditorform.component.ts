@@ -18,10 +18,12 @@ import { DatePipe } from '../../../node_modules/@angular/common';
 export class CreditorformComponent implements OnInit {
   user: pp_User;
   roles: Role[];
+  nozzle: Role[];
   IsEditDialog: boolean;
   paymentTypes: PaymentType[];
   validationPaymentTypeMessage: string;
   errorMessagePassword: string;
+  validationNozzleMessage :string;
   btnDisabled: boolean = false;
   userform: FormGroup;
   validationRoleMessage: string;
@@ -67,6 +69,7 @@ export class CreditorformComponent implements OnInit {
     this.user = this.data.user;
     this.getAllRoles();
     this.getAllPaymentType();
+    this.getNozzlesByID(this.user.PetrolPumpCode);
     this.userform = this._formBuilder.group({
       ID: [this.user.ID],
       PetrolPumpCode: [this.user.PetrolPumpCode],
@@ -84,7 +87,8 @@ export class CreditorformComponent implements OnInit {
       PaymentDate: [this.user.PaymentDate, Validators.compose([Validators.required])],
       EncashementDate: [this.user.EncashementDate, Validators.compose([Validators.required])],
       IsEncashed: [this.user.IsEncashed],
-      PaymentTypeID: [this.user.PaymentTypeID]
+      PaymentTypeID: [this.user.PaymentTypeID],
+      AssignedNozzleID:[this.user.AssignedNozzleID]
     }, { validator: this.matchingPasswords('Password', 'ConfirmPassword') });
     if (this.user.IsEditModal) {
       this.IsEditDialog = true;
@@ -128,6 +132,11 @@ export class CreditorformComponent implements OnInit {
       }
     }
   }
+  getNozzlesByID(petrolPumpCode: string) {
+    this.userService.getNozzlesByID(petrolPumpCode).subscribe(data => {
+      this.nozzle = data;
+    });
+  }
   checkFormValid() {
     // if (this.userform.controls['RoleID'].value == 0) {
     //   this.validationRoleMessage = "Please select Role";
@@ -142,6 +151,13 @@ export class CreditorformComponent implements OnInit {
     }
     else {
       this.validationPaymentTypeMessage = "";
+    }
+    if (this.userform.controls['AssignedNozzleID'].value == 0) {
+      this.validationNozzleMessage = "Please select Nozzle";
+      return false;
+    }
+    else {
+      this.validationNozzleMessage = "";
     }
   }
   getAllRoles() {

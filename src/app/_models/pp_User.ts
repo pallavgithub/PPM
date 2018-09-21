@@ -13,11 +13,12 @@ export class pp_User {
   Description: string;
   IsEditModal:boolean;
   RoleName:string;
-  PaymentTypeID:number
-  PaymentTypeName:string
-  PaymentDate:string
-  IsEncashed:boolean
-  EncashementDate:string
+  PaymentTypeID:number;
+  PaymentTypeName:string;
+  PaymentDate:string;
+  IsEncashed:boolean;
+  EncashementDate:string;
+  AssignedNozzleID:number;
   
   constructor() {
     this.ID=0;
@@ -39,5 +40,6 @@ export class pp_User {
     this.PaymentDate = '';
     this.IsEncashed = false;
     this.EncashementDate = '';
+    this.AssignedNozzleID = 0;
   }
 }

@@ -124,6 +124,9 @@ export class UserService {
     getTanksByID(petrolPumpCode: string) {
         return this.http.get<Tank[]>(`${environment.apiUrl}/Pump/GetTankByID/?petrolPumpCode=` + petrolPumpCode);
     }
+    getNozzlesByID(petrolPumpCode: string) {
+        return this.http.get<Role[]>(`${environment.apiUrl}/Pump/GetNozzleByID/?petrolPumpCode=` + petrolPumpCode);
+    }
 
     getTanksByIDAndFuelType(petrolPumpCode: string, fuelTypeID: number) {
         return this.http.get<Tank[]>(`${environment.apiUrl}/Pump/GetTankByIDAndFuelType/?petrolPumpCode=` + petrolPumpCode + `&fuelTypeID=` + fuelTypeID);

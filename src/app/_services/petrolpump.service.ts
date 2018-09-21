@@ -64,6 +64,9 @@ export class PetrolPumpService {
     getPetrolPumpSpecificCreditorInventory(petrolPumpCode:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpSpecificCreditorInventory?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
     }
+    getPetrolPumpTodaySpecificCreditorInventory(petrolPumpCode:string,nozzleID:number,dateEntered:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpTodaySpecificCreditorInventory?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&nozzleID=' + nozzleID + '&dateEntered=' + dateEntered);
+    }
 
     GetCreditorLedger(petrolPumpCode:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/GetCreditorLedger?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);

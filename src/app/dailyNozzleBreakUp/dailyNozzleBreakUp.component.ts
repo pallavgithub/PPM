@@ -18,6 +18,7 @@ import { pp_Nozzle } from '../_models/pp_Nozzle';
 import { NozzleDailyBreakUp } from '../_models/NozzleDailyBreakUp';
 import { PaymentType } from '../_models/PaymentType';
 import { FuelType } from '../_models/FuelType';
+import { CreditorInventory } from '../_models/CreditorInventory';
 
 @Component({
   selector: 'pump-dailyNozzleBreakUp',
@@ -34,6 +35,12 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
   public nozzleDailyBreakUpGetForLubes: NozzleDailyBreakUp[];
   public nozzleDailyBreakUpGetForExpense: NozzleDailyBreakUp[];
   public pumpNozzles: pp_Nozzle[];
+  public ApprovedCreditorInventory: CreditorInventory[];
+  public totalCreditorSaleToday: number = 0;
+  public totalFuelSaleToday: number = 0;
+  public totalLubriantSaleToday: number = 0;
+  public totalExpenseToday: number = 0;
+  public totalBalance:number;
   paymentTypes: PaymentType[] = new Array();
   public pumpCode: string;
   fuelTypes: FuelType[];
@@ -75,6 +82,11 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
   ngOnInit() {
     this.nozzleDailyBreakUp = this.data.pumpProductNew;
     this.SetPaymentType(this.nozzleDailyBreakUp);
+    if(this.nozzleDailyBreakUp != null && this.nozzleDailyBreakUp != undefined && this.nozzleDailyBreakUp.length > 0)
+    {
+      this.getCreditorInventory(this.nozzleDailyBreakUp[0].PetrolPumpCode,this.nozzleDailyBreakUp[0].NozzleID,this.nozzleDailyBreakUp[0].DateEntered);
+    }
+    
     //this.getAllPaymentType();
     // if (this.pumpCode && this.pumpCode != '') {
     //   //this.getUserInfo();
@@ -119,6 +131,12 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
     // this.productDialogform.setControl('productDetails', employeeFormArray);
     //this.getAllProducts();
     //this.getAllUnits();
+  }
+  getCreditorInventory(pumpCode, nozzleID, dateEntered) {
+    let date:Date = new Date();
+    this.petrolPumpService.getPetrolPumpTodaySpecificCreditorInventory(pumpCode,nozzleID,dateEntered).subscribe(res => {
+      this.totalCreditorSaleToday = res;
+    });
   }
   AddIncomeHead() {
     this.addPaymentTypeVisible = true;
@@ -319,8 +337,18 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
   getNozzleBreakUp(pumpCode, nozzleID, date) {
     this.petrolPumpService.GetNozzleBreakUp(pumpCode, nozzleID, date).subscribe(res => {
       this.nozzleDailyBreakUpGet = res.filter(p => p.BreakUpTypeID == 1);
+      this.nozzleDailyBreakUpGet.forEach(element => {
+        this.totalFuelSaleToday = this.totalFuelSaleToday + element.Amount;
+      });
       this.nozzleDailyBreakUpGetForLubes = res.filter(p => p.BreakUpTypeID == 2);
+      this.nozzleDailyBreakUpGetForLubes.forEach(element => {
+        this.totalLubriantSaleToday = this.totalLubriantSaleToday + element.Amount;
+      });
       this.nozzleDailyBreakUpGetForExpense = res.filter(p => p.BreakUpTypeID == 3);
+      this.nozzleDailyBreakUpGetForExpense.forEach(element => {
+        this.totalExpenseToday = this.totalExpenseToday + element.Amount;
+      });
+      this.totalBalance = this.totalFuelSaleToday + this.totalLubriantSaleToday - this.totalExpenseToday
     });
   }
 
