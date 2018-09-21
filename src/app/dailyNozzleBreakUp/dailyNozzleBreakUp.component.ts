@@ -140,9 +140,9 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
   RemoveExpenseSale() {
     this.addExpenseSaleVisible = false;
   }
-  getAllFuelType() {
-    this.userService.getAllProducts().subscribe(data => {
-      this.fuelTypes = data.filter(p => p.CategoryID == 2);
+  getAllFuelType(PetrolPumpCode:string) {
+    this.userService.getAllRegisteredLubes(PetrolPumpCode).subscribe(data => {
+      this.fuelTypes = data;
     });
   }
   SetPaymentType(nozzleDailyBreakUp: NozzleDailyBreakUp[]) {
@@ -153,7 +153,7 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
       paymentTypeItem.Name = element.PaymentTypeName;
       this.paymentTypes.push(paymentTypeItem);
     });
-    this.getAllFuelType()
+    this.getAllFuelType(nozzleDailyBreakUp[0].PetrolPumpCode);
     this.getNozzleBreakUp(nozzleDailyBreakUp[0].PetrolPumpCode, nozzleDailyBreakUp[0].NozzleID, nozzleDailyBreakUp[0].DateEntered);
   }
   getAllPaymentType() {

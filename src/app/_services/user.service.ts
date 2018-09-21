@@ -115,6 +115,9 @@ export class UserService {
     getAllRegisteredProducts(petrolPumpCode: string) {
         return this.http.get<AllProduct[]>(`${environment.apiUrl}/Pump/RegisteredProducts/?petrolPumpCode=` + petrolPumpCode);
     }
+    getAllRegisteredLubes(petrolPumpCode: string) {
+        return this.http.get<AllProduct[]>(`${environment.apiUrl}/Pump/RegisteredLubes/?petrolPumpCode=` + petrolPumpCode);
+    }
     getAllPaymentType() {
         return this.http.get<PaymentType[]>(`${environment.apiUrl}/Pump/PaymentType`);
     }
