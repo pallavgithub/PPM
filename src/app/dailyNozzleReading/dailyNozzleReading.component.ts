@@ -198,7 +198,8 @@ export class DailyNozzleReadingComponent implements OnInit {
       // });
       this.petrolPumpService.UpdateDailyNozzleReading(pumpProduct).subscribe(res => {
         this.toasterService.pop('success', '', 'Nozzle Readings updated successfully.');
-        this.router.navigate(['/DailyNozzleReading', this.pumpCode]);
+        // this.router.navigate(['/DailyNozzleReading', this.pumpCode]);
+        this.getPumpInfo(pumpProduct[0].PetrolPumpCode,pumpProduct[0].ReadingDate);
       });
     }
   }
