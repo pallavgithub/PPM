@@ -221,3 +221,105 @@
         </div>
     </div>
 </div>
+
+<div class="row" *ngIf="userData && (userData.RoleID == 1 || userData.RoleID == 3)">
+    <div class="form-group">
+        <div class="col-md-6 border-div height-scroll1">
+            <div class="container">
+                <h2>Tank Low Limit</h2>
+                <div>
+                    <div>
+                        <div class="table-responsive" *ngIf="pumpTanks && pumpTanks.length>0">
+                            <table style="border: 1px solid black" class="table table-striped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Tank Name</th>
+                                        <th>Stock</th>
+                                    </tr>
+                                </thead>
+                                <tr *ngFor="let pumpTanksItem of pumpTanks let i=index">
+                                    <td>{{pumpTanksItem.TankName}}</td>
+                                    <td>{{pumpTanksItem.OpeningStock}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 border-div height-scroll1">
+            <div class="container">
+                <h2>Creditors Low Limit</h2>
+                <div>
+                    <div>
+                        <div class="table-responsive" *ngIf="pumpUsers && pumpUsers.length>0">
+                            <table style="border: 1px solid black" class="table table-striped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Full Name</th>
+                                        <th>Credit Limit</th>
+                                    </tr>
+                                </thead>
+                                <tr *ngFor="let pumpUsersItem of pumpUsers let i=index">
+                                    <td>{{pumpUsersItem.FullName}}</td>
+                                    <td>{{pumpUsersItem.CreditLimit}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="userData && (userData.RoleID == 1 || userData.RoleID == 3)">
+    <div class="form-group">
+        <div class="col-md-6 border-div height-scroll1">
+            <div class="container">
+                <h2>Tank Ledger</h2>
+                <div>
+                    <div>
+                        <div class="table-responsive" *ngIf="pumpTanksLedger && pumpTanksLedger.length>0">
+                            <table style="border: 1px solid black" class="table table-striped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Tank Name</th>
+                                        <th>Stock</th>
+                                    </tr>
+                                </thead>
+                                <tr *ngFor="let pumpTanksLedgerItem of pumpTanksLedger let i=index">
+                                    <td>{{pumpTanksLedgerItem.TankName}}</td>
+                                    <td>{{pumpTanksLedgerItem.OpeningStock}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 border-div height-scroll1">
+            <div class="container">
+                <h2>Lubes Low Limit</h2>
+                <div>
+                    <div>
+                        <div class="table-responsive" *ngIf="pumpProductWithLubesPrise && pumpProductWithLubesPrise.length>0">
+                            <table style="border: 1px solid black" class="table table-striped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Lubes Name</th>
+                                        <th>Stock</th>
+                                    </tr>
+                                </thead>
+                                <tr *ngFor="let pumpProductWithLubesPriseItem of pumpProductWithLubesPrise let i=index">
+                                    <td>{{pumpProductWithLubesPriseItem.ProductName}}</td>
+                                    <td>{{pumpProductWithLubesPriseItem.InitialQuantity}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

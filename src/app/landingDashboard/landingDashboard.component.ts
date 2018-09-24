@@ -18,6 +18,8 @@ import { BasicInfo } from '../_models/BasicInfo';
 import { DatePipe } from '@angular/common';
 import { pp_PumpProduct } from '../_models/pp_PumpProduct';
 import { CreditorInventory } from '../_models/CreditorInventory';
+import { pp_Tank } from '../_models/pp_Tank';
+import { pp_User } from '../_models/pp_User';
 
 
 @Component({
@@ -42,6 +44,10 @@ export class LandingDashboardComponent implements OnInit {
   public creditLimit:string;
   public msgNozzle: string;
   public isPermit: boolean;
+  public pumpTanks: pp_Tank[];
+  public pumpTanksLedger: pp_Tank[];
+  public pumpUsers: pp_User[];
+  public pumpProductWithLubesPrise: pp_PumpProduct[];
 
   public UserId:string = null;
   public RoleID:number = 0;
@@ -161,6 +167,9 @@ export class LandingDashboardComponent implements OnInit {
       this.getPumpIncompleteDailyData(this.pumpCode);
       this.getPumpInfo(this.pumpCode);
       this.getCreditorInventory(this.pumpCode);
+      this.getTankInfoWithLowLimit(this.pumpCode,new Date().toString());
+      this.getPetrolPumpTankLedger(this.pumpCode,new Date().toString());      
+      this.getLubesWithLowLimit(this.pumpCode);
       //this.SetFuelPrice();
     }
 
@@ -169,6 +178,26 @@ export class LandingDashboardComponent implements OnInit {
     // });
     //this.getUserInfo();
   }
+  getTankInfoWithLowLimit(pumpCode,readingDate) {
+    let date: string = this.datepipe.transform(readingDate.toString(), 'yyyy-MM-dd');
+    this.petrolPumpService.getPetrolPumpTankInfoOfLowLimit(pumpCode, date).subscribe(res => {
+      this.pumpTanks = res;
+    });
+  }
+  getPetrolPumpTankLedger(pumpCode,readingDate) {
+    let date: string = this.datepipe.transform(readingDate.toString(), 'yyyy-MM-dd');
+    this.petrolPumpService.getPetrolPumpTankLedger(pumpCode, date).subscribe(res => {
+      this.pumpTanksLedger = res;
+    });
+  }
+  getLubesWithLowLimit(pumpCode) {
+    let date:string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
+    this.petrolPumpService.getPetrolPumpLubesInfoOfLowLimit(pumpCode,date).subscribe(res => {      
+      this.pumpProductWithLubesPrise = res; 
+      this.pumpProductWithLubesPrise = this.pumpProductWithLubesPrise.filter(c => Number(c.InitialQuantity) < 100)     
+    });
+  }
+
   getCreditorInventory(pumpCode) {
     this.petrolPumpService.getPetrolPumpSpecificCreditorInventory(pumpCode).subscribe(res => {
       this.ApprovedCreditorInventory = res.filter(p=>p.IsApproved == true);
@@ -180,6 +209,7 @@ export class LandingDashboardComponent implements OnInit {
     this.petrolPumpService.getPetrolPumpDashboardWithDate(pumpCode, date).subscribe(res => {
       this.pumpProduct = res.pp_PumpProduct;
       this.pumpProduct = this.pumpProduct.filter(c => c.CategoryID == 1);
+      this.pumpUsers = res.pp_Users.filter(p=>p.CreditLimit < 10000);
     });
   }
   getUserDate() {
