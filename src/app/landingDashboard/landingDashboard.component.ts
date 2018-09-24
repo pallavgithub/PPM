@@ -42,6 +42,18 @@ export class LandingDashboardComponent implements OnInit {
   public creditLimit:string;
   public msgNozzle: string;
   public isPermit: boolean;
+
+  public UserId:string = null;
+  public RoleID:number = 0;
+  public FullName:string = null;
+  public PetrolPumpName:string = null;
+  public Address:string = null;
+  public Address2:string = null;
+  public City:string = null;
+  public State:string = null;
+  public PetrolPumpPincode:string = null;
+  public PetrolPumpCode:string = null;
+
   public barChartOptions:any = {
     scaleShowVerticalLines: false,
     responsive: true
@@ -51,9 +63,48 @@ export class LandingDashboardComponent implements OnInit {
   public barChartLegend:boolean = true;
  
   public barChartData:any[] = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
+    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'}
+    ,{data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
   ];
+
+  public lineChartData:Array<any> = [
+    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
+    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'},
+    {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'}
+  ];
+  public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartOptions:any = {
+    responsive: true
+  };
+  public lineChartColors:Array<any> = [
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    },
+    { // dark grey
+      backgroundColor: 'rgba(77,83,96,0.2)',
+      borderColor: 'rgba(77,83,96,1)',
+      pointBackgroundColor: 'rgba(77,83,96,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(77,83,96,1)'
+    },
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    }
+  ];
+  public lineChartLegend:boolean = true;
+  public lineChartType:string = 'line';
+
   navigationSubscription;
 
   status: string;
@@ -140,6 +191,18 @@ export class LandingDashboardComponent implements OnInit {
   {
     this.userService.getBasicInfo(pumpCode).subscribe((res)=>{
       this.basicInfo=res;
+
+      this.UserId=res.UserId;
+      this.RoleID=res.RoleID;
+      this.FullName=res.FullName;
+      this.PetrolPumpName=res.PetrolPumpName;
+      this.Address=res.Address;
+      this.Address2=res.Address2;
+      this.City=res.City;
+      this.State=res.State;
+      this.PetrolPumpPincode=res.PetrolPumpPincode;
+      this.PetrolPumpCode=res.PetrolPumpCode;
+
     });
   }
   getCreditLimit(pumpCode) {
@@ -198,34 +261,8 @@ export class LandingDashboardComponent implements OnInit {
       }
     });
   }
-  public chartClicked(e:any):void {
-    //console.log(e);
-  }
  
-  public chartHovered(e:any):void {
-    //console.log(e);
-  }
- 
-  public randomize():void {
-    // Only Change 3 values
-    let data = [
-      Math.round(Math.random() * 100),
-      59,
-      80,
-      (Math.random() * 100),
-      56,
-      (Math.random() * 100),
-      40];
-    let clone = JSON.parse(JSON.stringify(this.barChartData));
-    clone[0].data = data;
-    this.barChartData = clone;
-    /**
-     * (My guess), for Angular to recognize the change in the dataset
-     * it has to change the dataset variable directly,
-     * so one way around it, is to clone the data, change it and then
-     * assign it;
-     */
-  }
+  
 
   //   savePumpInfo() {
   //     this.petrolPumpService.updatePetrolPumpInfo(this.pumpInfoForm.value).subscribe(res => {

@@ -6,7 +6,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="UserID">User ID -</label>&nbsp;&nbsp;
-                        <label for="UserID">{{basicInfo.UserId}}</label>
+                        <label for="UserID">{{UserId}}</label>
                     </div>
                 </div>
             </div>
@@ -14,7 +14,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="PetrolPumpName">Petrol Pump Name -</label>&nbsp;&nbsp;
-                        <label for="PetrolPumpName">{{basicInfo.PetrolPumpName}}</label>
+                        <label for="PetrolPumpName">{{PetrolPumpName}}</label>
                     </div>
                 </div>
             </div>
@@ -22,10 +22,10 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="Address">Address -</label>&nbsp;&nbsp;
-                        <label for="Address">{{basicInfo.Address}}</label>,&nbsp;
-                        <label for="City">{{basicInfo.City}}</label>,&nbsp;
-                        <label for="State">{{basicInfo.State}}</label>,&nbsp;
-                        <label for="PetrolPumpPinCode">{{basicInfo.PetrolPumpPinCode}}</label>
+                        <label for="Address">{{Address}}</label>,&nbsp;
+                        <label for="City">{{City}}</label>,&nbsp;
+                        <label for="State">{{State}}</label>,&nbsp;
+                        <label for="PetrolPumpPinCode">{{PetrolPumpPinCode}}</label>
                     </div>
                 </div>
             </div>
@@ -138,7 +138,7 @@
     </div>
 </div>
 <div class="row" *ngIf="userData && userData.RoleID == 4">
-    <div class="form-group">        
+    <div class="form-group">
         <div class="col-md-12 border-div height-scroll1">
             <div>
                 <div style="display: block">
@@ -210,8 +210,11 @@
         <div class="col-md-6 border-div height-scroll1">
             <div>
                 <div style="display: block">
-                    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
-                        [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                    <!-- <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+                        [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas> -->
+                    <canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+                        [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)"></canvas>
                 </div>
                 <!-- <button (click)="randomize()">Update</button> -->
             </div>
