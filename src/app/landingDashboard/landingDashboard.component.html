@@ -323,3 +323,32 @@
         </div>
     </div>
 </div>
+
+<div class="row" *ngIf="userData && (userData.RoleID == 1 || userData.RoleID == 3)">
+    <div class="form-group">
+        <div class="col-md-6 border-div height-scroll2">
+            <div>
+                <div style="display: block">
+                    <!-- <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+                        [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas> -->
+                    <canvas baseChart width="400" height="800" [datasets]="lineChartDataForFuelDailyPrice" [labels]="lineChartLabelsForFuelDailyPrice" [options]="lineChartOptionsForFuelDailyPrice"
+                        [colors]="lineChartColorsForFuelDailyPrice" [legend]="lineChartLegendForFuelDailyPrice" [chartType]="lineChartTypeForFuelDailyPrice" (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)"></canvas>
+                </div>
+                <!-- <button (click)="randomize()">Update</button> -->
+            </div>
+        </div>
+        <div class="col-md-6 border-div height-scroll2">
+            <div>
+                <div style="display: block">
+                    <!-- <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+                        [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas> -->
+                    <canvas baseChart width="400" height="800" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+                        [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)"></canvas>
+                </div>
+                <!-- <button (click)="randomize()">Update</button> -->
+            </div>
+        </div>
+    </div>
+</div>

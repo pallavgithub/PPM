@@ -111,6 +111,45 @@ export class LandingDashboardComponent implements OnInit {
   public lineChartLegend:boolean = true;
   public lineChartType:string = 'line';
 
+
+  // comment
+  public lineChartDataForFuelDailyPrice:Array<any> = [
+    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Purchase Price'},
+    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Sales price'}
+  ];
+  public lineChartLabelsForFuelDailyPrice:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartOptionsForFuelDailyPrice:any = {
+    responsive: true
+  };
+  public lineChartColorsForFuelDailyPrice:Array<any> = [
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    },
+    { // dark grey
+      backgroundColor: 'rgba(77,83,96,0.2)',
+      borderColor: 'rgba(77,83,96,1)',
+      pointBackgroundColor: 'rgba(77,83,96,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(77,83,96,1)'
+    },
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    }
+  ];
+  public lineChartLegendForFuelDailyPrice:boolean = true;
+  public lineChartTypeForFuelDailyPrice:string = 'line';
+
   navigationSubscription;
 
   status: string;
@@ -170,6 +209,7 @@ export class LandingDashboardComponent implements OnInit {
       this.getTankInfoWithLowLimit(this.pumpCode,new Date().toString());
       this.getPetrolPumpTankLedger(this.pumpCode,new Date().toString());      
       this.getLubesWithLowLimit(this.pumpCode);
+      this.getPetrolPumpDailyFuelPriceChart(this.pumpCode,new Date().toString());
       //this.SetFuelPrice();
     }
 
@@ -182,6 +222,19 @@ export class LandingDashboardComponent implements OnInit {
     let date: string = this.datepipe.transform(readingDate.toString(), 'yyyy-MM-dd');
     this.petrolPumpService.getPetrolPumpTankInfoOfLowLimit(pumpCode, date).subscribe(res => {
       this.pumpTanks = res;
+    });
+  }
+  getPetrolPumpDailyFuelPriceChart(pumpCode,readingDate) {
+    let date: string = this.datepipe.transform(readingDate.toString(), 'yyyy-MM-dd');
+    this.petrolPumpService.getPetrolPumpDailyFuelPriceChart(pumpCode, date).subscribe(res => {
+      this.lineChartLabelsForFuelDailyPrice = new Array<any>();
+      this.lineChartDataForFuelDailyPrice = new Array<any>();
+      res.lstDates.forEach(element => {
+        this.lineChartLabelsForFuelDailyPrice.push(element);
+      });
+      res.lstFuelLabelAndPriceArray.forEach(element => {
+        this.lineChartDataForFuelDailyPrice.push(element);
+      });
     });
   }
   getPetrolPumpTankLedger(pumpCode,readingDate) {
