@@ -27,10 +27,33 @@
                         <button [disabled]="!loginForm.valid || loading " class="btn btn-primary">Login</button>
                         <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
                         />
-                        <!-- <a [routerLink]="['/register']" class="btn btn-link">Register</a> -->
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<!-- <div class="bodyLogin">
+    <div id="info">
+        <div id="logo"></div>
+        <h1>Petrol Pump Management</h1>
+    </div>
+    <div id="form">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <h2>Sign in</h2>
+            <label id="login-label" for="login">User Id</label>&nbsp;<span class="required">*</span>
+            <input type="text" formControlName="username" class="form-control" placeholder="UserId" />
+            <div *ngIf=" f.username.errors && (f.username.dirty || f.username.touched)" class="invalid-feedback">
+                <div *ngIf="f.username.errors.required" class="error-message">Userid is required</div>
+            </div>
+            <label id="password-label" for="password">Password</label>&nbsp;<span class="required">*</span>
+            <input type="password" formControlName="password" class="form-control" placeholder="Password" />
+            <div *ngIf="f.password.errors && (f.password.dirty || f.password.touched)" class="invalid-feedback">
+                <div *ngIf="f.password.errors.required" class="error-message">Password is required</div>
+
+            </div>
+            <button [disabled]="!loginForm.valid || loading " class="btn btn-primary">Login</button>
+        </form>
+    </div>
+
+</div> -->

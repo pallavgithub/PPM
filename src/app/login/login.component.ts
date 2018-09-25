@@ -9,7 +9,8 @@ import { User } from '../_models';
 import { UserService } from '../_services';
 import { UserInfo } from '../_models/UserInfo';
 
-@Component({ templateUrl: 'login.component.html' })
+@Component({ templateUrl: 'login.component.html',
+styleUrls: ['./login.component.css'] })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     loading = false;    
