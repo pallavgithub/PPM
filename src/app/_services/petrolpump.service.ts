@@ -55,6 +55,16 @@ export class PetrolPumpService {
     }
     getPetrolPumpCreditorLedgerChart(petrolPumpCode:string,date:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpCreditorLedgerChart?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date);
+    } 
+    GetPetrolPumpNozzleSaleChart(petrolPumpCode:string,date:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpNozzleSaleChart?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date);
+    }  
+    getPetrolPumpNozzleSaleForStaffChart(petrolPumpCode:string,date:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpNozzleSaleForStaffChart?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date);
+    }  
+    
+    GetPetrolPumpNozzleFuelSaleChart(petrolPumpCode:string,date:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpNozzleFuelSaleChart?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date);
     }    
     getPetrolPumpLubesInfoOfLowLimit(petrolPumpCode:string,date:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpLubesInfoOfLowLimit?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date);

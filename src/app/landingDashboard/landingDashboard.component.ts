@@ -189,6 +189,123 @@ export class LandingDashboardComponent implements OnInit {
   public lineChartLegendForCreditor:boolean = true;
   public lineChartTypeForCreditor:string = 'line';
 
+  // for Nozzle Sale
+
+  public lineChartDataForNozzleSale:Array<any> = [
+    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Purchase Price'},
+    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Sales price'}
+  ];
+  public lineChartLabelsForNozzleSale:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartOptionsForNozzleSale:any = {
+    responsive: true
+  };
+  public lineChartColorsForNozzleSale:Array<any> = [
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    },
+    { // dark grey
+      backgroundColor: 'rgba(77,83,96,0.2)',
+      borderColor: 'rgba(77,83,96,1)',
+      pointBackgroundColor: 'rgba(77,83,96,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(77,83,96,1)'
+    },
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    }
+  ];
+  public lineChartLegendForNozzleSale:boolean = true;
+  public lineChartTypeForNozzleSale:string = 'line';
+
+  // for Nozzle Fuel Sale
+
+  public lineChartDataForNozzleFuelSale:Array<any> = [
+    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Purchase Price'},
+    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Sales price'}
+  ];
+  public lineChartLabelsForNozzleFuelSale:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartOptionsForNozzleFuelSale:any = {
+    responsive: true
+  };
+  public lineChartColorsForNozzleFuelSale:Array<any> = [
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    },
+    { // dark grey
+      backgroundColor: 'rgba(77,83,96,0.2)',
+      borderColor: 'rgba(77,83,96,1)',
+      pointBackgroundColor: 'rgba(77,83,96,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(77,83,96,1)'
+    },
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    }
+  ];
+  public lineChartLegendForNozzleFuelSale:boolean = true;
+  public lineChartTypeForNozzleFuelSale:string = 'line';
+
+  // for Nozzle Sale
+
+  public lineChartDataForNozzleForCreditorSale:Array<any> = [
+    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Purchase Price'},
+    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Sales price'}
+  ];
+  public lineChartLabelsForNozzleForCreditorSale:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartOptionsForNozzleForCreditorSale:any = {
+    responsive: true
+  };
+  public lineChartColorsForNozzleForCreditorSale:Array<any> = [
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    },
+    { // dark grey
+      backgroundColor: 'rgba(77,83,96,0.2)',
+      borderColor: 'rgba(77,83,96,1)',
+      pointBackgroundColor: 'rgba(77,83,96,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(77,83,96,1)'
+    },
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    }
+  ];
+  public lineChartLegendForNozzleForCreditorSale:boolean = true;
+  public lineChartTypeForNozzleForCreditorSale:string = 'line';
+
   navigationSubscription;
 
   status: string;
@@ -250,6 +367,10 @@ export class LandingDashboardComponent implements OnInit {
       this.getLubesWithLowLimit(this.pumpCode);
       this.getPetrolPumpDailyFuelPriceChart(this.pumpCode,new Date().toString());
       this.getPetrolPumpCreditorLedgerChart(this.pumpCode,new Date().toString());
+      this.getPetrolPumpNozzleSaleChart(this.pumpCode,new Date().toString());
+      this.getPetrolPumpNozzleFuelSaleChart(this.pumpCode,new Date().toString());
+      this.getPetrolPumpNozzleSaleForStaffChart(this.pumpCode,new Date().toString());
+      
       
       //this.SetFuelPrice();
     }
@@ -289,6 +410,46 @@ export class LandingDashboardComponent implements OnInit {
       });
       res.lstFuelLabelAndPriceArray.forEach(element => {
         this.lineChartDataForCreditor.push(element);
+      });
+    });
+  }
+  getPetrolPumpNozzleSaleChart(pumpCode,readingDate) {
+    let date: string = this.datepipe.transform(readingDate.toString(), 'yyyy-MM-dd');
+    this.petrolPumpService.GetPetrolPumpNozzleSaleChart(pumpCode, date).subscribe(res => {
+      this.lineChartLabelsForNozzleSale = new Array<any>();
+      this.lineChartDataForNozzleSale = new Array<any>();
+      res.lstDates.forEach(element => {
+        this.lineChartLabelsForNozzleSale.push(element);
+      });
+      res.lstFuelLabelAndPriceArray.forEach(element => {
+        this.lineChartDataForNozzleSale.push(element);
+      });
+    });
+  }
+  getPetrolPumpNozzleFuelSaleChart(pumpCode,readingDate) {
+    let date: string = this.datepipe.transform(readingDate.toString(), 'yyyy-MM-dd');
+    this.petrolPumpService.GetPetrolPumpNozzleFuelSaleChart(pumpCode, date).subscribe(res => {
+      this.lineChartLabelsForNozzleFuelSale = new Array<any>();
+      this.lineChartDataForNozzleFuelSale = new Array<any>();
+      res.lstDates.forEach(element => {
+        this.lineChartLabelsForNozzleFuelSale.push(element);
+      });
+      res.lstFuelLabelAndPriceArray.forEach(element => {
+        this.lineChartDataForNozzleFuelSale.push(element);
+      });
+    });
+  }
+
+  getPetrolPumpNozzleSaleForStaffChart(pumpCode,readingDate) {
+    let date: string = this.datepipe.transform(readingDate.toString(), 'yyyy-MM-dd');
+    this.petrolPumpService.getPetrolPumpNozzleSaleForStaffChart(pumpCode, date).subscribe(res => {
+      this.lineChartLabelsForNozzleForCreditorSale = new Array<any>();
+      this.lineChartDataForNozzleForCreditorSale = new Array<any>();
+      res.lstDates.forEach(element => {
+        this.lineChartLabelsForNozzleForCreditorSale.push(element);
+      });
+      res.lstFuelLabelAndPriceArray.forEach(element => {
+        this.lineChartDataForNozzleForCreditorSale.push(element);
       });
     });
   }
