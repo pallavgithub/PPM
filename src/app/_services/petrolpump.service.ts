@@ -53,6 +53,9 @@ export class PetrolPumpService {
     getPetrolPumpDailyFuelPriceChart(petrolPumpCode:string,date:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpDailyFuelPriceChart?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date);
     }
+    getPetrolPumpCreditorLedgerChart(petrolPumpCode:string,date:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpCreditorLedgerChart?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date);
+    }    
     getPetrolPumpLubesInfoOfLowLimit(petrolPumpCode:string,date:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpLubesInfoOfLowLimit?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date);
     }
