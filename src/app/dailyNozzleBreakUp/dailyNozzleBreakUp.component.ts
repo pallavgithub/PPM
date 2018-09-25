@@ -338,6 +338,9 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
     return res[0].Name;
   }
   getNozzleBreakUp(pumpCode, nozzleID, date) {
+    this.totalFuelSaleToday = 0;
+    this.totalLubriantSaleToday = 0;
+    this.totalExpenseToday = 0;
     this.petrolPumpService.GetNozzleBreakUp(pumpCode, nozzleID, date).subscribe(res => {
       this.nozzleDailyBreakUpGet = res.filter(p => p.BreakUpTypeID == 1);
       this.nozzleDailyBreakUpGet.forEach(element => {
@@ -346,6 +349,8 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
       this.nozzleDailyBreakUpGetForLubes = res.filter(p => p.BreakUpTypeID == 2);
       this.nozzleDailyBreakUpGetForLubes.forEach(element => {
         this.totalLubriantSaleToday = this.totalLubriantSaleToday + element.Amount;
+        element.Amount = Number(element.Description);
+        //element.Description = Number((element.Amount / Number(element.Description))).toString() + " price";
       });
       this.nozzleDailyBreakUpGetForExpense = res.filter(p => p.BreakUpTypeID == 3);
       this.nozzleDailyBreakUpGetForExpense.forEach(element => {
