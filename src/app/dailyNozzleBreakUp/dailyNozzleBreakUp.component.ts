@@ -45,6 +45,7 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
   public pumpCode: string;
   fuelTypes: FuelType[];
   public btnSaveDisabled: boolean = false;
+  public btnSaveDisabledAfterAdd: boolean = false;
   allProducts: AllProduct[];
   pumpProductWithDate: PumpProductWithDate;
   DateOfEntry: string;
@@ -245,12 +246,12 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
           this.toasterService.pop('success', '', 'Tank Readings updated successfully.');
           this.addPaymentTypeVisible = false;
           this.getNozzleBreakUp(nozzleDailyBreakUpItem[0].PetrolPumpCode, nozzleDailyBreakUpItem[0].NozzleID, nozzleDailyBreakUpItem[0].DateEntered);
+          this.btnSaveDisabledAfterAdd = true;
           //this.dialogRef.close();
           //this.router.navigate(['/DailyNozzleReading', this.pumpCode]);
         });
       }
-    }
-
+    }    
   }
 
   savePumpInfoForLubes() {
@@ -287,6 +288,7 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
           this.toasterService.pop('success', '', 'Tank Readings updated successfully.');
           this.addLubeSaleVisible = false;
           this.getNozzleBreakUp(nozzleDailyBreakUpItem.PetrolPumpCode, nozzleDailyBreakUpItem.NozzleID, nozzleDailyBreakUpItem.DateEntered);
+          this.btnSaveDisabledAfterAdd = true;
           //this.dialogRef.close();
           //this.router.navigate(['/DailyNozzleReading', this.pumpCode]);
         });
@@ -324,6 +326,7 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
         this.toasterService.pop('success', '', 'Tank Readings updated successfully.');
         this.addExpenseSaleVisible = false;
         this.getNozzleBreakUp(nozzleDailyBreakUpItem.PetrolPumpCode, nozzleDailyBreakUpItem.NozzleID, nozzleDailyBreakUpItem.DateEntered);
+        this.btnSaveDisabledAfterAdd = true;
         //this.dialogRef.close();
         //this.router.navigate(['/DailyNozzleReading', this.pumpCode]);
       });
@@ -350,6 +353,9 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
       });
       this.totalBalance = this.totalFuelSaleToday + this.totalLubriantSaleToday - this.totalExpenseToday;
       if (this.totalBalance == 0) {
+        this.btnSaveDisabled = false;
+      }
+      else if (this.totalBalance != 0 && this.btnSaveDisabledAfterAdd == true) {
         this.btnSaveDisabled = false;
       }
       else {

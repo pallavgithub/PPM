@@ -241,7 +241,7 @@ export class CreditorFuelRequestFormComponent implements OnInit {
       }
       let unitID:number = this.getUnit(this.creditorFuelRequestForm.controls['ProductID'].value);
       this.petrolPumpService.AddUpdatePetrolPumpCreditorInventory(this.creditorFuelRequestForm.value,unitID).subscribe((res: any) => {
-        this.toasterService.pop('success', '', res.Result.toString());
+        this.toasterService.pop('success', 'Fuel request submitted.', "");
         this.dialogRef.close();
         this.router.navigate(['/FuelRequest', this.creditorInventory.PetrolPumpCode]);
       });

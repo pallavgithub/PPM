@@ -26,12 +26,12 @@ export class PumpAdditionalInfoComponent implements OnInit {
       { type: 'email', message: 'Enter a valid email' }
     ],
     'Address': [
-      { type: 'required', message: 'Address is required' },
+      { type: 'required', message: 'Address Line 1 is required' },
       { type: 'maxlength', message: 'Maximum 255 charecters are allowed' },
       { type: 'pattern', message: 'Only Alphabets, Numbers, @, &, !, -, _ and . are allowed.' }
     ],
     'Address2': [
-      { type: 'required', message: 'Address2 is required' },
+      { type: 'required', message: 'Address Line 2 is required' },
       { type: 'maxlength', message: 'Maximum 255 charecters are allowed' },
       { type: 'pattern', message: 'Only Alphabets, Numbers, @, &, !, -, _ and . are allowed.' }
     ],

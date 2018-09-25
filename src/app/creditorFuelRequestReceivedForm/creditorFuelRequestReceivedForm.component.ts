@@ -175,7 +175,7 @@ export class CreditorFuelRequestReceivedFormComponent implements OnInit {
     else
     {
       this.petrolPumpService.ApprovePetrolPumpCreditorsInventory(this.creditorFuelRequestReceivedForm.value).subscribe((res: any) => {
-        this.toasterService.pop('success', '', res.Result.toString());
+        this.toasterService.pop('success', '', 'Code Approved.');
         this.dialogRef.close();
         this.router.navigate(['/FuelRequestReceived', this.creditorInventory.PetrolPumpCode]);
       });

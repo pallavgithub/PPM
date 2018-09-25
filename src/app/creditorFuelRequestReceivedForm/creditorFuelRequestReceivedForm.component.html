@@ -3,9 +3,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="SMSCode">Plase Enter Approval Code</label>
+                <label for="SMSCode">Please Enter Approval Code</label>
                 <span class="required">*</span>
-                <input type="number" placeholder="Plase Enter Approval Code" class="form-control" formControlName="SMSCode" required>
+                <input type="number" placeholder="Please Enter Approval Code" class="form-control" formControlName="SMSCode" required>
                 <div *ngFor="let validation of validation_messages.SMSCode">
                     <span class="error-message" *ngIf="creditorFuelRequestReceivedForm.get('SMSCode').hasError(validation.type) && (creditorFuelRequestForm.get('SMSCode').dirty || creditorFuelRequestForm.get('SMSCode').touched)">{{validation.message}}</span>
                 </div>
