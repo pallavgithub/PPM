@@ -185,8 +185,8 @@ export class TankformComponent implements OnInit {
     // {
     //   itemPP_Tank.pp_TankReading = this.readingTypeDetails;
     // }
-    this.pumpService.addUpdatePumpTank(itemPP_Tank).subscribe(res => {
-      this.toasterService.pop('success', '', "Saved successfully");
+    this.pumpService.addUpdatePumpTank(itemPP_Tank).subscribe((res:any) => {
+      this.toasterService.pop('success', '', res.Result.toString());
       this.dialogRef.close();
       this.router.navigate(['/pumpDetails', this.tank.PetrolPumpCode]);
     })

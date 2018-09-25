@@ -158,7 +158,7 @@ import { ChartsModule } from 'ng2-charts';
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
         { provide: WorkflowService, useClass: WorkflowService },
-        //{provide: LocationStrategy, useClass: HashLocationStrategy},
+        // {provide: LocationStrategy, useClass: HashLocationStrategy},
         WorkflowGuard, FormDataService, PetrolPumpService,
         // provider used to create fake backend
         fakeBackendProvider, DatePipe

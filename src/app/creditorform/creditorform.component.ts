@@ -43,7 +43,7 @@ export class CreditorformComponent implements OnInit {
       { type: 'pattern', message: 'Only Alphabets, Numbers, @, &, !, -, _ and . are allowed.' }
     ],
     'UserId': [
-      { type: 'required', message: 'UserId is required' },
+      { type: 'required', message: 'Creditor Id is required' },
       { type: 'minlength', message: 'UserId must be at least 5 characters long' },
       { type: 'pattern', message: 'Only Alphabets, Numbers, @, &, !, -, _ and . are allowed.' }
     ],
