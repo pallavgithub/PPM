@@ -229,7 +229,7 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
     let paymentTypeID = this.productDialogform.controls["PaymentTypeID"].value;
     let amount = this.productDialogform.controls["Amount"].value;
     if (paymentTypeID == 0 || amount == 0 || amount == '') {
-      this.toasterService.pop('error', '', 'Please add item');
+      this.toasterService.pop('error', '', 'Please add fuel sales');
     }
     else {
       if (this.nozzleDailyBreakUpGet.filter(p => p.PaymentTypeID == paymentTypeID).length > 0) {
@@ -264,7 +264,7 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
     let paymentTypeID = this.LubesDialogform.controls["FuelTypeID"].value;
     let amount = this.LubesDialogform.controls["Quantity"].value;
     if (paymentTypeID == 0 || amount == 0 || amount == '') {
-      this.toasterService.pop('error', '', 'Please add item');
+      this.toasterService.pop('error', '', 'Please add lubricant sales');
     }
     else {
       if (this.nozzleDailyBreakUpGetForLubes.filter(p => p.PaymentTypeID == paymentTypeID).length > 0) {
@@ -306,7 +306,7 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
     let description = this.ExpensesDialogform.controls["Description"].value;
     let amount = this.ExpensesDialogform.controls["Amount"].value;
     if (description == '' || amount == 0 || amount == '') {
-      this.toasterService.pop('error', '', 'Please add item');
+      this.toasterService.pop('error', '', 'Please add expenses');
     }
     else {
       let nozzleDailyBreakUpItemArray: NozzleDailyBreakUp[] = new Array();

@@ -187,7 +187,7 @@ export class InventoryDialogFormComponent implements OnInit {
       this.inventoryDialogform.controls["SaleRate"].setValue(Number(this.inventoryDialogform.controls["SaleRate"].value));
     }
     this.petrolPumpService.UpdatePetrolPumpLubesInventory(this.inventoryDialogform.value).subscribe((res: any) => {
-      this.toasterService.pop('success', '', res.Result.toString());
+      this.toasterService.pop('success', '', 'Lubricant stock has been added.');
       this.dialogRef.close();
       this.router.navigate(['/Inventory', this.pumpProduct.PetrolPumpCode]);
     });

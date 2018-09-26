@@ -229,7 +229,7 @@ export class InventoryFuelTankDialogFormComponent implements OnInit {
       this.tankWithProduct.pumpProduct.DateStockMeasuredOn = this.datepipe.transform(this.tankWithProduct.pumpProduct.DateStockMeasuredOn.toString(), 'yyyy-MM-dd');
     }
     this.petrolPumpService.AddTankAndFuelInventory(this.tankWithProduct, this.pumpCode).subscribe((res: any) => {
-      this.toasterService.pop('success', '', res.Result.toString());
+      this.toasterService.pop('success', '', 'Stcok has been added.');
       this.dialogRef.close();
       this.router.navigate(['/Inventory', this.pumpProduct.PetrolPumpCode]);
     });

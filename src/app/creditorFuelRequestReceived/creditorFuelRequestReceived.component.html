@@ -44,7 +44,7 @@
                   <td>{{pumpUser.IsApproved == 1 ? 'Approved' : 'Pending'}}</td>                  
                   <td>
                     <a (click)="editUser(pumpUser)" style="cursor: pointer;" *ngIf="!pumpUser.IsApproved">Approve</a>&nbsp;
-                    <a (click)="DeleteUser(pumpUser)" style="cursor: pointer;" *ngIf="pumpUser.IsApproved">Reject</a>
+                    <a (click)="DeleteUser(pumpUser)" style="cursor: pointer;" *ngIf="!pumpUser.IsApproved">Reject</a>
                   </td>
                 </tr>
               </table>
