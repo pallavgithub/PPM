@@ -54,6 +54,9 @@ export class UserService {
     getAllRole() {
         return this.http.get<Role[]>(`${environment.apiUrl}/Pump/Role`);
     }
+    getAllRoleByPetrolPumpCodeAndUserID(petrolPumpCode) {
+        return this.http.get<Role[]>(`${environment.apiUrl}/Pump/RoleByPetrolPumpCodeAndUserID/?petrolPumpCode=` + petrolPumpCode);
+    }
     getAllFuelType() {
         return this.http.get<FuelType[]>(`${environment.apiUrl}/Pump/FuelType`);
     }

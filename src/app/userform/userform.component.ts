@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 export class UserformComponent implements OnInit {
   user: pp_User;
   roles: Role[];
+  petrolPumpCode:string;
   IsEditDialog: boolean;
   btnDisabled: boolean = false;
   errorMessagePassword: string;
@@ -61,6 +62,7 @@ export class UserformComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.data.user;
+    this.petrolPumpCode = this.data.petrolPumpCode;
     this.getAllRoles();
     this.userform = this._formBuilder.group({
       ID: [this.user.ID],
@@ -114,11 +116,11 @@ export class UserformComponent implements OnInit {
     }
   }
   getAllRoles() {
-    this.userService.getAllRole().subscribe(data => {
+    this.userService.getAllRoleByPetrolPumpCodeAndUserID(this.petrolPumpCode).subscribe(data => {
       this.roles = data;
       this.roles = this.roles.filter(user => {
         return user.ID != 2;
-      });
+      });      
     });
   }
 

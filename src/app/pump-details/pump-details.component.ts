@@ -100,7 +100,7 @@ export class PumpDetailsComponent implements OnInit {
     user.PetrolPumpCode = this.petrolPumpCode;
     user.IsEditModal = false;
     const dialogRef = this.dialog.open(UserformComponent, {
-      data: { user },
+      data: { user:user,petrolPumpCode:this.petrolPumpCode },
       disableClose: true
     });
   }
