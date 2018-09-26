@@ -29,6 +29,7 @@ export class CreditorFuelRequestComponent implements OnInit {
   public pumpCode: string;
   public userData:UserInfo;
   public creditLimit:string;
+  public creditLimitWithPendingAndApproved:string;
   navigationSubscription;
 
   roles: Role[];
@@ -62,6 +63,7 @@ export class CreditorFuelRequestComponent implements OnInit {
       //this.getUserInfo();
       this.getPumpInfo(this.pumpCode);
       this.getCreditLimit(this.pumpCode);
+      this.getCreditLimitWithPendingAndApproved(this.pumpCode);
       this.getUserDate();
     }
     //this.getAllRoles();
@@ -74,6 +76,11 @@ export class CreditorFuelRequestComponent implements OnInit {
   getCreditLimit(pumpCode) {
     this.petrolPumpService.GetPetrolPumpCreditorNetCreditLimit(pumpCode).subscribe(res => {
       this.creditLimit = res;
+    });
+  }
+  getCreditLimitWithPendingAndApproved(pumpCode) {
+    this.petrolPumpService.GetPetrolPumpCreditorNetCreditLimitWithPendingAndApproved(pumpCode).subscribe(res => {
+      this.creditLimitWithPendingAndApproved = res;
     });
   }
   editUser(creditorInventory: CreditorInventory) {
@@ -92,7 +99,7 @@ export class CreditorFuelRequestComponent implements OnInit {
     creditorInventory.PetrolPumpCode = this.pumpCode;
     creditorInventory.IsEditModal = false;
     const dialogRef = this.dialog.open(CreditorFuelRequestFormComponent, {
-      data: { creditorInventory:creditorInventory,creditLimit:this.creditLimit },
+      data: { creditorInventory:creditorInventory,creditLimit:this.creditLimit,creditLimitWithPendingAndApproved:this.creditLimitWithPendingAndApproved },
       disableClose: true
     });
   }

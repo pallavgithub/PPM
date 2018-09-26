@@ -106,6 +106,9 @@ export class PetrolPumpService {
     GetPetrolPumpCreditorNetCreditLimit(petrolPumpCode:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/CreditorNetCreditLimit?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
     }
+    GetPetrolPumpCreditorNetCreditLimitWithPendingAndApproved(petrolPumpCode:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpCreditorNetCreditLimitWithPendingAndApproved?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
+    }
     GetPetrolPumpCreditorSpecificNetCreditLimit(petrolPumpCode:string,creditorID:number){
         return this.http.get<any>(`${environment.apiUrl}/Pump/CreditorSpecificNetCreditLimit?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&CreditorID=' + creditorID);
     }

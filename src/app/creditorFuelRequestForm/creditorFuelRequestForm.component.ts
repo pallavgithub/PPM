@@ -32,6 +32,7 @@ export class CreditorFuelRequestFormComponent implements OnInit {
   validationFuelTypeMessage: string;
   validationUnitMessage: string;
   public creditLimit: string;
+  public creditLimitWithPendingAndApproved:string;
   public PurchasePrice: number;
   public TotalPrice: number;
   validation_messages = {
@@ -72,6 +73,7 @@ export class CreditorFuelRequestFormComponent implements OnInit {
   ngOnInit() {
     this.creditorInventory = this.data.creditorInventory;
     this.creditLimit = this.data.creditLimit;
+    this.creditLimitWithPendingAndApproved = this.data.creditLimitWithPendingAndApproved;
     // this.getAllRoles();
     // this.getAllPaymentType();
     this.creditorFuelRequestForm = this._formBuilder.group({
@@ -227,7 +229,7 @@ export class CreditorFuelRequestFormComponent implements OnInit {
     //     });
     //   }
     // });
-    if (Number(this.TotalPrice) > Number(this.creditLimit)) {
+    if (Number(this.TotalPrice) > Number(this.creditLimitWithPendingAndApproved)) {
       this.toasterService.pop('error', '', "Your credit limit is low. please add funds or low your purchase limit.");
     }
     else {
