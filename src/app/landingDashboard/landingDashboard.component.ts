@@ -80,7 +80,7 @@ export class LandingDashboardComponent implements OnInit {
   ];
   public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartOptions:any = {
-    responsive: true
+    responsive: false
   };
   public lineChartColors:Array<any> = [
     { // grey
@@ -119,7 +119,7 @@ export class LandingDashboardComponent implements OnInit {
   ];
   public lineChartLabelsForFuelDailyPrice:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartOptionsForFuelDailyPrice:any = {
-    responsive: true
+    responsive: false
   };
   public lineChartColorsForFuelDailyPrice:Array<any> = [
     { // grey
@@ -158,7 +158,7 @@ export class LandingDashboardComponent implements OnInit {
   ];
   public lineChartLabelsForCreditor:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartOptionsForCreditor:any = {
-    responsive: true
+    responsive: false
   };
   public lineChartColorsForCreditor:Array<any> = [
     { // grey
@@ -197,7 +197,7 @@ export class LandingDashboardComponent implements OnInit {
   ];
   public lineChartLabelsForNozzleSale:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartOptionsForNozzleSale:any = {
-    responsive: true
+    responsive: false
   };
   public lineChartColorsForNozzleSale:Array<any> = [
     { // grey
@@ -236,7 +236,7 @@ export class LandingDashboardComponent implements OnInit {
   ];
   public lineChartLabelsForNozzleFuelSale:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartOptionsForNozzleFuelSale:any = {
-    responsive: true
+    responsive: false
   };
   public lineChartColorsForNozzleFuelSale:Array<any> = [
     { // grey
@@ -275,7 +275,7 @@ export class LandingDashboardComponent implements OnInit {
   ];
   public lineChartLabelsForNozzleForCreditorSale:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartOptionsForNozzleForCreditorSale:any = {
-    responsive: true
+    responsive: false
   };
   public lineChartColorsForNozzleForCreditorSale:Array<any> = [
     { // grey
