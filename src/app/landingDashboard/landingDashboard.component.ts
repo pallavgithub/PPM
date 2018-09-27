@@ -464,7 +464,7 @@ export class LandingDashboardComponent implements OnInit {
     let date:string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
     this.petrolPumpService.getPetrolPumpLubesInfoOfLowLimit(pumpCode,date).subscribe(res => {      
       this.pumpProductWithLubesPrise = res; 
-      this.pumpProductWithLubesPrise = this.pumpProductWithLubesPrise.filter(c => Number(c.InitialQuantity) < 100)     
+      this.pumpProductWithLubesPrise = this.pumpProductWithLubesPrise.filter(c => Number(c.InitialQuantity) < 1000)     
     });
   }
 

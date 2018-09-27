@@ -43,6 +43,7 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
   public totalBalance: number;
   paymentTypes: PaymentType[] = new Array();
   public pumpCode: string;
+  public pumpProductWithLubesPrise: pp_PumpProduct[];
   fuelTypes: FuelType[];
   public btnSaveDisabled: boolean = false;
   public btnSaveDisabledAfterAdd: boolean = false;
@@ -87,6 +88,7 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
     if (this.nozzleDailyBreakUp != null && this.nozzleDailyBreakUp != undefined && this.nozzleDailyBreakUp.length > 0) {
       this.getCreditorInventory(this.nozzleDailyBreakUp[0].PetrolPumpCode, this.nozzleDailyBreakUp[0].NozzleID, this.nozzleDailyBreakUp[0].DateEntered);
     }
+    this.getLubesWithLowLimit(this.nozzleDailyBreakUp[0].PetrolPumpCode);
 
     //this.getAllPaymentType();
     // if (this.pumpCode && this.pumpCode != '') {
@@ -263,37 +265,51 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
     // });
     let paymentTypeID = this.LubesDialogform.controls["FuelTypeID"].value;
     let amount = this.LubesDialogform.controls["Quantity"].value;
-    if (paymentTypeID == 0 || amount == 0 || amount == '') {
-      this.toasterService.pop('error', '', 'Please add lubricant sales');
-    }
-    else {
-      if (this.nozzleDailyBreakUpGetForLubes.filter(p => p.PaymentTypeID == paymentTypeID).length > 0) {
-        this.toasterService.pop('error', '', 'This is already added');
+    let pumpProductWithLubesPriseTemp: pp_PumpProduct[];
+    let totalCapacity:number = 0;
+    pumpProductWithLubesPriseTemp = this.pumpProductWithLubesPrise.filter(p=>p.ProductID == paymentTypeID);
+    if(pumpProductWithLubesPriseTemp != null && pumpProductWithLubesPriseTemp.length > 0)
+    {
+      totalCapacity = Number(pumpProductWithLubesPriseTemp[0].InitialQuantity);
+      if(totalCapacity < amount)
+      {
+        this.toasterService.pop('error', '', 'You did not have this capacity');
       }
-      else {
-        let nozzleDailyBreakUpItemArray: NozzleDailyBreakUp[] = new Array();
-        let nozzleDailyBreakUpItem: NozzleDailyBreakUp = new NozzleDailyBreakUp();
-        //nozzleDailyBreakUpItem = this.nozzleDailyBreakUp.filter(p=>p.PaymentTypeID == paymentTypeID);
-        nozzleDailyBreakUpItem.Amount = amount,
-          nozzleDailyBreakUpItem.BreakUpTypeID = 2, // 1 for payment type
-          nozzleDailyBreakUpItem.PetrolPumpCode = this.nozzleDailyBreakUp[0].PetrolPumpCode,
-          nozzleDailyBreakUpItem.NozzleID = this.nozzleDailyBreakUp[0].NozzleID,
-          nozzleDailyBreakUpItem.DateEntered = this.nozzleDailyBreakUp[0].DateEntered,
-          nozzleDailyBreakUpItem.Description = this.nozzleDailyBreakUp[0].Description,
-          nozzleDailyBreakUpItem.DailyNozzleReadingID = this.nozzleDailyBreakUp[0].DailyNozzleReadingID
-        nozzleDailyBreakUpItem.PaymentTypeID = paymentTypeID;
-        nozzleDailyBreakUpItem.PaymentTypeName = this.getFuelTypeName(paymentTypeID);
-        nozzleDailyBreakUpItemArray.push(nozzleDailyBreakUpItem);
-        this.petrolPumpService.UpdateDailyNozzleReadingBreakUp(nozzleDailyBreakUpItemArray).subscribe(res => {
-          this.toasterService.pop('success', '', 'Tank Readings updated successfully.');
-          this.addLubeSaleVisible = false;
-          this.getNozzleBreakUp(nozzleDailyBreakUpItem.PetrolPumpCode, nozzleDailyBreakUpItem.NozzleID, nozzleDailyBreakUpItem.DateEntered);
-          this.btnSaveDisabledAfterAdd = true;
-          //this.dialogRef.close();
-          //this.router.navigate(['/DailyNozzleReading', this.pumpCode]);
-        });
+      else
+      {
+        if (paymentTypeID == 0 || amount == 0 || amount == '') {
+          this.toasterService.pop('error', '', 'Please add lubricant sales');
+        }
+        else {
+          if (this.nozzleDailyBreakUpGetForLubes.filter(p => p.PaymentTypeID == paymentTypeID).length > 0) {
+            this.toasterService.pop('error', '', 'This is already added');
+          }
+          else {
+            let nozzleDailyBreakUpItemArray: NozzleDailyBreakUp[] = new Array();
+            let nozzleDailyBreakUpItem: NozzleDailyBreakUp = new NozzleDailyBreakUp();
+            //nozzleDailyBreakUpItem = this.nozzleDailyBreakUp.filter(p=>p.PaymentTypeID == paymentTypeID);
+            nozzleDailyBreakUpItem.Amount = amount,
+              nozzleDailyBreakUpItem.BreakUpTypeID = 2, // 1 for payment type
+              nozzleDailyBreakUpItem.PetrolPumpCode = this.nozzleDailyBreakUp[0].PetrolPumpCode,
+              nozzleDailyBreakUpItem.NozzleID = this.nozzleDailyBreakUp[0].NozzleID,
+              nozzleDailyBreakUpItem.DateEntered = this.nozzleDailyBreakUp[0].DateEntered,
+              nozzleDailyBreakUpItem.Description = this.nozzleDailyBreakUp[0].Description,
+              nozzleDailyBreakUpItem.DailyNozzleReadingID = this.nozzleDailyBreakUp[0].DailyNozzleReadingID
+            nozzleDailyBreakUpItem.PaymentTypeID = paymentTypeID;
+            nozzleDailyBreakUpItem.PaymentTypeName = this.getFuelTypeName(paymentTypeID);
+            nozzleDailyBreakUpItemArray.push(nozzleDailyBreakUpItem);
+            this.petrolPumpService.UpdateDailyNozzleReadingBreakUp(nozzleDailyBreakUpItemArray).subscribe(res => {
+              this.toasterService.pop('success', '', 'Break up has been added.');
+              this.addLubeSaleVisible = false;
+              this.getNozzleBreakUp(nozzleDailyBreakUpItem.PetrolPumpCode, nozzleDailyBreakUpItem.NozzleID, nozzleDailyBreakUpItem.DateEntered);
+              this.btnSaveDisabledAfterAdd = true;
+              //this.dialogRef.close();
+              //this.router.navigate(['/DailyNozzleReading', this.pumpCode]);
+            });
+          }
+        }
       }
-    }
+    }        
   }
 
   savePumpInfoForExpense() {
@@ -331,6 +347,16 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
         //this.router.navigate(['/DailyNozzleReading', this.pumpCode]);
       });
     }
+  }
+
+  getLubesWithLowLimit(pumpCode) {
+    let currentDate:Date = new Date();
+    //currentDate.setDate(currentDate.getDate() - 1);
+    let date:string = this.datepipe.transform(currentDate.toString(), 'yyyy-MM-dd');
+    this.petrolPumpService.getPetrolPumpLubesInfoOfLowLimit(pumpCode,date).subscribe(res => {      
+      this.pumpProductWithLubesPrise = res; 
+      this.pumpProductWithLubesPrise = this.pumpProductWithLubesPrise.filter(c => Number(c.InitialQuantity) < 1000)     
+    });
   }
 
   getFuelTypeName(paymentTypeID: number) {
