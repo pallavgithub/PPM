@@ -12,6 +12,20 @@
             </div>
         </div>
     </div>
+    <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="AssignedNozzle">Assigned Nozzle
+                        <span class="required">*</span>
+                    </label>
+                    <select name="tank" class="form-control" formControlName="AssignedNozzleID">
+                        <option [ngValue]="0" disabled>--Select--</option>
+                        <option *ngFor="let itemTank of nozzle;let i=index" [ngValue]="itemTank.ID">{{itemTank.Name}}</option>
+                    </select>
+                    <span class="error-message">{{validationNozzleMessage}}</span>
+                </div>
+            </div>
+        </div>
     <mat-dialog-actions style="float: right;">
         <button class="btn btn-default" [mat-dialog-close]="true">Cancel</button>&nbsp;&nbsp;&nbsp;
         <button type="submit" class="btn btn-primary" [disabled]="!creditorFuelRequestReceivedForm.valid">Submit</button>

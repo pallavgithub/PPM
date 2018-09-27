@@ -142,8 +142,8 @@ export class PetrolPumpService {
         return this.http.post(`${environment.apiUrl}/Pump/CreditorPurchaseLimit`,JSON.stringify(pumpUser))
     }
 
-    ApprovePetrolPumpCreditorsInventory(pumpUser:CreditorInventory){
-        return this.http.post(`${environment.apiUrl}/Pump/ApprovePetrolPumpCreditorsInventory`,JSON.stringify(pumpUser))
+    ApprovePetrolPumpCreditorsInventory(pumpUser:CreditorInventory,nozzzleID:number){
+        return this.http.post(`${environment.apiUrl}/Pump/ApprovePetrolPumpCreditorsInventory?nozzzleID=`+nozzzleID,JSON.stringify(pumpUser))
     }
     addUpdatePumpTank(pumpTank:pp_Tank){
         return this.http.post(`${environment.apiUrl}/Pump/AddUpdateTank`,JSON.stringify(pumpTank))

@@ -3,7 +3,7 @@ import { Component, OnInit, NgModule, Output, EventEmitter, Input, Inject } from
 import { pp_User } from '../_models/pp_User';
 import { FormsModule, FormBuilder, FormGroup, Validators, NgControl } from '@angular/forms'
 import { Role } from '../_models/Role';
-import {Unit} from '../_models/Unit';
+import { Unit } from '../_models/Unit';
 import { PetrolPumpService } from '../_services/petrolpump.service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
 import { ToasterService } from 'angular2-toaster';
@@ -21,14 +21,16 @@ import { AllProduct } from '../AllProduct';
 export class CreditorFuelRequestReceivedFormComponent implements OnInit {
   creditorInventory: CreditorInventory;
   units: Unit[];
+  nozzle: Role[];
   allProduct: AllProduct[];
   IsEditDialog: boolean;
   paymentTypes: PaymentType[];
+  validationNozzleMessage: string;
   validationPaymentTypeMessage: string;
   btnDisabled: boolean = false;
   creditorFuelRequestReceivedForm: FormGroup;
   validationRoleMessage: string;
-  ApprovalCode:string;
+  ApprovalCode: string;
   validation_messages = {
     'Email': [
       { type: 'required', message: 'Email is required' },
@@ -88,10 +90,12 @@ export class CreditorFuelRequestReceivedFormComponent implements OnInit {
       Description: [this.creditorInventory.Description],
       ModifiedBy: [this.creditorInventory.ModifiedBy],
       ModifiedOn: [this.creditorInventory.ModifiedOn],
-      IsApproved: [this.creditorInventory.IsApproved]
+      IsApproved: [this.creditorInventory.IsApproved],
+      AssignedNozzleID:0
     });
     //  this.getAllUnits();
     //  this.getAllRegisteredProducts();
+    this.getNozzlesByID(this.creditorInventory.PetrolPumpCode);
     if (this.creditorInventory.IsEditModal) {
       this.IsEditDialog = true;
       //this.userform.controls.UserId.disable();
@@ -167,19 +171,24 @@ export class CreditorFuelRequestReceivedFormComponent implements OnInit {
   //   });
   // }
 
+  getNozzlesByID(petrolPumpCode: string) {
+    this.userService.getNozzlesByID(petrolPumpCode).subscribe(data => {
+      this.nozzle = data;
+    });
+  }
+
   createUser() {
-    if(this.creditorFuelRequestReceivedForm.controls["SMSCode"].value != this.ApprovalCode)
-    {
+    let nozzzleID: number = this.creditorFuelRequestReceivedForm.controls["AssignedNozzleID"].value;
+    if (this.creditorFuelRequestReceivedForm.controls["SMSCode"].value != this.ApprovalCode) {
       this.toasterService.pop('error', '', 'Wrong Approval Code');
     }
-    else
-    {
-      this.petrolPumpService.ApprovePetrolPumpCreditorsInventory(this.creditorFuelRequestReceivedForm.value).subscribe((res: any) => {
+    else {
+      this.petrolPumpService.ApprovePetrolPumpCreditorsInventory(this.creditorFuelRequestReceivedForm.value,nozzzleID).subscribe((res: any) => {
         this.toasterService.pop('success', '', 'Code Approved.');
         this.dialogRef.close();
         this.router.navigate(['/FuelRequestReceived', this.creditorInventory.PetrolPumpCode]);
       });
-    }    
+    }
   }
 
   // onChange() {
