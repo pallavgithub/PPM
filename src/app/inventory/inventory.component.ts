@@ -32,13 +32,13 @@ export class InventoryComponent implements OnInit {
   public pumpProductWithLubesPrise: pp_PumpProduct[];
   public pumpTanks: pp_Tank[];
   public pumpCode: string;
-  public userData:UserInfo;
+  public userData: UserInfo;
   navigationSubscription;
 
   //allProducts: AllProduct[];
   //listPumpProduct: pp_PumpProduct[];
   //units: Unit[];
-  constructor(private router: Router, private toasterService: ToasterService, public dialog: MatDialog, public dialog2: MatDialog, private userService: UserService,private activatedRoute: ActivatedRoute, private petrolPumpService: PetrolPumpService,public datepipe: DatePipe) {
+  constructor(private router: Router, private toasterService: ToasterService, public dialog: MatDialog, public dialog2: MatDialog, private userService: UserService, private activatedRoute: ActivatedRoute, private petrolPumpService: PetrolPumpService, public datepipe: DatePipe) {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.pumpCode = params['pumpCode'];
     });
@@ -70,7 +70,7 @@ export class InventoryComponent implements OnInit {
 
   ngOnInit() {
     if (this.pumpCode && this.pumpCode != '') {
-      this.getPumpInfo(this.pumpCode);  
+      this.getPumpInfo(this.pumpCode);
       this.getUserDate();
     }
     //this.getAllProducts();
@@ -78,12 +78,12 @@ export class InventoryComponent implements OnInit {
     //this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID != 3);
   }
   getPumpInfo(pumpCode) {
-    let date:string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
-    this.petrolPumpService.getPetrolPumpDashboardWithDate(pumpCode,date).subscribe(res => {
+    let date: string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
+    this.petrolPumpService.getPetrolPumpDashboardWithDate(pumpCode, date).subscribe(res => {
       this.pumpTanks = res.pp_Tanks;
       this.pumpProduct = res.pp_PumpProduct;
-      this.pumpProductWithLubesPrise = res.pp_PumpProductWithLubesPrise; 
-      this.pumpProductWithLubesPrise = this.pumpProductWithLubesPrise.filter(c => c.CategoryID != 3)     
+      this.pumpProductWithLubesPrise = res.pp_PumpProductWithLubesPrise;
+      this.pumpProductWithLubesPrise = this.pumpProductWithLubesPrise.filter(c => c.CategoryID != 3)
     });
   }
   // ngOnChanges(changes: SimpleChange) {
@@ -103,10 +103,10 @@ export class InventoryComponent implements OnInit {
 
   // }
   getUserDate() {
-    this.userService.getUserDetailInfo().subscribe((res)=>{
-      this.userData=res;
+    this.userService.getUserDetailInfo().subscribe((res) => {
+      this.userData = res;
     });
-}
+  }
   editProduct(pumpProductNew: pp_PumpProduct) {
     pumpProductNew.IsEditModal = true;
     pumpProductNew.InitialQuantity = '';
@@ -126,8 +126,27 @@ export class InventoryComponent implements OnInit {
     // });
   }
 
+  getVisibleAdjustPrice(categoryID,dateStockMeasuredOnPara) {
+    let currentdate = new Date();
+    currentdate.setHours(0, 0, 0, 0)
+    let dateSTockMeasuredOn = new Date(dateStockMeasuredOnPara);
+    dateSTockMeasuredOn.setHours(0, 0, 0, 0)
+    if (categoryID == 2) {
+      if (dateSTockMeasuredOn < currentdate) {
+        return true;
+      }
+      else
+      {
+        return false;
+      }      
+    }
+    else {
+      return false;
+    }
+  }
+
   editProductPrice(pumpProductNew: pp_PumpProduct) {
-    pumpProductNew.IsEditModal = true;    
+    pumpProductNew.IsEditModal = true;
     // pumpProductNew.PurchaseRate = '';
     // pumpProductNew.SaleRate = '';
     //pumpProductNew.DateStockMeasuredOn = new Date().toString();

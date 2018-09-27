@@ -27,7 +27,8 @@ export class InventoryLubesPriceDialogFormComponent implements OnInit {
   inventoryDialogform: FormGroup;
   validationProductIDMessage: string;
   validationUnitMessage: string;
-  isInitials:boolean;
+  isInitials: boolean;
+  adjustPriceDisabled: boolean = false;
   validation_messages = {
     'Email': [
       { type: 'required', message: 'Email is required' },
@@ -75,6 +76,19 @@ export class InventoryLubesPriceDialogFormComponent implements OnInit {
 
   ngOnInit() {
     this.pumpProduct = this.data.pumpProductNew;
+    // let currentdate = new Date();
+    // currentdate.setHours(0, 0, 0, 0)
+    // let dateSTockMeasuredOn = new Date(this.pumpProduct.DateStockMeasuredOn);
+    // dateSTockMeasuredOn.setHours(0, 0, 0, 0)
+    // debugger;
+    // if (dateSTockMeasuredOn == currentdate && Number(this.pumpProduct.PurchaseRate) != 0 && Number(this.pumpProduct.SaleRate) != 0) {
+    //   this.adjustPriceDisabled = true;
+    // }
+    // else
+    // {
+    //   this.adjustPriceDisabled = false;
+    // }
+    // this.DisabledtextBoxes(this.adjustPriceDisabled);
     this.divCategory = 0;
     this.isInitials = true;
     if (this.pumpProduct.IsEditModal == true) {
@@ -85,7 +99,7 @@ export class InventoryLubesPriceDialogFormComponent implements OnInit {
     }
     //this.getAllProducts();
     //this.getAllUnits();
-    this.DisableControlsByRole(this.pumpProduct.CategoryID,this.pumpProduct.ProductID);
+    this.DisableControlsByRole(this.pumpProduct.CategoryID, this.pumpProduct.ProductID);
 
     this.inventoryDialogform = this._formBuilder.group({
       ID: [this.pumpProduct.ID],
@@ -94,8 +108,8 @@ export class InventoryLubesPriceDialogFormComponent implements OnInit {
       InitialQuantity: [this.pumpProduct.InitialQuantity],
       PurchaseQuantity: [this.pumpProduct.PurchaseQuantity],
       Unit: [this.pumpProduct.Unit],
-      PurchaseRate: [this.pumpProduct.PurchaseRate,Validators.compose([Validators.required,Validators.pattern('^[0-9.]*$')])],
-      SaleRate: [this.pumpProduct.SaleRate,Validators.compose([Validators.required,Validators.pattern('^[0-9.]*$')])],
+      PurchaseRate: [this.pumpProduct.PurchaseRate, Validators.compose([Validators.required, Validators.pattern('^[0-9.]*$')])],
+      SaleRate: [this.pumpProduct.SaleRate, Validators.compose([Validators.required, Validators.pattern('^[0-9.]*$')])],
       Description: [this.pumpProduct.Description],
       CreatedBy: [this.pumpProduct.CreatedBy],
       CreatedOn: [this.pumpProduct.CreatedOn],
@@ -105,7 +119,7 @@ export class InventoryLubesPriceDialogFormComponent implements OnInit {
       ProductCode: [this.pumpProduct.ProductCode],
       PurchaseDate: [this.pumpProduct.PurchaseDate],
       SaleDate: [this.pumpProduct.SaleDate],
-      DateStockMeasuredOn: [this.pumpProduct.DateStockMeasuredOn,Validators.compose([Validators.required])],
+      DateStockMeasuredOn: [this.pumpProduct.DateStockMeasuredOn, Validators.compose([Validators.required])],
       CategoryID: [this.pumpProduct.CategoryID]
     });
     // let latest_PurchaseDate = this.datepipe.transform(((this.pumpProduct.PurchaseDate == "" || this.pumpProduct.PurchaseDate == null ) ? new Date().toString() : this.pumpProduct.PurchaseDate), 'yyyy-MM-dd');
@@ -114,9 +128,29 @@ export class InventoryLubesPriceDialogFormComponent implements OnInit {
     // let latest_SaleDate = this.datepipe.transform(((this.pumpProduct.SaleDate == "" || this.pumpProduct.SaleDate == null ) ? new Date().toString() : this.pumpProduct.SaleDate), 'yyyy-MM-dd');
     // this.inventoryDialogform.get('SaleDate').setValue(latest_SaleDate);
 
-    let latest_DateStockMeasuredOn = this.datepipe.transform(((this.pumpProduct.DateStockMeasuredOn == "" || this.pumpProduct.DateStockMeasuredOn == null ) ? new Date().toString() : this.pumpProduct.DateStockMeasuredOn), 'yyyy-MM-dd');
+    let latest_DateStockMeasuredOn = this.datepipe.transform(((this.pumpProduct.DateStockMeasuredOn == "" || this.pumpProduct.DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct.DateStockMeasuredOn), 'yyyy-MM-dd');
     this.inventoryDialogform.get('DateStockMeasuredOn').setValue(latest_DateStockMeasuredOn);
     // this.DisableControlsByRole();
+  }
+  DisabledtextBoxes(adjustPriceDisabled:boolean)
+  {
+    if(adjustPriceDisabled == true)
+    {
+      this.inventoryDialogform.controls['PurchaseRate'].disable();
+    }
+    else
+    {
+      this.inventoryDialogform.controls['PurchaseRate'].enable();
+    }
+    if(adjustPriceDisabled == true)
+    {
+      this.inventoryDialogform.controls['SaleRate'].disable();
+    }
+    else
+    {
+      this.inventoryDialogform.controls['SaleRate'].enable();
+    }
+    
   }
   checkFormValid() {
     // if (this.inventoryDialogform.controls['ProductID'].value == 0) {
@@ -159,31 +193,25 @@ export class InventoryLubesPriceDialogFormComponent implements OnInit {
   createProduct() {
     //this.inventoryDialogform.controls["PurchaseRate"].setValue(Number(this.inventoryDialogform.controls["PurchaseRate"].value));
     //this.inventoryDialogform.controls["SaleRate"].setValue(Number(this.inventoryDialogform.controls["SaleRate"].value));
-    if(this.inventoryDialogform.controls["InitialQuantity"].value == "")
-    {
+    if (this.inventoryDialogform.controls["InitialQuantity"].value == "") {
       this.inventoryDialogform.controls["InitialQuantity"].setValue(0);
     }
-    else
-    {
+    else {
       this.inventoryDialogform.controls["InitialQuantity"].setValue(Number(this.inventoryDialogform.controls["InitialQuantity"].value));
     }
-    if(this.inventoryDialogform.controls["PurchaseRate"].value == "")
-    {
+    if (this.inventoryDialogform.controls["PurchaseRate"].value == "") {
       this.inventoryDialogform.controls["PurchaseRate"].setValue(0);
     }
-    else
-    {
+    else {
       this.inventoryDialogform.controls["PurchaseRate"].setValue(Number(this.inventoryDialogform.controls["PurchaseRate"].value));
     }
-    if(this.inventoryDialogform.controls["SaleRate"].value == "")
-    {
+    if (this.inventoryDialogform.controls["SaleRate"].value == "") {
       this.inventoryDialogform.controls["SaleRate"].setValue(0);
     }
-    else
-    {
+    else {
       this.inventoryDialogform.controls["SaleRate"].setValue(Number(this.inventoryDialogform.controls["SaleRate"].value));
     }
-    
+
     this.petrolPumpService.updatePetrolPumpLubesPriceAdjustmentInfo(this.inventoryDialogform.value).subscribe((res: any) => {
       this.toasterService.pop('success', '', 'Price is adjusted.');
       this.dialogRef.close();
@@ -193,13 +221,13 @@ export class InventoryLubesPriceDialogFormComponent implements OnInit {
 
   onChange() {
     let categoryID = 0;
-    let productID =this.inventoryDialogform.controls['ProductID'].value;
+    let productID = this.inventoryDialogform.controls['ProductID'].value;
     categoryID = this.GetCategoryID();
-    this.DisableControlsByRole(categoryID,productID);
+    this.DisableControlsByRole(categoryID, productID);
     this.checkFormValid();
   }
 
-  DisableControlsByRole(categoryID: number, productID:number) {
+  DisableControlsByRole(categoryID: number, productID: number) {
 
     if (categoryID == 1) { // Standard
       // this.productDialogform.controls['Quantity'].enable();
@@ -214,10 +242,10 @@ export class InventoryLubesPriceDialogFormComponent implements OnInit {
       // }
       this.divCategory = 1;
     }
-    else if (categoryID == 2) {      
+    else if (categoryID == 2) {
       this.divCategory = 2;
       // this.productDialogform.controls['Quantity'].disable();
-      
+
     }
     else {
       // this.productDialogform.controls['Quantity'].disable();

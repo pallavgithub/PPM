@@ -38,7 +38,7 @@
             <!-- <td>{{getUserRole(product.RoleID)}}</td> -->
             <td>
               <a (click)="editProduct(product)" style="cursor: pointer;">Purchase Stock</a>&nbsp;
-              <a (click)="editProductPrice(product)" style="cursor: pointer;" *ngIf="product.CategoryID==2">Adjust Price</a>&nbsp;
+              <a (click)="editProductPrice(product)" style="cursor: pointer;" *ngIf="getVisibleAdjustPrice(product.CategoryID,product.DateStockMeasuredOn)">Adjust Price</a>&nbsp;
               <!-- <a (click)="DeleteProduct(product)" style="cursor: pointer;">Delete</a>-->
             </td>
           </tr>
