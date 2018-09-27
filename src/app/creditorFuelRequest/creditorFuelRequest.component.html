@@ -48,8 +48,8 @@
             <td>{{pumpUser.IsApproved == 1 ? 'Approved' : 'Pending'}}</td>
             <td>{{pumpUser.SMSCode}}</td>
             <td>
-              <a (click)="editUser(pumpUser)" style="cursor: pointer;">Edit</a>&nbsp;
-              <a (click)="DeleteUser(pumpUser)" style="cursor: pointer;">Delete</a>
+              <a (click)="editUser(pumpUser)" style="cursor: pointer;" *ngIf="pumpUser.IsApproved != 1">Edit</a>&nbsp;
+              <a (click)="DeleteUser(pumpUser)" style="cursor: pointer;" *ngIf="pumpUser.IsApproved != 1">Delete</a>
             </td>
           </tr>
         </table>

@@ -245,7 +245,7 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
             element.BreakUpTypeID = 1 // 1 for payment type
         });
         this.petrolPumpService.UpdateDailyNozzleReadingBreakUp(nozzleDailyBreakUpItem).subscribe(res => {
-          this.toasterService.pop('success', '', 'Tank Readings updated successfully.');
+          this.toasterService.pop('success', '', 'Fuel sale added successfully.');
           this.addPaymentTypeVisible = false;
           this.getNozzleBreakUp(nozzleDailyBreakUpItem[0].PetrolPumpCode, nozzleDailyBreakUpItem[0].NozzleID, nozzleDailyBreakUpItem[0].DateEntered);
           this.btnSaveDisabledAfterAdd = true;
@@ -273,7 +273,7 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
       totalCapacity = Number(pumpProductWithLubesPriseTemp[0].InitialQuantity);
       if(totalCapacity < amount)
       {
-        this.toasterService.pop('error', '', 'You did not have this capacity');
+        this.toasterService.pop('error', '', 'You do not have this capacity');
       }
       else
       {
@@ -339,7 +339,7 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
       nozzleDailyBreakUpItem.PaymentTypeName = null;
       nozzleDailyBreakUpItemArray.push(nozzleDailyBreakUpItem);
       this.petrolPumpService.UpdateDailyNozzleReadingBreakUp(nozzleDailyBreakUpItemArray).subscribe(res => {
-        this.toasterService.pop('success', '', 'Tank Readings updated successfully.');
+        this.toasterService.pop('success', '', 'Expenses added successfully.');
         this.addExpenseSaleVisible = false;
         this.getNozzleBreakUp(nozzleDailyBreakUpItem.PetrolPumpCode, nozzleDailyBreakUpItem.NozzleID, nozzleDailyBreakUpItem.DateEntered);
         this.btnSaveDisabledAfterAdd = true;

@@ -127,7 +127,8 @@
             </div>
         </div>
         <div class="col-md-6 border-div height-scroll1">
-            <div>
+            <div class="container">
+                    <h4>Fuel Sales Chart</h4>
                 <div style="display: block">
                     <!-- <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
                         [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas> -->
@@ -143,7 +144,8 @@
 <div class="row" *ngIf="userData && userData.RoleID == 4">
     <div class="form-group">
         <div class="col-md-12 border-div height-scroll1">
-            <div>
+            <div class="container">
+                <h2>Creditor Sale Chart</h2>
                 <div style="display: block">
                     <!-- <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
                         [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas> -->
@@ -160,7 +162,7 @@
     <div class="form-group">
         <div class="col-md-6 border-div height-scroll1">
             <div class="container">
-                <h2>Fuel Request Summary</h2>
+                <h4>Fuel Request Summary</h4>
                 <ul class="nav nav-pills">
                     <li class="active"><a data-toggle="pill" href="#home">Pending</a></li>
                     <li><a data-toggle="pill" href="#menu1">Approved</a></li>
@@ -232,7 +234,7 @@
     <div class="form-group">
         <div class="col-md-6 border-div height-scroll1">
             <div class="container">
-                <h2>Tank Low Limit</h2>
+                <h4>Tank Low Limit</h4>
                 <div>
                     <div>
                         <div class="table-responsive" *ngIf="pumpTanks && pumpTanks.length>0">
@@ -255,7 +257,7 @@
         </div>
         <div class="col-md-6 border-div height-scroll1">
             <div class="container">
-                <h2>Creditors Low Limit</h2>
+                <h4>Creditors Low Limit</h4>
                 <div>
                     <div>
                         <div class="table-responsive" *ngIf="pumpUsers && pumpUsers.length>0">
@@ -283,7 +285,7 @@
     <div class="form-group">
         <div class="col-md-6 border-div height-scroll1">
             <div class="container">
-                <h2>Tank Ledger</h2>
+                <h4>Tank Ledger</h4>
                 <div>
                     <div>
                         <div class="table-responsive" *ngIf="pumpTanksLedger && pumpTanksLedger.length>0">
@@ -306,7 +308,7 @@
         </div>
         <div class="col-md-6 border-div height-scroll1">
             <div class="container">
-                <h2>Lubes Low Limit</h2>
+                <h4>Lubes Low Limit</h4>
                 <div>
                     <div>
                         <div class="table-responsive" *ngIf="pumpProductWithLubesPrise && pumpProductWithLubesPrise.length>0">
@@ -329,15 +331,15 @@
         </div>
     </div>
 </div>
-
 <div class="row" *ngIf="userData && (userData.RoleID == 1 || userData.RoleID == 3)">
     <div class="form-group">
-        <div class="col-md-6 border-div height-scroll2">
-            <div>
+        <div class="col-md-6 border-div height-scroll2">                
+            <div class="container"> 
+                    <h4>Fuel Daily Sales Chart</h4>               
                 <div style="display: block">
                     <!-- <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
                         [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas> -->
-                    <canvas baseChart width="400" height="800" [datasets]="lineChartDataForFuelDailyPrice" [labels]="lineChartLabelsForFuelDailyPrice" [options]="lineChartOptionsForFuelDailyPrice"
+                    <canvas baseChart width="400" height="400" [datasets]="lineChartDataForFuelDailyPrice" [labels]="lineChartLabelsForFuelDailyPrice" [options]="lineChartOptionsForFuelDailyPrice"
                         [colors]="lineChartColorsForFuelDailyPrice" [legend]="lineChartLegendForFuelDailyPrice" [chartType]="lineChartTypeForFuelDailyPrice" (chartHover)="chartHovered($event)"
                         (chartClick)="chartClicked($event)"></canvas>
                 </div>
@@ -345,11 +347,12 @@
             </div>
         </div>
         <div class="col-md-6 border-div height-scroll2">
-            <div>
+            <div class="container">
+                    <h4>Nozzle Sales Chart</h4>
                 <div style="display: block">
                     <!-- <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
                         [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas> -->
-                    <canvas baseChart width="400" height="800" [datasets]="lineChartDataForNozzleSale" [labels]="lineChartLabelsForNozzleSale" [options]="lineChartOptionsForNozzleSale"
+                    <canvas baseChart width="400" height="400" [datasets]="lineChartDataForNozzleSale" [labels]="lineChartLabelsForNozzleSale" [options]="lineChartOptionsForNozzleSale"
                         [colors]="lineChartColorsForNozzleSale" [legend]="lineChartLegendForNozzleSale" [chartType]="lineChartTypeForNozzleSale" (chartHover)="chartHovered($event)"
                         (chartClick)="chartClicked($event)"></canvas>
                 </div>
