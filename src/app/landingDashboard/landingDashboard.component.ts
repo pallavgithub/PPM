@@ -380,7 +380,10 @@ export class LandingDashboardComponent implements OnInit {
   }
   getTankInfoWithLowLimit(pumpCode, readingDate) {
     let date: string = this.datepipe.transform(readingDate.toString(), 'yyyy-MM-dd');
-    this.petrolPumpService.getPetrolPumpTankInfoOfLowLimit(pumpCode, date).subscribe(res => {
+    // this.petrolPumpService.getPetrolPumpTankInfoOfLowLimit(pumpCode, date).subscribe(res => {
+    //   this.pumpTanks = res;
+    // });
+    this.petrolPumpService.getPetrolPumpTankWithLowCapacity(pumpCode, date).subscribe(res => {
       this.pumpTanks = res;
     });
   }
