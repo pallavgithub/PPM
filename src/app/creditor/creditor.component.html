@@ -16,9 +16,6 @@
     <!-- <userform (userCreated)="addUser($event)"></userform> -->
     <div class="col-md-12">
       <div>
-        <div>
-          <button class="btn btn-primary" style="float:right;" (click)="openAddUserDialog()">Add Creditor</button>
-        </div>
       </div>
       <div class="table-responsive" *ngIf="pumpUsers && pumpUsers.length>0">
         <table style="border: 1px solid black" class="table table-striped">
@@ -53,5 +50,8 @@
         </table>
       </div>
     </div>
+    <div class="col-md-12">
+        <button class="btn btn-primary" style="float:right;" (click)="openAddUserDialog()">Add Creditor</button>
+      </div>
   </div>
 </div>

@@ -152,13 +152,13 @@ export class CreditorformComponent implements OnInit {
     else {
       this.validationPaymentTypeMessage = "";
     }
-    if (this.userform.controls['AssignedNozzleID'].value == 0) {
-      this.validationNozzleMessage = "Please select Nozzle";
-      return false;
-    }
-    else {
-      this.validationNozzleMessage = "";
-    }
+    // if (this.userform.controls['AssignedNozzleID'].value == 0) {
+    //   this.validationNozzleMessage = "Please select Nozzle";
+    //   return false;
+    // }
+    // else {
+    //   this.validationNozzleMessage = "";
+    // }
   }
   getAllRoles() {
     this.userService.getAllRole().subscribe(data => {

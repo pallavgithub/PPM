@@ -134,22 +134,7 @@ export class CreditorFuelRequestReceivedFormComponent implements OnInit {
   //     }
   //   }
   // }
-  // checkFormValid() {
-  //   // if (this.userform.controls['RoleID'].value == 0) {
-  //   //   this.validationRoleMessage = "Please select Role";
-  //   //   return false;
-  //   // }
-  //   // else{
-  //   //   this.validationRoleMessage = "";
-  //   // }
-  //   if (this.userform.controls['PaymentTypeID'].value == 0) {
-  //     this.validationPaymentTypeMessage = "Please select Payment Type";
-  //     return false;
-  //   }
-  //   else {
-  //     this.validationPaymentTypeMessage = "";
-  //   }
-  // }
+ 
   // getAllRoles() {
   //   this.userService.getAllRole().subscribe(data => {
   //     this.roles = data;
@@ -190,6 +175,17 @@ export class CreditorFuelRequestReceivedFormComponent implements OnInit {
       });
     }
   }
+
+   checkFormValid() {
+    if (this.creditorFuelRequestReceivedForm.controls['AssignedNozzleID'].value == 0) {
+      this.validationNozzleMessage = "Please select Nozzle";
+      return false;
+    }
+    else{
+      this.validationNozzleMessage = "";
+    }
+  }
+
 
   // onChange() {
   //   this.DisableControlsByRole();

@@ -3,3 +3,11 @@
     height: 20px;
     margin-left: 10px;
 }
+.top-btn{
+    margin-top: 1rem;
+  }
+  .cdk-overlay-pane .mat-dialog-container{
+    max-height:auto !important;
+    overflow-y: scroll!important;
+    overflow-x: hidden!important;
+}

@@ -45,6 +45,8 @@
     border:gray;
     border-width: 1px;
     border-style: solid;
+    padding:15px;
+    margin-bottom:15px;
   }
   .height-scroll1
   {

@@ -8,8 +8,11 @@ import { AlertService, AuthenticationService } from '../_services';
 import { User } from '../_models';
 import { UserService } from '../_services';
 import { UserInfo } from '../_models/UserInfo';
+// declare var jquery:any;
+// declare var $ :any;
 
-@Component({ templateUrl: 'login.component.html',
+@Component({ selector: 'app-loginPump',
+    templateUrl: 'login.component.html',
 styleUrls: ['./login.component.css'] })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
@@ -25,7 +28,8 @@ export class LoginComponent implements OnInit {
         private authenticationService: AuthenticationService,
         private alertService: AlertService,
         private toasterService: ToasterService,
-        private userService: UserService) { }
+        private userService: UserService) {            
+         }
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
@@ -39,6 +43,11 @@ export class LoginComponent implements OnInit {
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
+    // addbodyscript()
+    // {
+    //     debugger;
+    //     $('body').css("background-color","red"); 
+    // }    
 
     // convenience getter for easy access to form fields
     get f() { return this.loginForm.controls; }

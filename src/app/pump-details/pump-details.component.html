@@ -42,7 +42,7 @@
       </div>
     </ng-template>
     <div class="col-md-12">
-      <button class="btn btn-primary" style="float:right;" (click)="openAddProductDialog()">Add Product</button>
+      <button class="btn btn-primary top-btn" style="float:right;" (click)="openAddProductDialog()">Add Product</button>
     </div>
     <pump-product *ngIf="pumpProduct" [pumpProduct]='pumpProduct' [pumpCode]='petrolPumpCode'></pump-product>
     <!-- <button class="btn btn-primary" type="submit" (click)='matgroup.selectedIndex = 3'>Next</button> -->
@@ -60,7 +60,7 @@
       </div>
     </ng-template>
     <div class="col-md-12">
-      <button class="btn btn-primary" style="float:right;" (click)="openAddPaymentTypeDialog()">Add Payment Type</button>
+      <button class="btn btn-primary top-btn" style="float:right;" (click)="openAddPaymentTypeDialog()">Add Payment Type</button>
     </div>
     <pump-payment *ngIf="pumpPayment" [pumpPayment]='pumpPayment' [pumpCode]='petrolPumpCode'></pump-payment>
     <!-- <button class="btn btn-primary" type="submit" (click)='matgroup.selectedIndex = 4'>Next</button> -->
@@ -78,7 +78,7 @@
       </div>
     </ng-template>
     <div class="col-md-12">
-      <button class="btn btn-primary" style="float:right;" (click)="openAddUserDialog()">Add User</button>
+      <button class="btn btn-primary top-btn" style="float:right;" (click)="openAddUserDialog()">Add User</button>
     </div>
     <pump-users *ngIf="pumpUsers" [pumpUsers]='pumpUsers' [pumpCode]='petrolPumpCode'></pump-users>
     <!-- <button class="btn btn-primary" type="submit" (click)='matgroup.selectedIndex = 5'>Next</button> -->
@@ -96,7 +96,7 @@
       </div>
     </ng-template>
     <div class="col-md-12">
-      <button class="btn btn-primary" style="float:right;" (click)="openAddTankDialog()">Add Tank</button>
+      <button class="btn btn-primary top-btn" style="float:right;" (click)="openAddTankDialog()">Add Tank</button>
     </div>
     <pump-tank *ngIf="pumpTanks" [pumpTanks]='pumpTanks' [pumpCode]='petrolPumpCode'></pump-tank>
     <!-- <button class="btn btn-primary" type="submit" (click)='matgroup.selectedIndex = 6'>Next</button> -->
@@ -114,7 +114,7 @@
       </div>
     </ng-template>
     <div class="col-md-12">
-      <button class="btn btn-primary" style="float:right;" (click)="openAddNozzleDialog()">Add Nozzle</button>
+      <button class="btn btn-primary top-btn" style="float:right;" (click)="openAddNozzleDialog()">Add Nozzle</button>
     </div>
     <pump-nozzle *ngIf="pumpNozzles" [pumpNozzle]='pumpNozzles' [pumpCode]='petrolPumpCode'></pump-nozzle>
     <!-- <button class="btn btn-primary" type="submit" (click)='matgroup.selectedIndex = 7'>Next</button> -->

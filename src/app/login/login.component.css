@@ -12,15 +12,13 @@
 			font-style: normal;
 		} */
 		
-    html,.bodyLogin {
-     background: linear-gradient(145deg, #484962 30%, #d06b41 100%);
+    html,body{
+     background-image: linear-gradient(145deg, #484962 30%, #d06b41 100%);
     }
     @media (min-width: 1000px) {
       /* load on wide screens */
-      .bodyLogin {
-        background-color: transparent;
-        background-image: url('../../assets/Images/bg.jpg');
-        background-size: cover;
+      body {
+				background-image: linear-gradient(145deg, #484962 30%, #d06b41 100%);
       }
     }
     button {
@@ -42,7 +40,7 @@
 		*, *:before, *:after {
       box-sizing: border-box;
     }
-		html, .bodyLogin {
+		html, body {
 			height: 100%;
 			font: 100 16px/1.55 "Open Sans", sans-serif;
 			margin: 0;
