@@ -173,7 +173,8 @@ export class DailyNozzleReadingComponent implements OnInit {
   // }
 
   savePumpInfo(pumpProduct: pp_Nozzle[]) {
-    let flag: number = 0;
+    if (confirm("do you confirm, entries you are adding are correct?")) {
+      let flag: number = 0;
     let purchaseprice: string = "";
     pumpProduct.forEach(element => {
       if (element.OpeningReading.toString().indexOf(".") != -1 && element.OpeningReading.toString().length > 4) {
@@ -202,6 +203,12 @@ export class DailyNozzleReadingComponent implements OnInit {
         this.getPumpInfo(pumpProduct[0].PetrolPumpCode,pumpProduct[0].ReadingDate);
       });
     }
+    }
+    else
+    {
+
+    }
+    
   }
   getUserDate() {
     this.userService.getUserDetailInfo().subscribe((res) => {
