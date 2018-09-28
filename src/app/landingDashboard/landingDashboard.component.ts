@@ -64,21 +64,16 @@ export class LandingDashboardComponent implements OnInit {
     scaleShowVerticalLines: false,
     responsive: true
   };
-  public barChartLabels:string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+  public barChartLabels:string[] = [];
   public barChartType:string = 'bar';
   public barChartLegend:boolean = true;
  
   public barChartData:any[] = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'}
-    ,{data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
   ];
 
   public lineChartData:Array<any> = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'},
-    {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'}
   ];
-  public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartLabels:Array<any> = [];
   public lineChartOptions:any = {
     responsive: false
   };
@@ -114,10 +109,8 @@ export class LandingDashboardComponent implements OnInit {
 
   // comment
   public lineChartDataForFuelDailyPrice:Array<any> = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Purchase Price'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Sales price'}
   ];
-  public lineChartLabelsForFuelDailyPrice:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartLabelsForFuelDailyPrice:Array<any> = [];
   public lineChartOptionsForFuelDailyPrice:any = {
     responsive: false
   };
@@ -153,10 +146,8 @@ export class LandingDashboardComponent implements OnInit {
   // for creditor
 
   public lineChartDataForCreditor:Array<any> = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Purchase Price'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Sales price'}
   ];
-  public lineChartLabelsForCreditor:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartLabelsForCreditor:Array<any> = [];
   public lineChartOptionsForCreditor:any = {
     responsive: false
   };
@@ -192,10 +183,8 @@ export class LandingDashboardComponent implements OnInit {
   // for Nozzle Sale
 
   public lineChartDataForNozzleSale:Array<any> = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Purchase Price'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Sales price'}
   ];
-  public lineChartLabelsForNozzleSale:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartLabelsForNozzleSale:Array<any> = [];
   public lineChartOptionsForNozzleSale:any = {
     responsive: false
   };
@@ -231,10 +220,10 @@ export class LandingDashboardComponent implements OnInit {
   // for Nozzle Fuel Sale
 
   public lineChartDataForNozzleFuelSale:Array<any> = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Purchase Price'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Sales price'}
+    {data: [], label: ''},
+    {data: [], label: ''}
   ];
-  public lineChartLabelsForNozzleFuelSale:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartLabelsForNozzleFuelSale:Array<any> = [];
   public lineChartOptionsForNozzleFuelSale:any = {
     responsive: false
   };
@@ -270,10 +259,8 @@ export class LandingDashboardComponent implements OnInit {
   // for Nozzle Sale
 
   public lineChartDataForNozzleForCreditorSale:Array<any> = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Purchase Price'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Sales price'}
   ];
-  public lineChartLabelsForNozzleForCreditorSale:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartLabelsForNozzleForCreditorSale:Array<any> = [];
   public lineChartOptionsForNozzleForCreditorSale:any = {
     responsive: false
   };
@@ -392,7 +379,7 @@ export class LandingDashboardComponent implements OnInit {
       this.lineChartLabelsForFuelDailyPrice = new Array<any>();
       this.lineChartDataForFuelDailyPrice = new Array<any>();
       res.lstDates.forEach(element => {
-        this.lineChartLabelsForFuelDailyPrice.push(element);
+        this.lineChartLabelsForFuelDailyPrice.push(this.datepipe.transform(element.toString(), 'yyyy-MM-dd'));
       });
       res.lstFuelLabelAndPriceArray.forEach(element => {
         this.lineChartDataForFuelDailyPrice.push(element);
@@ -406,7 +393,7 @@ export class LandingDashboardComponent implements OnInit {
       this.lineChartLabelsForCreditor = new Array<any>();
       this.lineChartDataForCreditor = new Array<any>();
       res.lstDates.forEach(element => {
-        this.lineChartLabelsForCreditor.push(element);
+        this.lineChartLabelsForCreditor.push(this.datepipe.transform(element.toString(), 'yyyy-MM-dd'));
       });
       res.lstFuelLabelAndPriceArray.forEach(element => {
         this.lineChartDataForCreditor.push(element);
@@ -419,7 +406,7 @@ export class LandingDashboardComponent implements OnInit {
       this.lineChartLabelsForNozzleSale = new Array<any>();
       this.lineChartDataForNozzleSale = new Array<any>();
       res.lstDates.forEach(element => {
-        this.lineChartLabelsForNozzleSale.push(element);
+        this.lineChartLabelsForNozzleSale.push(this.datepipe.transform(element.toString(), 'yyyy-MM-dd'));
       });
       res.lstFuelLabelAndPriceArray.forEach(element => {
         this.lineChartDataForNozzleSale.push(element);
@@ -432,7 +419,7 @@ export class LandingDashboardComponent implements OnInit {
       this.lineChartLabelsForNozzleFuelSale = new Array<any>();
       this.lineChartDataForNozzleFuelSale = new Array<any>();
       res.lstDates.forEach(element => {
-        this.lineChartLabelsForNozzleFuelSale.push(element);
+        this.lineChartLabelsForNozzleFuelSale.push(this.datepipe.transform(element.toString(), 'yyyy-MM-dd'));
       });
       res.lstFuelLabelAndPriceArray.forEach(element => {
         this.lineChartDataForNozzleFuelSale.push(element);
@@ -446,7 +433,7 @@ export class LandingDashboardComponent implements OnInit {
       this.lineChartLabelsForNozzleForCreditorSale = new Array<any>();
       this.lineChartDataForNozzleForCreditorSale = new Array<any>();
       res.lstDates.forEach(element => {
-        this.lineChartLabelsForNozzleForCreditorSale.push(element);
+        this.lineChartLabelsForNozzleForCreditorSale.push(this.datepipe.transform(element.toString(), 'yyyy-MM-dd'));
       });
       res.lstFuelLabelAndPriceArray.forEach(element => {
         this.lineChartDataForNozzleForCreditorSale.push(element);
