@@ -307,17 +307,10 @@
                 <h4>Tank Ledger</h4>
                 <div>
                     <div>
-                        <div class="table-responsive" *ngIf="pumpTanksLedger && pumpTanksLedger.length>0">
-                            <table style="border: 1px solid black" class="table table-striped">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>Tank Name</th>
-                                        <th>Stock</th>
-                                    </tr>
-                                </thead>
-                                <tr *ngFor="let pumpTanksLedgerItem of pumpTanksLedger let i=index">
-                                    <td>{{pumpTanksLedgerItem.TankName}}</td>
-                                    <td>{{pumpTanksLedgerItem.OpeningStock}}</td>
+                        <div *ngIf="tank && tank.length>0">
+                            <table>                                
+                                <tr *ngFor="let tankItem of tank let i=index">
+                                    <td><a (click)="OpenTankLedgerDialog(tankItem.ID)"> {{tankItem.Name}}</a></td>
                                 </tr>
                             </table>
                         </div>

@@ -20,6 +20,8 @@ import { pp_PumpProduct } from '../_models/pp_PumpProduct';
 import { CreditorInventory } from '../_models/CreditorInventory';
 import { pp_Tank } from '../_models/pp_Tank';
 import { pp_User } from '../_models/pp_User';
+import { Tank } from '../_models/Tank';
+import { TankLedgerformComponent } from '../tankLedger/tankLedger.component';
 
 
 @Component({
@@ -41,43 +43,44 @@ export class LandingDashboardComponent implements OnInit {
   public ApprovedCreditorInventory: CreditorInventory[];
   public PendingCreditorInventory: CreditorInventory[];
   public msgTank: string;
-  public creditLimit:string;
+  public creditLimit: string;
   public msgNozzle: string;
   public isPermit: boolean;
   public pumpTanks: pp_Tank[];
+  tank: Tank[];
   public pumpTanksLedger: pp_Tank[];
   public pumpUsers: pp_User[];
   public pumpProductWithLubesPrise: pp_PumpProduct[];
 
-  public UserId:string = null;
-  public RoleID:number = 0;
-  public FullName:string = null;
-  public PetrolPumpName:string = null;
-  public Address:string = null;
-  public Address2:string = null;
-  public City:string = null;
-  public State:string = null;
-  public PetrolPumpPincode:string = null;
-  public PetrolPumpCode:string = null;
+  public UserId: string = null;
+  public RoleID: number = 0;
+  public FullName: string = null;
+  public PetrolPumpName: string = null;
+  public Address: string = null;
+  public Address2: string = null;
+  public City: string = null;
+  public State: string = null;
+  public PetrolPumpPincode: string = null;
+  public PetrolPumpCode: string = null;
 
-  public barChartOptions:any = {
+  public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true
   };
-  public barChartLabels:string[] = [];
-  public barChartType:string = 'bar';
-  public barChartLegend:boolean = true;
- 
-  public barChartData:any[] = [
+  public barChartLabels: string[] = [];
+  public barChartType: string = 'bar';
+  public barChartLegend: boolean = true;
+
+  public barChartData: any[] = [
   ];
 
-  public lineChartData:Array<any> = [
+  public lineChartData: Array<any> = [
   ];
-  public lineChartLabels:Array<any> = [];
-  public lineChartOptions:any = {
+  public lineChartLabels: Array<any> = [];
+  public lineChartOptions: any = {
     responsive: false
   };
-  public lineChartColors:Array<any> = [
+  public lineChartColors: Array<any> = [
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
       borderColor: 'rgba(148,159,177,1)',
@@ -103,18 +106,18 @@ export class LandingDashboardComponent implements OnInit {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
   ];
-  public lineChartLegend:boolean = true;
-  public lineChartType:string = 'line';
+  public lineChartLegend: boolean = true;
+  public lineChartType: string = 'line';
 
 
   // comment
-  public lineChartDataForFuelDailyPrice:Array<any> = [
+  public lineChartDataForFuelDailyPrice: Array<any> = [
   ];
-  public lineChartLabelsForFuelDailyPrice:Array<any> = [];
-  public lineChartOptionsForFuelDailyPrice:any = {
+  public lineChartLabelsForFuelDailyPrice: Array<any> = [];
+  public lineChartOptionsForFuelDailyPrice: any = {
     responsive: false
   };
-  public lineChartColorsForFuelDailyPrice:Array<any> = [
+  public lineChartColorsForFuelDailyPrice: Array<any> = [
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
       borderColor: 'rgba(148,159,177,1)',
@@ -140,18 +143,18 @@ export class LandingDashboardComponent implements OnInit {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
   ];
-  public lineChartLegendForFuelDailyPrice:boolean = true;
-  public lineChartTypeForFuelDailyPrice:string = 'line';
+  public lineChartLegendForFuelDailyPrice: boolean = true;
+  public lineChartTypeForFuelDailyPrice: string = 'line';
 
   // for creditor
 
-  public lineChartDataForCreditor:Array<any> = [
+  public lineChartDataForCreditor: Array<any> = [
   ];
-  public lineChartLabelsForCreditor:Array<any> = [];
-  public lineChartOptionsForCreditor:any = {
+  public lineChartLabelsForCreditor: Array<any> = [];
+  public lineChartOptionsForCreditor: any = {
     responsive: false
   };
-  public lineChartColorsForCreditor:Array<any> = [
+  public lineChartColorsForCreditor: Array<any> = [
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
       borderColor: 'rgba(148,159,177,1)',
@@ -177,18 +180,18 @@ export class LandingDashboardComponent implements OnInit {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
   ];
-  public lineChartLegendForCreditor:boolean = true;
-  public lineChartTypeForCreditor:string = 'line';
+  public lineChartLegendForCreditor: boolean = true;
+  public lineChartTypeForCreditor: string = 'line';
 
   // for Nozzle Sale
 
-  public lineChartDataForNozzleSale:Array<any> = [
+  public lineChartDataForNozzleSale: Array<any> = [
   ];
-  public lineChartLabelsForNozzleSale:Array<any> = [];
-  public lineChartOptionsForNozzleSale:any = {
+  public lineChartLabelsForNozzleSale: Array<any> = [];
+  public lineChartOptionsForNozzleSale: any = {
     responsive: false
   };
-  public lineChartColorsForNozzleSale:Array<any> = [
+  public lineChartColorsForNozzleSale: Array<any> = [
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
       borderColor: 'rgba(148,159,177,1)',
@@ -214,20 +217,20 @@ export class LandingDashboardComponent implements OnInit {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
   ];
-  public lineChartLegendForNozzleSale:boolean = true;
-  public lineChartTypeForNozzleSale:string = 'line';
+  public lineChartLegendForNozzleSale: boolean = true;
+  public lineChartTypeForNozzleSale: string = 'line';
 
   // for Nozzle Fuel Sale
 
-  public lineChartDataForNozzleFuelSale:Array<any> = [
-    {data: [], label: ''},
-    {data: [], label: ''}
+  public lineChartDataForNozzleFuelSale: Array<any> = [
+    { data: [], label: '' },
+    { data: [], label: '' }
   ];
-  public lineChartLabelsForNozzleFuelSale:Array<any> = [];
-  public lineChartOptionsForNozzleFuelSale:any = {
+  public lineChartLabelsForNozzleFuelSale: Array<any> = [];
+  public lineChartOptionsForNozzleFuelSale: any = {
     responsive: false
   };
-  public lineChartColorsForNozzleFuelSale:Array<any> = [
+  public lineChartColorsForNozzleFuelSale: Array<any> = [
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
       borderColor: 'rgba(148,159,177,1)',
@@ -253,18 +256,18 @@ export class LandingDashboardComponent implements OnInit {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
   ];
-  public lineChartLegendForNozzleFuelSale:boolean = true;
-  public lineChartTypeForNozzleFuelSale:string = 'line';
+  public lineChartLegendForNozzleFuelSale: boolean = true;
+  public lineChartTypeForNozzleFuelSale: string = 'line';
 
   // for Nozzle Sale
 
-  public lineChartDataForNozzleForCreditorSale:Array<any> = [
+  public lineChartDataForNozzleForCreditorSale: Array<any> = [
   ];
-  public lineChartLabelsForNozzleForCreditorSale:Array<any> = [];
-  public lineChartOptionsForNozzleForCreditorSale:any = {
+  public lineChartLabelsForNozzleForCreditorSale: Array<any> = [];
+  public lineChartOptionsForNozzleForCreditorSale: any = {
     responsive: false
   };
-  public lineChartColorsForNozzleForCreditorSale:Array<any> = [
+  public lineChartColorsForNozzleForCreditorSale: Array<any> = [
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
       borderColor: 'rgba(148,159,177,1)',
@@ -290,8 +293,8 @@ export class LandingDashboardComponent implements OnInit {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
   ];
-  public lineChartLegendForNozzleForCreditorSale:boolean = true;
-  public lineChartTypeForNozzleForCreditorSale:string = 'line';
+  public lineChartLegendForNozzleForCreditorSale: boolean = true;
+  public lineChartTypeForNozzleForCreditorSale: string = 'line';
 
   navigationSubscription;
 
@@ -329,7 +332,7 @@ export class LandingDashboardComponent implements OnInit {
   //     { type: 'pattern', message: 'Only Numbers are allowed.' }
   //   ]
   // }
-  constructor(private toasterService: ToasterService, private _formBuilder: FormBuilder, private router: Router, private petrolPumpService: PetrolPumpService, private activatedRoute: ActivatedRoute, private userService: UserService, public dialog: MatDialog,public datepipe: DatePipe) {
+  constructor(private toasterService: ToasterService, private _formBuilder: FormBuilder, private router: Router, private petrolPumpService: PetrolPumpService, private activatedRoute: ActivatedRoute, private userService: UserService, public dialog: MatDialog, public datepipe: DatePipe) {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.pumpCode = params['pumpCode'];
     });
@@ -349,16 +352,16 @@ export class LandingDashboardComponent implements OnInit {
       this.getPumpIncompleteDailyData(this.pumpCode);
       this.getPumpInfo(this.pumpCode);
       this.getCreditorInventory(this.pumpCode);
-      this.getTankInfoWithLowLimit(this.pumpCode,new Date().toString());
-      this.getPetrolPumpTankLedger(this.pumpCode,new Date().toString());      
+      this.getTankInfoWithLowLimit(this.pumpCode, new Date().toString());
       this.getLubesWithLowLimit(this.pumpCode);
-      this.getPetrolPumpDailyFuelPriceChart(this.pumpCode,new Date().toString());
-      this.getPetrolPumpCreditorLedgerChart(this.pumpCode,new Date().toString());
-      this.getPetrolPumpNozzleSaleChart(this.pumpCode,new Date().toString());
-      this.getPetrolPumpNozzleFuelSaleChart(this.pumpCode,new Date().toString());
-      this.getPetrolPumpNozzleSaleForStaffChart(this.pumpCode,new Date().toString());
-      
-      
+      this.getPetrolPumpDailyFuelPriceChart(this.pumpCode, new Date().toString());
+      this.getPetrolPumpCreditorLedgerChart(this.pumpCode, new Date().toString());
+      this.getPetrolPumpNozzleSaleChart(this.pumpCode, new Date().toString());
+      this.getPetrolPumpNozzleFuelSaleChart(this.pumpCode, new Date().toString());
+      this.getPetrolPumpNozzleSaleForStaffChart(this.pumpCode, new Date().toString());
+      this.getTanksByID(this.pumpCode);
+
+
       //this.SetFuelPrice();
     }
 
@@ -367,13 +370,21 @@ export class LandingDashboardComponent implements OnInit {
     // });
     //this.getUserInfo();
   }
-  getTankInfoWithLowLimit(pumpCode,readingDate) {
+  OpenTankLedgerDialog(tankID: number) {
+    this.getPetrolPumpTankLedger(this.pumpCode, new Date().toString(), tankID);
+  }
+  getTanksByID(petrolPumpCode: string) {
+    this.userService.getTanksByID(petrolPumpCode).subscribe(data => {
+      this.tank = data;
+    });
+  }
+  getTankInfoWithLowLimit(pumpCode, readingDate) {
     let date: string = this.datepipe.transform(readingDate.toString(), 'yyyy-MM-dd');
     this.petrolPumpService.getPetrolPumpTankInfoOfLowLimit(pumpCode, date).subscribe(res => {
       this.pumpTanks = res;
     });
   }
-  getPetrolPumpDailyFuelPriceChart(pumpCode,readingDate) {
+  getPetrolPumpDailyFuelPriceChart(pumpCode, readingDate) {
     let date: string = this.datepipe.transform(readingDate.toString(), 'yyyy-MM-dd');
     this.petrolPumpService.getPetrolPumpDailyFuelPriceChart(pumpCode, date).subscribe(res => {
       this.lineChartLabelsForFuelDailyPrice = new Array<any>();
@@ -387,7 +398,7 @@ export class LandingDashboardComponent implements OnInit {
     });
   }
 
-  getPetrolPumpCreditorLedgerChart(pumpCode,readingDate) {
+  getPetrolPumpCreditorLedgerChart(pumpCode, readingDate) {
     let date: string = this.datepipe.transform(readingDate.toString(), 'yyyy-MM-dd');
     this.petrolPumpService.getPetrolPumpCreditorLedgerChart(pumpCode, date).subscribe(res => {
       this.lineChartLabelsForCreditor = new Array<any>();
@@ -400,7 +411,7 @@ export class LandingDashboardComponent implements OnInit {
       });
     });
   }
-  getPetrolPumpNozzleSaleChart(pumpCode,readingDate) {
+  getPetrolPumpNozzleSaleChart(pumpCode, readingDate) {
     let date: string = this.datepipe.transform(readingDate.toString(), 'yyyy-MM-dd');
     this.petrolPumpService.GetPetrolPumpNozzleSaleChart(pumpCode, date).subscribe(res => {
       this.lineChartLabelsForNozzleSale = new Array<any>();
@@ -413,7 +424,7 @@ export class LandingDashboardComponent implements OnInit {
       });
     });
   }
-  getPetrolPumpNozzleFuelSaleChart(pumpCode,readingDate) {
+  getPetrolPumpNozzleFuelSaleChart(pumpCode, readingDate) {
     let date: string = this.datepipe.transform(readingDate.toString(), 'yyyy-MM-dd');
     this.petrolPumpService.GetPetrolPumpNozzleFuelSaleChart(pumpCode, date).subscribe(res => {
       this.lineChartLabelsForNozzleFuelSale = new Array<any>();
@@ -427,7 +438,7 @@ export class LandingDashboardComponent implements OnInit {
     });
   }
 
-  getPetrolPumpNozzleSaleForStaffChart(pumpCode,readingDate) {
+  getPetrolPumpNozzleSaleForStaffChart(pumpCode, readingDate) {
     let date: string = this.datepipe.transform(readingDate.toString(), 'yyyy-MM-dd');
     this.petrolPumpService.getPetrolPumpNozzleSaleForStaffChart(pumpCode, date).subscribe(res => {
       this.lineChartLabelsForNozzleForCreditorSale = new Array<any>();
@@ -441,24 +452,29 @@ export class LandingDashboardComponent implements OnInit {
     });
   }
 
-  getPetrolPumpTankLedger(pumpCode,readingDate) {
+  getPetrolPumpTankLedger(pumpCode, readingDate, tankID) {
     let date: string = this.datepipe.transform(readingDate.toString(), 'yyyy-MM-dd');
-    this.petrolPumpService.getPetrolPumpTankLedger(pumpCode, date).subscribe(res => {
+    this.petrolPumpService.getPetrolPumpTankLedger(pumpCode, date, tankID).subscribe(res => {
       this.pumpTanksLedger = res;
+
+      const dialogRef = this.dialog.open(TankLedgerformComponent, {
+        data: { user: this.pumpTanksLedger },
+        disableClose: true
+      });
     });
   }
   getLubesWithLowLimit(pumpCode) {
-    let date:string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
-    this.petrolPumpService.getPetrolPumpLubesInfoOfLowLimit(pumpCode,date).subscribe(res => {      
-      this.pumpProductWithLubesPrise = res; 
-      this.pumpProductWithLubesPrise = this.pumpProductWithLubesPrise.filter(c => Number(c.InitialQuantity) < 1000)     
+    let date: string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
+    this.petrolPumpService.getPetrolPumpLubesInfoOfLowLimit(pumpCode, date).subscribe(res => {
+      this.pumpProductWithLubesPrise = res;
+      this.pumpProductWithLubesPrise = this.pumpProductWithLubesPrise.filter(c => Number(c.InitialQuantity) < 1000)
     });
   }
 
   getCreditorInventory(pumpCode) {
     this.petrolPumpService.getPetrolPumpSpecificCreditorInventory(pumpCode).subscribe(res => {
-      this.ApprovedCreditorInventory = res.filter(p=>p.IsApproved == true);
-      this.PendingCreditorInventory = res.filter(p=>p.IsApproved == false);
+      this.ApprovedCreditorInventory = res.filter(p => p.IsApproved == true);
+      this.PendingCreditorInventory = res.filter(p => p.IsApproved == false);
     });
   }
   getPumpInfo(pumpCode) {
@@ -466,29 +482,28 @@ export class LandingDashboardComponent implements OnInit {
     this.petrolPumpService.getPetrolPumpDashboardWithDate(pumpCode, date).subscribe(res => {
       this.pumpProduct = res.pp_PumpProduct;
       this.pumpProduct = this.pumpProduct.filter(c => c.CategoryID == 1);
-      this.pumpUsers = res.pp_Users.filter(p=>p.CreditLimit < 10000);
+      this.pumpUsers = res.pp_Users.filter(p => p.CreditLimit < 10000);
     });
   }
   getUserDate() {
     this.userService.getUserDetailInfo().subscribe((res) => {
       this.userData = res;
-    });    
+    });
   }
-  getBasicInfo(pumpCode)
-  {
-    this.userService.getBasicInfo(pumpCode).subscribe((res)=>{
-      this.basicInfo=res;
+  getBasicInfo(pumpCode) {
+    this.userService.getBasicInfo(pumpCode).subscribe((res) => {
+      this.basicInfo = res;
 
-      this.UserId=res.UserId;
-      this.RoleID=res.RoleID;
-      this.FullName=res.FullName;
-      this.PetrolPumpName=res.PetrolPumpName;
-      this.Address=res.Address;
-      this.Address2=res.Address2;
-      this.City=res.City;
-      this.State=res.State;
-      this.PetrolPumpPincode=res.PetrolPumpPincode;
-      this.PetrolPumpCode=res.PetrolPumpCode;
+      this.UserId = res.UserId;
+      this.RoleID = res.RoleID;
+      this.FullName = res.FullName;
+      this.PetrolPumpName = res.PetrolPumpName;
+      this.Address = res.Address;
+      this.Address2 = res.Address2;
+      this.City = res.City;
+      this.State = res.State;
+      this.PetrolPumpPincode = res.PetrolPumpPincode;
+      this.PetrolPumpCode = res.PetrolPumpCode;
 
     });
   }
@@ -548,8 +563,8 @@ export class LandingDashboardComponent implements OnInit {
       }
     });
   }
- 
-  
+
+
 
   //   savePumpInfo() {
   //     this.petrolPumpService.updatePetrolPumpInfo(this.pumpInfoForm.value).subscribe(res => {

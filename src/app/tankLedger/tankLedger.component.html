@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Tank Ledger</h2>
+
+<div class="row">
+    <div class="form-group">
+        <div class="col-md-12">
+            <div class="table-responsive" *ngIf="pumpTanksLedger && pumpTanksLedger.length>0">
+                <table style="border: 1px solid black" class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>TankName</th>
+                            <th>Stock</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tr *ngFor="let pumpTanksLedgerTemp of pumpTanksLedger let i=index">
+                        <td>{{pumpTanksLedgerTemp.TankName}}</td>
+                        <td>{{pumpTanksLedgerTemp.OpeningStock}}</td>
+                        <td>{{pumpTanksLedgerTemp.ReadingDate}}</td>
+                        <td>{{pumpTanksLedgerTemp.Status == 0 ? 'Debit' : 'Credit'}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<mat-dialog-actions style="float: right;">
+    <button class="btn btn-default" [mat-dialog-close]="true">Cancel</button>&nbsp;&nbsp;&nbsp;
+</mat-dialog-actions>

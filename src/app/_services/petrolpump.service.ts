@@ -69,8 +69,8 @@ export class PetrolPumpService {
     getPetrolPumpLubesInfoOfLowLimit(petrolPumpCode:string,date:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpLubesInfoOfLowLimit?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date);
     }
-    getPetrolPumpTankLedger(petrolPumpCode:string,date:string){
-        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpTankLedger?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date);
+    getPetrolPumpTankLedger(petrolPumpCode:string,date:string,tankID:number){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpTankLedger?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&date=' + date + '&tankID=' + tankID);
     }
 
     getPetrolPumpNozzleInfoWithDailyEntry(petrolPumpCode:string,date:string){

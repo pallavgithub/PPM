@@ -80,6 +80,7 @@ import { PriceAdjustmentFormComponent } from './priceAdjustmentForm/priceAdjustm
 import { PublicComponent } from './MasterLayout/Public.component';
 import { SecureComponent } from './MasterLayout/Secure.component';
 import { ChartsModule } from 'ng2-charts';
+import { TankLedgerformComponent } from './tankLedger/tankLedger.component';
 
 @NgModule({
     imports: [
@@ -98,7 +99,7 @@ import { ChartsModule } from 'ng2-charts';
         BrowserAnimationsModule, ToasterModule.forRoot(), NgbModule.forRoot()
         //HttpService
     ],
-    entryComponents: [PumpUsersComponent, UserformComponent, PumpTankComponent, TankformComponent, NozzleformComponent, ChangePasswordComponent, ProductDialogFormComponent, PumpNozzleComponent, PaymentDialogFormComponent, InventoryDialogFormComponent, ReadingTypeDialogFormComponent,CreditorformComponent,InventoryLubesPriceDialogFormComponent,InventoryFuelTankDialogFormComponent,CreditorFuelRequestFormComponent,CreditorFuelRequestReceivedFormComponent,CreditorAddFundformComponent,DailyNozzleBreakUpFormComponent,PriceAdjustmentFormComponent],
+    entryComponents: [PumpUsersComponent, UserformComponent, PumpTankComponent, TankformComponent, NozzleformComponent, ChangePasswordComponent, ProductDialogFormComponent, PumpNozzleComponent, PaymentDialogFormComponent, InventoryDialogFormComponent, ReadingTypeDialogFormComponent,CreditorformComponent,InventoryLubesPriceDialogFormComponent,InventoryFuelTankDialogFormComponent,CreditorFuelRequestFormComponent,CreditorFuelRequestReceivedFormComponent,CreditorAddFundformComponent,DailyNozzleBreakUpFormComponent,PriceAdjustmentFormComponent,TankLedgerformComponent],
     declarations: [
         AppComponent,
         AlertComponent,
@@ -138,6 +139,7 @@ import { ChartsModule } from 'ng2-charts';
         DailyNozzleBreakUpFormComponent,
         DailyNozzleReadingComponent,
         PaymentDialogFormComponent,
+        TankLedgerformComponent,
         CreditorFuelRequestComponent,
         CreditorFuelRequestFormComponent,
         DashBoardComponent,

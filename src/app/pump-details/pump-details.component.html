@@ -1,7 +1,7 @@
 <mat-tab-group (selectedTabChange)="onLinkClick($event)" [selectedIndex]="selectedTab" #matgroup>
   <mat-tab>
     <ng-template mat-tab-label>
-      Step 1 - Basic Info
+      Step 1<br>Basic Info
       <div>
         <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].BasicInfo == 1">
           <img src="../../assets/smalltickumber.png" class="imgTab">
@@ -16,7 +16,7 @@
   </mat-tab>
   <mat-tab>
     <ng-template mat-tab-label>
-      Step 2 - Additional Info
+      Step 2<br>Additional Info
       <div>
         <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].AdditionalInfo == 1">
           <img src="../../assets/smalltickumber.png"  class="imgTab">
@@ -31,7 +31,7 @@
   </mat-tab>
   <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].AdditionalInfo == 1)'>
     <ng-template mat-tab-label>
-      Step 3 - Add Products
+      Step 3<br>Add Products
       <div>
         <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Product == 1">
           <img src="../../assets/smalltickumber.png"  class="imgTab">
@@ -49,7 +49,7 @@
   </mat-tab>
   <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Product == 1)'>
     <ng-template mat-tab-label>
-      Step 4 - Choose Payment Modes
+      Step 4<br>Choose Payment Modes
       <div>
         <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Payment == 1">
           <img src="../../assets/smalltickumber.png"  class="imgTab">
@@ -67,7 +67,7 @@
   </mat-tab>
   <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Payment == 1)'>
     <ng-template mat-tab-label>
-      Step 5 - Add Users
+      Step 5<br>Add Users
       <div>
         <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].User == 1">
           <img src="../../assets/smalltickumber.png"  class="imgTab">
@@ -85,7 +85,7 @@
   </mat-tab>
   <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Payment == 1)'>
     <ng-template mat-tab-label>
-      Step 6 - Configure Tanks
+      Step 6<br>Configure Tanks
       <div>
         <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Tank == 1">
           <img src="../../assets/smalltickumber.png"  class="imgTab">
@@ -103,7 +103,7 @@
   </mat-tab>
   <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Tank == 1)'>
     <ng-template mat-tab-label>
-      Step 7 - Configure Nozzles
+      Step 7<br>Configure Nozzles
       <div>
         <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Nozzle == 1">
           <img src="../../assets/smalltickumber.png"  class="imgTab">
@@ -121,7 +121,7 @@
   </mat-tab>
   <mat-tab [disabled]='!(pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Nozzle == 1)'>
       <ng-template mat-tab-label>
-        Step 8 - Pump Configuration Status
+        Step 8<br>Pump Configuration Status
         <div>
           <div *ngIf="pumpStatus && pumpStatus.length > 0 && pumpStatus[0].Nozzle == 1">
             <img src="../../assets/smalltickumber.png"  class="imgTab">
