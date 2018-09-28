@@ -12,6 +12,7 @@ import { FuelType } from "../_models/FuelType";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePipe } from "../../../node_modules/@angular/common";
 import { ToasterService } from 'angular2-toaster';
+import { UserInfo } from "../_models/UserInfo";
 
 @Component({
   selector: "pump-tank",
@@ -21,6 +22,7 @@ import { ToasterService } from 'angular2-toaster';
 export class PumpTankComponent implements OnInit {
   @Input() pumpTanks: pp_Tank[];
   fuelTypes: FuelType[];
+  public userData: UserInfo;
   readingTypes: ReadingType[];
   public isCollapsed = false;
   @Input() pumpCode: string;
@@ -32,12 +34,18 @@ export class PumpTankComponent implements OnInit {
     //this.getAllFuelType();
     //this.getAllProducts();
     //this.getReadingType();
+    this.getUserDate();
   }
 
   getReadingType() {
     this.userService.getReadingType().subscribe(data => {
       this.readingTypes = data;
     });
+  }
+  getUserDate() {
+    this.userService.getUserDetailInfo().subscribe((res) => {
+      this.userData = res;
+    });    
   }
 
   getAllFuelType() {

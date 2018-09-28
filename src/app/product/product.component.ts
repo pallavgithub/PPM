@@ -8,6 +8,7 @@ import { ToasterService } from 'angular2-toaster';
 import { Router } from '@angular/router';
 import { AllProduct } from '../AllProduct';
 import { Unit } from '../_models/Unit';
+import { UserInfo } from '../_models/UserInfo';
 
 @Component({
   selector: 'pump-product',
@@ -17,6 +18,7 @@ import { Unit } from '../_models/Unit';
 export class ProductComponent implements OnInit {
   @Input() pumpProduct: pp_PumpProduct[];
   @Input() pumpCode: string;
+  public userData: UserInfo;
   allProducts: AllProduct[];
   units: Unit[];
   constructor(private router:Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService,private viewContainerRef: ViewContainerRef) {
@@ -29,6 +31,11 @@ export class ProductComponent implements OnInit {
     }   
     var product = this.allProducts.find(c => c.ID == ID);
     return product ? product.Name : '';
+  }
+  getUserDate() {
+    this.userService.getUserDetailInfo().subscribe((res) => {
+      this.userData = res;
+    });    
   }
 
   moveToNext()
@@ -49,6 +56,7 @@ export class ProductComponent implements OnInit {
   ngOnInit() {
     //this.getAllProducts();
     //this.getAllUnits();
+    this.getUserDate();
   }
   editProduct(pumpProductNew: pp_PumpProduct) {
     pumpProductNew.IsEditModal = true;

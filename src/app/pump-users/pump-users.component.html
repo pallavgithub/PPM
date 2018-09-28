@@ -38,7 +38,7 @@
         <td>
             <a (click)="ChangePassword(pumpUser)" style="cursor: pointer;">Change Password</a><br>
           <a (click)="editUser(pumpUser)" style="cursor: pointer;">Edit</a>&nbsp;
-          <a (click)="DeleteUser(pumpUser)" style="cursor: pointer;">Delete</a>
+          <a (click)="DeleteUser(pumpUser)" style="cursor: pointer;" *ngIf="userData && userData.RoleID == -2">Delete</a>
         </td>
       </tr>
     </table>

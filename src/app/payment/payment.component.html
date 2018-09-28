@@ -41,7 +41,7 @@
       <!-- <td>{{getUserRole(product.RoleID)}}</td> -->
       <td>
         <a (click)="editProduct(itemPayment)" style="cursor: pointer;">Edit</a>&nbsp;
-        <a (click)="DeleteProduct(itemPayment)" style="cursor: pointer;">Delete</a>
+        <a (click)="DeleteProduct(itemPayment)" style="cursor: pointer;" *ngIf="userData && userData.RoleID == -2">Delete</a>
       </td>
     </tr>
   </table>

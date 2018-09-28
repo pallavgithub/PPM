@@ -82,7 +82,7 @@
         <div class="form-group">
           <div>
             <a (click)="editNozzle(nozzle)">Edit</a>&nbsp;
-            <a (click)="DeleteNozzle(nozzle)" style="cursor: pointer;">Delete</a>
+            <a (click)="DeleteNozzle(nozzle)" style="cursor: pointer;" *ngIf="userData && userData.RoleID == -2">Delete</a>
           </div>
         </div>
       </div>

@@ -15,6 +15,7 @@ import { NozzleformComponent } from "../nozzleform/nozzleform.component";
 import { ToasterService } from 'angular2-toaster';
 import { UserIdName } from "../_models/UserIdName";
 import { User } from "../_models";
+import { UserInfo } from "../_models/UserInfo";
 
 @Component({
   selector: "pump-nozzle",
@@ -28,6 +29,7 @@ export class PumpNozzleComponent implements OnInit {
   newUserIdName: UserIdName[];
   public isCollapsed = false;
   @Input() pumpCode: string;
+  public userData: UserInfo;
   constructor(
     public dialog: MatDialog, private userService: UserService, private router: Router, private toasterService: ToasterService,private viewContainerRef: ViewContainerRef
   ) { }
@@ -37,6 +39,12 @@ export class PumpNozzleComponent implements OnInit {
     //this.getAllProducts();
     //this.getTanksByID(this.pumpCode);
     //this.getIdAndNameForAllUser(this.pumpCode);
+    this.getUserDate();
+  }
+  getUserDate() {
+    this.userService.getUserDetailInfo().subscribe((res) => {
+      this.userData = res;
+    });    
   }
   moveToNext()
   {

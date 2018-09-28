@@ -11,6 +11,7 @@ import { Unit } from '../_models/Unit';
 import { pp_Payment } from '../_models/pp_Payment';
 import { PaymentDialogFormComponent } from '../paymentDialog/paymentDialog.component';
 import { PaymentType } from '../_models/PaymentType';
+import { UserInfo } from '../_models/UserInfo';
 
 @Component({
   selector: 'pump-payment',
@@ -21,6 +22,7 @@ export class PaymentComponent implements OnInit {
   @Input() pumpPayment: pp_Payment[];
   @Input() pumpCode: string;
   paymentTypes: PaymentType[];
+  public userData: UserInfo;
   //allProducts: AllProduct[];
   //units: Unit[]
   constructor(private router:Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService,private viewContainerRef: ViewContainerRef) {
@@ -30,6 +32,12 @@ export class PaymentComponent implements OnInit {
   //   var product = this.allProducts.find(c => c.ID == ID);
   //   return product ? product.Name : '';
   // }
+
+  getUserDate() {
+    this.userService.getUserDetailInfo().subscribe((res) => {
+      this.userData = res;
+    });    
+  }
 
   getPaymentTypeName(ID) { 
     if(ID == 0)
@@ -48,6 +56,7 @@ export class PaymentComponent implements OnInit {
     //this.getAllPaymentType();
     // this.getAllProducts();
     // this.getAllUnits();
+    this.getUserDate();
   }
   editProduct(pumpPaymentNew: pp_Payment) {
     pumpPaymentNew.IsEditModal = true;

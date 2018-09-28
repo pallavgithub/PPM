@@ -83,7 +83,7 @@
         <div class="form-group">
           <div>
             <a (click)="editTank(tank)">Edit</a>&nbsp;
-            <a (click)="DeleteTank(tank)" style="cursor: pointer;">Delete</a>
+            <a (click)="DeleteTank(tank)" style="cursor: pointer;" *ngIf="userData && userData.RoleID == -2">Delete</a>
           </div>
         </div>
       </div>

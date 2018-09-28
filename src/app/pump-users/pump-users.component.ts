@@ -9,6 +9,7 @@ import { ChangePasswordComponent } from '../ChangePassword/ChangePassword.Compon
 import { ToasterService } from 'angular2-toaster';
 import { AlertService } from '../_services/alert.service';
 import { Router } from '@angular/router';
+import { UserInfo } from '../_models/UserInfo';
 
 @Component({
   selector: 'pump-users',
@@ -18,9 +19,15 @@ import { Router } from '@angular/router';
 export class PumpUsersComponent implements OnInit {
   @Input() pumpUsers: pp_User[];
   @Input() pumpCode: string;
+  public userData: UserInfo;
   roles: Role[];
   constructor(private router:Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService,private viewContainerRef: ViewContainerRef) {
 
+  }
+  getUserDate() {
+    this.userService.getUserDetailInfo().subscribe((res) => {
+      this.userData = res;
+    });    
   }
   getUserRole(roleId) {
     if(roleId == 0)
@@ -34,6 +41,7 @@ export class PumpUsersComponent implements OnInit {
 
   ngOnInit() {
     //this.getAllRoles();
+    this.getUserDate();
   }
   editUser(user: pp_User) {
     user.IsEditModal = true;
