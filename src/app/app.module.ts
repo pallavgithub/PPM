@@ -81,6 +81,7 @@ import { PublicComponent } from './MasterLayout/Public.component';
 import { SecureComponent } from './MasterLayout/Secure.component';
 import { ChartsModule } from 'ng2-charts';
 import { TankLedgerformComponent } from './tankLedger/tankLedger.component';
+import { UserProfileComponent } from './userProfile/userProfile.component';
 
 @NgModule({
     imports: [
@@ -111,6 +112,7 @@ import { TankLedgerformComponent } from './tankLedger/tankLedger.component';
         CreditorComponent,
         PublicComponent,
         SecureComponent,
+        UserProfileComponent,
         CreditorformComponent,
         PumpInfoComponent,
         LandingDashboardComponent,

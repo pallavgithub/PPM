@@ -24,6 +24,7 @@ import { CreditorLedgerComponent } from '../creditorLedger/creditorLedger.compon
 import { DailyTankReadingComponent } from '../dailyTankReading/dailyTankReading.component';
 import { DailyNozzleReadingComponent } from '../dailyNozzleReading/dailyNozzleReading.component';
 import { MasterComponent } from '../master/master.component';
+import { UserProfileComponent } from '../userProfile/userProfile.component';
 
 
 export const PUBLIC_ROUTES: Routes = [
@@ -38,4 +39,5 @@ export const PUBLIC_ROUTES: Routes = [
     { path: 'CreditorLedger/:pumpCode', component: CreditorLedgerComponent },
     { path: 'DailyTankReading/:pumpCode', component: DailyTankReadingComponent },
     { path: 'DailyNozzleReading/:pumpCode', component: DailyNozzleReadingComponent },
+    { path: 'Profile/:pumpCode', component: UserProfileComponent }
 ];

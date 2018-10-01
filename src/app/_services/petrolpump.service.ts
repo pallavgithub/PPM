@@ -198,4 +198,7 @@ export class PetrolPumpService {
     AddTankAndFuelInventory(tankWithProduct:TankWithProduct,petrolPumpCode : string){
         return this.http.post(`${environment.apiUrl}/Pump/AddTankAndFuelInventory?petrolPumpCode=`+ petrolPumpCode,JSON.stringify(tankWithProduct))
     }
+    getPetrolPumpUserInfo(petrolPumpCode:string){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpUserInfo?petrolPumpCode=`+petrolPumpCode);
+    }
 }

@@ -1,0 +1,60 @@
+<br/>
+
+<form *ngIf="pumpInfoForm" [formGroup]="pumpInfoForm" (ngSubmit)="createUser()" style="width: 98%;">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="FullName">Full Name
+                        <span class="required">*</span>
+                </label>
+                <input placeholder="Full Name" class="form-control" formControlName="FullName" required>
+                <div *ngFor="let validation of validation_messages.FullName">
+                    <span class="error-message" *ngIf="pumpInfoForm.get('FullName').hasError(validation.type) && (pumpInfoForm.get('FullName').dirty || pumpInfoForm.get('FullName').touched)">{{validation.message}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Email">Email</label>
+                <input placeholder="Email" class="form-control" formControlName="Email">
+                <div *ngFor="let validation of validation_messages.Email">
+                    <span class="error-message" *ngIf="pumpInfoForm.get('Email').hasError(validation.type) && (pumpInfoForm.get('Email').dirty || pumpInfoForm.get('Email').touched)">{{validation.message}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Phone">Phone</label>
+                <input placeholder="Phone" class="form-control" formControlName="Phone">
+                <div *ngFor="let validation of validation_messages.Phone">
+                    <span class="error-message" *ngIf="pumpInfoForm.get('Phone').hasError(validation.type) && (pumpInfoForm.get('Phone').dirty || pumpInfoForm.get('Phone').touched)">{{validation.message}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Address">Address</label>
+                <input placeholder="Address" class="form-control" formControlName="Address">
+                <div *ngFor="let validation of validation_messages.Address">
+                    <span class="error-message" *ngIf="pumpInfoForm.get('Address').hasError(validation.type) && (pumpInfoForm.get('Address').dirty || pumpInfoForm.get('Address').touched)">{{validation.message}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="Description">Description</label>
+                <input placeholder="Description" class="form-control" formControlName="Description">
+                <div *ngFor="let validation of validation_messages.Description">
+                    <span class="error-message" *ngIf="pumpInfoForm.get('Description').hasError(validation.type) && (pumpInfoForm.get('Description').dirty || pumpInfoForm.get('Description').touched)">{{validation.message}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="float:right;">
+        <button class="btn btn-primary" type="submit" [disabled]="!pumpInfoForm.valid">Save</button>
+    </div>
+</form>
