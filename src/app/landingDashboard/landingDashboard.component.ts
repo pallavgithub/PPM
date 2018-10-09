@@ -385,6 +385,7 @@ export class LandingDashboardComponent implements OnInit {
     // });
     this.petrolPumpService.getPetrolPumpTankWithLowCapacity(pumpCode, date).subscribe(res => {
       this.pumpTanks = res;
+      this.pumpTanks = this.pumpTanks.filter(p=>Number(p.OpeningStock) < 1000);
     });
   }
   getPetrolPumpDailyFuelPriceChart(pumpCode, readingDate) {

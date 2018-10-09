@@ -8,86 +8,34 @@
       </div>
     </div>
   </div>
-  <div class="row" style="border-width: 1px 1px 1px 1px;border-style: solid;border-color:black;background-color: black;color: white;">
-    <div class="col-md-2">
-      <div class="form-group">
-        <label for="NozzleName">Name</label>
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="form-group">
-        <label for="Tank">Tank</label>
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="form-group">
-        <label for="OpeningReading">Opening Reading</label>
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="form-group">
-        <label for="ReadingDate">Reading Date</label>
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="form-group">
-        <label for="AssignedTo">Assigned To</label>
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="form-group">
-        <label for="Action">Action</label>
-      </div>
-    </div>
-  </div>
 
-  <div class="row" *ngFor="let nozzle of pumpNozzle let i=index" style="border-width: 0px 1px 1px 1px;border-style: solid;border-color:black">
-    <div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <div>
-            <span>{{nozzle.NozzleName}}</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <div>
-            <span>{{nozzle.TankName}}</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <div>
-            <span>{{nozzle.OpeningReading}}</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <div>
-            <span>{{nozzle.ReadingDate | date}}</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <div>
-            <span>{{nozzle.AssignedUserName}}</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <div>
-            <a (click)="editNozzle(nozzle)">Edit</a>&nbsp;
-            <a (click)="DeleteNozzle(nozzle)" style="cursor: pointer;" *ngIf="userData && userData.RoleID == -2">Delete</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <table style="border: 1px solid black" class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+      <th>Name</th>
+      <th>Tank</th>
+      <th>Opening Reading</th>
+      <th>Reading Date</th>
+      <th>Assigned To</th>
+      <th>Action</th>
+      
+    </tr>
+  </thead>
+    
+    <tr *ngFor ="let nozzle of pumpNozzle let i=index">
+      <td>{{nozzle.NozzleName}}</td>
+      <td>{{nozzle.TankName}}</td>
+      <td>{{nozzle.OpeningReading}}</td>
+      <td>{{nozzle.ReadingDate | date}}</td>
+      <td>{{nozzle.AssignedUserName}}</td>
+      <td>
+        <a (click)="editNozzle(nozzle)">Edit</a>&nbsp;
+        <a (click)="DeleteNozzle(nozzle)" style="cursor: pointer;" *ngIf="userData && userData.RoleID == -2">Delete</a>
+      </td>
+    </tr>
+  </table>
+
+
 </div>
 <div style="float:right;">
     <button class="btn btn-primary" type="submit" (click)="moveToNext()">Next</button>

@@ -33,61 +33,29 @@
         </td>
       </tr>
   </table> -->
+  <table style="border: 1px solid black" class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+      <th>Name</th>
+      <th>Product</th>
+      <th>Opening Reading</th>
+      <th>Action</th>      
+    </tr>
+  </thead>
+    
+    <tr *ngFor ="let tank of pumpTanks let i=index">
+      <td>{{tank.TankName}}</td>
+      <td>{{tank.ProductName}}</td>
+      <td>{{tank.OpeningReading}}</td>
+      <td>
+        <a (click)="editTank(tank)">Edit</a>&nbsp;
+        <a (click)="DeleteTank(tank)" style="cursor: pointer;" *ngIf="userData && userData.RoleID == -2">Delete</a>
+      </td>
+    </tr>
+  </table>
 
-  <div class="row" style="border-width: 1px 1px 1px 1px;border-style: solid;border-color:black;background-color: black;color: white;">
-    <div class="col-md-3">
-      <div class="form-group">
-        <label for="TankName">Name</label>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <label for="Fuel Type">Product</label>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <label for="Capacity">Opening Reading</label>
-      </div>
-    </div>    
-    <div class="col-md-2">
-      <div class="form-group">
-        <label for="StartDate">Action</label>
-      </div>
-    </div>
-  </div>
 
-  <div class="row" *ngFor="let tank of pumpTanks let i=index" style="border-width: 0px 1px 1px 1px;border-style: solid;border-color:black">
-      <div class="col-md-3">
-        <div class="form-group">
-          <div>
-            <span>{{tank.TankName}}</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="form-group">
-          <div>
-            <span>{{tank.ProductName}}</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="form-group">
-          <div>
-            <span>{{tank.OpeningReading}}</span>
-          </div>
-        </div>
-      </div>      
-      <div class="col-md-3">
-        <div class="form-group">
-          <div>
-            <a (click)="editTank(tank)">Edit</a>&nbsp;
-            <a (click)="DeleteTank(tank)" style="cursor: pointer;" *ngIf="userData && userData.RoleID == -2">Delete</a>
-          </div>
-        </div>
-      </div>
-  </div>
+  
   <!-- <div>
       <div *ngFor="let nozzle of tank.pp_Nozzles let j=index">
         <div *ngIf="j==0">
