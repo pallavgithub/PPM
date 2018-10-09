@@ -25,12 +25,16 @@ export class TankformComponent implements OnInit {
   tank: pp_Tank = new pp_Tank();
   IsEditDialog: boolean;
   fuelTypes: FuelType[];
-  chartTypes: ChartType[]; 
+  chartTypes: ChartType[];
+  IsCNG: boolean = false;
+  LabelName: string = '';
+  licenseStartDate:string;
   readingTypes: ReadingType[];
   public readingTypeDetails: ReadingTypeDetail[] = new Array<ReadingTypeDetail>();
   tankform: FormGroup;
   validationFuelTypeMessage: string;
-  validationChartTypeMessage:string;
+  validationChartTypeMessage: string;
+  validationOpeningReadingMessage: string;
   validation_messages = {
     'Email': [
       { type: 'required', message: 'Email is required' },
@@ -81,7 +85,8 @@ export class TankformComponent implements OnInit {
 
   ngOnInit() {
     this.tank = this.data.tank;
-    this.readingTypeDetails = this.tank.pp_TankReading;    
+    this.licenseStartDate = this.data.licenseStartDate;
+    this.readingTypeDetails = this.tank.pp_TankReading;
     if (this.tank.IsEditModal) {
       this.IsEditDialog = true;
     }
@@ -100,43 +105,64 @@ export class TankformComponent implements OnInit {
       TankCapacity: [this.tank.TankCapacity],
       TankName: [this.tank.TankName, Validators.compose([Validators.required])],
       ReadingDate: [this.tank.ReadingDate, Validators.compose([Validators.required])],
-      OpeningReading: [this.tank.OpeningReading, Validators.compose([Validators.required])],
-      OpeningStock: [this.tank.OpeningStock, Validators.compose([Validators.required])],
+      OpeningReading: [this.tank.OpeningReading],
+      OpeningStock: [this.tank.OpeningStock],
       ReadingType: [this.tank.ReadingType],
       DipReadingType: [this.tank.DipReadingType],
       IsEditModal: [this.tank.IsEditModal],
       DipReadingDate: [this.tank.DipReadingDate],
       DipOpeningReading: [this.tank.DipOpeningReading],
     });
-    let latest_ReadingDate = this.datepipe.transform(((this.tank.ReadingDate == "" || this.tank.ReadingDate == null) ? new Date().toString() : this.tank.ReadingDate), 'yyyy-MM-dd');
-    this.tankform.get('ReadingDate').setValue(latest_ReadingDate);
+    // let latest_ReadingDate = this.datepipe.transform(((this.tank.ReadingDate == "" || this.tank.ReadingDate == null) ? new Date().toString() : this.tank.ReadingDate), 'yyyy-MM-dd');
+    // this.tankform.get('ReadingDate').setValue(latest_ReadingDate);
+
+    let latest_LicenseStartDate = this.datepipe.transform(this.licenseStartDate, 'yyyy-MM-dd');
+    this.tankform.get('ReadingDate').setValue(latest_LicenseStartDate);
+
     // let dateTemp:string = this.tank.ReadingDate;
     // this.tankform.get('ReadingType').setValue({
     //   year: parseInt((dateTemp.format('YYYY'), 10),
     //   month: parseInt(date.format('M'), 10),
     //   day: parseInt(date.format('D'), 10)
     // });
-    this.tank.pp_Nozzles.length == 0 && this.tank.pp_Nozzles.push(new pp_Nozzle());
+    this.tank && this.tank.pp_Nozzles && this.tank.pp_Nozzles.length == 0 && this.tank.pp_Nozzles.push(new pp_Nozzle());
+    this.onchange();
   }
 
   checkFormValid() {
-    if (this.tankform.controls['FuelTypeID'].value == 0) {
-      this.validationFuelTypeMessage = "Please select Fuel Type";
-      return false;
-    }
-    else {
-      this.validationFuelTypeMessage = "";
-    }
-    if (this.tankform.controls['ChartTypeID'].value == 0) {
-      this.validationChartTypeMessage = "Please select Chart Type";
-      return false;
-    }
-    else {
-      this.validationChartTypeMessage = "";
-    }
+    if (this.tankform.controls['FuelTypeID'].value != 5) {
+      if (this.tankform.controls['OpeningReading'].value == 0) {
+        this.validationOpeningReadingMessage = "Please enter some values in Opening Reading";
+        return false;
+      }
+      else {
+        this.validationOpeningReadingMessage = "";
+      }
+      if (this.tankform.controls['FuelTypeID'].value == 0) {
+        this.validationFuelTypeMessage = "Please select Fuel Type";
+        return false;
+      }
+      else {
+        this.validationFuelTypeMessage = "";
+      }
+      if (this.tankform.controls['ChartTypeID'].value == 0) {
+        this.validationChartTypeMessage = "Please select Chart Type";
+        return false;
+      }
+      else {
+        this.validationChartTypeMessage = "";
+      }
+    }    
   }
   onchange() {
-    this.checkFormValid();
+    debugger;
+    if (this.tankform.controls['FuelTypeID'].value == 5) {
+      this.IsCNG = true;
+    }
+    else {
+      this.IsCNG = false;
+    }
+    //this.checkFormValid();
   }
   getAllFuelType() {
     this.userService.getAllFuelType().subscribe(data => {
@@ -156,7 +182,7 @@ export class TankformComponent implements OnInit {
   getFuelTypeByID(petrolPumpCode: string) {
     this.userService.getFuelTypeByID(petrolPumpCode).subscribe(data => {
       this.fuelTypes = data;
-      this.fuelTypes = this.fuelTypes.filter(item => item.Name != 'CNG' && item.Name != 'Lubes - Motor Oil'
+      this.fuelTypes = this.fuelTypes.filter(item => item.Name != 'Lubes - Motor Oil'
         && item.Name != 'Lubes - Gear Oil' && item.Name != 'Lubes - Transmission Fluid'
         && item.Name != 'Lubes - White Grease' && item.Name != 'Lubes - Electronic Grease' && item.Name != 'Polution');
     });
@@ -185,19 +211,17 @@ export class TankformComponent implements OnInit {
     // {
     //   itemPP_Tank.pp_TankReading = this.readingTypeDetails;
     // }
-    this.pumpService.addUpdatePumpTank(itemPP_Tank).subscribe((res:any) => {
+    this.pumpService.addUpdatePumpTank(itemPP_Tank).subscribe((res: any) => {
       this.toasterService.pop('success', '', res.Result.toString());
       this.dialogRef.close();
       this.router.navigate(['/pumpDetails', this.tank.PetrolPumpCode]);
     })
   }
-  onBlurOpeningReading()
-  {
+  onBlurOpeningReading() {
     this.tankform.controls["OpeningStock"].setValue(Number(this.tankform.controls["OpeningReading"].value + 5));
   }
 
-  onBlurOpeningStock()
-  {
+  onBlurOpeningStock() {
     this.tankform.controls["OpeningReading"].setValue(Number(this.tankform.controls["OpeningStock"].value - 5));
   }
 

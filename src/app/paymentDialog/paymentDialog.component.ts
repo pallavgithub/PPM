@@ -86,8 +86,12 @@ export class PaymentDialogFormComponent implements OnInit {
       ModifiedOn: [this.pumpPayment.ModifiedOn],
       PaymentTypeCode: [this.pumpPayment.PaymentTypeCode],
       PaymentTypeID: [this.pumpPayment.PaymentTypeID],
-      WalletNumber: [this.pumpPayment.WalletNumber]
+      WalletNumber: [this.pumpPayment.WalletNumber],
+      InitialAmount:[this.pumpPayment.InitialAmount,Validators.compose([Validators.required])]
     });
+    if (this.paymentDialogform.controls['InitialAmount'].value == 0) {
+      this.paymentDialogform.controls['InitialAmount'].setValue("");
+    }
     // this.DisableControlsByRole();
   }
   checkFormValid() {

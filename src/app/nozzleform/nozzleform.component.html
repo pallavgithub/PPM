@@ -59,11 +59,11 @@
             </div>
         </div>
     </div>
-    <div class="row saperatorDiv" *ngIf="isTankVisisble"><span class="saperatorSpan">Select Tank</span></div>
-    <div class="row" *ngIf="isTankVisisble">
+    <div class="row saperatorDiv" ><span class="saperatorSpan">Select Tank/Dispenser</span></div>
+    <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="TankName">Tank</label>
+                <label for="TankName">Tank/Dispenser</label>
                 <span class="required">*</span>
                 <select name="tank" class="form-control" formControlName="TankID" (change)="onChangeTank()">
                     <option [ngValue]="0" disabled>--Select--</option>

@@ -82,6 +82,7 @@ import { SecureComponent } from './MasterLayout/Secure.component';
 import { ChartsModule } from 'ng2-charts';
 import { TankLedgerformComponent } from './tankLedger/tankLedger.component';
 import { UserProfileComponent } from './userProfile/userProfile.component';
+import { PaymentLedgerComponent } from './paymentLedger/paymentLedger.component';
 
 @NgModule({
     imports: [
@@ -128,6 +129,7 @@ import { UserProfileComponent } from './userProfile/userProfile.component';
         CreditorformComponent,
         PumpUsersComponent,
         ChangePasswordComponent,
+        PaymentLedgerComponent,
         CreditorAddFundformComponent,
         CreditorFuelRequestReceivedFormComponent,
         ProductComponent,

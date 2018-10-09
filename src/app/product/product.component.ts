@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { AllProduct } from '../AllProduct';
 import { Unit } from '../_models/Unit';
 import { UserInfo } from '../_models/UserInfo';
+import { PetrolPumpService } from '../_services/petrolpump.service';
 
 @Component({
   selector: 'pump-product',
@@ -19,9 +20,10 @@ export class ProductComponent implements OnInit {
   @Input() pumpProduct: pp_PumpProduct[];
   @Input() pumpCode: string;
   public userData: UserInfo;
+  licenseStartDate:string;
   allProducts: AllProduct[];
   units: Unit[];
-  constructor(private router:Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService,private viewContainerRef: ViewContainerRef) {
+  constructor(private router:Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService,private petrolPumpService: PetrolPumpService,private viewContainerRef: ViewContainerRef) {
 
   }
   getProductName(ID) { 
@@ -42,6 +44,11 @@ export class ProductComponent implements OnInit {
   {
     this.viewContainerRef[ '_data' ].componentView.parent.component.selectedTab=3;
   }
+  getLicenseStartDate(isOld:number) {
+    this.petrolPumpService.GetLicenseStartDate(this.pumpCode,isOld).subscribe(data => {
+      this.licenseStartDate = data;
+    });
+  }
 
   getUnitName(ID) {   
     if(ID == 0)
@@ -57,11 +64,12 @@ export class ProductComponent implements OnInit {
     //this.getAllProducts();
     //this.getAllUnits();
     this.getUserDate();
+    this.getLicenseStartDate(1);
   }
   editProduct(pumpProductNew: pp_PumpProduct) {
     pumpProductNew.IsEditModal = true;
     const dialogRef = this.dialog.open(ProductDialogFormComponent, {
-      data: { pumpProductNew }
+      data: { pumpProductNew:pumpProductNew,petrolPumpCode:this.pumpCode, licenseStartDate:this.licenseStartDate }
     });
     // dialogRef.afterClosed().subscribe(result => {
     //   this.ngOnInit();

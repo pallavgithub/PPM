@@ -45,7 +45,6 @@ export class LoginComponent implements OnInit {
     }
     // addbodyscript()
     // {
-    //     debugger;
     //     $('body').css("background-color","red"); 
     // }    
 

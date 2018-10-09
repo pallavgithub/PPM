@@ -14,6 +14,7 @@ export class pp_Payment {
     ModifiedOn: string;
     IsEditModal: boolean;
     PaymentTypeName:string;
+    InitialAmount:number;
     /**
      *
      */
@@ -33,5 +34,6 @@ export class pp_Payment {
         this.IsEditModal = false;
         this.WalletNumber = '';
         this.PaymentTypeName = '';
+        this.InitialAmount = 0;
     }
 }

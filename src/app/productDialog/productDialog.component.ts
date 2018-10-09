@@ -23,9 +23,12 @@ export class ProductDialogFormComponent implements OnInit {
   divCategory: number;
   //allProduct:AllProduct[];
   IsEditDialog: boolean;
+  petrolPumpCode:string;
+  
   btnDisabled: boolean = false;
   productDialogform: FormGroup;
   validationProductIDMessage: string;
+  licenseStartDate:string;
   validationUnitMessage: string;
   isInitials: boolean;
   validation_messages = {
@@ -75,6 +78,8 @@ export class ProductDialogFormComponent implements OnInit {
 
   ngOnInit() {
     this.pumpProduct = this.data.pumpProductNew;
+    this.petrolPumpCode = this.data.petrolPumpCode;
+    this.licenseStartDate = this.data.licenseStartDate;
     this.divCategory = 0;
     this.isInitials = true;
     if (this.pumpProduct.IsEditModal == true) {
@@ -86,6 +91,7 @@ export class ProductDialogFormComponent implements OnInit {
     this.getAllProducts();
     this.getAllUnits();
     this.DisableControlsByRole(this.pumpProduct.CategoryID, this.pumpProduct.ProductID);
+    
 
     this.productDialogform = this._formBuilder.group({
       ID: [this.pumpProduct.ID],
@@ -108,14 +114,16 @@ export class ProductDialogFormComponent implements OnInit {
       DateStockMeasuredOn: [this.pumpProduct.DateStockMeasuredOn],
       CategoryID: [this.pumpProduct.CategoryID]
     });
-    let latest_PurchaseDate = this.datepipe.transform(((this.pumpProduct.PurchaseDate == "" || this.pumpProduct.PurchaseDate == null) ? new Date().toString() : this.pumpProduct.PurchaseDate), 'yyyy-MM-dd');
-    this.productDialogform.get('PurchaseDate').setValue(latest_PurchaseDate);
 
-    let latest_SaleDate = this.datepipe.transform(((this.pumpProduct.SaleDate == "" || this.pumpProduct.SaleDate == null) ? new Date().toString() : this.pumpProduct.SaleDate), 'yyyy-MM-dd');
-    this.productDialogform.get('SaleDate').setValue(latest_SaleDate);
+    let latest_LicenseStartDate = this.datepipe.transform(this.licenseStartDate, 'yyyy-MM-dd');
+    // let latest_PurchaseDate = this.datepipe.transform(((this.pumpProduct.PurchaseDate == "" || this.pumpProduct.PurchaseDate == null) ? new Date().toString() : this.pumpProduct.PurchaseDate), 'yyyy-MM-dd');
+    this.productDialogform.get('PurchaseDate').setValue(latest_LicenseStartDate);
+    // let latest_SaleDate = this.datepipe.transform(((this.pumpProduct.SaleDate == "" || this.pumpProduct.SaleDate == null) ? new Date().toString() : this.pumpProduct.SaleDate), 'yyyy-MM-dd');
+    this.productDialogform.get('SaleDate').setValue(latest_LicenseStartDate);
 
-    let latest_DateStockMeasuredOn = this.datepipe.transform(((this.pumpProduct.DateStockMeasuredOn == "" || this.pumpProduct.DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct.DateStockMeasuredOn), 'yyyy-MM-dd');
-    this.productDialogform.get('DateStockMeasuredOn').setValue(latest_DateStockMeasuredOn);
+    // let latest_DateStockMeasuredOn = this.datepipe.transform(((this.pumpProduct.DateStockMeasuredOn == "" || this.pumpProduct.DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct.DateStockMeasuredOn), 'yyyy-MM-dd');
+    this.productDialogform.get('DateStockMeasuredOn').setValue(latest_LicenseStartDate);
+
     // this.DisableControlsByRole();
   }
   checkFormValid() {
@@ -143,6 +151,7 @@ export class ProductDialogFormComponent implements OnInit {
       this.allProduct = data;
     });
   }
+  
   getAllUnits() {
     this.userService.getAllUnits().subscribe(data => {
       this.units = data;

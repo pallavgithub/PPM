@@ -54,6 +54,9 @@ export class UserService {
     getAllRole() {
         return this.http.get<Role[]>(`${environment.apiUrl}/Pump/Role`);
     }
+    getAllRegisteredPaymentType(petrolPumpCode:string) {
+        return this.http.get<Role[]>(`${environment.apiUrl}/Pump/AllRegisteredPaymentTypes?petrolPumpCode=` + petrolPumpCode);
+    }
     getAllRoleByPetrolPumpCodeAndUserID(petrolPumpCode) {
         return this.http.get<Role[]>(`${environment.apiUrl}/Pump/RoleByPetrolPumpCodeAndUserID/?petrolPumpCode=` + petrolPumpCode);
     }

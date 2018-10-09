@@ -9,7 +9,7 @@
     </div>
   </div> -->
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
       <div class="form-group">
         <label for="FuelType">Fuel Type</label>
         <span class="required">*</span>
@@ -22,7 +22,7 @@
     </div>
   </div>
   <div class="row saperatorDiv"><span class="saperatorSpan">Tank Detail</span></div>
-  <div class="row">
+  <div class="row" *ngIf="IsCNG == false">
     <div class="col-md-6">
       <div class="form-group">
         <label for="TankName">Tank Name</label>
@@ -36,22 +36,28 @@
     <div class="col-md-6">
       <div class="form-group">
         <label for="ChartType">Chart Type</label>
-        <span class="required">*</span>
+        <span class="required" >*</span>
         <select name="ChartTypeID" class="form-control" formControlName="ChartTypeID" (change)="onchange()">
           <option [ngValue]="0" disabled>--Select--</option>
           <option *ngFor="let chartType of chartTypes;let i=index" [ngValue]="chartType.ID">{{chartType.Name}}</option>
         </select>
         <span class="error-message">{{validationChartTypeMessage}}</span>
-        <!-- <label for="TankCapacity">Tank Capacity</label>
-        <span class="required">*</span>
-        <input type="number" placeholder="Tank Capacity" class="form-control" name="TankCapacity" formControlName="TankCapacity" required>
-        <div *ngFor="let validation of validation_messages.TankCapacity">
-          <span class="error-message" *ngIf="tankform.get('TankCapacity').hasError(validation.type) && (tankform.get('TankCapacity').dirty || tankform.get('TankCapacity').touched)">{{validation.message}}</span>
-        </div> -->
       </div>
     </div>
   </div>
-  <div class="row saperatorDiv"><span class="saperatorSpan">Opening Stock Info</span></div>
+  <div class="row" *ngIf="IsCNG == true">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="TankName">Dispenser Name</label>
+        <span class="required">*</span>
+        <input type="string" placeholder="Dispenser Name" class="form-control" name="TankName" formControlName="TankName">
+        <div *ngFor="let validation of validation_messages.TankName">
+          <span class="error-message" *ngIf="tankform.get('TankName').hasError(validation.type) && (tankform.get('TankName').dirty || tankform.get('TankName').touched)">{{validation.message}}</span>
+        </div>
+      </div>
+    </div>    
+  </div>
+  <div class="row saperatorDiv"><span class="saperatorSpan" *ngIf="IsCNG == false">Opening Stock Info</span></div>
   <!-- <div class="row">
     <div class="col-md-6">
       <div class="form-group">
@@ -118,7 +124,7 @@
     </div>
   </div> -->
 
-  <div class="row">
+  <div class="row" *ngIf="IsCNG == false">
     <div class="col-md-6">
       <div class="form-group">
         <label for="OpeningReading">Opening Reading</label>
@@ -127,6 +133,7 @@
         <div *ngFor="let validation of validation_messages.OpeningReading">
             <span class="error-message" *ngIf="tankform.get('OpeningReading').hasError(validation.type) && (tankform.get('OpeningReading').dirty || tankform.get('OpeningReading').touched)">{{validation.message}}</span>
           </div>
+          <span class="error-message">{{validationOpeningReadingMessage}}</span>
       </div>
     </div>
     <div class="col-md-6">
@@ -141,7 +148,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
       <div class="form-group">
         <label for="ReadingDate">Stock Measured on</label>
         <span class="required">*</span>

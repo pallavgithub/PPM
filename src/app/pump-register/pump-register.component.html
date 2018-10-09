@@ -118,10 +118,12 @@
         </div>        
     </div>
   </div> -->
-    <!-- <div class="row">
+    <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label for="StartDate">License Start Date</label>
+            <label for="StartDate">License Start Date
+                <span class="required">*</span>
+            </label>
             <input type="date" placeholder="License Start Date" class="form-control" formControlName="LicenseStartDate">
             <div *ngFor="let validation of validation_messages.LicenseStartDate">
                     <span class="error-message" *ngIf="registerForm.get('LicenseStartDate').hasError(validation.type) && (registerForm.get('LicenseStartDate').dirty || registerForm.get('LicenseStartDate').touched)">{{validation.message}}</span>
@@ -129,16 +131,7 @@
         </div>
       
     </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <label for="EndDate">License End Date</label>
-            <input type="date" placeholder="License End Date " class="form-control" formControlName="LicenseEndDate">
-            <div *ngFor="let validation of validation_messages.LicenseEndDate">
-                    <span class="error-message" *ngIf="registerForm.get('LicenseEndDate').hasError(validation.type) && (registerForm.get('LicenseEndDate').dirty || registerForm.get('LicenseEndDate').touched)">{{validation.message}}</span>
-            </div>
-        </div>
-    </div>
-  </div> -->
+  </div>
     <!-- <div class="row">
         <div class="col-md-12">
             <div class="form-group">

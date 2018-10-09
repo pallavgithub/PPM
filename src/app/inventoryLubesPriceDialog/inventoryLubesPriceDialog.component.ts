@@ -80,7 +80,6 @@ export class InventoryLubesPriceDialogFormComponent implements OnInit {
     // currentdate.setHours(0, 0, 0, 0)
     // let dateSTockMeasuredOn = new Date(this.pumpProduct.DateStockMeasuredOn);
     // dateSTockMeasuredOn.setHours(0, 0, 0, 0)
-    // debugger;
     // if (dateSTockMeasuredOn == currentdate && Number(this.pumpProduct.PurchaseRate) != 0 && Number(this.pumpProduct.SaleRate) != 0) {
     //   this.adjustPriceDisabled = true;
     // }

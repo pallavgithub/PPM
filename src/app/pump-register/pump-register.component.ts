@@ -4,6 +4,7 @@ import { PetrolPumpRegister } from '../_models/PetrolPumpRegister';
 import { Router } from '@angular/router';
 import { PetrolPumpService } from '../_services/petrolpump.service';
 import { ToasterService } from 'angular2-toaster';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'pump-register',
@@ -42,7 +43,7 @@ export class PumpRegisterComponent implements OnInit {
     ]
   }
 
-  constructor(private _formBuilder: FormBuilder,private toasterService: ToasterService,private router: Router,private petrolPumpService: PetrolPumpService) { 
+  constructor(private _formBuilder: FormBuilder,private toasterService: ToasterService,private router: Router,private petrolPumpService: PetrolPumpService, public datepipe: DatePipe) { 
 
   }
 
@@ -62,6 +63,8 @@ export class PumpRegisterComponent implements OnInit {
         Password:[this.petrolPumpRegister.Password,Validators.compose([ Validators.required,Validators.minLength(5),Validators.pattern('^[a-zA-Z0-9@&!-_.]*$')])],
         ConfirmPassword:[this.petrolPumpRegister.ConfirmPassword,Validators.compose([Validators.required,Validators.minLength(5),Validators.pattern('^[a-zA-Z0-9@&!-_.]*$')])]
   },{validator: this.matchingPasswords('Password', 'ConfirmPassword')})
+  let latest_ReadingDate = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
+    this.registerForm.controls["LicenseStartDate"].setValue(latest_ReadingDate);
 }
 
 matchingPasswords(passwordKey: string, confirmPasswordKey: string) {

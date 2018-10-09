@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePipe } from "../../../node_modules/@angular/common";
 import { ToasterService } from 'angular2-toaster';
 import { UserInfo } from "../_models/UserInfo";
+import { PetrolPumpService } from "../_services/petrolpump.service";
 
 @Component({
   selector: "pump-tank",
@@ -24,10 +25,11 @@ export class PumpTankComponent implements OnInit {
   fuelTypes: FuelType[];
   public userData: UserInfo;
   readingTypes: ReadingType[];
+  licenseStartDate:string;
   public isCollapsed = false;
   @Input() pumpCode: string;
   constructor(
-    public dialog: MatDialog, private userService: UserService,private router:Router, private toasterService: ToasterService,private viewContainerRef: ViewContainerRef
+    public dialog: MatDialog, private userService: UserService,private router:Router, private toasterService: ToasterService,private viewContainerRef: ViewContainerRef,private petrolPumpService: PetrolPumpService
   ) { }
 
   ngOnInit() {
@@ -35,6 +37,12 @@ export class PumpTankComponent implements OnInit {
     //this.getAllProducts();
     //this.getReadingType();
     this.getUserDate();
+    this.getLicenseStartDate(1);
+  }
+  getLicenseStartDate(isOld:number) {
+    this.petrolPumpService.GetLicenseStartDate(this.pumpCode,isOld).subscribe(data => {
+      this.licenseStartDate = data;
+    });
   }
 
   getReadingType() {
@@ -85,7 +93,7 @@ export class PumpTankComponent implements OnInit {
     this.userService.getTankReadingByTankID(tank.ID,this.pumpCode).subscribe(data => {
       tank.pp_TankReading = data;
       const dialogRef = this.dialog.open(TankformComponent, {
-        data: { tank }
+        data: { tank:tank, licenseStartDate:this.licenseStartDate }
       });
       dialogRef.afterClosed().subscribe(result => {
         this.ngOnInit();

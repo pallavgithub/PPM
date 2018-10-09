@@ -102,6 +102,9 @@ export class PetrolPumpService {
     GetCreditorLedger(petrolPumpCode:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/GetCreditorLedger?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true);
     }
+    GetPaymentLedger(petrolPumpCode:string,paymentTypeID:number){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/GetPaymentLedger?petrolPumpCode=`+petrolPumpCode + '&paymentTypeID=' + paymentTypeID);
+    }
 
     GetNozzleBreakUp(petrolPumpCode:string,nozzleID:string,date:string){
         return this.http.get<NozzleDailyBreakUp[]>(`${environment.apiUrl}/Pump/GetNozzleBreakUp?petrolPumpCode=`+petrolPumpCode + '&IsDashboard=' + true + '&nozzleID=' + nozzleID + '&date=' + date);
@@ -200,5 +203,8 @@ export class PetrolPumpService {
     }
     getPetrolPumpUserInfo(petrolPumpCode:string){
         return this.http.get<any>(`${environment.apiUrl}/Pump/PetrolPumpUserInfo?petrolPumpCode=`+petrolPumpCode);
+    }
+    GetLicenseStartDate(petrolPumpCode:string,isOld:number){
+        return this.http.get<any>(`${environment.apiUrl}/Pump/LicenseStartDate?petrolPumpCode=`+petrolPumpCode + '&isOld=' + 1);
     }
 }

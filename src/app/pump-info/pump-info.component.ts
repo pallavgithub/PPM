@@ -5,6 +5,7 @@ import { pp_PetrolPump } from '../_models/pp_PetrolPump';
 import { PetrolPumpService } from '../_services/petrolpump.service';
 import { ToasterService } from 'angular2-toaster';
 import { UserDetail } from '../_models/userDetail';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -44,7 +45,7 @@ export class PumpInfoComponent implements OnInit {
       { type: 'pattern', message: 'Only Numbers are allowed.' }
     ]
   }
-  constructor(private toasterService: ToasterService, private _formBuilder: FormBuilder, private router: Router, private petrolPumpService: PetrolPumpService,private viewContainerRef: ViewContainerRef) {
+  constructor(private toasterService: ToasterService, private _formBuilder: FormBuilder, private router: Router, private petrolPumpService: PetrolPumpService,private viewContainerRef: ViewContainerRef, public datepipe: DatePipe) {
 
   }
 
@@ -63,6 +64,8 @@ export class PumpInfoComponent implements OnInit {
       LicenseStartDate: [this.petrolPump.LicenseStartDate, Validators.required],
       LicenseEndDate: [this.petrolPump.LicenseEndDate, Validators.required]
     });
+    let latest_ReadingDate = this.datepipe.transform(this.petrolPump.LicenseStartDate.toString(), 'yyyy-MM-dd');
+    this.pumpInfoForm.controls["LicenseStartDate"].setValue(latest_ReadingDate);
     this.getUserInfo();
   }
 

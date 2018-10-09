@@ -16,6 +16,7 @@ import { ToasterService } from 'angular2-toaster';
 import { UserIdName } from "../_models/UserIdName";
 import { User } from "../_models";
 import { UserInfo } from "../_models/UserInfo";
+import { PetrolPumpService } from "../_services/petrolpump.service";
 
 @Component({
   selector: "pump-nozzle",
@@ -28,10 +29,11 @@ export class PumpNozzleComponent implements OnInit {
   tank: Tank[];
   newUserIdName: UserIdName[];
   public isCollapsed = false;
+  licenseStartDate:string;
   @Input() pumpCode: string;
   public userData: UserInfo;
   constructor(
-    public dialog: MatDialog, private userService: UserService, private router: Router, private toasterService: ToasterService,private viewContainerRef: ViewContainerRef
+    public dialog: MatDialog, private userService: UserService, private router: Router, private toasterService: ToasterService,private viewContainerRef: ViewContainerRef,private petrolPumpService: PetrolPumpService
   ) { }
 
   ngOnInit() {
@@ -40,6 +42,7 @@ export class PumpNozzleComponent implements OnInit {
     //this.getTanksByID(this.pumpCode);
     //this.getIdAndNameForAllUser(this.pumpCode);
     this.getUserDate();
+    this.getLicenseStartDate(1);
   }
   getUserDate() {
     this.userService.getUserDetailInfo().subscribe((res) => {
@@ -65,6 +68,11 @@ export class PumpNozzleComponent implements OnInit {
   getAllProducts() {
     this.userService.getAllProducts().subscribe(data => {
       this.fuelTypes = data;
+    });
+  }
+  getLicenseStartDate(isOld:number) {
+    this.petrolPumpService.GetLicenseStartDate(this.pumpCode,isOld).subscribe(data => {
+      this.licenseStartDate = data;
     });
   }
 
@@ -98,7 +106,7 @@ export class PumpNozzleComponent implements OnInit {
   editNozzle(nozzle: pp_Nozzle) {
     nozzle.IsEditModal = true;
     const dialogRef = this.dialog.open(NozzleformComponent, {
-      data: { nozzle }
+      data: { nozzle:nozzle, licenseStartDate:this.licenseStartDate }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.ngOnInit();

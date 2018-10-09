@@ -3,6 +3,7 @@ export class NozzleDailyBreakUp {
     DailyNozzleReadingID:number;
     NozzleID:number;
     PaymentTypeID:number; 
+    FuelTypeID:number; 
     BreakUpTypeID:number; 
     PaymentTypeName:string;    
     Amount:number;
@@ -14,6 +15,7 @@ export class NozzleDailyBreakUp {
         this.NozzleID=0;
         this.PaymentTypeID=0;
         this.BreakUpTypeID = 0;
+        this.FuelTypeID = 0;
         this.Amount = 0;
         this.DateEntered=null;
         this.Description=null;

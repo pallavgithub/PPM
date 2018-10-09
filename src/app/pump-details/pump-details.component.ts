@@ -35,6 +35,7 @@ export class PumpDetailsComponent implements OnInit {
   public pumpPayment: pp_Payment[] = new Array<pp_Payment>();
   public pumpStatus: PumpStatus;
   public selectedTab:number;
+  licenseStartDate:string;
   
 
   navigationSubscription;
@@ -55,8 +56,14 @@ export class PumpDetailsComponent implements OnInit {
       //this.getUserInfo();
       this.getPumpInfo(this.petrolPumpCode);
       this.getPumpStatus(this.petrolPumpCode);
+      this.getLicenseStartDate(1);
       //this.selectedTab = 0;
     }
+  }
+  getLicenseStartDate(isOld:number) {
+    this.petrolPumpService.GetLicenseStartDate(this.petrolPumpCode,isOld).subscribe(data => {
+      this.licenseStartDate = data;
+    });
   }
 
   
@@ -84,14 +91,14 @@ export class PumpDetailsComponent implements OnInit {
     let tank: pp_Tank = new pp_Tank();
     tank.PetrolPumpCode = this.petrolPumpCode;
     const dialogRef = this.dialog.open(TankformComponent, {
-      data: { tank }
+      data: { tank:tank,licenseStartDate:this.licenseStartDate }
     });
   }
   openAddNozzleDialog() {
     let nozzle: pp_Nozzle = new pp_Nozzle();
     nozzle.PetrolPumpCode = this.petrolPumpCode;
     const dialogRef = this.dialog.open(NozzleformComponent, {
-      data: { nozzle }
+      data: { nozzle:nozzle,licenseStartDate:this.licenseStartDate }
     });
   }
 
@@ -110,7 +117,7 @@ export class PumpDetailsComponent implements OnInit {
     pumpProductNew.PetrolPumpCode = this.petrolPumpCode;
     pumpProductNew.IsEditModal = false;
     const dialogRef = this.dialog.open(ProductDialogFormComponent, {
-      data: { pumpProductNew },
+      data: { pumpProductNew:pumpProductNew,petrolPumpCode:this.petrolPumpCode,licenseStartDate:this.licenseStartDate },
       disableClose: true
     });
   }

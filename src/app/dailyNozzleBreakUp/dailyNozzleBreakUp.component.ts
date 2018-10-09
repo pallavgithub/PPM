@@ -295,7 +295,8 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
               nozzleDailyBreakUpItem.DateEntered = this.nozzleDailyBreakUp[0].DateEntered,
               nozzleDailyBreakUpItem.Description = this.nozzleDailyBreakUp[0].Description,
               nozzleDailyBreakUpItem.DailyNozzleReadingID = this.nozzleDailyBreakUp[0].DailyNozzleReadingID
-            nozzleDailyBreakUpItem.PaymentTypeID = paymentTypeID;
+            nozzleDailyBreakUpItem.PaymentTypeID = 1;
+            nozzleDailyBreakUpItem.FuelTypeID = paymentTypeID;
             nozzleDailyBreakUpItem.PaymentTypeName = this.getFuelTypeName(paymentTypeID);
             nozzleDailyBreakUpItemArray.push(nozzleDailyBreakUpItem);
             this.petrolPumpService.UpdateDailyNozzleReadingBreakUp(nozzleDailyBreakUpItemArray).subscribe(res => {
@@ -335,7 +336,7 @@ export class DailyNozzleBreakUpFormComponent implements OnInit {
         nozzleDailyBreakUpItem.DateEntered = this.nozzleDailyBreakUp[0].DateEntered,
         nozzleDailyBreakUpItem.Description = description,
         nozzleDailyBreakUpItem.DailyNozzleReadingID = this.nozzleDailyBreakUp[0].DailyNozzleReadingID
-      nozzleDailyBreakUpItem.PaymentTypeID = 0;
+      nozzleDailyBreakUpItem.PaymentTypeID = 1;
       nozzleDailyBreakUpItem.PaymentTypeName = null;
       nozzleDailyBreakUpItemArray.push(nozzleDailyBreakUpItem);
       this.petrolPumpService.UpdateDailyNozzleReadingBreakUp(nozzleDailyBreakUpItemArray).subscribe(res => {

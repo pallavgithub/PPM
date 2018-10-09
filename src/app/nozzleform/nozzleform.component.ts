@@ -24,6 +24,7 @@ export class NozzleformComponent implements OnInit {
   isTankVisisble:boolean;
   IsEditDialog: boolean;
   nozzleform: FormGroup;
+  licenseStartDate:string;
   fuelTypes: FuelType[];
   validationAssignedToMessage: string;
   validationTankNameMessage: string;
@@ -71,6 +72,7 @@ export class NozzleformComponent implements OnInit {
 
   ngOnInit() {
     this.nozzle = this.data.nozzle;
+    this.licenseStartDate = this.data.licenseStartDate;
     this.isTankVisisble = true;
     if (this.nozzle.IsEditModal) {
       this.IsEditDialog = true;
@@ -95,8 +97,12 @@ export class NozzleformComponent implements OnInit {
       ReadingDate: [this.nozzle.ReadingDate],
       AssignedTo: [this.nozzle.AssignedTo]
     });
-    let latest_ReadingDate = this.datepipe.transform(((this.nozzle.ReadingDate == "" || this.nozzle.ReadingDate == null ) ? new Date().toString() : this.nozzle.ReadingDate), 'yyyy-MM-dd');
-    this.nozzleform.get('ReadingDate').setValue(latest_ReadingDate);
+    // let latest_ReadingDate = this.datepipe.transform(((this.nozzle.ReadingDate == "" || this.nozzle.ReadingDate == null ) ? new Date().toString() : this.nozzle.ReadingDate), 'yyyy-MM-dd');
+    // this.nozzleform.get('ReadingDate').setValue(latest_ReadingDate);
+
+    let latest_LicenseStartDate = this.datepipe.transform(this.licenseStartDate, 'yyyy-MM-dd');
+    this.nozzleform.get('ReadingDate').setValue(latest_LicenseStartDate);
+
     //this.nozzle.pp_Nozzles.length==0 && this.nozzle.pp_Nozzles.push(new pp_Nozzle());
   }
   // getAllFuelType()
@@ -150,9 +156,9 @@ export class NozzleformComponent implements OnInit {
 
   DisableControlsByRole() {
 
-    if (this.nozzleform.controls['FuelTypeID'].value == '5') { // 5 for Creditor
+    if (this.nozzleform.controls['FuelTypeID'].value == '5') { // 5 for CNG
       this.nozzleform.controls['TankID'].setValue(0);
-      this.nozzleform.controls['TankID'].disable();
+      //this.nozzleform.controls['TankID'].disable();
       this.isTankVisisble = false;
 
     }
