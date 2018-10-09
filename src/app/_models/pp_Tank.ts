@@ -13,6 +13,8 @@ export class pp_Tank {
   OpeningReading:string;
   Stock:number;
   OpeningStock:string;
+  ClosingReading:string;
+  ClosingStock:string;
   DipReadingDate:string;
   DipOpeningReading:number;
   ReadingType:number;

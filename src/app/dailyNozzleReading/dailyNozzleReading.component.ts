@@ -30,6 +30,7 @@ export class DailyNozzleReadingComponent implements OnInit {
   public pumpTanks: pp_Tank[];
   public pumpNozzles: pp_Nozzle[];
   public btnSaveDisabled: boolean = false;
+  public btnSaveDisabledClosing: boolean = false;
   public nozzleDailyBreakUp: NozzleDailyBreakUp[];
   public pumpCode: string;
   allProducts: AllProduct[];
@@ -112,6 +113,7 @@ export class DailyNozzleReadingComponent implements OnInit {
   getPumpInfo(pumpCode,readingDate) {
     let date: string = this.datepipe.transform(readingDate.toString(), 'yyyy-MM-dd');
     let flag: boolean = false;
+    let flagClosing: boolean = false;
     this.petrolPumpService.getPetrolPumpNozzleInfoWithDailyEntry(pumpCode, date).subscribe(res => {
       // this.pumpProduct = res.pp_PumpProduct;
       // this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);
@@ -123,12 +125,23 @@ export class DailyNozzleReadingComponent implements OnInit {
           //this.btnSaveDisabled = true;
           element.OpeningReading = "";
         }
+        if (element.ClosingReading == "0") {
+          flagClosing = true;
+          //this.btnSaveDisabled = true;
+          element.ClosingReading = "";
+        }
       });
       if (flag == true) {
         this.btnSaveDisabled = true;
       }
       else {
         this.btnSaveDisabled = false;
+      }
+      if (flagClosing == true) {
+        this.btnSaveDisabledClosing = true;
+      }
+      else {
+        this.btnSaveDisabledClosing = false;
       }
       // let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
       // this.DateOfEntry = latest_ReadingDate;
@@ -151,6 +164,11 @@ export class DailyNozzleReadingComponent implements OnInit {
 
     //this.tankform.controls["OpeningStock"].setValue(Number(this.tankform.controls["OpeningReading"].value + 5));
   }
+  onBlurClosingReading(tank: pp_Tank) {
+    tank.ClosingStock = (Number(tank.ClosingReading) + 5).toString();
+
+    //this.tankform.controls["OpeningStock"].setValue(Number(this.tankform.controls["OpeningReading"].value + 5));
+  }
   onBlurDate(tank: pp_Tank) {
     this.getPumpInfo(tank.PetrolPumpCode,tank.ReadingDate);
   }
@@ -158,6 +176,11 @@ export class DailyNozzleReadingComponent implements OnInit {
   onBlurOpeningStock(tank: pp_Tank) {
 
     tank.OpeningReading = (Number(tank.OpeningStock) - 5).toString();
+    //this.tankform.controls["OpeningReading"].setValue(Number(this.tankform.controls["OpeningStock"].value - 5));
+  }
+  onBlurClosingStock(tank: pp_Tank) {
+
+    tank.ClosingReading = (Number(tank.ClosingStock) - 5).toString();
     //this.tankform.controls["OpeningReading"].setValue(Number(this.tankform.controls["OpeningStock"].value - 5));
   }
 
@@ -175,7 +198,9 @@ export class DailyNozzleReadingComponent implements OnInit {
   savePumpInfo(pumpProduct: pp_Nozzle[]) {
     if (confirm("do you confirm, entries you are adding are correct?")) {
       let flag: number = 0;
+      let flagClosing: number = 0;
     let purchaseprice: string = "";
+    let purchaseprice2: string = "";
     pumpProduct.forEach(element => {
       if (element.OpeningReading.toString().indexOf(".") != -1 && element.OpeningReading.toString().length > 4) {
         purchaseprice = element.OpeningReading.toString().substring(0, element.OpeningReading.toString().indexOf(".") + 3);
@@ -183,11 +208,23 @@ export class DailyNozzleReadingComponent implements OnInit {
       else {
         purchaseprice = element.OpeningReading.toString();
       }
+
+      if (element.ClosingReading.toString().indexOf(".") != -1 && element.ClosingReading.toString().length > 4) {
+        purchaseprice2 = element.ClosingReading.toString().substring(0, element.ClosingReading.toString().indexOf(".") + 3);
+      }
+      else {
+        purchaseprice2 = element.ClosingReading.toString();
+      }
+
       if (purchaseprice == "0" || purchaseprice == "0.0" || purchaseprice == "0.00" || purchaseprice == "") {
         flag = 1;
       }
+      if (purchaseprice2 == "0" || purchaseprice2 == "0.0" || purchaseprice2 == "0.00" || purchaseprice2== "") {
+        flagClosing = 1;
+      }
+     
     });
-    if (flag == 1) {
+    if (flag == 1 || flagClosing == 1) {
       this.toasterService.pop('error', '', 'Please provide details.');
       return false;
     }

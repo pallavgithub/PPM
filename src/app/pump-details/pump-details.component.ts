@@ -19,6 +19,7 @@ import { debug } from 'util';
 import { UserService } from '../_services';
 import { AlertService } from '../_services/alert.service';
 import { UserDetail } from '../_models/userDetail';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-pump-details',
@@ -40,7 +41,7 @@ export class PumpDetailsComponent implements OnInit {
 
   navigationSubscription;
   public petrolPumpCode: string;
-  constructor(public dialog: MatDialog, private activatedRoute: ActivatedRoute, private router: Router, private petrolPumpService: PetrolPumpService,private userService: UserService,private alertService: AlertService) {
+  constructor(public dialog: MatDialog, private activatedRoute: ActivatedRoute, private router: Router, private petrolPumpService: PetrolPumpService,private userService: UserService,private alertService: AlertService,  public datepipe: DatePipe) {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.petrolPumpCode = params['pumpcode'];
     });
@@ -62,7 +63,9 @@ export class PumpDetailsComponent implements OnInit {
   }
   getLicenseStartDate(isOld:number) {
     this.petrolPumpService.GetLicenseStartDate(this.petrolPumpCode,isOld).subscribe(data => {
-      this.licenseStartDate = data;
+      
+      this.licenseStartDate = this.datepipe.transform(new Date(data).toString(), 'yyyy-MM-dd');
+     // this.licenseStartDate = data;
     });
   }
 

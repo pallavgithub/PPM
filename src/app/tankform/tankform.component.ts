@@ -155,7 +155,6 @@ export class TankformComponent implements OnInit {
     }    
   }
   onchange() {
-    debugger;
     if (this.tankform.controls['FuelTypeID'].value == 5) {
       this.IsCNG = true;
     }

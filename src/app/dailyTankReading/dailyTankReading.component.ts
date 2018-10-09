@@ -28,6 +28,7 @@ export class DailyTankReadingComponent implements OnInit {
   public pumpCode: string;
   allProducts: AllProduct[];
   public btnSaveDisabled: boolean = false;
+  public btnSaveDisabledClosing: boolean = false;
   pumpProductWithDate: PumpProductWithDate;
   DateOfEntry: string;
   public userData: UserInfo;
@@ -107,6 +108,7 @@ export class DailyTankReadingComponent implements OnInit {
   getPumpInfo(pumpCode, readingDate) {
     let date: string = this.datepipe.transform(readingDate.toString(), 'yyyy-MM-dd');
     let flag: boolean = false;
+    let closingFlag: boolean = false;
     this.petrolPumpService.getPetrolPumpTankInfoWithDailyEntry(pumpCode, date).subscribe(res => {
       // this.pumpProduct = res.pp_PumpProduct;
       // this.pumpProduct = this.pumpProduct.filter(c=>c.CategoryID == 1);
@@ -123,12 +125,29 @@ export class DailyTankReadingComponent implements OnInit {
           // this.btnSaveDisabled = true;       
           element.OpeningStock = "";
         }
+        if (element.ClosingReading == "0") {
+          closingFlag = true;
+          // this.btnSaveDisabled = true;
+          element.ClosingReading = "";
+        }
+        if (element.ClosingStock == "0") {
+          closingFlag = true;
+          // this.btnSaveDisabled = true;       
+          element.ClosingStock = "";
+        }
       });
       if (flag == true) {
         this.btnSaveDisabled = true;
       }
       else {
         this.btnSaveDisabled = false;
+      }
+
+      if (closingFlag == true) {
+        this.btnSaveDisabledClosing = true;
+      }
+      else {
+        this.btnSaveDisabledClosing = false;
       }
       // let latest_ReadingDate = this.datepipe.transform(((this.pumpProduct[0].DateStockMeasuredOn == "" || this.pumpProduct[0].DateStockMeasuredOn == null) ? new Date().toString() : this.pumpProduct[0].DateStockMeasuredOn), 'yyyy-MM-dd');
       // this.DateOfEntry = latest_ReadingDate;
@@ -144,6 +163,18 @@ export class DailyTankReadingComponent implements OnInit {
   onBlurOpeningStock(tank: pp_Tank) {
 
     tank.OpeningReading = (Number(tank.OpeningStock) - 5).toString();
+    //this.tankform.controls["OpeningReading"].setValue(Number(this.tankform.controls["OpeningStock"].value - 5));
+  }
+
+  onBlurClosingReading(tank: pp_Tank) {
+    tank.ClosingStock = (Number(tank.ClosingReading) + 5).toString();
+
+    //this.tankform.controls["OpeningStock"].setValue(Number(this.tankform.controls["OpeningReading"].value + 5));
+  }
+
+  onBlurClosingStock(tank: pp_Tank) {
+
+    tank.ClosingReading = (Number(tank.ClosingStock) - 5).toString();
     //this.tankform.controls["OpeningReading"].setValue(Number(this.tankform.controls["OpeningStock"].value - 5));
   }
   onBlurDate(tank: pp_Tank) {
@@ -166,6 +197,10 @@ export class DailyTankReadingComponent implements OnInit {
       let flag: number = 0;
       let purchaseprice: string = "";
       let saleprice: string = "";
+
+      let purchaseprice2: string = "";
+      let saleprice2: string = "";
+
       pumpProduct.forEach(element => {
         if (element.OpeningReading.toString().indexOf(".") != -1 && element.OpeningReading.toString().length > 4) {
           purchaseprice = element.OpeningReading.toString().substring(0, element.OpeningReading.toString().indexOf(".") + 3);
@@ -179,10 +214,31 @@ export class DailyTankReadingComponent implements OnInit {
         else {
           saleprice = element.OpeningStock.toString();
         }
+
+        if (element.ClosingReading.toString().indexOf(".") != -1 && element.ClosingReading.toString().length > 4) {
+          purchaseprice2 = element.ClosingReading.toString().substring(0, element.ClosingReading.toString().indexOf(".") + 3);
+        }
+        else {
+          purchaseprice2 = element.ClosingReading.toString();
+        }
+        if (element.ClosingStock.toString().indexOf(".") != -1 && element.ClosingStock.toString().length > 4) {
+          saleprice2 = element.ClosingStock.toString().substring(0, element.ClosingStock.toString().indexOf(".") + 3);
+        }
+        else {
+          saleprice2 = element.ClosingStock.toString();
+        }
+
         if (purchaseprice == "0" || purchaseprice == "0.0" || purchaseprice == "0.00" || purchaseprice == "") {
           flag = 1;
         }
         if (saleprice == "0" || saleprice == "0.0" || saleprice == "0.00" || saleprice == "") {
+          flag = 1;
+        }
+
+        if (purchaseprice2 == "0" || purchaseprice2 == "0.0" || purchaseprice2 == "0.00" || purchaseprice2 == "") {
+          flag = 1;
+        }
+        if (saleprice2 == "0" || saleprice2 == "0.0" || saleprice2 == "0.00" || saleprice2 == "") {
           flag = 1;
         }
       });
