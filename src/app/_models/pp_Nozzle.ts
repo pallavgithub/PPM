@@ -6,6 +6,7 @@ export class pp_Nozzle {
   ClosingReading: string;
   PetrolPumpCode: string;
   IsEditModal:boolean;
+  IsActive:boolean;
   FuelTypeID: number;
   NozzleName: string;
   ReadingDate:string;
@@ -23,6 +24,7 @@ export class pp_Nozzle {
     this.ClosingReading='';
     this.PetrolPumpCode = '';
     this.IsEditModal = false;
+    this.IsActive = true;
     this.FuelTypeID = 0;
     this.NozzleName = '';
     this.ReadingDate = '';

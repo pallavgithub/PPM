@@ -207,6 +207,14 @@ export class DailyNozzleReadingComponent implements OnInit {
     let purchaseprice: string = "";
     let purchaseprice2: string = "";
     pumpProduct.forEach(element => {
+      if(element.OpeningReading == "")
+      {
+        element.OpeningReading = "0";
+      }
+      if(element.ClosingReading == "")
+      {
+        element.ClosingReading = "0";
+      }
       if(element.ClosingReading < element.OpeningReading)
       {        
         flagCompare = 1;
@@ -224,11 +232,11 @@ export class DailyNozzleReadingComponent implements OnInit {
       else {
         purchaseprice2 = element.ClosingReading.toString();
       }
-
-      if (purchaseprice == "0" || purchaseprice == "0.0" || purchaseprice == "0.00" || purchaseprice == "") {
+debugger;
+      if ((purchaseprice == "0" || purchaseprice == "0.0" || purchaseprice == "0.00" || purchaseprice == "") && element.IsActive) {
         flag = 1;
       }
-      if (purchaseprice2 == "0" || purchaseprice2 == "0.0" || purchaseprice2 == "0.00" || purchaseprice2== "") {
+      if ((purchaseprice2 == "0" || purchaseprice2 == "0.0" || purchaseprice2 == "0.00" || purchaseprice2== "") && element.IsActive) {
         flagClosing = 1;
       }
      

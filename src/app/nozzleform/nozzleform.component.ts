@@ -92,6 +92,7 @@ export class NozzleformComponent implements OnInit {
       TankID: [this.nozzle.TankID],
       OpeningReading: [this.nozzle.OpeningReading, Validators.compose([Validators.required])],
       IsEditModal: [this.nozzle.IsEditModal],
+      IsActive: [this.nozzle.IsActive],
       FuelTypeID: [this.nozzle.FuelTypeID],
       NozzleName: [this.nozzle.NozzleName, Validators.compose([Validators.required])],
       ReadingDate: [this.nozzle.ReadingDate],
@@ -211,6 +212,7 @@ export class NozzleformComponent implements OnInit {
   }
 
   createNozzle() {
+    debugger
     this.nozzleform.controls["OpeningReading"].setValue(Number(this.nozzleform.controls["OpeningReading"].value));
     this.pumpService.addUpdatePumpNozzle(this.nozzleform.value).subscribe(res => {
       this.toasterService.pop('success', '', "Saved successfully");
