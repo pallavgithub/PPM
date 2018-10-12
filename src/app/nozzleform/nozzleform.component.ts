@@ -212,7 +212,6 @@ export class NozzleformComponent implements OnInit {
   }
 
   createNozzle() {
-    debugger
     this.nozzleform.controls["OpeningReading"].setValue(Number(this.nozzleform.controls["OpeningReading"].value));
     this.pumpService.addUpdatePumpNozzle(this.nozzleform.value).subscribe(res => {
       this.toasterService.pop('success', '', "Saved successfully");

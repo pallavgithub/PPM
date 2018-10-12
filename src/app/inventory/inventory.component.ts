@@ -81,7 +81,6 @@ export class InventoryComponent implements OnInit {
     let date: string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
     this.petrolPumpService.getPetrolPumpDashboardWithDate(pumpCode, date).subscribe(res => {
       this.pumpTanks = res.pp_Tanks;
-      debugger;
       this.pumpProduct = res.pp_PumpProduct;
       this.pumpProductWithLubesPrise = res.pp_PumpProductWithLubesPrise;
       this.pumpProductWithLubesPrise = this.pumpProductWithLubesPrise.filter(c => c.CategoryID != 3)
@@ -118,7 +117,6 @@ export class InventoryComponent implements OnInit {
       });
     }
     else {
-      debugger
       const dialogRef2 = this.dialog2.open(InventoryFuelTankDialogFormComponent, {
         data: { pumpProductNew: pumpProductNew, pumpTanks: this.pumpTanks, pumpCode: this.pumpCode }
       });

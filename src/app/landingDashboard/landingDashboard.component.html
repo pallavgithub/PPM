@@ -2,66 +2,66 @@
     <div class="form-group">
         <div class="col-md-6 ">
             <div class="border-div height-scroll1">
-            <label for="AccountDetail">Account Detail</label>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="UserID">User ID -</label>&nbsp;&nbsp;
-                        <label for="UserID">{{UserId}}</label>
+                <label for="AccountDetail">Account Detail</label>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="UserID">User ID -</label>&nbsp;&nbsp;
+                            <label for="UserID">{{UserId}}</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="PetrolPumpName">Petrol Pump Name -</label>&nbsp;&nbsp;
-                        <label for="PetrolPumpName">{{PetrolPumpName}}</label>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="PetrolPumpName">Petrol Pump Name -</label>&nbsp;&nbsp;
+                            <label for="PetrolPumpName">{{PetrolPumpName}}</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="Address">Address -</label>&nbsp;&nbsp;
-                        <label for="Address">{{Address}}</label>,&nbsp;
-                        <label for="City">{{City}}</label>,&nbsp;
-                        <label for="State">{{State}}</label>,&nbsp;
-                        <label for="PetrolPumpPinCode">{{PetrolPumpPinCode}}</label>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="Address">Address -</label>&nbsp;&nbsp;
+                            <label for="Address">{{Address}}</label>,&nbsp;
+                            <label for="City">{{City}}</label>,&nbsp;
+                            <label for="State">{{State}}</label>,&nbsp;
+                            <label for="PetrolPumpPinCode">{{PetrolPumpPinCode}}</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row" *ngIf="userData && userData.RoleID == 2">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="creditLimit">creditLimit -</label>&nbsp;&nbsp;
-                        <label for="creditLimit">{{creditLimit}}</label>
+                <div class="row" *ngIf="userData && userData.RoleID == 2">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="creditLimit">creditLimit -</label>&nbsp;&nbsp;
+                            <label for="creditLimit">{{creditLimit}}</label>
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class=" border-div height-scroll1">
-            <h4>Daily Fuel Price</h4>
-            <div>
+                <h4>Daily Fuel Price</h4>
                 <div>
-                    <div class="table-responsive" *ngIf="pumpProduct && pumpProduct.length>0">
-                        <table style="border: 1px solid black" class="table table-striped">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>Fuel Name</th>
-                                    <th>Price</th>
+                    <div>
+                        <div class="table-responsive" *ngIf="pumpProduct && pumpProduct.length>0">
+                            <table style="border: 1px solid black" class="table table-striped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Fuel Name</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tr *ngFor="let itemPumpProduct of pumpProduct; let in=index">
+                                    <td>{{itemPumpProduct.ProductName}}</td>
+                                    <td>{{itemPumpProduct.SaleRate}}</td>
                                 </tr>
-                            </thead>
-                            <tr *ngFor="let itemPumpProduct of pumpProduct; let in=index">
-                                <td>{{itemPumpProduct.ProductName}}</td>
-                                <td>{{itemPumpProduct.SaleRate}}</td>
-                            </tr>
-                        </table>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
+
             </div>
         </div>
     </div>
@@ -70,107 +70,119 @@
 <div class="row" *ngIf="userData && (userData.RoleID == 1 || userData.RoleID == -2)">
     <div class="form-group">
         <div class="col-md-6  ">
-                <div class=" border-div height-scroll1">
-            <label for="AccountDetail">Petrol Pump Set Up Status</label>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="PetrolPumpCode">{{status}}
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <div *ngIf="countStatus == 1">
-                            <img src="../../assets/smalltickumber.png" class="imgTab" height="50px;">
-                        </div>
-                        <div *ngIf="countStatus == 0">
-                            <img src="../../assets/small-red-cross.png" class="imgTab" height="50px;">
+            <div class=" border-div height-scroll1">
+                <label for="AccountDetail">Petrol Pump Set Up Status</label>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="PetrolPumpCode">{{status}}
+                            </label>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=-2">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <div *ngIf="isPermit == false">
-                            Please set Fuel Rates for below Dates: Without it you can not use System.
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div *ngIf="countStatus == 1">
+                                <img src="../../assets/smalltickumber.png" class="imgTab" height="50px;">
+                            </div>
+                            <div *ngIf="countStatus == 0">
+                                <img src="../../assets/small-red-cross.png" class="imgTab" height="50px;">
+                            </div>
                         </div>
-                        <div *ngFor="let incompleteProductsTemp of incompleteProducts let i=index">
-                            {{incompleteProductsTemp.Date | date}}
+                    </div>
+                </div>
+                <div class="row" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=-2">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div *ngIf="isPermit == false">
+                                Please set Fuel Rates for below Dates: Without it you can not use System.
+                            </div>
+                            <div *ngFor="let incompleteProductsTemp of incompleteProducts let i=index">
+                                {{incompleteProductsTemp.Date | date}}
+                            </div>
+                            <div *ngIf="isPermit == false">
+                                <a (click)="SetFuelPrice()" style="cursor: pointer;">Set Fuel Price</a>&nbsp;
+                            </div>
                         </div>
-                        <div *ngIf="isPermit == false">
-                            <a (click)="SetFuelPrice()" style="cursor: pointer;">Set Fuel Price</a>&nbsp;
+                    </div>
+                </div>
+                <div class="row" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=-2">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div *ngIf="incompleteTanks && incompleteTanks.length > 1">
+                                Please set Tank Readings for below Dates:
+                            </div>
+                            <div *ngFor="let incompleteTanksTemp of incompleteTanks let i=index">
+                                {{incompleteTanksTemp.Date | date}}
+                            </div>
+                            <div *ngIf="isPermitTank == false">
+                                <a (click)="SetTankReading()" style="cursor: pointer;">Set Tank Reading</a>&nbsp;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=-2">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div *ngIf="incompleteNozzles && incompleteNozzles.length > 1">
+                                Please set Nozzle Readings for below Dates:
+                            </div>
+                            <div *ngFor="let incompleteNozzlesTemp of incompleteNozzles let i=index">
+                                {{incompleteNozzlesTemp.Date | date}}
+                            </div>
+                            <div *ngIf="isPermitNozzle == false">
+                                <a (click)="SetNozzleReading()" style="cursor: pointer;">Set Nozzle Reading</a>&nbsp;
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=-2">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <div *ngIf="incompleteTanks && incompleteTanks.length > 1">
-                            Please set Tank Readings for below Dates:
-                        </div>
-                        <div *ngFor="let incompleteTanksTemp of incompleteTanks let i=index">
-                            {{incompleteTanksTemp.Date | date}}
-                        </div>
-                        <div *ngIf="isPermitTank == false">
-                            <a (click)="SetTankReading()" style="cursor: pointer;">Set Tank Reading</a>&nbsp;
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" *ngIf="userData && userData.RoleID!=2 && userData.RoleID!=-2">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <div *ngIf="incompleteNozzles && incompleteNozzles.length > 1">
-                            Please set Nozzle Readings for below Dates:
-                        </div>
-                        <div *ngFor="let incompleteNozzlesTemp of incompleteNozzles let i=index">
-                            {{incompleteNozzlesTemp.Date | date}}
-                        </div>
-                        <div *ngIf="isPermitNozzle == false">
-                            <a (click)="SetNozzleReading()" style="cursor: pointer;">Set Nozzle Reading</a>&nbsp;
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
+        </div> 
         <div class="col-md-6">
             <div class=" border-div height-scroll1">
-            <div>
-                    <h4>Fuel Sales Chart</h4>
-                <div style="display: block">
-                    <!-- <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
-                        [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas> -->
-                    <canvas baseChart width="450" height="200" [datasets]="lineChartDataForNozzleFuelSale" [labels]="lineChartLabelsForNozzleFuelSale" [options]="lineChartOptionsForNozzleFuelSale"
-                        [colors]="lineChartColorsForNozzleFuelSale" [legend]="lineChartLegendForNozzleFuelSale" [chartType]="lineChartTypeForNozzleFuelSale" (chartHover)="chartHovered($event)"
-                        (chartClick)="chartClicked($event)"></canvas>
+                <div>
+                    <h4>Lubes Low Limit</h4>
+                    <div>
+                        <div>
+                            <div class="table-responsive" *ngIf="pumpProductWithLubesPrise && pumpProductWithLubesPrise.length>0">
+                                <table style="border: 1px solid black" class="table table-striped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Lubes Name</th>
+                                            <th>Stock</th>
+                                        </tr>
+                                    </thead>
+                                    <tr *ngFor="let pumpProductWithLubesPriseItem of pumpProductWithLubesPrise let i=index">
+                                        <td>{{pumpProductWithLubesPriseItem.ProductName}}</td>
+                                        <td>{{pumpProductWithLubesPriseItem.InitialQuantity}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- <button (click)="randomize()">Update</button> -->
             </div>
-            </div>
-        </div>
+        </div>      
     </div>
 </div>
 <div class="row" *ngIf="userData && userData.RoleID == 4">
     <div class="form-group">
         <div class="col-md-12 ">
-                <div class=" border-div height-scroll1">
-            <div>
-                <h2>Creditor Sale Chart</h2>
-                <div style="display: block">
-                    <!-- <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+            <div class=" border-div height-scroll1">
+                <div>
+                    <h2>Nozzle Sale Chart</h2>
+                    <div style="display: block">
+                        <!-- <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
                         [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas> -->
-                    <canvas baseChart width="450" height="200" [datasets]="lineChartDataForNozzleForCreditorSale" [labels]="lineChartLabelsForNozzleForCreditorSale" [options]="lineChartOptionsForNozzleForCreditorSale"
-                        [colors]="lineChartColorsForNozzleForCreditorSale" [legend]="lineChartLegendForNozzleForCreditorSale" [chartType]="lineChartTypeForNozzleForCreditorSale" (chartHover)="chartHovered($event)"
-                        (chartClick)="chartClicked($event)"></canvas>
+                        <canvas baseChart width="850" height="300" [datasets]="lineChartDataForNozzleForCreditorSale"
+                            [labels]="lineChartLabelsForNozzleForCreditorSale" [options]="lineChartOptionsForNozzleForCreditorSale"
+                            [colors]="lineChartColorsForNozzleForCreditorSale" [legend]="lineChartLegendForNozzleForCreditorSale"
+                            [chartType]="lineChartTypeForNozzleForCreditorSale" (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)"></canvas>
+                    </div>
+                    <!-- <button (click)="randomize()">Update</button> -->
                 </div>
-                <!-- <button (click)="randomize()">Update</button> -->
-            </div>
             </div>
         </div>
     </div>
@@ -178,74 +190,75 @@
 <div class="row" *ngIf="userData && userData.RoleID == 2">
     <div class="form-group">
         <div class="col-md-6">
-                <div class=" border-div height-scroll2">
-            <div>
-                <h4>Fuel Request Summary</h4>
-                <ul class="nav nav-pills">
-                    <li class="active"><a data-toggle="pill" href="#home">Pending</a></li>
-                    <li><a data-toggle="pill" href="#menu1">Approved</a></li>
-                </ul>
-                <div class="tab-content">
-                    <div id="home" class="tab-pane fade in active">
-                        <div class="table-responsive" *ngIf="PendingCreditorInventory && PendingCreditorInventory.length>0">
-                            <table style="border: 1px solid black" class="table table-striped">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>Product Name</th>
-                                        <th>Purchase Stock</th>
-                                        <th>Request Date</th>
-                                        <th>Request Amount</th>
-                                        <th>Approval Code</th>
+            <div class=" border-div height-scroll2">
+                <div>
+                    <h4>Fuel Request Summary</h4>
+                    <ul class="nav nav-pills">
+                        <li class="active"><a data-toggle="pill" href="#home">Pending</a></li>
+                        <li><a data-toggle="pill" href="#menu1">Approved</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="home" class="tab-pane fade in active">
+                            <div class="table-responsive" *ngIf="PendingCreditorInventory && PendingCreditorInventory.length>0">
+                                <table style="border: 1px solid black" class="table table-striped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Product Name</th>
+                                            <th>Purchase Stock</th>
+                                            <th>Request Date</th>
+                                            <th>Request Amount</th>
+                                            <th>Approval Code</th>
+                                        </tr>
+                                    </thead>
+                                    <tr *ngFor="let pumpUser of PendingCreditorInventory let i=index">
+                                        <td>{{pumpUser.ProductName}}</td>
+                                        <td>{{pumpUser.PurchaseQuantity}}</td>
+                                        <td>{{pumpUser.DateMeasured | date}}</td>
+                                        <td>{{pumpUser.TotalPrice}}</td>
+                                        <td>{{pumpUser.SMSCode}}</td>
                                     </tr>
-                                </thead>
-                                <tr *ngFor="let pumpUser of PendingCreditorInventory let i=index">
-                                    <td>{{pumpUser.ProductName}}</td>
-                                    <td>{{pumpUser.PurchaseQuantity}}</td>
-                                    <td>{{pumpUser.DateMeasured | date}}</td>
-                                    <td>{{pumpUser.TotalPrice}}</td>
-                                    <td>{{pumpUser.SMSCode}}</td>
-                                </tr>
-                            </table>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                    <div id="menu1" class="tab-pane fade">
-                        <div class="table-responsive" *ngIf="ApprovedCreditorInventory && ApprovedCreditorInventory.length>0">
-                            <table style="border: 1px solid black" class="table table-striped">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>Product Name</th>
-                                        <th>Purchase Stock</th>
-                                        <th>Request Date</th>
-                                        <th>Request Amount</th>
-                                        <th>Approval Code</th>
+                        <div id="menu1" class="tab-pane fade">
+                            <div class="table-responsive" *ngIf="ApprovedCreditorInventory && ApprovedCreditorInventory.length>0">
+                                <table style="border: 1px solid black" class="table table-striped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Product Name</th>
+                                            <th>Purchase Stock</th>
+                                            <th>Request Date</th>
+                                            <th>Request Amount</th>
+                                            <th>Approval Code</th>
+                                        </tr>
+                                    </thead>
+                                    <tr *ngFor="let pumpUser of ApprovedCreditorInventory let i=index">
+                                        <td>{{pumpUser.ProductName}}</td>
+                                        <td>{{pumpUser.PurchaseQuantity}}</td>
+                                        <td>{{pumpUser.DateMeasured | date}}</td>
+                                        <td>{{pumpUser.TotalPrice}}</td>
+                                        <td>{{pumpUser.SMSCode}}</td>
                                     </tr>
-                                </thead>
-                                <tr *ngFor="let pumpUser of ApprovedCreditorInventory let i=index">
-                                    <td>{{pumpUser.ProductName}}</td>
-                                    <td>{{pumpUser.PurchaseQuantity}}</td>
-                                    <td>{{pumpUser.DateMeasured | date}}</td>
-                                    <td>{{pumpUser.TotalPrice}}</td>
-                                    <td>{{pumpUser.SMSCode}}</td>
-                                </tr>
-                            </table>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
         <div class="col-md-6">
-                <div class=" border-div height-scroll1">
-            <div>
-                <div style="display: block">
-                    <!-- <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+            <div class=" border-div height-scroll1">
+                <div>
+                        <h2>Creditor Fuel Purchase Chart</h2>
+                    <div style="display: block">
+                        <!-- <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
                         [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas> -->
-                    <canvas baseChart width="400" height="400" [datasets]="lineChartDataForCreditor" [labels]="lineChartLabelsForCreditor" [options]="lineChartOptionsForCreditor"
-                        [colors]="lineChartColorsForCreditor" [legend]="lineChartLegendForCreditor" [chartType]="lineChartTypeForCreditor" (chartHover)="chartHovered($event)"
-                        (chartClick)="chartClicked($event)"></canvas>
+                        <canvas baseChart width="400" height="400" [datasets]="lineChartDataForCreditor" [labels]="lineChartLabelsForCreditor"
+                            [options]="lineChartOptionsForCreditor" [colors]="lineChartColorsForCreditor" [legend]="lineChartLegendForCreditor"
+                            [chartType]="lineChartTypeForCreditor" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                    </div>
+                    <!-- <button (click)="randomize()">Update</button> -->
                 </div>
-                <!-- <button (click)="randomize()">Update</button> -->
-            </div>
             </div>
         </div>
     </div>
@@ -254,11 +267,11 @@
 <div class="row" *ngIf="userData && (userData.RoleID == 1 || userData.RoleID == 3)">
     <div class="form-group">
         <div class="col-md-6">
-                <div class=" border-div height-scroll1">
-            <div>
-                <h4>Tank Low Limit</h4>
+            <div class=" border-div height-scroll1">
                 <div>
-                    <!-- <div>
+                    <h4>Tank Low Limit</h4>
+                    <div>
+                        <!-- <div>
                         <div class="table-responsive" *ngIf="pumpTanks && pumpTanks.length>0">
                             <table style="border: 1px solid black" class="table table-striped">
                                 <thead class="thead-dark">
@@ -274,49 +287,49 @@
                             </table>
                         </div>
                     </div> -->
-                    <div class="table-responsive" *ngIf="pumpTanks && pumpTanks.length>0">
-                        <table style="border: 1px solid black" class="table table-striped">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>Tank Name</th>
-                                    <th>Current Stock</th>                                   
-                                    <!-- <th>Action</th> -->
-                                </tr>
-                            </thead>
-                            <tr *ngFor="let pumpTanksItem of pumpTanks let i=index">
-                                <td> {{pumpTanksItem.TankName}}</td>
-                                <td>{{pumpTanksItem.Stock}}</td>  
-                                <!-- <td><a  (click)="OpenTankLedgerDialog(tankItem.ID)" style="cursor: pointer;">View Ledger</a></td> -->
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            </div>
-        </div>
-        <div class="col-md-6 ">
-                <div class=" border-div height-scroll1">
-            <div>
-                <h4>Creditors Low Limit</h4>
-                <div>
-                    <div>
-                        <div class="table-responsive" *ngIf="pumpUsers && pumpUsers.length>0">
+                        <div class="table-responsive" *ngIf="pumpTanks && pumpTanks.length>0">
                             <table style="border: 1px solid black" class="table table-striped">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th>Full Name</th>
-                                        <th>Credit Limit</th>
+                                        <th>Tank Name</th>
+                                        <th>Current Stock</th>
+                                        <!-- <th>Action</th> -->
                                     </tr>
                                 </thead>
-                                <tr *ngFor="let pumpUsersItem of pumpUsers let i=index">
-                                    <td>{{pumpUsersItem.FullName}}</td>
-                                    <td>{{pumpUsersItem.CreditLimit}}</td>
+                                <tr *ngFor="let pumpTanksItem of pumpTanks let i=index">
+                                    <td> {{pumpTanksItem.TankName}}</td>
+                                    <td>{{pumpTanksItem.Stock}}</td>
+                                    <!-- <td><a  (click)="OpenTankLedgerDialog(tankItem.ID)" style="cursor: pointer;">View Ledger</a></td> -->
                                 </tr>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class=" border-div height-scroll1">
+                <div>
+                    <h4>Creditors Low Limit</h4>
+                    <div>
+                        <div>
+                            <div class="table-responsive" *ngIf="pumpUsers && pumpUsers.length>0">
+                                <table style="border: 1px solid black" class="table table-striped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Full Name</th>
+                                            <th>Credit Limit</th>
+                                        </tr>
+                                    </thead>
+                                    <tr *ngFor="let pumpUsersItem of pumpUsers let i=index">
+                                        <td>{{pumpUsersItem.FullName}}</td>
+                                        <td>{{pumpUsersItem.CreditLimit}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -342,64 +355,75 @@
             </div>
             </div>
         </div> -->
-        <div class="col-md-6">
-                <div class=" border-div height-scroll1">
-            <div>
-                <h4>Lubes Low Limit</h4>
+        
+    </div>
+</div>
+
+<div class="row" *ngIf="userData && (userData.RoleID == 1 || userData.RoleID == -2)">
+    <div class="form-group">
+        <div class="col-md-12">
+            <div class=" border-div height-scroll1">
                 <div>
-                    <div>
-                        <div class="table-responsive" *ngIf="pumpProductWithLubesPrise && pumpProductWithLubesPrise.length>0">
-                            <table style="border: 1px solid black" class="table table-striped">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>Lubes Name</th>
-                                        <th>Stock</th>
-                                    </tr>
-                                </thead>
-                                <tr *ngFor="let pumpProductWithLubesPriseItem of pumpProductWithLubesPrise let i=index">
-                                    <td>{{pumpProductWithLubesPriseItem.ProductName}}</td>
-                                    <td>{{pumpProductWithLubesPriseItem.InitialQuantity}}</td>
-                                </tr>
-                            </table>
-                        </div>
+                    <h4>Fuel Sales Chart</h4>
+                    <label>By Sale Price</label><input type="radio" name="radipGroup2" value="0" title="By Sale Price"
+                        checked="checked" (change)="ChangeChartFuel(0)" />&nbsp;<label>By Fuel Volume</label><input
+                        type="radio" name="radipGroup2" value="1" title="By Fuel Volume" (change)="ChangeChartFuel(1)" />
+                    <div style="display: block">
+                        <!-- <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+                        [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas> -->
+                        <canvas baseChart width="850" height="300" [datasets]="lineChartDataForNozzleFuelSale" [labels]="lineChartLabelsForNozzleFuelSale"
+                            [options]="lineChartOptionsForNozzleFuelSale" [colors]="lineChartColorsForNozzleFuelSale"
+                            [legend]="lineChartLegendForNozzleFuelSale" [chartType]="lineChartTypeForNozzleFuelSale"
+                            (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
                     </div>
+                    <!-- <button (click)="randomize()">Update</button> -->
                 </div>
             </div>
-        </div>
         </div>
     </div>
 </div>
+
 <div class="row" *ngIf="userData && (userData.RoleID == 1 || userData.RoleID == 3)">
     <div class="form-group">
-        <div class="col-md-6">
-                <div class=" border-div height-scroll2">             
-            <div> 
-                    <h4>Fuel Daily Price Chart</h4>               
-                <div style="display: block">
-                    <!-- <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+        <div class="col-md-12">
+            <div class=" border-div height-scroll2">
+                <div>
+                    <h4>Fuel Daily Price Chart</h4>
+                    <div style="display: block">
+                        <!-- <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
                         [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas> -->
-                    <canvas baseChart width="450" height="200" [datasets]="lineChartDataForFuelDailyPrice" [labels]="lineChartLabelsForFuelDailyPrice" [options]="lineChartOptionsForFuelDailyPrice"
-                        [colors]="lineChartColorsForFuelDailyPrice" [legend]="lineChartLegendForFuelDailyPrice" [chartType]="lineChartTypeForFuelDailyPrice" (chartHover)="chartHovered($event)"
-                        (chartClick)="chartClicked($event)"></canvas>
+                        <canvas baseChart width="850" height="300" [datasets]="lineChartDataForFuelDailyPrice" [labels]="lineChartLabelsForFuelDailyPrice"
+                            [options]="lineChartOptionsForFuelDailyPrice" [colors]="lineChartColorsForFuelDailyPrice"
+                            [legend]="lineChartLegendForFuelDailyPrice" [chartType]="lineChartTypeForFuelDailyPrice"
+                            (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                    </div>
+                    <!-- <button (click)="randomize()">Update</button> -->
                 </div>
-                <!-- <button (click)="randomize()">Update</button> -->
             </div>
         </div>
-        </div>
-        <div class="col-md-6">
-                <div class=" border-div height-scroll2">
-            <div>
+    </div>
+</div>
+
+<div class="row" *ngIf="userData && (userData.RoleID == 1 || userData.RoleID == 3)">
+    <div class="form-group">
+        <div class="col-md-12">
+            <div class=" border-div height-scroll2">
+                <div>
                     <h4>Nozzle Sales Chart</h4>
-                <div style="display: block">
-                    <!-- <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+                    <label>By Sale Price</label><input type="radio" name="radipGroup" value="0" title="By Sale Price"
+                        checked="checked" (change)="ChangeChartNozzle(0)" />&nbsp;<label>By Fuel Volume</label><input
+                        type="radio" name="radipGroup" value="1" title="By Fuel Volume" (change)="ChangeChartNozzle(1)" />
+
+                    <div style="display: block">
+                        <!-- <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
                         [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas> -->
-                    <canvas baseChart width="450" height="200" [datasets]="lineChartDataForNozzleSale" [labels]="lineChartLabelsForNozzleSale" [options]="lineChartOptionsForNozzleSale"
-                        [colors]="lineChartColorsForNozzleSale" [legend]="lineChartLegendForNozzleSale" [chartType]="lineChartTypeForNozzleSale" (chartHover)="chartHovered($event)"
-                        (chartClick)="chartClicked($event)"></canvas>
+                        <canvas baseChart width="850" height="300" [datasets]="lineChartDataForNozzleSale" [labels]="lineChartLabelsForNozzleSale"
+                            [options]="lineChartOptionsForNozzleSale" [colors]="lineChartColorsForNozzleSale" [legend]="lineChartLegendForNozzleSale"
+                            [chartType]="lineChartTypeForNozzleSale" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+                    </div>
+                    <!-- <button (click)="randomize()">Update</button> -->
                 </div>
-                <!-- <button (click)="randomize()">Update</button> -->
             </div>
-        </div>
         </div>
     </div>
 </div>

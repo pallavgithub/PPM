@@ -119,14 +119,15 @@ export class LandingDashboardComponent implements OnInit {
   ];
   public lineChartLabelsForFuelDailyPrice: Array<any> = [];
   public lineChartOptionsForFuelDailyPrice: any = {
-    responsive: false
+    responsive: false,
+    showXLabels: 5
   };
   public lineChartColorsForFuelDailyPrice: Array<any> = [
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
       borderColor: 'rgba(148,159,177,1)',
       pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
+      pointBorderColor: 'red',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     },
@@ -134,7 +135,7 @@ export class LandingDashboardComponent implements OnInit {
       backgroundColor: 'rgba(77,83,96,0.2)',
       borderColor: 'rgba(77,83,96,1)',
       pointBackgroundColor: 'rgba(77,83,96,1)',
-      pointBorderColor: '#fff',
+      pointBorderColor: 'yellow',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(77,83,96,1)'
     },
@@ -142,7 +143,7 @@ export class LandingDashboardComponent implements OnInit {
       backgroundColor: 'rgba(148,159,177,0.2)',
       borderColor: 'rgba(148,159,177,1)',
       pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
+      pointBorderColor: 'green',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
@@ -360,8 +361,8 @@ export class LandingDashboardComponent implements OnInit {
       this.getLubesWithLowLimit(this.pumpCode);
       this.getPetrolPumpDailyFuelPriceChart(this.pumpCode, new Date().toString());
       this.getPetrolPumpCreditorLedgerChart(this.pumpCode, new Date().toString());
-      this.getPetrolPumpNozzleSaleChart(this.pumpCode, new Date().toString());
-      this.getPetrolPumpNozzleFuelSaleChart(this.pumpCode, new Date().toString());
+      this.getPetrolPumpNozzleSaleChart(this.pumpCode, new Date().toString(),0);
+      this.getPetrolPumpNozzleFuelSaleChart(this.pumpCode, new Date().toString(),0);
       this.getPetrolPumpNozzleSaleForStaffChart(this.pumpCode, new Date().toString());
       this.getTanksByID(this.pumpCode);
 
@@ -393,9 +394,7 @@ export class LandingDashboardComponent implements OnInit {
     //   this.pumpTanks = this.pumpTanks.filter(p=>Number(p.OpeningStock) < 1000);
     // });
     this.userService.GetTankWithCapacity(pumpCode).subscribe(data => {
-      debugger
       this.pumpTanks = data.filter(p=>p.Stock < 10000);
-      debugger;
     });
 
   }
@@ -426,9 +425,9 @@ export class LandingDashboardComponent implements OnInit {
       });
     });
   }
-  getPetrolPumpNozzleSaleChart(pumpCode, readingDate) {
+  getPetrolPumpNozzleSaleChart(pumpCode, readingDate,value) {
     let date: string = this.datepipe.transform(readingDate.toString(), 'yyyy-MM-dd');
-    this.petrolPumpService.GetPetrolPumpNozzleSaleChart(pumpCode, date).subscribe(res => {
+    this.petrolPumpService.GetPetrolPumpNozzleSaleChart(pumpCode, date,value).subscribe(res => {
       this.lineChartLabelsForNozzleSale = new Array<any>();
       this.lineChartDataForNozzleSale = new Array<any>();
       res.lstDates.forEach(element => {
@@ -439,9 +438,20 @@ export class LandingDashboardComponent implements OnInit {
       });
     });
   }
-  getPetrolPumpNozzleFuelSaleChart(pumpCode, readingDate) {
+  ChangeChartNozzle(value:number)
+  {
+    let date: string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
+    this.getPetrolPumpNozzleSaleChart(this.pumpCode,date,value);
+  }
+  ChangeChartFuel(value:number)
+  {
+    let date: string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
+    this.getPetrolPumpNozzleFuelSaleChart(this.pumpCode,date,value);
+  }
+  
+  getPetrolPumpNozzleFuelSaleChart(pumpCode, readingDate,value) {
     let date: string = this.datepipe.transform(readingDate.toString(), 'yyyy-MM-dd');
-    this.petrolPumpService.GetPetrolPumpNozzleFuelSaleChart(pumpCode, date).subscribe(res => {
+    this.petrolPumpService.GetPetrolPumpNozzleFuelSaleChart(pumpCode, date,value).subscribe(res => {
       this.lineChartLabelsForNozzleFuelSale = new Array<any>();
       this.lineChartDataForNozzleFuelSale = new Array<any>();
       res.lstDates.forEach(element => {
@@ -600,7 +610,6 @@ export class LandingDashboardComponent implements OnInit {
       this.incompleteProducts = res.IncompleteProducts;
       this.incompleteTanks = res.IncompleteTanks;
       this.incompleteNozzles = res.IncompleteNozzles;
-      debugger
       if (this.incompleteNozzles && this.incompleteNozzles.length > 0) {
         const dialogRef = this.dialog.open(DailyNozzleReadingDialogComponent, {
           data: { incompleteNozzles: this.incompleteNozzles[0].Date, pumpCode: this.pumpCode }

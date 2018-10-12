@@ -232,7 +232,6 @@ export class DailyNozzleReadingComponent implements OnInit {
       else {
         purchaseprice2 = element.ClosingReading.toString();
       }
-debugger;
       if ((purchaseprice == "0" || purchaseprice == "0.0" || purchaseprice == "0.00" || purchaseprice == "") && element.IsActive) {
         flag = 1;
       }
