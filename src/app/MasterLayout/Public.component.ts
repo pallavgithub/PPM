@@ -91,7 +91,8 @@ export class PublicComponent implements AfterViewInit {
                 this.incompleteProducts = res.IncompleteProducts;
                 this.incompleteTanks = res.IncompleteTanks;
                 this.incompleteNozzles = res.IncompleteNozzles;
-                if (this.incompleteProducts && this.incompleteProducts.length > 0) {
+                if ((this.incompleteProducts && this.incompleteProducts.length > 0) ||
+                 (this.incompleteTanks && this.incompleteTanks.length > 0) || (this.incompleteNozzles && this.incompleteNozzles.length > 0)) {
                     this.isPermit = false;
                 }
                 else {

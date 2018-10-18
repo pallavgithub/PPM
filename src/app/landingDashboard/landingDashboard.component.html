@@ -115,6 +115,9 @@
                         <div *ngFor="let incompleteTanksTemp of incompleteTanks let i=index">
                             {{incompleteTanksTemp.Date | date}}
                         </div>
+                        <div *ngIf="isPermitTank == false">
+                            <a (click)="SetTankReading()" style="cursor: pointer;">Set Tank Reading</a>&nbsp;
+                        </div>
                     </div>
                 </div>
             </div>
@@ -126,6 +129,9 @@
                         </div>
                         <div *ngFor="let incompleteNozzlesTemp of incompleteNozzles let i=index">
                             {{incompleteNozzlesTemp.Date | date}}
+                        </div>
+                        <div *ngIf="isPermitNozzle == false">
+                            <a (click)="SetNozzleReading()" style="cursor: pointer;">Set Nozzle Reading</a>&nbsp;
                         </div>
                     </div>
                 </div>

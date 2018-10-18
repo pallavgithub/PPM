@@ -1,6 +1,6 @@
 
-import { Component, OnInit, Input, SimpleChange } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { Component, OnInit, Input, SimpleChange, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { pp_PumpProduct } from '../_models/pp_PumpProduct';
 import { UserService } from '../_services';
 import { ToasterService } from 'angular2-toaster';
@@ -9,7 +9,7 @@ import { AllProduct } from '../AllProduct';
 import { Unit } from '../_models/Unit';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { PetrolPumpService } from '../_services/petrolpump.service';
-import { DatePipe } from '../../../node_modules/@angular/common';
+import { DatePipe } from '@angular/common';
 import { PumpProductWithDate } from '../_models/PumpProductWithDate';
 import { UserDetail } from '../_models/userDetail';
 import { UserInfo } from '../_models/UserInfo';
@@ -17,13 +17,14 @@ import { pp_Tank } from '../_models/pp_Tank';
 import { pp_Nozzle } from '../_models/pp_Nozzle';
 import { DailyNozzleBreakUpFormComponent } from '../dailyNozzleBreakUp/dailyNozzleBreakUp.component';
 import { NozzleDailyBreakUp } from '../_models/NozzleDailyBreakUp';
+import { DailyTankReadingDialogComponent } from '../dailyTankReadingDialog/dailyTankReadingDialog.component';
 
 @Component({
-  selector: 'pump-dailyNozzleReading',
-  templateUrl: './dailyNozzleReading.component.html',
-  styleUrls: ['./dailyNozzleReading.component.css']
+  selector: 'pump-dailyNozzleReadingDialog',
+  templateUrl: './dailyNozzleReadingDialog.component.html',
+  styleUrls: ['./dailyNozzleReadingDialog.component.css']
 })
-export class DailyNozzleReadingComponent implements OnInit {
+export class DailyNozzleReadingDialogComponent implements OnInit {
   // @Input() pumpProduct: pp_PumpProduct[];
   // @Input() pumpCode: string;
   public pumpProduct: pp_PumpProduct[];
@@ -33,6 +34,7 @@ export class DailyNozzleReadingComponent implements OnInit {
   public btnSaveDisabledClosing: boolean = false;
   public nozzleDailyBreakUp: NozzleDailyBreakUp[];
   public pumpCode: string;
+  productDate: Date;
   allProducts: AllProduct[];
   pumpProductWithDate: PumpProductWithDate;
   DateOfEntry: string;
@@ -40,7 +42,7 @@ export class DailyNozzleReadingComponent implements OnInit {
   productDialogform: FormGroup;
   navigationSubscription;
   units: Unit[];
-  constructor(private router: Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService, private _formBuilder: FormBuilder, private petrolPumpService: PetrolPumpService, public datepipe: DatePipe, private activatedRoute: ActivatedRoute) {
+  constructor(private router: Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService, private _formBuilder: FormBuilder, private petrolPumpService: PetrolPumpService, public datepipe: DatePipe, private activatedRoute: ActivatedRoute,@Inject(MAT_DIALOG_DATA) public data,private dialogRef: MatDialogRef<DailyTankReadingDialogComponent>) {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.pumpCode = params['pumpCode'];
     });
@@ -70,9 +72,11 @@ export class DailyNozzleReadingComponent implements OnInit {
 
 
   ngOnInit() {
+    this.productDate = this.data.incompleteNozzles;
+    this.pumpCode = this.data.pumpCode;
     if (this.pumpCode && this.pumpCode != '') {
       //this.getUserInfo();
-      this.getPumpInfo(this.pumpCode,new Date().toString());
+      this.getPumpInfo(this.pumpCode,this.productDate);
       this.getUserDate();
     }
     this.productDialogform = this._formBuilder.group({
@@ -165,11 +169,15 @@ export class DailyNozzleReadingComponent implements OnInit {
     //this.tankform.controls["OpeningStock"].setValue(Number(this.tankform.controls["OpeningReading"].value + 5));
   }
   onBlurClosingReading(tank: pp_Tank) {
+    
     if(tank.ClosingReading < tank.OpeningReading )
     {
       this.toasterService.pop('error', '', 'Nozzle closing reading should be greater than opening reading.');
     }
-    tank.ClosingStock = (Number(tank.ClosingReading) + 5).toString();
+    else{
+      tank.ClosingStock = (Number(tank.ClosingReading) + 5).toString();
+    }
+    
 
     //this.tankform.controls["OpeningStock"].setValue(Number(this.tankform.controls["OpeningReading"].value + 5));
   }
@@ -207,6 +215,7 @@ export class DailyNozzleReadingComponent implements OnInit {
     let purchaseprice: string = "";
     let purchaseprice2: string = "";
     pumpProduct.forEach(element => {
+      
       if(element.ClosingReading < element.OpeningReading)
       {        
         flagCompare = 1;
@@ -240,24 +249,23 @@ export class DailyNozzleReadingComponent implements OnInit {
     else
     {
       if (flag == 1 || flagClosing == 1) {
-      this.toasterService.pop('error', '', 'Please provide details.');
-      return false;
-    }
-    else {
-      // var daatr = this.productDialogform.value;
-      // var date = this.DateOfEntry;
-      // pumpProduct.forEach(element => {
-      //   element.DateStockMeasuredOn = date
-      // });
-      this.petrolPumpService.UpdateDailyNozzleReading(pumpProduct).subscribe(res => {
-        this.toasterService.pop('success', '', 'Nozzle Readings updated successfully.');
-        // this.router.navigate(['/DailyNozzleReading', this.pumpCode]);
-        this.getPumpInfo(pumpProduct[0].PetrolPumpCode,pumpProduct[0].ReadingDate);
-      });
-    }
-
-    }
-    
+        this.toasterService.pop('error', '', 'Please provide details.');
+        return false;
+      }
+      else {
+        // var daatr = this.productDialogform.value;
+        // var date = this.DateOfEntry;
+        // pumpProduct.forEach(element => {
+        //   element.DateStockMeasuredOn = date
+        // });
+        this.petrolPumpService.UpdateDailyNozzleReading(pumpProduct).subscribe(res => {
+          this.toasterService.pop('success', '', 'Nozzle Readings updated successfully.');
+          // this.router.navigate(['/DailyNozzleReading', this.pumpCode]);
+          this.getPumpInfo(pumpProduct[0].PetrolPumpCode,pumpProduct[0].ReadingDate);
+          this.dialogRef.close();
+        });
+      }
+    }    
     }
     else
     {

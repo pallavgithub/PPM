@@ -83,6 +83,8 @@ import { ChartsModule } from 'ng2-charts';
 import { TankLedgerformComponent } from './tankLedger/tankLedger.component';
 import { UserProfileComponent } from './userProfile/userProfile.component';
 import { PaymentLedgerComponent } from './paymentLedger/paymentLedger.component';
+import { DailyTankReadingDialogComponent } from './dailyTankReadingDialog/dailyTankReadingDialog.component';
+import { DailyNozzleReadingDialogComponent } from './dailyNozzleReadingDialog/dailyNozzleReadingDialog.component';
 
 @NgModule({
     imports: [
@@ -101,7 +103,7 @@ import { PaymentLedgerComponent } from './paymentLedger/paymentLedger.component'
         BrowserAnimationsModule, ToasterModule.forRoot(), NgbModule.forRoot()
         //HttpService
     ],
-    entryComponents: [PumpUsersComponent, UserformComponent, PumpTankComponent, TankformComponent, NozzleformComponent, ChangePasswordComponent, ProductDialogFormComponent, PumpNozzleComponent, PaymentDialogFormComponent, InventoryDialogFormComponent, ReadingTypeDialogFormComponent,CreditorformComponent,InventoryLubesPriceDialogFormComponent,InventoryFuelTankDialogFormComponent,CreditorFuelRequestFormComponent,CreditorFuelRequestReceivedFormComponent,CreditorAddFundformComponent,DailyNozzleBreakUpFormComponent,PriceAdjustmentFormComponent,TankLedgerformComponent],
+    entryComponents: [PumpUsersComponent, UserformComponent, PumpTankComponent, TankformComponent, NozzleformComponent, ChangePasswordComponent, ProductDialogFormComponent, PumpNozzleComponent, PaymentDialogFormComponent, InventoryDialogFormComponent, ReadingTypeDialogFormComponent,CreditorformComponent,InventoryLubesPriceDialogFormComponent,InventoryFuelTankDialogFormComponent,CreditorFuelRequestFormComponent,CreditorFuelRequestReceivedFormComponent,CreditorAddFundformComponent,DailyNozzleBreakUpFormComponent, DailyTankReadingDialogComponent ,DailyNozzleReadingDialogComponent,TankLedgerformComponent,PriceAdjustmentFormComponent],
     declarations: [
         AppComponent,
         AlertComponent,
@@ -140,6 +142,8 @@ import { PaymentLedgerComponent } from './paymentLedger/paymentLedger.component'
         InventoryFuelTankDialogFormComponent,
         PaymentComponent,
         DailyTankReadingComponent,
+        DailyTankReadingDialogComponent,
+        DailyNozzleReadingDialogComponent,       
         DailyNozzleBreakUpFormComponent,
         DailyNozzleReadingComponent,
         PaymentDialogFormComponent,

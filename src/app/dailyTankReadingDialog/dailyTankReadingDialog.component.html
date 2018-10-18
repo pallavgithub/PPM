@@ -1,0 +1,113 @@
+<div class="row">
+    <div class="form-group">
+        <!-- <div class="col-md-3">
+            <div id="mySidenav" class="sidenav">
+                <a [routerLink]="['/Landing',pumpCode]" *ngIf="userData && userData.RoleID!=2">DashBoard</a>
+                <a [routerLink]="['/Inventory',pumpCode]" *ngIf="userData && userData.RoleID!=2">Inventory and Price Management</a>
+                <a [routerLink]="['/Creditor',pumpCode]" *ngIf="userData && userData.RoleID!=2">Creditor</a>
+                <a [routerLink]="['/DailyPrice',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Price</a>
+                <a [routerLink]="['/FuelRequest',pumpCode]" *ngIf="userData && userData.RoleID==2">Fuel Request</a>
+                <a [routerLink]="['/FuelRequestReceived',pumpCode]" *ngIf="userData && userData.RoleID!=2">Fuel Request Received</a>
+                <a [routerLink]="['/CreditorLedger',pumpCode]" *ngIf="userData && userData.RoleID==2">Ledger</a>
+                <a [routerLink]="['/DailyTankReading',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Tank Reading</a>
+                <a [routerLink]="['/DailyNozzleReading',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Nozzle Reading</a>
+            </div>
+        </div> -->
+        <div class="col-md-12">
+            <form (ngSubmit)="savePumpInfo(pumpTanks)" style="width: 98%;">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="ProductName" style="font-size: 20px;">Tank Name
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="OpeningReading" style="font-size: 20px;">Opening Reading
+                                    <span class="required">*</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="OpeningStock" style="font-size: 20px;">Opening Stock
+                                    <span class="required">*</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="ClosingReading" style="font-size: 20px;">Closing Reading
+                                    <span class="required">*</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="ClosingStock" style="font-size: 20px;">Closing Stock
+                                    <span class="required">*</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="ReadingDate" style="font-size: 20px;">Stock Measured on
+                                    <span class="required">*</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div *ngFor="let itemPumpTanks of pumpTanks; let in=index">
+                            <!-- <span class="error-message" *ngIf="productDialogform.get('SaleRate').hasError(validation.type) && (productDialogform.get('SaleRate').dirty || productDialogform.get('SaleRate').touched)">{{validation.message}}</span> -->
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="ProductName">{{itemPumpTanks.TankName}}
+                                            <!-- <span class="required">*</span> -->
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">                                        
+                                        <input type="number" placeholder="Opening Reading" class="form-control" [(ngModel)]="itemPumpTanks.OpeningReading" #OpeningReading="ngModel"
+                                            name="OpeningReading-{{in}}" (blur)="onBlurOpeningReading(itemPumpTanks)" [disabled] = "!btnSaveDisabled">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <input type="number" placeholder="Opening Stock" class="form-control" [(ngModel)]="itemPumpTanks.OpeningStock" #OpeningStock="ngModel"
+                                            name="OpeningStock-{{in}}" (blur)="onBlurOpeningStock(itemPumpTanks)" [disabled] = "!btnSaveDisabled">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">                                        
+                                        <input type="number" placeholder="Closing Reading" class="form-control" [(ngModel)]="itemPumpTanks.ClosingReading" #ClosingReading="ngModel"
+                                            name="ClosingReading-{{in}}" (blur)="onBlurClosingReading(itemPumpTanks)" [disabled] = "!btnSaveDisabledClosing">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <input type="number" placeholder="Closing Stock" class="form-control" [(ngModel)]="itemPumpTanks.ClosingStock" #ClosingStock="ngModel"
+                                            name="ClosingStock-{{in}}" (blur)="onBlurClosingStock(itemPumpTanks)" [disabled] = "!btnSaveDisabledClosing">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <input type="date" placeholder="Reading Date" class="form-control" [(ngModel)]="itemPumpTanks.ReadingDate" #ReadingDate="ngModel" name="ReadingDate-{{in}}" (change)="onBlurDate(itemPumpTanks)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="float:right;">
+                            <!-- <button class="btn btn-default" (click)="cancel()">Cancel</button> &nbsp;&nbsp;&nbsp; -->
+                            <button class="btn btn-primary" type="submit" [disabled] = "!btnSaveDisabled && !btnSaveDisabledClosing">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

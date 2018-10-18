@@ -22,6 +22,8 @@ import { pp_Tank } from '../_models/pp_Tank';
 import { pp_User } from '../_models/pp_User';
 import { Tank } from '../_models/Tank';
 import { TankLedgerformComponent } from '../tankLedger/tankLedger.component';
+import { DailyTankReadingDialogComponent } from '../dailyTankReadingDialog/dailyTankReadingDialog.component';
+import { DailyNozzleReadingDialogComponent } from '../dailyNozzleReadingDialog/dailyNozzleReadingDialog.component';
 
 
 @Component({
@@ -46,6 +48,8 @@ export class LandingDashboardComponent implements OnInit {
   public creditLimit: string;
   public msgNozzle: string;
   public isPermit: boolean;
+  public isPermitTank: boolean;  
+  public isPermitNozzle: boolean;
   public pumpTanks: pp_Tank[];
   tank: Tank[];
   public pumpTanksLedger: pp_Tank[];
@@ -518,16 +522,29 @@ export class LandingDashboardComponent implements OnInit {
   }
 
   getPumpIncompleteDailyData(pumpCode) {
+  
     this.petrolPumpService.getPumpIncompleteDailyData(pumpCode).subscribe(res => {
       this.incompleteDailyData = new IncompleteDailyData();
       this.incompleteProducts = res.IncompleteProducts;
       this.incompleteTanks = res.IncompleteTanks;
       this.incompleteNozzles = res.IncompleteNozzles;
-      if (this.incompleteProducts && this.incompleteProducts.length > 0) {
-        this.isPermit = false;
+      if ((this.incompleteProducts && this.incompleteProducts.length > 0) )
+       {       this.isPermit = false;
       }
       else {
         this.isPermit = true;
+      }
+      if ( ( this.incompleteTanks && this.incompleteTanks.length > 0 ))
+       {       this.isPermitTank = false;
+      }
+      else {
+        this.isPermitTank = true;
+      }
+      if ( ( this.incompleteNozzles && this.incompleteNozzles.length > 0 ))
+       {       this.isPermitNozzle = false;
+      }
+      else {
+        this.isPermitNozzle = true;
       }
     });
   }
@@ -542,6 +559,47 @@ export class LandingDashboardComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe(result => {
           this.SetFuelPrice();
+        });
+      }
+      else {
+        window.location.reload();
+      }
+    });
+
+  }
+  
+  SetTankReading() {
+    this.petrolPumpService.getPumpIncompleteDailyData(this.pumpCode).subscribe(res => {
+      this.incompleteProducts = res.IncompleteProducts;
+      this.incompleteTanks = res.IncompleteTanks;
+      this.incompleteNozzles = res.IncompleteNozzles;
+      if (this.incompleteTanks && this.incompleteTanks.length > 0) {
+        const dialogRef = this.dialog.open(DailyTankReadingDialogComponent, {
+          data: { incompleteTanks: this.incompleteTanks[0].Date, pumpCode: this.pumpCode }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          this.SetTankReading();
+        });
+      }
+      else {
+        window.location.reload();
+      }
+    });
+
+  }
+  SetNozzleReading()
+  {
+    this.petrolPumpService.getPumpIncompleteDailyData(this.pumpCode).subscribe(res => {
+      this.incompleteProducts = res.IncompleteProducts;
+      this.incompleteTanks = res.IncompleteTanks;
+      this.incompleteNozzles = res.IncompleteNozzles;
+      debugger
+      if (this.incompleteNozzles && this.incompleteNozzles.length > 0) {
+        const dialogRef = this.dialog.open(DailyNozzleReadingDialogComponent, {
+          data: { incompleteNozzles: this.incompleteNozzles[0].Date, pumpCode: this.pumpCode }
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          this.SetNozzleReading();
         });
       }
       else {
