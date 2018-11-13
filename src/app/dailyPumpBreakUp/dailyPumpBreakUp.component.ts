@@ -94,6 +94,7 @@ export class DailyPumpBreakUpFormComponent implements OnInit {
 
 
   ngOnInit() {
+    this.petrolPumpService.globalLoader=true;
     this.pumpDate = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
     let date: string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
     this.editProduct(this.pumpCode, date);
@@ -243,7 +244,7 @@ export class DailyPumpBreakUpFormComponent implements OnInit {
     //this.tankform.controls["OpeningReading"].setValue(Number(this.tankform.controls["OpeningStock"].value - 5));
   }
     onBlurDate(event) {
-      
+      this.petrolPumpService.globalLoader=true;
       this.editProduct(this.pumpCode, event.target.value);
       this.getPumpInfo(this.pumpCode,event.target.value);
       this.getPumpBreakUp(this.pumpCode,  event.target.value);
@@ -392,6 +393,7 @@ export class DailyPumpBreakUpFormComponent implements OnInit {
     //currentDate.setDate(currentDate.getDate() - 1);
     let date: string = this.datepipe.transform(currentDate.toString(), 'yyyy-MM-dd');
     this.petrolPumpService.getPetrolPumpLubesInfoOfLowLimit(pumpCode, date).subscribe(res => {
+      this.petrolPumpService.globalLoader=false;
       this.pumpProductWithLubesPrise = res;
       this.pumpProductWithLubesPrise = this.pumpProductWithLubesPrise.filter(c => Number(c.InitialQuantity) < 1000)
     });
@@ -406,6 +408,7 @@ export class DailyPumpBreakUpFormComponent implements OnInit {
     this.totalLubriantSaleToday = 0;
     this.totalExpenseToday = 0;
     this.petrolPumpService.GetPumpBreakUp(pumpCode, date).subscribe(res => {
+      this.petrolPumpService.globalLoader=false;
       this.nozzleDailyBreakUpGet = res.filter(p => p.BreakUpTypeID == 1);
       this.nozzleDailyBreakUpGet.forEach(element => {
         this.totalFuelSaleToday +=  element.Amount;

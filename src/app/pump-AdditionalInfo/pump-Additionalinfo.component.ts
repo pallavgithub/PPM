@@ -10,8 +10,8 @@ import { UserDetail } from '../_models/userDetail';
 
 @Component({
   selector: 'pump-Additionalinfo',
-  templateUrl: './pump-AdditionalInfo.component.html',
-  styleUrls: ['./pump-AdditionalInfo.component.css']
+  templateUrl: './pump-Additionalinfo.component.html',
+  styleUrls: ['./pump-Additionalinfo.component.css']
 })
 export class PumpAdditionalInfoComponent implements OnInit {
   @Input() petrolPump: pp_PetrolPump;

@@ -31,7 +31,9 @@ export class NozzleLedgerformComponent implements OnInit {
   validationRoleMessage: string;
   nozzleName:String;
   nozzleOpeningReading:number;
- 
+  pageNumber: number = 1;
+  indexValue: number = 1;
+  
   constructor(private toasterService: ToasterService, public dialog: MatDialog, private router: Router, private userService: UserService, private _formBuilder: FormBuilder, private petrolPumpService: PetrolPumpService, @Inject(MAT_DIALOG_DATA) public data,
     private dialogRef: MatDialogRef<NozzleLedgerformComponent>, public datepipe: DatePipe) {
 
@@ -43,5 +45,9 @@ export class NozzleLedgerformComponent implements OnInit {
     this.pumpNozzleLedger.forEach(element => {
       element.ReadingDate = this.datepipe.transform((new Date(element.ReadingDate).toString()), 'yyyy-MM-dd');
     });
+  }
+  paginate(event) {
+    this.pageNumber = event;
+    this.indexValue = event > 0 ? 10 * (event - 1) + 1 : 1;
   }
 }

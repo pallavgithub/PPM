@@ -1,44 +1,10 @@
+<div class="tab-content-wrapper">
 <div class="row">
   <div class="form-group">
-    <!-- <div class="col-md-3">
-      <div id="mySidenav" class="sidenav">
-        <a [routerLink]="['/Landing',pumpCode]" *ngIf="userData && userData.RoleID!=2">DashBoard</a>
-              <a [routerLink]="['/Inventory',pumpCode]" *ngIf="userData && userData.RoleID!=2">Inventory and Price Management</a>
-              <a [routerLink]="['/Creditor',pumpCode]" *ngIf="userData && userData.RoleID!=2">Creditor</a>
-              <a [routerLink]="['/DailyPrice',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Price</a>
-              <a [routerLink]="['/FuelRequest',pumpCode]" *ngIf="userData && userData.RoleID==2">Fuel Request</a>
-              <a [routerLink]="['/FuelRequestReceived',pumpCode]" *ngIf="userData && userData.RoleID!=2">Fuel Request Received</a>
-              <a [routerLink]="['/CreditorLedger',pumpCode]" *ngIf="userData && userData.RoleID==2">Ledger</a>
-              <a [routerLink]="['/DailyTankReading',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Tank Reading</a>
-              <a [routerLink]="['/DailyNozzleReading',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Nozzle Reading</a>
-      </div>
-    </div> -->
-      <!-- <userform (userCreated)="addUser($event)"></userform> -->
-      <!-- <div class="col-md-12 table-responsive" *ngIf="pumpProductWithLubesPrise != null && pumpProductWithLubesPrise.length>0">
-        <table style="border: 1px solid black" class="table table-striped">
-          <thead class="thead-dark">
-            <tr>
-              <th>Name</th>
-              <th>Unit</th>
-              <th>Purchase Price</th>
-              <th>Sale Price</th>
-              <th>Date Measured on</th>
-            </tr>
-          </thead>
-          <tr *ngFor="let product of pumpProductWithLubesPrise let i=index">
-            <th>{{product.ProductName}}</th>
-            <td>{{product.UnitName}}</td>
-            <td>{{product.PurchaseRate}}</td>
-            <td>{{product.SaleRate}}</td>
-            <td>{{product.DateStockMeasuredOn | date}}</td>
-           
-          </tr>
-        </table>
-      </div> -->
+    
+      <input type="text" class="col-md-2 top-creditor-search-input" id="search-top-creditor" placeholder="Search" [(ngModel)]="query">
       <div class="col-md-12 table-responsive" *ngIf="fuelInventory != null && fuelInventory.length>0">
-          <input type="text" class="col-md-2 top-creditor-search-input" id="search-top-creditor" placeholder="Search" [(ngModel)]="query">
-         
-        <table style="border: 1px solid black" class="table table-striped">
+        <table class="table tab-content-table table-striped">
           <thead class="thead-dark">
             <tr>
               <th (click)="sort('Name')" class="cursorpointer">Name
@@ -64,15 +30,17 @@
             <td>{{inventory.DateMeasured | date}}</td>           
           </tr>
         </table>
-        <pagination-controls (pageChange)="paginate($event)"></pagination-controls>
       </div>
       <div class="col-md-12">
         <button class="btn btn-primary" style="float:right;" (click)="editProduct()">Purchase Stock</button>
       </div>
+      <pagination-controls (pageChange)="paginate($event)"></pagination-controls>
     </div>
   </div>
 
   <div class="loadercheckout" style="display: block;" *ngIf="petrolPumpService.globalLoader"></div>
+
+</div>
 <!-- <div>
   <a [routerLink]="['/dashboard',this.pumpCode]">Manage Inventory</a>
 </div> -->

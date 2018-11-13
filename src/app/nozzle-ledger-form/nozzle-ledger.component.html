@@ -1,0 +1,33 @@
+<div class="tab-content-wrapper">
+    <div class="row">
+            <div class="col-md-12">
+                    <div class="table-responsive" *ngIf="pumpNozzles && pumpNozzles.length>0">
+                            <input type="text" class="col-md-2 top-creditor-search-input" id="search-top-creditor" placeholder="Search" [(ngModel)]="query">
+                            <table class="table tab-content-table table-striped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th (click)="sort('NozzleName')" class="cursorpointer">Nozzle Name
+                                                <span class="glyphicon sort-icon" *ngIf="key =='NozzleName'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                        </th>
+                                        <th (click)="sort('OpeningReading')" class="cursorpointer">Opening Reading
+                                                <span class="glyphicon sort-icon" *ngIf="key =='OpeningReading'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                        </th>                                   
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tr *ngFor="let itempumpNozzles of pumpNozzles | orderBy: key : reverse | SearchFilter: query | paginate: { itemsPerPage: 10, currentPage: pageNumber };  let i=index">
+                                        <td> {{itempumpNozzles.NozzleName}}</td>
+                                    <td>{{itempumpNozzles.OpeningReading}}</td>  
+                                    <td><a  (click)="OpenNozzleLedgerDialog(itempumpNozzles.ID)" style="cursor: pointer;">View Ledger</a></td>
+                                </tr>
+                                
+                            </table>
+                            <pagination-controls (pageChange)="paginate($event)"></pagination-controls>
+                        </div>
+            </div>
+        </div>
+
+        <div class="loadercheckout" style="display: block;" *ngIf="petrolPumpService.globalLoader"></div>
+    </div>
+    
+    

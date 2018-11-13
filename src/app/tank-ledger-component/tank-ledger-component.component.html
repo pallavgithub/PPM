@@ -1,10 +1,9 @@
 
+<div class="tab-content-wrapper">
     <div class="row">
-        <div class="col-md-12">
-           
-                
+        <div class="col-md-12">  
                 <div class="table-responsive" *ngIf="tank && tank.length>0">
-                        <table style="border: 1px solid black" class="table table-striped">
+                        <table class="table tab-content-table table-striped">
                             <thead class="thead-dark">
                                 <tr>
                                     <th>Tank Name</th>
@@ -17,24 +16,9 @@
                                 <td>{{tankItem.Stock}}</td>  
                                 <td><a  (click)="OpenTankLedgerDialog(tankItem.ID)" style="cursor: pointer;">View Ledger</a></td>
                             </tr>
-                            <!-- <tr>
-                      <th>Balance = {{creditLimit}}</th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                    </tr> -->
                         </table>
                     </div>
-
-            <!-- <div class="form-group">
-                <label for="PaymentTypeID">Payment Type
-                    <span class="required">*</span>
-                </label>
-                <select class="form-control" formControlName="PaymentTypeID" (change)="onChange(this)">
-                    <option [ngValue]="0" disabled>--Select--</option>
-                    <option *ngFor="let itempaymentType of paymentType;let i=index" [ngValue]="itempaymentType.ID">{{itempaymentType.Name}}</option>
-                </select>
-            </div> -->
         </div>
     </div>
     <div class="loadercheckout" style="display: block;" *ngIf="petrolPumpService.globalLoader"></div>
+</div>

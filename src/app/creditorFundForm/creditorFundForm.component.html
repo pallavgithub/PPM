@@ -1,4 +1,5 @@
-<h2 mat-dialog-title>Add Fund</h2>
+<div class="custom-modal-container">
+    <div class="modal-header"><h2 mat-dialog-title>Add Fund</h2></div>
 <form [formGroup]="creditorAddFundform" (ngSubmit)="createUser()">
     <div class="row">
         <div class="col-md-6">
@@ -57,3 +58,4 @@
         <button type="submit" class="btn btn-primary" [disabled]="!creditorAddFundform.valid" (click)='checkFormValid()'>Save</button>
     </mat-dialog-actions>
 </form>
+</div>

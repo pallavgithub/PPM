@@ -1,28 +1,16 @@
+<div class="tab-content-wrapper">
 <div class="row">
         <div class="form-group">
-          <!-- <div class="col-md-3">
-            <div id="mySidenav" class="sidenav">
-              <a [routerLink]="['/Landing',pumpCode]" *ngIf="userData && userData.RoleID!=2">DashBoard</a>
-              <a [routerLink]="['/Inventory',pumpCode]" *ngIf="userData && userData.RoleID!=2">Inventory and Price Management</a>
-              <a [routerLink]="['/Creditor',pumpCode]" *ngIf="userData && userData.RoleID!=2">Creditor</a>
-              <a [routerLink]="['/DailyPrice',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Price</a>
-              <a [routerLink]="['/FuelRequest',pumpCode]" *ngIf="userData && userData.RoleID==2">Fuel Request</a>
-              <a [routerLink]="['/FuelRequestReceived',pumpCode]" *ngIf="userData && userData.RoleID!=2">Fuel Request Received</a>
-              <a [routerLink]="['/CreditorLedger',pumpCode]" *ngIf="userData && userData.RoleID==2">Ledger</a>
-              <a [routerLink]="['/DailyTankReading',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Tank Reading</a>
-              <a [routerLink]="['/DailyNozzleReading',pumpCode]" *ngIf="userData && userData.RoleID!=2">Set Daily Nozzle Reading</a>
-            </div>
-          </div> -->
-          <!-- <userform (userCreated)="addUser($event)"></userform> -->
-          <div class="col-md-12">
+         
             <!-- <div>
               <div>
                 <button class="btn btn-primary" style="float:right;" (click)="openAddFuelRequestDialog()">Add Fuel Request</button>
               </div>
             </div> -->
+            <input type="text" class="col-md-2 top-creditor-search-input" id="search-top-creditor" placeholder="Search" [(ngModel)]="query">
             <div class="table-responsive" *ngIf="pumpUsers && pumpUsers.length>0">
-                <input type="text" class="col-md-2 top-creditor-search-input" id="search-top-creditor" placeholder="Search" [(ngModel)]="query">
-              <table style="border: 1px solid black" class="table table-striped">
+               
+              <table class="table tab-content-table table-striped">
                 <thead class="thead-dark">
                   <tr>                      
                       <th (click)="sort('UserId')" class="cursorpointer">Creditor Id
@@ -65,8 +53,9 @@
               </table>
               <pagination-controls (pageChange)="paginate($event)"></pagination-controls>
             </div>
-          </div>
+          
         </div>
       </div>
 
       <div class="loadercheckout" style="display: block;" *ngIf="petrolPumpService.globalLoader"></div>
+    </div>

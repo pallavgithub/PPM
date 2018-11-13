@@ -38,7 +38,7 @@ export class PumpVsNozzleComponent implements OnInit {
   }
 
   ngOnInit() {
-   
+    this.petrolPumpService.globalLoader=true;
     let currentDate:Date = new Date();
     let date:string = this.datepipe.transform(new Date(currentDate.setDate(currentDate.getDate() - 1)), 'yyyy-MM-dd');   
     this.pumpDate = this.datepipe.transform(date, 'yyyy-MM-dd');    
@@ -52,6 +52,7 @@ export class PumpVsNozzleComponent implements OnInit {
   {
     //let date: string = this.datepipe.transform(new Date().toString(), 'yyyy-MM-dd');
     this.petrolPumpService.GetFuelSaleComparision(petrolPumpCode,date).subscribe(data => {
+      this.petrolPumpService.globalLoader=false;
       this.tank = data;
     });
   }
@@ -65,11 +66,13 @@ export class PumpVsNozzleComponent implements OnInit {
   }
   
   getPetrolPumpTankLedger(pumpCode, readingDate, tankID) {
+    this.petrolPumpService.globalLoader=true;
     let date: string = this.datepipe.transform( readingDate, 'yyyy-MM-dd');
     this.petrolPumpService.GetFuelSaleComparisionDetails(pumpCode, date,tankID).subscribe(res => {
       this.tankSale = res;
   }); 
     this.petrolPumpService.GetFuelSaleComparision(pumpCode, date).subscribe(res => {
+      this.petrolPumpService.globalLoader=false;
       this.tank = res;
       const dialogRef = this.dialog.open(PumpVsNozzleDialougeComponent, {
         data: { saleData: this.tankSale},

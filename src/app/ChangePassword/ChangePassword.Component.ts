@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'changePasswordForm',
-  templateUrl: './ChangePassword.component.html',
-  styleUrls: ['./ChangePassword.component.css']
+  templateUrl: './ChangePassword.Component.html',
+  styleUrls: ['./ChangePassword.Component.css']
 })
 export class ChangePasswordComponent implements OnInit {
   user: pp_User;

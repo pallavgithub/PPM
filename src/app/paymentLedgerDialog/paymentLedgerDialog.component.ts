@@ -37,6 +37,8 @@ export class PaymentLedgerDialogComponent implements OnInit {
   paymentLedgerForm:FormGroup;
   public creditLimit:string;
   navigationSubscription;
+  pageNumber: number = 1;
+  indexValue: number = 1;
 
   paymentType: Role[];
   constructor(private router:Router, private toasterService: ToasterService, public dialog: MatDialog, private userService: UserService,private activatedRoute: ActivatedRoute,private petrolPumpService: PetrolPumpService,private _formBuilder: FormBuilder,@Inject(MAT_DIALOG_DATA) public data,
@@ -129,6 +131,10 @@ export class PaymentLedgerDialogComponent implements OnInit {
     //     this.creditorFuelRequestForm.controls['Unit'].disable();
     //   }
     // });
+  }
+  paginate(event) {
+    this.pageNumber = event;
+    this.indexValue = event > 0 ? 10 * (event - 1) + 1 : 1;
   }
 //   removeUser(i: number) {
 //     this.pumpUsers.splice(i, 1);

@@ -344,7 +344,7 @@ public tankChartoptions: any = {
  pumpDate:string;
  fromDate:string;
  toDate:string;
- showcustom:string;
+ showcustom:boolean;
  dateFilter:number;
 
   constructor(private toasterService: ToasterService, private _formBuilder: FormBuilder, private router: Router, private petrolPumpService: PetrolPumpService, private activatedRoute: ActivatedRoute, private userService: UserService, public dialog: MatDialog, public datepipe: DatePipe) {
@@ -397,7 +397,7 @@ public tankChartoptions: any = {
   }
   GetAllProductSale(petrolPumpCode: string) {
     this.TotalSale=0;
-    this.petrolPumpService.getAllProductSale(petrolPumpCode,1,this.fromDate,this.toDate).subscribe((res:any) => {
+    this.petrolPumpService.getAllProductSale(petrolPumpCode,2,this.fromDate,this.toDate).subscribe((res:any) => {
       this.allProductSale = res;   
       res.forEach(element=>{
         this.TotalSale+=<number>element.TotalPrice;
@@ -408,16 +408,15 @@ public tankChartoptions: any = {
   ChangeSaleValue(event)
   {
     debugger
-    this.dateFilter=event.target.value;
-    
+    this.dateFilter=event.target.value;    
     this.TotalSale=0;
-    if(event.target.value=8)
+    if(event.target.value>7)
     {
-      this.showcustom="show";
+      this.showcustom=true;
       return false;
     }  
     else{
-      this.showcustom=null;
+      this.showcustom=false;
     }  
     this.petrolPumpService.getAllProductSale(this.pumpCode,event.target.value,this.fromDate,this.toDate).subscribe((res:any) => {
       this.allProductSale = res;   
